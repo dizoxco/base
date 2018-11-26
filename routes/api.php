@@ -20,3 +20,11 @@ Route::name('users.')->prefix('users')->group(function () {
     Route::put('{user}', 'UserController@update' )->name('update');
     Route::delete('{user}', 'UserController@delete' )->name('delete');
 });
+
+Route::name('posts.')->prefix('posts')->group(function () {
+    Route::get('/', 'PostController@index' )->name('index');
+    Route::post('/', 'PostController@store' )->name('store');
+    Route::get('{post}', 'PostController@show' )->name('show');
+    Route::put('{post}', 'PostController@update' )->name('update');
+    Route::delete('{post}', 'PostController@delete' )->name('delete');
+});

@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
+use App\Models\Post;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class UserRepository
+class PostRepository
 {
 
     public function find(int $id)   :   ?User
@@ -34,11 +34,10 @@ class UserRepository
 
     public function getAll()    :   Collection
     {
-        return QueryBuilder::for(User::query())
+        return QueryBuilder::for(Post::query())
             ->allowedFilters(['name', 'email'])
             ->allowedIncludes(['posts', 'comments'])
             ->allowedSorts(['created_at'])
-            ->with('posts')
             ->get();
     }
 

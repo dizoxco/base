@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
-// use App\Http\Resources\User\UserCollection;
+use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Repositories\Facades\UserRepo;
@@ -16,9 +16,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = UserRepo::getAll();
-        return UserResource::collection($users);
-        return new UserCollection($users);
+        return new UserCollection( UserRepo::getAll() );
+        return UserResource::collection( UserRepo::getAll() );
     }
 
     public function store(StoreUserRequest $request)
@@ -43,8 +42,6 @@ class UserController extends Controller
         $response = UserRepo::delete($user);
         return response()->json(['action' => $response]);
     }
-
-
 
     public function posts(USer $user)
     {

@@ -6,7 +6,7 @@ class DatabaseSeeder extends Seeder
 {
     protected $seeds = [
         'migrate',
-        'users'
+        'users',
     ];
 
     public function run()
@@ -27,7 +27,10 @@ class DatabaseSeeder extends Seeder
 
     public function users()
     {
-        $this->users = factory(\App\Models\User::class, 10)->create();
+        $this->users = factory(\App\Models\User::class, 10)->create()->each(function ($u) {
+            $u->posts()->save(factory(App\Models\Post::class)->make());
+        });
     }
+
 
 }
