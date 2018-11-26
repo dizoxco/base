@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Http\Resources;
+
+use App\Models\User;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+
+class UserCollection extends ResourceCollection
+{
+    public function toArray($request)
+    {
+        // dd($request);
+        // $this->collection->transform(function (User $user) {
+        //     return (new UserResource($user));
+        // });
+        // return parent::toArray($request);
+        return [
+            'data' => $this->collection,
+        ];
+    }
+}

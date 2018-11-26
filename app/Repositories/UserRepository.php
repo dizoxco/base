@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Repo;
+namespace App\Repositories;
 
 use App\Models\User;
 use Illuminate\Support\Collection;
@@ -8,29 +8,17 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class UserRepository
 {
-    /**
-     * @param int $id
-     * @return User|null
-     */
+
     public function find(int $id)   :   ?User
     {
         return User::find($id)->first();
     }
 
-    /**
-     * @param string $email
-     * @return User|null
-     */
     public function findByEmail(string $email)  :   ?User
     {
         return User::whereEmail($email)->first();
     }
 
-    /**
-     * @param array $columns
-     * @param string $value
-     * @return Collection
-     */
     public function searchBy(array $columns, string $value) :   Collection
     {
         $builder    =   User::query();
@@ -44,9 +32,6 @@ class UserRepository
         return $builder->get();
     }
 
-    /**
-     * @return Collection
-     */
     public function getAll()    :   Collection
     {
         return QueryBuilder::for(User::query())
@@ -56,11 +41,6 @@ class UserRepository
             ->get();
     }
 
-    /**
-     * @param string $column
-     * @param string $value
-     * @return Collection
-     */
     public function getBy(string $column, string $value)  :   Collection
     {
         return QueryBuilder::for(User::query())
@@ -71,9 +51,6 @@ class UserRepository
             ->get();
     }
 
-    /**
-     * @return Collection
-     */
     public function getTrashed()    :   Collection
     {
         return QueryBuilder::for(User::query())
@@ -84,20 +61,11 @@ class UserRepository
             ->get();
     }
 
-    /**
-     * @param array $data
-     * @return User
-     */
-    public function create(array $data) :   User
+    public function store(array $data) :   User
     {
         return  User::create($data);
     }
 
-    /**
-     * @param $ids
-     * @return bool
-     * @throws \Exception
-     */
     public function delete($user)    :   bool
     {
         if ($user instanceof User){
@@ -107,11 +75,6 @@ class UserRepository
         return  User::whereIn('id', $ids)->delete();
     }
 
-    /**
-     * @param $user
-     * @param array $data
-     * @return bool
-     */
     public function update($user, array $data)  :   bool
     {
         if ($user instanceof User) {
