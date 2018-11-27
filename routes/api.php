@@ -1,18 +1,39 @@
 <?php
 
-use Illuminate\Http\Request;
+Route::prefix('auth')->group(function () {
+    Route::post('login', 'AuthController@login');
+    Route::post('register', 'AuthController@register');
+    Route::get('register/activate/{token}', 'AuthController@registerActive')->name('api.user.active');
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('logout', 'AuthController@logout');
+        Route::get('user', 'AuthController@user');
+    });
+});
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::name('users.')->prefix('users')->group(function () {
+    Route::get('/', 'UserController@index' )->name('index')->middleware(['auth:api', 'permission:manage posts', 'ownership']);
+    Route::post('/', 'UserController@store' )->name('store');
+    Route::prefix('{user}')->group(function () {
+        Route::get('/', 'UserController@show' )->name('show');
+        Route::put('/', 'UserController@update' )->name('update');
+        Route::delete('/', 'UserController@delete' )->name('delete');
+        Route::get('comments', 'UserController@comments')->name('comments');
+        Route::get('roles', 'UserController@roles')->name('roles');
+        Route::post('roles', 'UserController@addRole')->name('roles.add');
+        Route::put('roles', 'UserController@syncRoles')->name('roles.sync');
+        Route::get('permissions', 'UserController@permissions')->name('permissions');
+        Route::get('posts', 'UserController@posts')->name('posts');
+    });
+});
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::name('posts.')->prefix('posts')->group(function () {
+    Route::get('/', 'PostController@index' )->name('index');
+    Route::post('/', 'PostController@store' )->name('store');
+    Route::prefix('{post}')->group(function () {
+        Route::get('/', 'PostController@show' )->name('show');
+        Route::put('/', 'PostController@update' )->name('update');
+        Route::delete('/', 'PostController@delete' )->name('delete');
+        Route::post('comments', 'PostController@comments')->name('comments');
+        Route::post('comments', 'PostController@commentsStore')->name('comments.store');
+    });
 });
