@@ -24,14 +24,13 @@ class UserResource extends Resource
                 'relations' => [
                     'posts'             =>  $this->posts->pluck('id')
                 ]
+            ]),
+            $this->mergeWhen(isset($relations['comments']) && count($relations['comments']), [
+                'relations' => [
+                    'comments'             =>  $this->posts->pluck('id')
+                ]
             ])
-            // 'relations' => [
-            //   'posts'             =>  $this->whenLoaded('posts', $this->posts->pluck('id'))
-            // ]
         ];
-        // if (isset($relations['posts']) && count($relations['posts'])) {
-        //     $resource['relations']['posts'] = $relations['posts']->pluck('id');
-        // }
         return $resource;
     }
 }

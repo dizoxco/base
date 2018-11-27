@@ -13,7 +13,7 @@ class CreateCommentssTable extends Migration
      */
     public function up()
     {
-        Schema::create('commentss', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->morphs('commentable');
@@ -30,6 +30,6 @@ class CreateCommentssTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('commentss');
+        Schema::dropIfExists('comments');
     }
 }

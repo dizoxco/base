@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Resources\DBResource;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -31,7 +32,7 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        return new UserResource( UserRepo::update($user, $request->all()) );
+        return new DBResource( UserRepo::update(1, $request->all()) );
     }
 
     public function delete(User $user)

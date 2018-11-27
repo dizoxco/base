@@ -76,12 +76,17 @@ class UserRepository extends BaseRepository
         return  User::whereIn('id', $ids)->delete();
     }
 
-    public function update($user, array $data)  :   bool
+    public function update($user, array $data)
     {
         if ($user instanceof User) {
             return $user->update($data);
         }
-        $ids    =   is_array($user) ?: [$user];
-        return  User::whereIn('id', $user)->update($data);
+        $ids    =   is_array($user)? $user: [$user];
+        return  User::whereIn('id', $ids)->update($data);
+    }
+
+    public function posts($user)
+    {
+        return $user->posts;
     }
 }
