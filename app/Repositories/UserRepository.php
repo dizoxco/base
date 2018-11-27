@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class UserRepository
+class UserRepository extends BaseRepository
 {
 
     public function find(int $id)   :   ?User
@@ -32,14 +32,14 @@ class UserRepository
         return $builder->get();
     }
 
-    public function getAll()    :   Collection
+    public function getAll($params = [])    :   Collection
     {
-        return QueryBuilder::for(User::query())
+        $users = QueryBuilder::for(User::query())
             ->allowedFilters(['name', 'email'])
             ->allowedIncludes(['posts', 'comments'])
-            ->allowedSorts(['created_at'])
-            ->with('posts')
-            ->get();
+            ->allowedSorts(['created_at']);
+        $this->applyParams($users, $params);
+        return $users->get();
     }
 
     public function getBy(string $column, string $value)  :   Collection

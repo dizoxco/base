@@ -19,9 +19,6 @@ class PostResource extends Resource
                 'updated_at'        =>  $this->when($this->updated_at, $this->updated_at->timestamp),
             ],
             // 'relationships'   =>  new UsersRelationshipResource($this),
-            'links'      =>  [
-                'self'       =>  route('api.users.show', ['user' =>  $this->id]),
-            ],
         ];
     }
 }

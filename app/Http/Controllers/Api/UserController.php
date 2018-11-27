@@ -17,45 +17,41 @@ class UserController extends Controller
     public function index()
     {
         return new UserCollection( UserRepo::getAll() );
-        return UserResource::collection( UserRepo::getAll() );
     }
 
     public function store(StoreUserRequest $request)
     {
-        $user = UserRepo::store($request->all());
-        return response()->json($user);
+        return new UserResource( UserRepo::store($request->all()) );
     }
 
     public function show(User $user)
     {
-        return new UserResource($user);
+        return new UserResource( $user );
     }
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user = UserRepo::updateUser($user, $request->all());
-        return response()->json([$user]);
+        return new UserResource( UserRepo::update($user, $request->all()) );
     }
 
     public function delete(User $user)
     {
-        $response = UserRepo::delete($user);
-        return response()->json(['action' => $response]);
+        return new UserResource( UserRepo::delete($user, $request->all()) );
     }
 
     public function posts(USer $user)
     {
-        return response()->json($user->posts());
+        return new PostCollection( UserRepo::posts($user) );
     }
 
     public function comments(User $user)
     {
-        return response()->json($user->comments());
+        return new CommentCollection( UserRepo::comments($user) );
     }
 
-    public function roles(Request $request, User $user)
+    public function roles(User $user)
     {
-        return response()->json($user->getAllRoles());
+        return new RoleCollection( UserRepo::roles($user) );
     }
 
     public function addRoles($id, Request $request)
@@ -84,9 +80,9 @@ class UserController extends Controller
         (new RoleRepository())->update($user , $roles);
     }
 
-    public function permissions(Request $request, User $user)
+    public function permissions(User $user)
     {
-        return response()->json($user->getAllPermissions());
+        return new PermissionCollection( UserRepo::roles($user) );
     }
 
     public function addPermissions($id, Request $request)
