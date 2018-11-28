@@ -3,25 +3,40 @@
 namespace App\Models;
 
 use Laravel\Passport\HasApiTokens;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable, SoftDeletes, HasApiTokens, HasRoles;
 
-    protected $fillable = ['name', 'email', 'password'];
+    const   TYPE        =   'users';
 
+    protected $perPage  =   2;
+
+    protected $casts    =   [
+        'deleted_at'    =>  'datetime',
+        'active'        =>  'boolean'
+    ];
+
+    protected $fillable =   [
+        'google_id', 'name', 'email', 'password', 'activation_token', 'active'
+    ];
+
+    protected $hidden   =   [
+        'password', 'remember_token', 'activation_token',
+    ];
+    //  =============================== Relationships =========================
     public function posts()
     {
-        return $this->hasMany(Post::class, 'user_id', 'id');
+        return $this->hasMany(Post::class);
     }
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'user_id', 'id');
+        return $this->hasMany(Comment::class);
     }
-
+    //  =============================== End Relationships =====================
 }

@@ -62,7 +62,7 @@ class UserRepository extends BaseRepository
             ->get();
     }
 
-    public function store(array $data) :   User
+    public function create(array $data) :   User
     {
         return  User::create($data);
     }
@@ -74,6 +74,14 @@ class UserRepository extends BaseRepository
         }
         $ids    =   is_array($user) ? $user : func_get_args();
         return  User::whereIn('id', $ids)->delete();
+    }
+
+    public function active(string $token)   :   bool
+    {
+        return User::where('activation_token', '=', $token)->update([
+            'active'            =>  true,
+            'activation_token'  =>  null,
+        ]);
     }
 
     public function update($user, array $data)
