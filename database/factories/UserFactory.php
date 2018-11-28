@@ -9,6 +9,5 @@ $factory->define(App\Models\User::class, function () use ($faker) {
         'email'             =>  $faker->unique()->safeEmail,
         'password'          =>  bcrypt('123456'),
         'activation_token'  =>  str_random(30),
-
     ];
 });
