@@ -9,19 +9,19 @@ use Spatie\QueryBuilder\QueryBuilder;
 class PostRepository
 {
 
-    public function find(int $id)   :   ?User
+    public function find(int $id)   :   ?Post
     {
-        return User::find($id)->first();
+        return Post::find($id)->first();
     }
 
-    public function findByEmail(string $email)  :   ?User
+    public function findByEmail(string $email)  :   ?Post
     {
-        return User::whereEmail($email)->first();
+        return Post::whereEmail($email)->first();
     }
 
     public function searchBy(array $columns, string $value) :   Collection
     {
-        $builder    =   User::query();
+        $builder    =   Post::query();
         foreach ($columns as $column) {
             $builder->orWhere(
                 function ($query) use ($column, $value) {
@@ -43,7 +43,7 @@ class PostRepository
 
     public function getBy(string $column, string $value)  :   Collection
     {
-        return QueryBuilder::for(User::query())
+        return QueryBuilder::for(Post::query())
             ->allowedFilters(['name', 'email'])
             ->allowedIncludes(['posts', 'comments'])
             ->allowedSorts(['created_at'])
@@ -53,7 +53,7 @@ class PostRepository
 
     public function getTrashed()    :   Collection
     {
-        return QueryBuilder::for(User::query())
+        return QueryBuilder::for(Post::query())
             ->allowedFilters(['name', 'email'])
             ->allowedIncludes(['posts', 'comments'])
             ->allowedSorts(['created_at'])
@@ -63,16 +63,16 @@ class PostRepository
 
     public function store(array $data) :   User
     {
-        return  User::create($data);
+        return  Post::create($data);
     }
 
     public function delete($user)    :   bool
     {
-        if ($user instanceof User){
+        if ($user instanceof User) {
             return  $user::delete();
         }
         $ids    =   is_array($user) ? $user : func_get_args();
-        return  User::whereIn('id', $ids)->delete();
+        return  Post::whereIn('id', $ids)->delete();
     }
 
     public function update($user, array $data)  :   bool
@@ -81,6 +81,6 @@ class PostRepository
             return $user->update($data);
         }
         $ids    =   is_array($user) ?: [$user];
-        return  User::whereIn('id', $user)->update($data);
+        return  Post::whereIn('id', $ids)->update($data);
     }
 }
