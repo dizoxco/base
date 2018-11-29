@@ -5,18 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * Class Post
- * @package App
- * @property int user_id
- * @property string title
- * @property string slug
- * @property string image
- * @property string abstract
- * @property string body
- * @property string published_at
- */
-
 class Post extends Model
 {
     use SoftDeletes;
@@ -48,7 +36,7 @@ class Post extends Model
 
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'taggables');
+//        return $this->morphToMany(Tag::class, 'taggables');
     }
     //  =============================== End Relationships =====================
 }

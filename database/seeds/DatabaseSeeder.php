@@ -42,20 +42,10 @@ class DatabaseSeeder extends Seeder
     {
         $permissions    =   [
             //  user permissions
-            ['name' =>  'user.index',       'guard_name'    =>  'api'],
-            ['name' =>  'user.store',       'guard_name'    =>  'api'],
-            ['name' =>  'user.update',      'guard_name'    =>  'api'],
-            ['name' =>  'user.delete',      'guard_name'    =>  'api'],
-            ['name' =>  'user.roles',       'guard_name'    =>  'api'],
-            ['name' =>  'user.permissions', 'guard_name'    =>  'api'],
+            ['name' =>  'users',    'guard_name'    =>  'api'],
 
             //  post permissions
-            ['name' =>  'post.index',           'guard_name'    =>  'api'],
-            ['name' =>  'post.store',           'guard_name'    =>  'api'],
-            ['name' =>  'post.update',          'guard_name'    =>  'api'],
-            ['name' =>  'post.delete',          'guard_name'    =>  'api'],
-            ['name' =>  'post.comments',        'guard_name'    =>  'api'],
-            ['name' =>  'post.comments.store',  'guard_name'    =>  'api'],
+            ['name' =>  'posts',    'guard_name'    =>  'api'],
         ];
         foreach ($permissions as $permission) {
             Permission::create($permission);

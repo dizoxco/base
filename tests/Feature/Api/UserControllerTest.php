@@ -31,9 +31,9 @@ class UserControllerTest extends TestCase
         parent::setUp();
 
         $this->clearConfigurationCache()->installPassport();
-        $this->auth    =   $this->signInFromApi();
-        $this->correctUser =   factory(User::class)->states('creation')->make();
-        $this->wrongUser   =   factory(User::class)->states('creation')->make([
+        $this->auth         =   $this->signInFromApi();
+        $this->correctUser  =   factory(User::class)->states('creation')->make();
+        $this->wrongUser    =   factory(User::class)->states('creation')->make([
             'password_confirmation' =>  'not matched password'
         ]);
     }
@@ -52,7 +52,7 @@ class UserControllerTest extends TestCase
 
         $response
             ->assertSuccessful()
-            ->assertHeader('Content-Type', API::APPLICATION_VND_API_JSON)
+            ->assertHeader('Content-Type', enum('api', 'json'))
             ->assertJsonMissingExact(['errors'])
             ->assertJson((array) $resource['data']);
     }

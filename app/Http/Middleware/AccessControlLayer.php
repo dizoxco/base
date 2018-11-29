@@ -21,20 +21,21 @@ class AccessControlLayer
      */
     public function handle($request, Closure $next, $routeParameter, $permission = null)
     {
+
         $user       =   Auth::user() ?? $request->user('api');
-        $resource   =   $request->route()->parameter($routeParameter);
-
-        if (!$resource instanceof Model) {
-            return $this->forbidden();
-        }
-
         if ($permission === null) {
-            if ($user->id !== $resource->user_id) {
+            $permission =   $routeParameter;
+            if (!$user->hasPermissionTo($permission, 'api')) {
                 return $this->forbidden();
             }
         }
 
         if ($permission !== null) {
+            $resource   =   $request->route()->parameter($routeParameter);
+            if (!$resource instanceof Model) {
+                return $this->forbidden();
+            }
+
             if ($user->id !== $resource->user_id && !$user->hasPermissionTo($permission, 'api')) {
                 return $this->forbidden();
             }

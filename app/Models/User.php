@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Repositories\Facades\UserRepo;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Symfony\Component\HttpFoundation\Response;
 
 class User extends Authenticatable
 {
@@ -39,4 +41,20 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
     //  =============================== End Relationships =====================
+
+    public function resolveRouteBinding($user)
+    {
+        $user   =   UserRepo::find($user);
+        return $user !== null ? $user : response(
+            [
+                'error' => [
+                    'not_found' => trans('http.not_found')
+                ]
+            ],
+            Response::HTTP_NOT_FOUND,
+            [
+                'Content-Type' => enum('api', 'json')
+            ]
+        );
+    }
 }

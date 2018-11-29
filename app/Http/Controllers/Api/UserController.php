@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Resources\DBResource;
+use App\Http\Resources\PermissionCollection;
+use App\Http\Resources\RoleCollection;
+use App\Http\Resources\UserResource;
+use App\Models\User;
 use Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserCollection;
@@ -16,7 +23,7 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        return new UserResource(UserRepo::store($request->all()));
+        return new UserResource(UserRepo::create($request->all()));
     }
 
     public function show(User $user)
@@ -29,9 +36,9 @@ class UserController extends Controller
         return new DBResource(UserRepo::update($user, $request->all()));
     }
 
-    public function delete(User $user)
+    public function destroy(User $user)
     {
-        return new UserResource(UserRepo::delete($user));
+        return new DBResource(UserRepo::delete($user));
     }
 
     /**
@@ -42,7 +49,7 @@ class UserController extends Controller
      */
     public function roles(User $user)
     {
-        return new RoleCollection(UserRepo::roles($user));
+        return new RoleCollection($user->roles);
     }
 
     /**
@@ -54,18 +61,18 @@ class UserController extends Controller
      */
     public function syncRoles(User $user, Request $request)
     {
-        $user->syncRoles($request->all());
+        $user->syncRoles($request->roles);
         return new RoleCollection(UserRepo::roles($user));
     }
 
     /**
-     * ?
+     * index users permissions
      *
      * @param User $user
      * @return PermissionCollection
      */
     public function permissions(User $user)
     {
-        return new PermissionCollection(UserRepo::roles($user));
+        return new PermissionCollection($user->permissions);
     }
 }
