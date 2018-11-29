@@ -2,37 +2,38 @@
 
 namespace Test\Feature\Api;
 
-use App\Enum\API;
 use Tests\TestCase;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Support\Collection;
-use App\Http\Resources\User\UserResource;
-use App\Http\Resources\User\UsersCollection;
-use App\Http\Resources\Post\PostsCollection;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCollection;
+use App\Repositories\Facades\UserRepo;
+use App\Http\Resources\UsersCollection;
+use App\Http\Resources\PostsCollection;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserControllerTest extends TestCase
 {
 
-    /** @var self $auth_user */
-    public $auth_user;
+    /** @var self $auth */
+    public $auth;
 
-    /** @var User $correct_user */
-    public $correct_user;
+    /** @var User $correctUser */
+    public $correctUser;
 
-    /** @var User $wrong_user */
-    public $wrong_user;
+    /** @var User $wrongUser */
+    public $wrongUser;
 
     protected function setUp()
     {
         parent::setUp();
 
         $this->clearConfigurationCache()->installPassport();
-        $this->auth_user    =   $this->signInFromApi();
-        $this->correct_user =   factory(User::class)->states('creation')->make();
-        $this->wrong_user   =   factory(User::class)->states('creation')->make([
+        $this->auth    =   $this->signInFromApi();
+        $this->correctUser =   factory(User::class)->states('creation')->make();
+        $this->wrongUser   =   factory(User::class)->states('creation')->make([
             'password_confirmation' =>  'not matched password'
         ]);
     }
@@ -44,31 +45,16 @@ class UserControllerTest extends TestCase
     public function it_should_return_users_index()
     {
         factory(User::class, 5)->create();
-        $users      =   User::with(['posts', 'comments'])->paginate();
-        $resource   =   new UsersCollection($users);
+        $users      =   UserRepo::getAll(['with'    =>  ['posts','comments']]);
+        $resource   =   new UserCollection($users);
         $uri        =   route('api.users.index');
+        $response   =   $this->auth->getJson($uri);
 
-        //  Send Http Request
-        $response   =   $this->auth_user->getJson($uri);
-
-        //  Test Http
         $response
             ->assertSuccessful()
             ->assertHeader('Content-Type', API::APPLICATION_VND_API_JSON)
             ->assertJsonMissingExact(['errors'])
             ->assertJson((array) $resource['data']);
-
-
-        //  Test Database
-        foreach ($users as $user) {
-            /** @var User $user */
-            $conditions =   [
-                'id'    =>  $user->id,
-                'name'  =>  $user->name,
-                'email' =>  $user->email,
-            ];
-            $this->assertDatabaseHas('users', $conditions);
-        }
     }
 
     /**
@@ -79,11 +65,11 @@ class UserControllerTest extends TestCase
     {
         //  Data initializing
         $uri        =   route('api.users.store');
-        $user       =   $this->correct_user;
-        $resource   =   new UserResource($this->correct_user);
+        $user       =   $this->correctUser;
+        $resource   =   new UserResource($this->correctUser);
 
         //  Send a post http request
-        $response   =   $this->auth_user->postJson($uri, $user->getAttributes());
+        $response   =   $this->auth->postJson($uri, $user->getAttributes());
 
         //  Test Http
         $response
@@ -107,8 +93,8 @@ class UserControllerTest extends TestCase
     public function it_should_reject_new_user_create_request()
     {
         $uri        =   route('api.users.store');
-        $user       =   $this->wrong_user;
-        $response   =   $this->auth_user->postJson($uri, $user->getAttributes());
+        $user       =   $this->wrongUser;
+        $response   =   $this->auth->postJson($uri, $user->getAttributes());
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
@@ -125,7 +111,7 @@ class UserControllerTest extends TestCase
         $user       =   factory(User::class)->create();
         $resource   =   new UserResource($user);
         $uri        =   route('api.users.show', $user);
-        $response   =   $this->auth_user->getJson($uri);
+        $response   =   $this->auth->getJson($uri);
         $response
             ->assertSuccessful()
             ->assertHeader('Content-Type', API::APPLICATION_VND_API_JSON)
@@ -141,11 +127,11 @@ class UserControllerTest extends TestCase
     {
         //  Data initializing
         $uri        =   route('api.users.store');
-        $user       =   $this->correct_user;
-        $resource   =   new UserResource($this->correct_user);
+        $user       =   $this->correctUser;
+        $resource   =   new UserResource($this->correctUser);
 
         //  Send a post http request
-        $response   =   $this->auth_user->postJson($uri, $user->getAttributes());
+        $response   =   $this->auth->postJson($uri, $user->getAttributes());
 
         //  Test Http
         $response->assertSuccessful()
@@ -169,7 +155,7 @@ class UserControllerTest extends TestCase
             'name'  =>  'test',
             'email' =>  'm@n.com',
         ];
-        $response   =   $this->auth_user->putJson($uri, $patched_user);
+        $response   =   $this->auth->putJson($uri, $patched_user);
         $user       =   $user->setAttribute('name', $patched_user['name']);
         $user       =   $user->setAttribute('email', $patched_user['email']);
         $resource   =   new UserResource($user);
@@ -190,7 +176,7 @@ class UserControllerTest extends TestCase
     {
         $user       =   factory(User::class)->create();
         $uri        =   route('api.users.destroy', ['UserFaker' =>  $user->id]);
-        $response   =   $this->auth_user->deleteJson($uri);
+        $response   =   $this->auth->deleteJson($uri);
 
         $response
             ->assertSuccessful()
@@ -220,7 +206,7 @@ class UserControllerTest extends TestCase
 
         $uri        =   route('api.users.posts', ['UserFaker' =>  $user->id]);
         $resource   =   new PostsCollection($user->posts);
-        $response   =   $this->auth_user->getJson($uri);
+        $response   =   $this->auth->getJson($uri);
         $response
             ->assertSuccessful()
             ->assertJson((array)$resource[0]['data']);
@@ -248,7 +234,7 @@ class UserControllerTest extends TestCase
 
         $uri        =   route('api.users.comments', ['UserFaker' =>  $user->id]);
         $resource   =   new PostsCollection($user->posts);
-        $response   =   $this->auth_user->getJson($uri);
+        $response   =   $this->auth->getJson($uri);
         $response
             ->assertSuccessful()
             ->assertHeader('Content-Type', API::APPLICATION_VND_API_JSON)
