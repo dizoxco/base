@@ -5,62 +5,88 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
 
     protected $seeds = [
         'migrate',
+        'permissions',
+        'roles',
+        'passport',
         'users',
         'posts',
         'comments',
-        'passport'
     ];
+
     /** @var Collection $users */
     private $users;
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         foreach ($this->seeds as $seed) {
-            $this->command->line("Processing: {$seed}");
+            $this->command->line("<comment>Processing: </comment> {$seed}");
             call_user_func([$this, $seed]);
+            $this->command->info("<comment>Processing: </comment> {$seed} complete");
         }
     }
 
-    /**
-     * (Re)Migrate tables.
-     *
-     * @return void
-     */
     public function migrate()
     {
         $this->command->call('migrate:fresh');
-        $this->command->line('Migrated tables.');
     }
 
+    public function permissions()
+    {
+        $permissions    =   [
+            //  user permissions
+            ['name' =>  'user.index',       'guard_name'    =>  'api'],
+            ['name' =>  'user.store',       'guard_name'    =>  'api'],
+            ['name' =>  'user.update',      'guard_name'    =>  'api'],
+            ['name' =>  'user.delete',      'guard_name'    =>  'api'],
+            ['name' =>  'user.roles',       'guard_name'    =>  'api'],
+            ['name' =>  'user.permissions', 'guard_name'    =>  'api'],
 
-    /**
-     * Seed users.
-     *
-     * @return void
-     */
+            //  post permissions
+            ['name' =>  'post.index',           'guard_name'    =>  'api'],
+            ['name' =>  'post.store',           'guard_name'    =>  'api'],
+            ['name' =>  'post.update',          'guard_name'    =>  'api'],
+            ['name' =>  'post.delete',          'guard_name'    =>  'api'],
+            ['name' =>  'post.comments',        'guard_name'    =>  'api'],
+            ['name' =>  'post.comments.store',  'guard_name'    =>  'api'],
+        ];
+        foreach ($permissions as $permission) {
+            Permission::create($permission);
+        }
+    }
+
+    public function roles()
+    {
+        Role::create(['name' => 'admin', 'guard_name' => 'api'])->givePermissionTo(Permission::all());
+        Role::create(['name' => 'user', 'guard_name' => 'api'])->givePermissionTo(
+            Permission::whereName('user.create')->first()
+        );
+    }
+
+    public function passport()
+    {
+        $this->command->call('passport:install');
+    }
+
     public function users()
     {
         $numbers        =   $this->command->ask('How Many Users Do You Want?', 10);
         $this->users    =   factory(User::class, $numbers)->create();
+        $this->users->each(
+            function (User $user) {
+                $user->assignRole(Role::inRandomOrder()->first());
+            }
+        );
         $this->command->line("Seeded {$numbers} users");
     }
 
-    /**
-     * Seed users.
-     *
-     * @return void
-     */
     public function posts()
     {
         $numbers        =   $this->command->ask('How many articles can be created per user?', 2);
@@ -87,16 +113,5 @@ class DatabaseSeeder extends Seeder
             }
         });
         $this->command->line("Seeded {$numbers} comments for each posts");
-    }
-
-
-    /**
-     * install passport
-     */
-    public function passport()
-    {
-        $this->command->line('Installing Passport.');
-        $this->command->call('passport:install');
-        $this->command->line('Installing Passport complete.');
     }
 }
