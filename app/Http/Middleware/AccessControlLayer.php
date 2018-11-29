@@ -14,33 +14,33 @@ class AccessControlLayer
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
-     * @param $route_parameter
+     * @param $routeParameter
      * @param $permission
      * @return mixed
      * @throws \Exception
      */
-    public function handle($request, Closure $next, $route_parameter, $permission = null)
+    public function handle($request, Closure $next, $routeParameter, $permission = null)
     {
-        $user   =   Auth::user() ?? $request->user('api');
-        $resource   =  $request->route()->parameter($route_parameter);
+        $user       =   Auth::user() ?? $request->user('api');
+        $resource   =   $request->route()->parameter($routeParameter);
 
         if (!$resource instanceof Model) {
             return $this->forbidden();
         }
 
-
-        if ($permission !== null) {
-            $permission =   $route_parameter;
-            if ($user->id !== $resource->user_id && !$user->hasPermissionTo($permission, 'api')) {
-                return $this->forbidden();
-            }
-        } else {
-            if ($user->id !== $resource->user_id ) {
+        if ($permission === null) {
+            if ($user->id !== $resource->user_id) {
                 return $this->forbidden();
             }
         }
 
-        return $this->forbidden();
+        if ($permission !== null) {
+            if ($user->id !== $resource->user_id && !$user->hasPermissionTo($permission, 'api')) {
+                return $this->forbidden();
+            }
+        }
+
+        return $next($request);
     }
 
     /**
