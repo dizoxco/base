@@ -10,10 +10,6 @@ abstract class BaseCollection extends ResourceCollection
 
     public function with($request)
     {
-        return empty($this->includes)?
-            []:
-            [
-                'included' => $this->includes
-            ];
+        return empty($this->includes) ? [] : ['included' => $this->includes];
     }
 }
