@@ -93,31 +93,50 @@ class AuthController extends Controller
      */
     public function register(StoreUserRequest $request)
     {
-        UserRepo::create($request->all());
-        return response()->json(
-            [ 'message' =>  trans('auth.register')],
-            Response::HTTP_CREATED
-        );
+        if (UserRepo::create($request->all())) {
+            return response()->json(
+                [
+                    'message' => trans('auth.register', [
+                        'full_name' =>  $request->user('api')->fullname
+                    ])
+                ],
+                Response::HTTP_CREATED
+            );
+        } else {
+            return response()->json(
+                [
+                    'message' =>  trans('auth.register_failed')
+                ],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
     }
 
     /**
      * active user account | method: get
      *
+     * @param Request $request
      * @param $token
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function activate($token)
+    public function activate(Request $request, $token)
     {
         if (UserRepo::active($token)) {
             return response()->json(
-                [ 'message' => trans('auth.activated')],
+                [
+                    'message' => trans('auth.activated', [
+                        'full_name' =>  $request->user('api')->fullname
+                    ])
+                ],
                 Response::HTTP_OK
             );
         } else {
             return response()->json(
-                [ 'message' => trans('auth.token_expired')],
-                Response::HTTP_UNAUTHORIZED
+                [
+                    'message' => trans('auth.token_expired')
+                ],
+                Response::HTTP_BAD_REQUEST
             );
         }
     }
