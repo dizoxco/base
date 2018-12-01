@@ -13,7 +13,11 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed'            =>  'These credentials do not match our records.',
+    'throttle'          =>  'Too many login attempts. Please try again in :seconds seconds.',
+    'register'          =>  'Account was created for :full_name.',
+    'register_failed'   =>  'Received information is incomplete.',
+    'activated'         =>  ':full_name account activated.',
+    'token_expired'     =>  'This token has expired',
 
 ];

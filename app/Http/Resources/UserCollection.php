@@ -2,8 +2,6 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
-
 class UserCollection extends BaseCollection
 {
     public function toArray($request)
@@ -12,9 +10,9 @@ class UserCollection extends BaseCollection
             foreach ($user->getRelations() as $relation => $items) {
                 foreach ($items as $item) {
                     switch ($relation) {
-                      case 'posts':
-                          $this->includes[$relation][$item->id] = new PostResource($item);
-                          break;
+                        case 'posts':
+                            $this->includes[$relation][$item->id] = new PostResource($item);
+                            break;
                     }
                 }
             }
@@ -22,5 +20,4 @@ class UserCollection extends BaseCollection
         });
         return parent::toArray($request);
     }
-
 }

@@ -1,14 +1,13 @@
 <?php
 
-use Faker\Generator as Faker;
+use Faker\Factory as Faker;
 
-$factory->define(App\Models\Post::class, function (Faker $faker) {
+$faker      =   Faker::create('fa_IR');
+$factory->define(App\Models\Post::class, function () use ($faker) {
     return [
-        'title' => $faker->sentence,
-        'user_id' => rand(1, 10),
-        'slug' => $faker->slug,
-        'body' => $faker->paragraphs(4,true),
-        'abstract' => $faker->sentences(4 , true),
-        'published_at' =>Carbon\Carbon::now()
+        'title'     =>  $faker->sentence,
+        'slug'      =>  $faker->slug,
+        'abstract'  =>  $faker->sentence,
+        'body'      =>  $faker->paragraphs(4, true),
     ];
 });

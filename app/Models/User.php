@@ -2,18 +2,40 @@
 
 namespace App\Models;
 
+use App\Repositories\Facades\UserRepo;
 use Laravel\Passport\HasApiTokens;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Symfony\Component\HttpFoundation\Response;
 
 class User extends Authenticatable
 {
     use Notifiable, SoftDeletes, HasApiTokens, HasRoles;
 
-    protected $fillable = ['name', 'email', 'password'];
+    protected $perPage  =   2;
 
+    protected $casts    =   [
+        'deleted_at'    =>  'datetime',
+        'active'        =>  'boolean'
+    ];
+
+    protected $fillable =   [
+        'google_id', 'name', 'email', 'password', 'activation_token', 'active'
+    ];
+
+    protected $hidden   =   [
+        'password', 'remember_token', 'activation_token',
+    ];
+
+    //  =============================== Accessor ==============================
+    public function getFullNameAttribute()
+    {
+        return "{$this->name} {$this->family}";
+    }
+    //  =============================== End Accessor ==========================
+    //  =============================== Relationships =========================
     public function posts()
     {
         return $this->hasMany(Post::class, 'user_id', 'id');
@@ -23,5 +45,21 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class, 'user_id', 'id');
     }
+    //  =============================== End Relationships =====================
 
+    public function resolveRouteBinding($user)
+    {
+        $user   =   UserRepo::find($user);
+        return $user !== null ? $user : response(
+            [
+                'error' => [
+                    'not_found' => trans('http.not_found')
+                ]
+            ],
+            Response::HTTP_NOT_FOUND,
+            [
+                'Content-Type' => enum('json')
+            ]
+        );
+    }
 }
