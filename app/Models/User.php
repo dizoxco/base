@@ -53,7 +53,7 @@ class User extends Authenticatable
             ],
             Response::HTTP_NOT_FOUND,
             [
-                'Content-Type' => enum('api', 'json')
+                'Content-Type' => enum('json')
             ]
         );
     }
