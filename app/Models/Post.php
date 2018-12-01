@@ -9,8 +9,6 @@ class Post extends Model
 {
     use SoftDeletes;
 
-    const   TYPE        =   'posts';
-
     protected $perPage  =   10;
 
     protected $fillable = [

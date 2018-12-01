@@ -14,8 +14,6 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes, HasApiTokens, HasRoles;
 
-    const   TYPE        =   'users';
-
     protected $perPage  =   2;
 
     protected $casts    =   [
@@ -33,12 +31,12 @@ class User extends Authenticatable
     //  =============================== Relationships =========================
     public function posts()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class, 'user_id', 'id');
     }
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class, 'user_id', 'id');
     }
     //  =============================== End Relationships =====================
 
