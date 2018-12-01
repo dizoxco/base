@@ -96,7 +96,44 @@ class UserRepository extends BaseRepository
             return  User::whereIn('id', $ids)->delete();
 
         } catch (Exception $exception) {
-            Log::error($exception->getMessage());
+            return self::NO_ROWS_AFFECTED;
+        }
+    }
+
+    /**
+     * @param User|array $user
+     * @return bool|int
+     */
+    public function restore($user)
+    {
+        try {
+            if ($user instanceof User) {
+                return  $user->restore();
+            }
+
+            $ids    =   is_array($user) ? $user : func_get_args();
+            return  User::whereIn('id', $ids)->restore();
+
+        } catch (Exception $exception) {
+            return self::NO_ROWS_AFFECTED;
+        }
+    }
+
+    /**
+     * @param User|array $user
+     * @return bool|int
+     */
+    public function destroy($user)
+    {
+        try {
+            if ($user instanceof User) {
+                return  $user->forceDelete();
+            }
+
+            $ids    =   is_array($user) ? $user : func_get_args();
+            return  User::whereIn('id', $ids)->forceDelete();
+
+        } catch (Exception $exception) {
             return self::NO_ROWS_AFFECTED;
         }
     }

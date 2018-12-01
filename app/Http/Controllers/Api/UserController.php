@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\User\StoreUserRequest;
-use App\Http\Requests\User\UpdateUserRequest;
-use App\Http\Resources\DBResource;
-use App\Http\Resources\PermissionCollection;
-use App\Http\Resources\RoleCollection;
-use App\Http\Resources\UserResource;
-use App\Models\User;
 use Request;
+use App\Models\User;
+use App\Http\Resources\DBResource;
+use App\Http\Resources\UserResource;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RoleCollection;
 use App\Http\Resources\UserCollection;
 use App\Repositories\Facades\UserRepo;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Resources\PermissionCollection;
+use App\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -36,7 +36,17 @@ class UserController extends Controller
         return new DBResource(UserRepo::update($user, $request->all()));
     }
 
-    public function destroy(User $user)
+    public function delete(User $user)
+    {
+        return new DBResource(UserRepo::delete($user));
+    }
+
+    public function restore(string $user)
+    {
+        return new DBResource(UserRepo::delete($user));
+    }
+
+    public function destroy(string $user)
     {
         return new DBResource(UserRepo::delete($user));
     }
