@@ -1,12 +1,12 @@
 <?php
 
-use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -42,10 +42,10 @@ class DatabaseSeeder extends Seeder
     {
         $permissions    =   [
             //  user permissions
-            ['name' =>  'users',    'guard_name'    =>  'api'],
+            ['name' =>  'manage_users', 'guard_name'    =>  'api'],
 
             //  post permissions
-            ['name' =>  'posts',    'guard_name'    =>  'api'],
+            ['name' =>  'manage_posts', 'guard_name'    =>  'api'],
         ];
         foreach ($permissions as $permission) {
             Permission::create($permission);
@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
     {
         Role::create(['name' => 'admin', 'guard_name' => 'api'])->givePermissionTo(Permission::all());
         Role::create(['name' => 'user', 'guard_name' => 'api'])->givePermissionTo(
-            Permission::whereName('user.create')->first()
+            Permission::whereName('manage_users')->first()
         );
     }
 
