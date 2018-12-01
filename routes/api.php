@@ -26,35 +26,15 @@ Route::name('users.')->prefix('users')->middleware('web')->group(function () {
 });
 
 Route::name('posts.')->prefix('posts')->group(function () {
-    
-    Route::get('/', 'PostController@index')
-        ->name('index')
-        ->middleware('acl:post.index');
-    
-    Route::post('/', 'PostController@store')
-        ->name('store')
-        ->middleware('acl:post.store');
+
+    Route::get('/', 'PostController@index')->name('index')->middleware('acl:manage_posts');
+    Route::post('/', 'PostController@store')->name('store')->middleware('acl:manage_posts');
     
     Route::prefix('{post}')->group(function () {
-        
-        Route::get('/', 'PostController@show')
-            ->name('show')
-            ->middleware('acl:post,post.show');
-        
-        Route::put('/', 'PostController@update')
-            ->name('update')
-            ->middleware('acl:post,post.update');
-        
-        Route::delete('/', 'PostController@delete')
-            ->name('delete')
-            ->middleware('acl:post,post.delete');
-        
-        Route::post('comments', 'PostController@comments')
-            ->name('comments')
-            ->middleware('acl:post,post.comments');
-        
-        Route::post('comments', 'PostController@commentsStore')
-            ->name('comments.store')
-            ->middleware('acl:post,post.comments.store');
+        Route::get('/', 'PostController@show')->name('show')->middleware('acl:post,manage_posts');
+        Route::put('/', 'PostController@update')->name('update')->middleware('acl:post,manage_posts');
+        Route::delete('/', 'PostController@delete')->name('delete')->middleware('acl:post,manage_posts');
+        Route::post('comments', 'PostController@comments')->name('comments')->middleware('acl:post,manage_posts');
+        Route::post('comments', 'PostController@commentsStore')->name('comments.store')->middleware('acl:post,manage_posts');
     });
 });
