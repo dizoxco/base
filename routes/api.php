@@ -12,16 +12,16 @@ Route::prefix('auth')->name('auth.')->group(function () {
 
 Route::name('users.')->prefix('users')->middleware('web')->group(function () {
 
-    Route::get('/', 'UserController@index')->name('index');
-    Route::post('/', 'UserController@store')->name('store');
+    Route::get('/', 'UserController@index')->name('index')->middleware('acl:manage_users');
+    Route::post('/', 'UserController@store')->name('store')->middleware('acl:manage_users');
 
     Route::prefix('{user}')->group(function () {
-        Route::get('/', 'UserController@show')->name('show');
-        Route::put('/', 'UserController@update')->name('update');
-        Route::delete('/', 'UserController@destroy')->name('destroy');
-        Route::get('roles', 'UserController@roles')->name('roles');
-        Route::put('roles', 'UserController@syncRoles')->name('roles.sync');
-        Route::get('permissions', 'UserController@permissions')->name('permissions');
+        Route::get('/', 'UserController@show')->name('show')->middleware('acl:user,manage_users');
+        Route::put('/', 'UserController@update')->name('update')->middleware('acl:user,manage_users');
+        Route::delete('/', 'UserController@destroy')->name('destroy')->middleware('acl:user,manage_users');
+        Route::get('roles', 'UserController@roles')->name('roles')->middleware('acl:user,manage_users');
+        Route::put('roles', 'UserController@syncRoles')->name('roles.sync')->middleware('acl:user,manage_users');
+        Route::get('permissions', 'UserController@permissions')->name('permissions')->middleware('acl:user,manage_users');
     });
 });
 
