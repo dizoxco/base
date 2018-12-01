@@ -28,6 +28,13 @@ class User extends Authenticatable
     protected $hidden   =   [
         'password', 'remember_token', 'activation_token',
     ];
+
+    //  =============================== Accessor ==============================
+    public function getFullNameAttribute()
+    {
+        return "{$this->name} {$this->family}";
+    }
+    //  =============================== End Accessor ==========================
     //  =============================== Relationships =========================
     public function posts()
     {
