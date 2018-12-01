@@ -67,23 +67,24 @@ class UserRepository extends BaseRepository
             ->get();
     }
 
+
     /**
      * @param array $data
-     * @return User|int
+     * @return User|\Illuminate\Database\Eloquent\Model|int
      */
     public function create(array $data)
     {
         try {
             return  User::create($data);
         } catch (QueryException $queryException) {
-            Log::error($queryException->getMessage());
             return self::NO_ROWS_AFFECTED;
         }
     }
 
+
     /**
      * @param User|array $user
-     * @return bool|int
+     * @return bool|int|null
      */
     public function delete($user)
     {

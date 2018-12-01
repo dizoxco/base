@@ -13,6 +13,9 @@ class UserCollection extends BaseCollection
                         case 'posts':
                             $this->includes[$relation][$item->id] = new PostResource($item);
                             break;
+                        case 'comment':
+                            $this->includes[$relation][$item->id] = new CommentResource($item);
+                            break;
                     }
                 }
             }
