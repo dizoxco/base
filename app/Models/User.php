@@ -2,17 +2,20 @@
 
 namespace App\Models;
 
-use App\Repositories\Facades\UserRepo;
+use Spatie\MediaLibrary\File;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Repositories\Facades\UserRepo;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Symfony\Component\HttpFoundation\Response;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use Notifiable, SoftDeletes, HasApiTokens, HasRoles;
+    use Notifiable, SoftDeletes, HasApiTokens, HasRoles, HasMediaTrait;
 
     protected $perPage  =   2;
 
@@ -22,7 +25,7 @@ class User extends Authenticatable
     ];
 
     protected $fillable =   [
-        'google_id', 'name', 'email', 'password', 'activation_token', 'active'
+        'google_id', 'name', 'avatar', 'email', 'password', 'active', 'activation_token'
     ];
 
     protected $hidden   =   [
@@ -35,6 +38,7 @@ class User extends Authenticatable
         return "{$this->name} {$this->family}";
     }
     //  =============================== End Accessor ==========================
+
     //  =============================== Relationships =========================
     public function posts()
     {
@@ -45,8 +49,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class, 'user_id', 'id');
     }
+
+    public function avatar()
+    {
+        return $this->getFirstMediaUrl(enum('media.user.avatar'));
+    }
     //  =============================== End Relationships =====================
 
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection(enum('media.user.avatar'))->singleFile();
+    }
     public function resolveRouteBinding($user)
     {
         $user   =   UserRepo::find($user);
@@ -58,7 +71,7 @@ class User extends Authenticatable
             ],
             Response::HTTP_NOT_FOUND,
             [
-                'Content-Type' => enum('json')
+                'Content-Type' => JSON
             ]
         );
     }

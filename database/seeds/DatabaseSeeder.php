@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
 
     public function users()
     {
-        $numbers        =   $this->command->ask('How Many Users Do You Want?', 10);
+        $numbers        =   (int) $this->command->ask('How Many Users Do You Want?', 10);
         $this->users    =   factory(User::class, $numbers)->create();
         $this->users->each(
             function (User $user) {
@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
 
     public function posts()
     {
-        $numbers        =   $this->command->ask('How many articles can be created per user?', 2);
+        $numbers        =   (int) $this->command->ask('How many articles can be created per user?', 2);
         $this->users->each(
             function (User $user) use ($numbers) {
                 for ($i = 1; $i <= $numbers; $i++) {
@@ -92,7 +92,7 @@ class DatabaseSeeder extends Seeder
 
     public function comments()
     {
-        $numbers        =   $this->command->ask('How many comments can be created per post?', 2);
+        $numbers        =   (int) $this->command->ask('How many comments can be created per post?', 2);
         Post::all()->each(function (Post $post) use ($numbers) {
             for ($i = 1; $i <= $numbers; $i++) {
                 $post->comments()->create(factory(Comment::class)->make(

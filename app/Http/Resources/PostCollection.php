@@ -16,9 +16,6 @@ class PostCollection extends BaseCollection
                         case 'comments':
                             $this->includes[$relation][$item->id] = new CommentCollection($item);
                             break;
-                        case 'tags':
-                            $this->includes[$relation][$item->id] = new TagCollection($item);
-                            break;
                     }
                 }
             }

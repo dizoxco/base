@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use Request;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Models\User;
 use App\Http\Resources\DBResource;
 use App\Http\Resources\UserResource;
@@ -23,7 +23,13 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        return new UserResource(UserRepo::create($request->all()));
+        $data   =   $request->except('avatar');
+        $user   =   UserRepo::create($data);
+        if ($request->hasFile('avatar')) {
+            $user->addMediaFromRequest('avatar')->toMediaCollection(enum('media.user.avatar'));
+            $data['avatar'] =   $user->getFirstMediaUrl(enum('media.user.avatar'));
+        }
+        return new UserResource();
     }
 
     public function show(User $user)
@@ -33,7 +39,12 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        return new DBResource(UserRepo::update($user, $request->all()));
+        $data   =   $request->except('avatar');
+        if ($request->hasFile('avatar')) {
+            $user->addMediaFromRequest('avatar')->toMediaCollection(enum('media.user.avatar'));
+            $data['avatar'] =   $user->getFirstMediaUrl(enum('media.user.avatar'));
+        }
+        return new DBResource(UserRepo::update($user, $data));
     }
 
     public function delete(User $user)

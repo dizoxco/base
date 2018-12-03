@@ -17,7 +17,6 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('google_id')->unique()->nullable();
             $table->string('name');
-            $table->string('avatar')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('active')->default(false);

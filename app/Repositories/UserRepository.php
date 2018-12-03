@@ -149,6 +149,10 @@ class UserRepository extends BaseRepository
 
     public function update($user, array $data)  :   int
     {
+        if (empty($data)) {
+            return self::NO_ROWS_AFFECTED;
+        }
+
         if ($user instanceof User) {
             return $user->update($data);
         }

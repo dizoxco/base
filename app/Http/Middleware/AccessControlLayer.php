@@ -22,6 +22,11 @@ class AccessControlLayer
     public function handle($request, Closure $next, $routeParameter, $permission = null)
     {
         $user       =   Auth::user() ?? $request->user('api');
+
+        if ($user === null) {
+            return $this->forbidden();
+        }
+
         if ($permission === null) {
             $permission =   $routeParameter;
             if (!$user->hasPermissionTo($permission, 'api')) {
