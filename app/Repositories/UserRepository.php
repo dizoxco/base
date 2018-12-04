@@ -74,13 +74,16 @@ class UserRepository extends BaseRepository
      */
     public function create(array $data)
     {
+        if (isset($data['password'])) {
+            $data['password']   =   bcrypt($data['password']);
+        }
+
         try {
             return  User::create($data);
         } catch (QueryException $queryException) {
             return self::NO_ROWS_AFFECTED;
         }
     }
-
 
     /**
      * @param User|array $user

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Spatie\MediaLibrary\File;
 use Laravel\Passport\HasApiTokens;
+use Spatie\MediaLibrary\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 use App\Repositories\Facades\UserRepo;
 use Illuminate\Notifications\Notifiable;
@@ -50,16 +51,50 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Comment::class, 'user_id', 'id');
     }
 
-    public function avatar()
+    //  =============================== End Relationships =====================
+
+    //  =============================== Media =================================
+
+    public function getAvatarAttribute()
     {
         return $this->getFirstMediaUrl(enum('media.user.avatar'));
     }
-    //  =============================== End Relationships =====================
+
+    public function getMediaGroups()
+    {
+        return $this->hasManyThrough(
+            \Spatie\MediaLibrary\Models\Media::class,
+            MediaRelation::class,
+            'model_id',
+            'id',
+            'id',
+            'media_id'
+        )->getQuery()->where('media_relations.model_type', self::class)->get();
+    }
 
     public function registerMediaCollections()
     {
-        $this->addMediaCollection(enum('media.user.avatar'))->singleFile();
+        //  Register media collection for avatar that only accepts images
+        $this->addMediaCollection(enum('media.user.avatar'))
+            ->acceptsFile(function (File $file) {
+                $allowed_mimes  =   [
+                    'image/jpeg','image/png','image/tiff','image/bmp',
+                ];
+                return in_array($file->mimeType, $allowed_mimes);
+            })
+            ->singleFile();
     }
+
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+            ->width(100)
+            ->height(100)
+            ->nonQueued()
+            ->performOnCollections(enum('media.user.avatar'));
+    }
+    //  =============================== End Media =============================
+
     public function resolveRouteBinding($user)
     {
         $user   =   UserRepo::find($user);

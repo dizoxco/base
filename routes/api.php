@@ -13,7 +13,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
 Route::name('users.')->prefix('users')->group(function () {
 
     Route::get('/', 'UserController@index')->name('index')->middleware('acl:manage_users');
-    Route::post('/', 'UserController@store')->name('store')->middleware('acl:manage_users');
+    Route::post('/', 'UserController@store')->name('store');
 
     Route::prefix('{user}')->group(function () {
         Route::get('/', 'UserController@show')->name('show')->middleware('acl:user,manage_users');
@@ -39,3 +39,6 @@ Route::name('posts.')->prefix('posts')->group(function () {
         Route::post('comments', 'PostController@commentsStore')->name('comments.store')->middleware('acl:manage_posts');
     });
 });
+
+Route::get('mediagroup/{medium}', 'MediaGroupController@show');
+Route::post('mediagroup/{medium}', 'MediaGroupController@store');

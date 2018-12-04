@@ -2,13 +2,13 @@
 
 namespace App\Repositories\Facades;
 
-use App\Repositories\PostRepository;
+use App\Repositories\MediaGroupRepository;
 use Illuminate\Support\Facades\Facade;
 
-class PostRepo extends Facade
+class MediaGroupRepo extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return PostRepository::class;
+        return MediaGroupRepository::class;
     }
 }

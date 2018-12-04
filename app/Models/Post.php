@@ -32,9 +32,16 @@ class Post extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
-    public function tags()
+    public function getMediaGroups()
     {
-//        return $this->morphToMany(Tag::class, 'taggables');
+        return $this->hasManyThrough(
+            \Spatie\MediaLibrary\Models\Media::class,
+            MediaRelation::class,
+            'model_id',
+            'id',
+            'id',
+            'media_id'
+        )->getQuery()->where('media_relations.model_type', self::class)->get();
     }
     //  =============================== End Relationships =====================
 }

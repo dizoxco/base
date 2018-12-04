@@ -21,7 +21,7 @@ class UpdateUserRequest extends FormRequest
             'email'     =>  [
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignore($user->id, 'user_id')
+                Rule::unique('users', 'email')->ignore($user->id)
             ],
             'password'  =>  'nullable|string|min:6|confirmed',
             'avatar'    =>  'file'

@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use App\Models\User;
-use App\Http\Resources\DBResource;
-use App\Http\Resources\UserResource;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Resources\DBResource;
+use App\Http\Resources\PermissionCollection;
 use App\Http\Resources\RoleCollection;
 use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
+use App\Models\User;
 use App\Repositories\Facades\UserRepo;
-use App\Http\Requests\User\StoreUserRequest;
-use App\Http\Resources\PermissionCollection;
-use App\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -23,13 +22,11 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        $data   =   $request->except('avatar');
-        $user   =   UserRepo::create($data);
+        $created_user   =   UserRepo::create($request->except('avatar'));
         if ($request->hasFile('avatar')) {
-            $user->addMediaFromRequest('avatar')->toMediaCollection(enum('media.user.avatar'));
-            $data['avatar'] =   $user->getFirstMediaUrl(enum('media.user.avatar'));
+            $created_user->addMediaFromRequest('avatar')->toMediaCollection(enum('media.user.avatar'));
         }
-        return new UserResource();
+        return new UserResource($created_user);
     }
 
     public function show(User $user)
@@ -39,12 +36,11 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        $data   =   $request->except('avatar');
         if ($request->hasFile('avatar')) {
-            $user->addMediaFromRequest('avatar')->toMediaCollection(enum('media.user.avatar'));
-            $data['avatar'] =   $user->getFirstMediaUrl(enum('media.user.avatar'));
+            $user->addMediaFromRequest('avatar')
+                ->toMediaCollection(enum('media.user.avatar'));
         }
-        return new DBResource(UserRepo::update($user, $data));
+        return new DBResource(UserRepo::update($user, $request->except('avatar')));
     }
 
     public function delete(User $user)
@@ -54,12 +50,12 @@ class UserController extends Controller
 
     public function restore(string $user)
     {
-        return new DBResource(UserRepo::delete($user));
+        return new DBResource(UserRepo::restore($user));
     }
 
     public function destroy(string $user)
     {
-        return new DBResource(UserRepo::delete($user));
+        return new DBResource(UserRepo::destroy($user));
     }
 
     /**
