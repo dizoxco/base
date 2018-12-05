@@ -8,7 +8,6 @@ class PostResource extends Resource
 {
     public function toArray($request)
     {
-        $relations = $this->getRelations();
         $resource = [
             'type'   =>  'post',
             'id'     =>  (string) $this->id,
@@ -18,27 +17,32 @@ class PostResource extends Resource
                 'slug'          =>  $this->slug,
                 'abstract'      =>  $this->abstract,
                 'body'          =>  $this->body,
-                'published_at'  =>  $this->when($this->published_at, $this->published_at->timestamp),
-                'deletd_at'     =>  $this->when($this->deletd_at, $this->deletd_at->timestamp),
-                'created_at'    =>  $this->when($this->created_at, $this->created_at->timestamp),
-                'updated_at'    =>  $this->when($this->updated_at, $this->updated_at->timestamp),
+                $this->mergeWhen($this->dates(), $this->dates())
             ],
-            $this->mergeWhen(isset($relations['user']) && count($relations['user']), [
-                'relations' => [
-                    'user'  =>  $this->user->pluck('id')
-                ]
-            ]),
-            $this->mergeWhen(isset($relations['comments']) && count($relations['comments']), [
-                'relations' => [
-                    'comments'             =>  $this->comments->pluck('id')
-                ]
-            ]),
-            $this->mergeWhen(isset($relations['tags']) && count($relations['tags']), [
-                'relations' => [
-                    'comments'             =>  $this->tags->pluck('id')
-                ]
-            ]),
+            'relations' =>  [
+                $this->whenLoaded('user', function () {
+                    return ['user'  =>  $this->user->id];
+                }),
+                $this->whenLoaded('comments', function () {
+                    return ['comments'  =>  $this->comments->pluck('id')];
+                }),
+                $this->whenLoaded('tags', function () {
+                    return ['tags'  =>  $this->tags->pluck('id')];
+                }),
+            ]
         ];
         return $resource;
+    }
+
+    private function dates()
+    {
+        $dates = [];
+        $dateColumns = ['published_at', 'deleted_at', 'created_at', 'updated_at'];
+        foreach ($dateColumns as $column) {
+            if ($this->{$column} !== null) {
+                $dates[$column] = $this->{$column}->timestamp;
+            }
+        }
+        return empty($dates) ? false : $dates;
     }
 }

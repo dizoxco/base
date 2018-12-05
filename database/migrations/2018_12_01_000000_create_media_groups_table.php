@@ -16,6 +16,7 @@ class CreateMediaGroupsTable extends Migration
         Schema::create('media_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100);
+            $table->string('collection_name', 100);
             $table->string('description')->nullable();
             $table->timestamps();
         });

@@ -1,11 +1,11 @@
 <?php
 
-use App\Models\User;
+use App\Models\Post;
 
 Auth::routes();
 
 Route::any('lab', function () {
-dd(
-    User::find(2)->getMediaGroups()
-);
+    dd(
+        Post::find(3)->mediaGroup()->sync([1, 4, 3])
+    );
 });

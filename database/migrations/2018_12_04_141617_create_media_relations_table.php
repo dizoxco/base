@@ -14,10 +14,10 @@ class CreateMediaRelationsTable extends Migration
     public function up()
     {
         Schema::create('media_relations', function (Blueprint $table) {
-            $table->increments('id');
             $table->morphs('model');
             $table->unsignedInteger('media_id');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
 
             $table->foreign('media_id')
                 ->references('id')->on('media')

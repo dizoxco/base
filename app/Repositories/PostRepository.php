@@ -4,9 +4,10 @@ namespace App\Repositories;
 
 use App\Models\Post;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
+use Throwable;
 
 class PostRepository extends BaseRepository
 {
@@ -73,8 +74,8 @@ class PostRepository extends BaseRepository
     public function create(array $data)
     {
         try {
-            return  Post::create($data);
-        } catch (QueryException $queryException) {
+            return Post::create($data);
+        } catch (Throwable $throwable) {
             return self::NO_ROWS_AFFECTED;
         }
     }

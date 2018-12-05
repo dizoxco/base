@@ -28,15 +28,15 @@ Route::name('users.')->prefix('users')->group(function () {
 Route::name('posts.')->prefix('posts')->group(function () {
 
     Route::get('/', 'PostController@index')->name('index');
-    Route::post('/', 'PostController@store')->name('store')->middleware('acl:manage_posts');
+    Route::post('/', 'PostController@store')->name('store');
     
     Route::prefix('{post}')->group(function () {
-        Route::get('/', 'PostController@show')->name('show')->middleware('acl:post,manage_posts');
-        Route::put('/', 'PostController@update')->name('update')->middleware('acl:post,manage_posts');
-        Route::delete('/', 'PostController@delete')->name('delete')->middleware('acl:post,manage_posts');
-        Route::get('/', 'PostController@restore')->name('restore')->middleware('acl:manage_posts');
-        Route::delete('/', 'PostController@destroy')->name('destroy')->middleware('acl:post,manage_posts');
-        Route::post('comments', 'PostController@commentsStore')->name('comments.store')->middleware('acl:manage_posts');
+        Route::get('/', 'PostController@show')->name('show');
+        Route::put('/', 'PostController@update')->name('update');
+        Route::delete('/', 'PostController@delete')->name('delete');
+//        Route::get('/', 'PostController@restore')->name('restore');
+//        Route::delete('/', 'PostController@destroy')->name('destroy');
+        Route::post('comments', 'PostController@commentsStore')->name('comments.store');
     });
 });
 

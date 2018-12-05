@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\File;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
-    use SoftDeletes;
+    use SoftDeletes, HasMediaTrait, HasGroupedMedia;
 
     protected $perPage  =   10;
 
@@ -31,17 +34,20 @@ class Post extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
-
-    public function getMediaGroups()
-    {
-        return $this->hasManyThrough(
-            \Spatie\MediaLibrary\Models\Media::class,
-            MediaRelation::class,
-            'model_id',
-            'id',
-            'id',
-            'media_id'
-        )->getQuery()->where('media_relations.model_type', self::class)->get();
-    }
     //  =============================== End Relationships =====================
+
+    public function registerMediaCollections()
+    {
+        //  Register media collection for avatar that only accepts images
+        $this->addMediaCollection(enum('media.post.banner'))
+            ->acceptsFile(function (File $file) {
+                $allowedMimes  =   [
+                    'image/jpeg','image/png','image/tiff','image/bmp',
+                ];
+                return in_array($file->mimeType, $allowedMimes);
+            })
+            ->singleFile();
+
+        $this->addMediaCollection(enum('media.post.attach'));
+    }
 }

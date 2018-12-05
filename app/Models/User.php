@@ -16,7 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements HasMedia
 {
-    use Notifiable, SoftDeletes, HasApiTokens, HasRoles, HasMediaTrait;
+    use Notifiable, SoftDeletes, HasApiTokens, HasRoles, HasMediaTrait, HasGroupedMedia;
 
     protected $perPage  =   2;
 
@@ -60,27 +60,15 @@ class User extends Authenticatable implements HasMedia
         return $this->getFirstMediaUrl(enum('media.user.avatar'));
     }
 
-    public function getMediaGroups()
-    {
-        return $this->hasManyThrough(
-            \Spatie\MediaLibrary\Models\Media::class,
-            MediaRelation::class,
-            'model_id',
-            'id',
-            'id',
-            'media_id'
-        )->getQuery()->where('media_relations.model_type', self::class)->get();
-    }
-
     public function registerMediaCollections()
     {
         //  Register media collection for avatar that only accepts images
         $this->addMediaCollection(enum('media.user.avatar'))
             ->acceptsFile(function (File $file) {
-                $allowed_mimes  =   [
+                $allowedMimes  =   [
                     'image/jpeg','image/png','image/tiff','image/bmp',
                 ];
-                return in_array($file->mimeType, $allowed_mimes);
+                return in_array($file->mimeType, $allowedMimes);
             })
             ->singleFile();
     }

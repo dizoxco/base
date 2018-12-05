@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use Exception;
-use Log;
 use App\Models\User;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
