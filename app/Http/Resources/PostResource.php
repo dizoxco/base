@@ -17,6 +17,8 @@ class PostResource extends Resource
                 'slug'          =>  $this->slug,
                 'abstract'      =>  $this->abstract,
                 'body'          =>  $this->body,
+                'banner'        =>  $this->banner,
+                'attachments'   =>  $this->attachments,
                 $this->mergeWhen($this->dates(), $this->dates())
             ],
             'relations' =>  [

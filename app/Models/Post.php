@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\File;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 
 class Post extends Model implements HasMedia
 {
@@ -49,5 +50,15 @@ class Post extends Model implements HasMedia
             ->singleFile();
 
         $this->addMediaCollection(enum('media.post.attach'));
+    }
+
+    public function getBannerAttribute()
+    {
+        return $this->getMediaGroups('banner')->first();
+    }
+
+    public function getAttachmentsAttribute()
+    {
+        return $this->getMediaGroups('attach');
     }
 }

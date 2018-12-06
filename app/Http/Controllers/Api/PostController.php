@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\MediaRelation;
+use App\Models\MediaGroup;
 use App\Models\Post;
 use App\Http\Resources\DBResource;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostCollection;
 use App\Repositories\Facades\PostRepo;
+use Illuminate\Database\QueryException;
 use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
 use App\Http\Requests\Comment\StoreCommentRequest;
-use DB;
-use Illuminate\Database\QueryException;
 
 class PostController extends Controller
 {
@@ -27,6 +26,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         //  make post's slug unique
+        define('NOT_CREATED', 0);
         $slug = $this->makeSlug($request->input('slug'));
 
         $request->merge([
@@ -35,24 +35,44 @@ class PostController extends Controller
         ]);
 
         $createdPost    =   PostRepo::create($request->all());
-        if (is_int($createdPost)) {
+        if ($createdPost === NOT_CREATED) {
             return new DBResource($createdPost);
         }
 
-        if ($request->hasFile('banner')) {
-            $createdPost->addMediaFromRequest('banner')->toMediaCollection(enum('media.post.banner'));
-        }
-        if ($request->has('attach')) {
+        $messageBag =   [];
+        if ($request->has('banner')) {
             try {
-                $createdPost->mediaGroup()->sync($request->input('attach'));
+                $createdPost
+                    ->mediaRelation()
+                    ->wherePivot('collection_name', '=', 'banner')
+                    ->sync(
+                        array_fill_keys(
+                            array_wrap($request->input('banner')),
+                            ['collection_name'  =>  'banner']
+                        )
+                    );
             } catch (QueryException $exception) {
-                return (new PostResource($createdPost))->additional([
-                    'messages'  =>  "Post {$createdPost->title} has been created, but without some attachments."
-                ]);
+                $messageBag['banner'] = "Post {$createdPost->title} created without banner.";
             }
         }
 
-        return new PostResource($createdPost);
+        if ($request->has('attach')) {
+            try {
+                $createdPost
+                    ->mediaRelation()
+                    ->wherePivot('collection_name', '=', 'attach')
+                    ->sync(
+                        array_fill_keys(
+                            array_wrap($request->input('attach')),
+                            ['collection_name'  =>  'attach']
+                        )
+                    );
+            } catch (QueryException $exception) {
+                $messageBag['banner'] = "Post {$createdPost->title} created without some attachments.";
+            }
+        }
+        $resource   =   new PostResource($createdPost);
+        return empty($messageBag) ? $resource : $resource->additional($messageBag);
     }
 
     public function show(Post $post)
@@ -62,7 +82,53 @@ class PostController extends Controller
 
     public function update(UpdatePostRequest $request, Post $post)
     {
-        return new DBResource(PostRepo::update($post, $request->all()));
+        //  make post's slug unique
+        define('NOT_UPDATED', 0);
+        $slug = $this->makeSlug($request->input('slug'));
+        $request->merge([
+            'slug'      =>  $slug,
+            'user_id'   =>  1,
+        ]);
+
+        $updatedPost    =   PostRepo::update($post, $request->all());
+        if ($updatedPost === NOT_UPDATED) {
+            return new DBResource($updatedPost);
+        }
+
+        $messageBag =   [];
+        if ($request->has('banner')) {
+            try {
+                $post
+                    ->mediaRelation()
+                    ->wherePivot('collection_name', '=', 'banner')
+                    ->sync(
+                        array_fill_keys(
+                            array_wrap($request->input('banner')),
+                            ['collection_name'  =>  'banner']
+                        )
+                    );
+            } catch (QueryException $exception) {
+                $messageBag['banner'] = "Post {$updatedPost->title} updated without banner.";
+            }
+        }
+
+        if ($request->has('attach')) {
+            try {
+                $post
+                    ->mediaRelation()
+                    ->wherePivot('collection_name', '=', 'attach')
+                    ->sync(
+                        array_fill_keys(
+                            array_wrap($request->input('attach')),
+                            ['collection_name'  =>  'attach']
+                        )
+                    );
+            } catch (QueryException $exception) {
+                $messageBag['banner'] = "Post {$post->title} updated without some attachments.";
+            }
+        }
+        $resource   =   new PostResource($post);
+        return empty($messageBag) ? $resource : $resource->additional($messageBag);
     }
 
     public function delete(Post $post)

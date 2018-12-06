@@ -10,6 +10,7 @@ return [
             'attach'    =>  'posts_attach',
         ],
     ],
+
     'system'    =>  [
         'request'   =>  [
             'xhr'   =>  'XMLHttpRequest',
@@ -17,5 +18,5 @@ return [
         'response'  =>  [
             'json'  =>  'application/vnd.api+json',
         ],
-    ]
+    ],
 ];

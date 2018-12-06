@@ -11,7 +11,7 @@ class UserCollection extends BaseCollection
                 foreach ($items as $item) {
                     switch ($relation) {
                         case 'posts':
-                            $this->includes[$relation][$item->id] = new PostResource($item);
+                            $this->includes[$relation][$item->id] = new MediaResource($item);
                             break;
                         case 'comment':
                             $this->includes[$relation][$item->id] = new CommentResource($item);

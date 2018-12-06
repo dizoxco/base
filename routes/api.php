@@ -34,8 +34,8 @@ Route::name('posts.')->prefix('posts')->group(function () {
         Route::get('/', 'PostController@show')->name('show');
         Route::put('/', 'PostController@update')->name('update');
         Route::delete('/', 'PostController@delete')->name('delete');
-//        Route::get('/', 'PostController@restore')->name('restore');
-//        Route::delete('/', 'PostController@destroy')->name('destroy');
+        Route::get('/restore', 'PostController@restore')->name('restore');
+        Route::delete('/destroy', 'PostController@destroy')->name('destroy');
         Route::post('comments', 'PostController@commentsStore')->name('comments.store');
     });
 });

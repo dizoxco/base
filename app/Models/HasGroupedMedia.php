@@ -6,19 +6,27 @@ use Spatie\MediaLibrary\Models\Media;
 
 trait HasGroupedMedia
 {
-    public function getMediaGroups()
+    public function getMediaGroups(string $collection = null)
     {
-        return $this->hasManyThrough(
+        $relation = $this->hasManyThrough(
             Media::class,
             MediaRelation::class,
             'model_id',
             'id',
             'id',
             'media_id'
-        )->getQuery()->where('media_relations.model_type', self::class)->get();
+        )->getQuery();
+        if ($collection === null) {
+            return $relation->where('media_relations.model_type', self::class)->get();
+        } else {
+            return $relation
+                ->where('media_relations.model_type', self::class)
+                ->where('media_relations.collection_name', $collection)
+                ->get();
+        }
     }
 
-    public function mediaGroup()
+    public function mediaRelation()
     {
         return $this->morphToMany(
             Media::class,
@@ -26,4 +34,5 @@ trait HasGroupedMedia
             'media_relations'
         );
     }
+
 }

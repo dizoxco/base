@@ -16,6 +16,7 @@ class CreateMediaRelationsTable extends Migration
         Schema::create('media_relations', function (Blueprint $table) {
             $table->morphs('model');
             $table->unsignedInteger('media_id');
+            $table->string('collection_name', 100);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

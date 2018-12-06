@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class StorePostRequest extends FormRequest
 {
@@ -24,14 +23,13 @@ class StorePostRequest extends FormRequest
      */
     public function rules()
     {
-        $this->request->set('slug', str_slug($this->request->get('slug')));
         return [
-            'title'         =>  'required|string',
-            'slug'          =>  'required|string|unique:posts,slug',
-            'abstract'      =>  'required|string',
-            'body'          =>  'required|string',
-            'banner'        =>  'file',
-            'attachments.*' =>  'file',
+            'title'     =>  'required|string',
+            'slug'      =>  'required|string',
+            'abstract'  =>  'required|string',
+            'body'      =>  'required|string',
+            'banner'    =>  'numeric|exists:media,id',
+            'attach.*'  =>  'numeric|exists:media,id',
         ];
     }
 }
