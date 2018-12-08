@@ -12,25 +12,28 @@ Route::prefix('auth')->name('auth.')->group(function () {
 
 Route::name('users.')->prefix('users')->group(function () {
 
-    Route::get('/', 'UserController@index')->name('index')->middleware('acl:manage_users');
-    Route::post('/', 'UserController@store')->name('store');
+    Route::get('/', 'UserController@index')->name('index')->middleware('permission:manager_users');
+    Route::post('/', 'UserController@store')->name('store')->middleware('permission:manager_users');
 
-    Route::prefix('{user}')->group(function () {
-        Route::get('/', 'UserController@show')->name('show')->middleware('acl:user,manage_users');
-        Route::put('/', 'UserController@update')->name('update')->middleware('acl:user,manage_users');
-        Route::delete('/', 'UserController@destroy')->name('destroy')->middleware('acl:user,manage_users');
-        Route::get('roles', 'UserController@roles')->name('roles')->middleware('acl:user,manage_users');
-        Route::put('roles', 'UserController@syncRoles')->name('roles.sync')->middleware('acl:user,manage_users');
-        Route::get('permissions', 'UserController@permissions')->name('permissions')->middleware('acl:user,manage_users');
+    Route::prefix('{user}')->middleware('acl:user,manage_users')->group(function () {
+        Route::get('chats', 'ChatController@chats')->name('.chat');
+        Route::get('/', 'UserController@show')->name('show');
+        Route::put('/', 'UserController@update')->name('update');
+        Route::delete('/', 'UserController@delete')->name('delete');
+        Route::get('restore', 'UserController@restore')->name('restore');
+        Route::delete('destroy', 'UserController@destroy')->name('destroy');
+        Route::get('roles', 'UserController@roles')->name('roles');
+        Route::put('roles', 'UserController@syncRoles')->name('roles.sync');
+        Route::get('permissions', 'UserController@permissions')->name('permissions');
     });
 });
 
 Route::name('posts.')->prefix('posts')->group(function () {
 
-    Route::get('/', 'PostController@index')->name('index');
-    Route::post('/', 'PostController@store')->name('store');
+    Route::get('/', 'PostController@index')->name('index')->middleware('permission:manager_posts');
+    Route::post('/', 'PostController@store')->name('store')->middleware('permission:manager_posts');
     
-    Route::prefix('{post}')->group(function () {
+    Route::prefix('{post}')->middleware('acl:post,manage_posts')->group(function () {
         Route::get('/', 'PostController@show')->name('show');
         Route::put('/', 'PostController@update')->name('update');
         Route::delete('/', 'PostController@delete')->name('delete');

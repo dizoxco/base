@@ -50,6 +50,11 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->morphOne(Media::class, 'model');
     }
+
+    public function chats()
+    {
+        return $this->hasManyThrough(Chat::class, ChatUser::class);
+    }
     //  =============================== End Relationships =====================
 
     //  =============================== Media =================================
