@@ -16,7 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements HasMedia
 {
-    use Notifiable, SoftDeletes, HasApiTokens, HasRoles, HasMediaTrait, HasGroupedMedia;
+    use Notifiable, SoftDeletes, HasApiTokens, HasRoles, HasMediaTrait, HasMediaRelation;
 
     protected $perPage  =   2;
 
@@ -46,19 +46,13 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Post::class, 'user_id', 'id');
     }
 
-    public function comments()
+    public function avatar()
     {
-        return $this->hasMany(Comment::class, 'user_id', 'id');
+        return $this->morphOne(Media::class, 'model');
     }
-
     //  =============================== End Relationships =====================
 
     //  =============================== Media =================================
-
-    public function getAvatarAttribute()
-    {
-        return $this->getFirstMediaUrl(enum('media.user.avatar'));
-    }
 
     public function registerMediaCollections()
     {
@@ -94,7 +88,7 @@ class User extends Authenticatable implements HasMedia
             ],
             Response::HTTP_NOT_FOUND,
             [
-                'Content-Type' => JSON
+                'Content-Type' => enum('system.response.json')
             ]
         );
     }

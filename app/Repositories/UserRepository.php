@@ -141,7 +141,7 @@ class UserRepository extends BaseRepository
         }
     }
 
-    public function active(string $token)   :   int
+    public function activate(string $token)   :   int
     {
         return User::where('activation_token', '=', $token)->update([
             'active'            =>  true,
@@ -158,7 +158,8 @@ class UserRepository extends BaseRepository
         if ($user instanceof User) {
             return $user->update($data);
         }
-        $ids    =   is_array($user)? $user: [$user];
+
+        $ids    =   is_array($user) ? $user: [$user];
         return  User::whereIn('id', $ids)->update($data);
     }
 
