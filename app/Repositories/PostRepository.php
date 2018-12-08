@@ -76,7 +76,7 @@ class PostRepository extends BaseRepository
         try {
             return Post::create($data);
         } catch (Throwable $throwable) {
-            return self::NO_ROWS_AFFECTED;
+            return 0;
         }
     }
 
@@ -95,7 +95,7 @@ class PostRepository extends BaseRepository
             return  Post::whereIn('id', $ids)->delete();
 
         } catch (Exception $exception) {
-            return self::NO_ROWS_AFFECTED;
+            return 0;
         }
     }
 
@@ -114,7 +114,7 @@ class PostRepository extends BaseRepository
             return  Post::whereIn('id', $ids)->restore();
 
         } catch (Exception $exception) {
-            return self::NO_ROWS_AFFECTED;
+            return 0;
         }
     }
 
@@ -133,7 +133,7 @@ class PostRepository extends BaseRepository
             return  Post::whereIn('id', $ids)->forceDelete();
 
         } catch (Exception $exception) {
-            return self::NO_ROWS_AFFECTED;
+            return 0;
         }
     }
 
@@ -152,7 +152,7 @@ class PostRepository extends BaseRepository
             return  Post::whereIn('id', $ids)->update($data);
 
         } catch (Exception $exception) {
-            return self::NO_ROWS_AFFECTED;
+            return 0;
         }
     }
 

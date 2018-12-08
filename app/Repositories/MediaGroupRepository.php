@@ -8,8 +8,6 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class MediaGroupRepository
 {
-    const NO_ROWS_AFFECTED = 0;
-
     public function find(int $id)   :   ?MediaGroup
     {
         return MediaGroup::find($id);
@@ -45,14 +43,14 @@ class MediaGroupRepository
         try {
             return MediaGroup::create($data);
         } catch (QueryException $queryException) {
-            return self::NO_ROWS_AFFECTED;
+            return 0;
         }
     }
 
     public function update($mediaGroup, array $data)  :   int
     {
         if (empty($data)) {
-            return self::NO_ROWS_AFFECTED;
+            return 0;
         }
 
         if ($mediaGroup instanceof MediaGroup) {
@@ -73,7 +71,7 @@ class MediaGroupRepository
             return  MediaGroup::whereIn('id', $ids)->forceDelete();
 
         } catch (Exception $exception) {
-            return self::NO_ROWS_AFFECTED;
+            return 0;
         }
     }
 }

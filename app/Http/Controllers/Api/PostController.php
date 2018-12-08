@@ -26,7 +26,6 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         //  make post's slug unique
-        define('NOT_CREATED', 0);
         $slug = $this->makeSlug($request->input('slug'));
 
         $request->merge([
@@ -35,7 +34,7 @@ class PostController extends Controller
         ]);
 
         $createdPost    =   PostRepo::create($request->all());
-        if ($createdPost === NOT_CREATED) {
+        if ($createdPost === 0) {
             return new DBResource($createdPost);
         }
 
@@ -83,7 +82,6 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         //  make post's slug unique
-        define('NOT_UPDATED', 0);
         $slug = $this->makeSlug($request->input('slug'));
         $request->merge([
             'slug'      =>  $slug,
@@ -91,7 +89,7 @@ class PostController extends Controller
         ]);
 
         $updatedPost    =   PostRepo::update($post, $request->all());
-        if ($updatedPost === NOT_UPDATED) {
+        if ($updatedPost === 0) {
             return new DBResource($updatedPost);
         }
 

@@ -23,9 +23,8 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        define('NOT_CREATED', 0);
         $createdUser    =   UserRepo::create($request->except('avatar'));
-        if ($createdUser === NOT_CREATED) {
+        if ($createdUser === 0) {
             return new DBResource($createdUser);
         }
 

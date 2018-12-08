@@ -11,8 +11,6 @@ use Illuminate\Database\QueryException;
 class UserRepository extends BaseRepository
 {
 
-    const NO_ROWS_AFFECTED  =   0;
-
     public function find(int $id)   :   ?User
     {
         return User::find($id);
@@ -80,7 +78,7 @@ class UserRepository extends BaseRepository
         try {
             return  User::create($data);
         } catch (QueryException $queryException) {
-            return self::NO_ROWS_AFFECTED;
+            return 0;
         }
     }
 
@@ -99,7 +97,7 @@ class UserRepository extends BaseRepository
             return  User::whereIn('id', $ids)->delete();
 
         } catch (Exception $exception) {
-            return self::NO_ROWS_AFFECTED;
+            return 0;
         }
     }
 
@@ -118,7 +116,7 @@ class UserRepository extends BaseRepository
             return  User::whereIn('id', $ids)->restore();
 
         } catch (Exception $exception) {
-            return self::NO_ROWS_AFFECTED;
+            return 0;
         }
     }
 
@@ -137,7 +135,7 @@ class UserRepository extends BaseRepository
             return  User::whereIn('id', $ids)->forceDelete();
 
         } catch (Exception $exception) {
-            return self::NO_ROWS_AFFECTED;
+            return 0;
         }
     }
 
@@ -152,7 +150,7 @@ class UserRepository extends BaseRepository
     public function update($user, array $data)  :   int
     {
         if (empty($data)) {
-            return self::NO_ROWS_AFFECTED;
+            return 0;
         }
 
         if ($user instanceof User) {
