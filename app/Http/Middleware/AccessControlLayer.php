@@ -36,13 +36,17 @@ class AccessControlLayer
 
         if ($permission !== null) {
             $resource   =   $request->route()->parameter($routeParameter);
-            if (!$resource instanceof Model) {
-                return $this->forbidden();
+
+            if ($resource instanceof Model) {
+                if ($user->id !== $resource->user_id && !$user->hasPermissionTo($permission, 'api')) {
+                    return $this->forbidden();
+                }
             }
 
-            if ($user->id !== $resource->user_id && !$user->hasPermissionTo($permission, 'api')) {
-                return $this->forbidden();
+            if ($resource instanceof Response) {
+                return $resource;
             }
+
         }
 
         return $next($request);
@@ -61,7 +65,7 @@ class AccessControlLayer
             ],
             Response::HTTP_FORBIDDEN,
             [
-                'Content-Type' => 'application/vnd.api+json',
+                'Content-Type'  =>  enum('system.response.json'),
             ]
         );
     }
