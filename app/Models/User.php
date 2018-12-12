@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Response;
 use Spatie\MediaLibrary\File;
 use Laravel\Passport\HasApiTokens;
 use Spatie\MediaLibrary\Models\Media;
@@ -10,9 +11,9 @@ use App\Repositories\Facades\UserRepo;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Symfony\Component\HttpFoundation\Response;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements HasMedia
 {
@@ -51,9 +52,45 @@ class User extends Authenticatable implements HasMedia
         return $this->morphOne(Media::class, 'model');
     }
 
-    public function chats()
+    public function chats() : BelongsToMany
     {
-        return $this->hasManyThrough(Chat::class, ChatUser::class);
+        return $this->belongsToMany(
+            Chat::class,
+            'chat_users',
+            'user_id'
+        )->where('chats.type', '=', enum('chat.type.chat'));
+    }
+
+    public function tickets() : BelongsToMany
+    {
+        return $this->belongsToMany(
+            Chat::class,
+            'chat_users',
+            'user_id'
+        )->where('chats.type', '=', enum('chat.type.ticket'));
+    }
+
+    public function hasChatWith(int $userId) : bool
+    {
+        // fixme: equal to
+        // "select user_id from chat_users where chat_id in
+        //  (SELECT chat_id FROM `chat_users` WHERE chat_users.user_id = $this->id)
+        //  and user_id = $userId"
+        return $this->chats()->whereHas('users', function ($query) {
+            $query->where('user_id', '=', $this->id);
+        })->whereHas('users', function ($query) use ($userId) {
+            $query->where('user_id', '=', $userId);
+        })->whereType(enum('chat.type.chat'))
+            ->exists();
+    }
+
+    public function getChatWith(int $userId) : Chat
+    {
+        return $this->chats()->whereHas('users', function ($query) {
+            $query->where('user_id', '=', $this->id);
+        })->whereHas('users', function ($query) use ($userId) {
+            $query->where('user_id', '=', $userId);
+        })->whereType(enum('chat.type.chat'))->first();
     }
     //  =============================== End Relationships =====================
 
@@ -84,17 +121,6 @@ class User extends Authenticatable implements HasMedia
 
     public function resolveRouteBinding($user)
     {
-        $user   =   UserRepo::find($user);
-        return $user !== null ? $user : response(
-            [
-                'error' => [
-                    'not_found' => trans('http.not_found')
-                ]
-            ],
-            Response::HTTP_NOT_FOUND,
-            [
-                'Content-Type' => enum('system.response.json')
-            ]
-        );
+        return UserRepo::find($user);
     }
 }
