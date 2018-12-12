@@ -6,7 +6,27 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('register/activate/{token}', 'AuthController@activate')->name('activate');
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('logout', 'AuthController@logout')->name('logout');
-        Route::get('user', 'AuthController@user')->name('user');
+    });
+});
+
+Route::name('user.')->prefix('user')->middleware('auth:api')->group(function () {
+
+    Route::name('chats.')->prefix('chats')->group(function () {
+        Route::get('/', 'ChatController@index')->name('index');
+        Route::post('/', 'ChatController@store')->name('store');
+        Route::prefix('{chat}')->group(function () {
+            Route::get('/', 'ChatController@show')->name('show');
+            Route::put('/', 'ChatController@update')->name('update');
+        });
+    });
+
+    Route::name('tickets.')->prefix('tickets')->group(function () {
+        Route::get('/', 'TicketController@index')->name('index');
+        Route::post('/', 'TicketController@store')->name('store');
+        Route::prefix('{ticket}')->group(function () {
+            Route::get('/', 'TicketController@show')->name('show');
+            Route::post('/', 'TicketController@update')->name('update');
+        });
     });
 });
 
@@ -37,9 +57,17 @@ Route::name('posts.')->prefix('posts')->group(function () {
         Route::get('/', 'PostController@show')->name('show');
         Route::put('/', 'PostController@update')->name('update');
         Route::delete('/', 'PostController@delete')->name('delete');
-        Route::get('/restore', 'PostController@restore')->name('restore');
-        Route::delete('/destroy', 'PostController@destroy')->name('destroy');
+        Route::get('restore', 'PostController@restore')->name('restore');
+        Route::delete('destroy', 'PostController@destroy')->name('destroy');
         Route::post('comments', 'PostController@commentsStore')->name('comments.store');
+    });
+});
+
+Route::name('tickets.')->prefix('tickets')->group(function () {
+    Route::get('/', 'TicketController@index')->name('index');
+    Route::prefix('{ticket}')->group(function () {
+        Route::get('/', 'TicketController@show')->name('show');
+        Route::post('/', 'TicketController@update')->name('update');
     });
 });
 

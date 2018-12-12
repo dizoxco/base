@@ -41,11 +41,14 @@ class DatabaseSeeder extends Seeder
     public function permissions()
     {
         $permissions    =   [
-            //  user permissions
+            //  users permissions
             ['name' =>  'manage_users', 'guard_name'    =>  'api'],
 
-            //  post permissions
+            //  posts permissions
             ['name' =>  'manage_posts', 'guard_name'    =>  'api'],
+
+            //  tickets permissions
+            ['name' =>  'manage_tickets', 'guard_name'  =>  'api'],
         ];
         foreach ($permissions as $permission) {
             Permission::create($permission);
@@ -55,9 +58,7 @@ class DatabaseSeeder extends Seeder
     public function roles()
     {
         Role::create(['name' => 'admin', 'guard_name' => 'api'])->givePermissionTo(Permission::all());
-        Role::create(['name' => 'user', 'guard_name' => 'api'])->givePermissionTo(
-            Permission::whereName('manage_users')->first()
-        );
+        Role::create(['name' => 'user', 'guard_name' => 'api']);
     }
 
     public function passport()
