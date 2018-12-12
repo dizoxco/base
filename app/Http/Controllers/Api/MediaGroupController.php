@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Models\MediaGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\Facades\MediaGroupRepo;
 
 class MediaGroupController extends Controller
 {
