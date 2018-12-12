@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\Resource;
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class BaseCollection extends ResourceCollection
+class BaseResource extends Resource
 {
     protected $includes = [];
 
