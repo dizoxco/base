@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\Resource;
-
-class UserResource extends Resource
+class UserResource extends BaseResource
 {
 
     public function toArray($request)
@@ -15,8 +13,7 @@ class UserResource extends Resource
             'attributes'   =>  [
                 'name'              =>  $this->name,
                 'email'             =>  $this->email,
-                'created_at'        =>  $this->when($this->created_at, $this->created_at->timestamp),
-                'updated_at'        =>  $this->when($this->updated_at, $this->updated_at->timestamp),
+                $this->mergeWhen($this->dates(), $this->dates())
             ],
             'relations' =>  [
                 $this->whenLoaded('avatar', function () {
@@ -26,10 +23,22 @@ class UserResource extends Resource
                     return ['posts'     =>  $this->posts->pluck('id')];
                 }),
                 $this->whenLoaded('comments', function () {
-                    return ['comments'  =>  $this->posts->pluck('id')];
+                    return ['comments'  =>  $this->comments->pluck('id')];
                 }),
             ],
         ];
         return $resource;
+    }
+
+    private function dates()
+    {
+        $dates = [];
+        $dateColumns = ['created_at', 'updated_at'];
+        foreach ($dateColumns as $column) {
+            if ($this->{$column} !== null) {
+                $dates[$column] = $this->{$column}->timestamp;
+            }
+        }
+        return empty($dates) ? false : $dates;
     }
 }
