@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-class CommentResource
+class CommentResource extends BaseResource
 {
     public function toArray($request)
     {
@@ -16,11 +16,22 @@ class CommentResource
                 'commentable_id'    =>  $this->commentable_id,
                 'commentable_type'  =>  $this->commentable_type,
                 'verify'            =>  $this->verify,
-                'deleted_at'        =>  $this->when($this->deleted_at, $this->deleted_at->timestamp),
-                'created_at'        =>  $this->when($this->created_at, $this->created_at->timestamp),
-                'updated_at'        =>  $this->when($this->updated_at, $this->updated_at->timestamp),
+                $this->mergeWhen($this->dates(), $this->dates())
             ]
         ];
         return $resource;
+    }
+
+
+    private function dates()
+    {
+        $dates = [];
+        $dateColumns = ['deleted_at', 'created_at', 'updated_at'];
+        foreach ($dateColumns as $column) {
+            if ($this->{$column} !== null) {
+                $dates[$column] = $this->{$column}->timestamp;
+            }
+        }
+        return empty($dates) ? false : $dates;
     }
 }
