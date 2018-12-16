@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use Exception;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
-use Illuminate\Database\QueryException;
+use Throwable;
 
 class UserRepository extends BaseRepository
 {
@@ -71,12 +71,8 @@ class UserRepository extends BaseRepository
      */
     public function create(array $data)
     {
-        if (isset($data['password'])) {
-            $data['password']   =   bcrypt($data['password']);
-        }
-
         try {
-            return  User::create($data);
+            return User::create($data);
         } catch (QueryException $queryException) {
             return 0;
         }
@@ -96,7 +92,7 @@ class UserRepository extends BaseRepository
             $ids    =   is_array($user) ? $user : func_get_args();
             return  User::whereIn('id', $ids)->delete();
 
-        } catch (Exception $exception) {
+        } catch (Throwable $throwable) {
             return 0;
         }
     }
@@ -115,7 +111,7 @@ class UserRepository extends BaseRepository
             $ids    =   is_array($user) ? $user : func_get_args();
             return  User::whereIn('id', $ids)->restore();
 
-        } catch (Exception $exception) {
+        } catch (Throwable $throwable) {
             return 0;
         }
     }
@@ -134,7 +130,7 @@ class UserRepository extends BaseRepository
             $ids    =   is_array($user) ? $user : func_get_args();
             return  User::whereIn('id', $ids)->forceDelete();
 
-        } catch (Exception $exception) {
+        } catch (Throwable $throwable) {
             return 0;
         }
     }
@@ -145,6 +141,22 @@ class UserRepository extends BaseRepository
             'active'            =>  true,
             'activation_token'  =>  null,
         ]);
+    }
+
+    public function isActive($user)
+    {
+        try {
+            if ($user instanceof User) {
+                return  $user->activation_token === null;
+            }
+
+            $ids    =   is_array($user) ? $user : func_get_args();
+            return  User::whereIn('id', $ids)->get()->every(function ($user) {
+                return $user->activation_token === null;
+            });
+        } catch (Throwable $throwable) {
+            return 0;
+        }
     }
 
     public function update($user, array $data)  :   int
