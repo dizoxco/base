@@ -2,18 +2,19 @@
 
 namespace App\Models;
 
-use Response;
-use Spatie\MediaLibrary\File;
+use App\Repositories\Facades\UserRepo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Spatie\MediaLibrary\File;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
-use App\Repositories\Facades\UserRepo;
-use Illuminate\Notifications\Notifiable;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements HasMedia
 {
@@ -42,12 +43,12 @@ class User extends Authenticatable implements HasMedia
     //  =============================== End Accessor ==========================
 
     //  =============================== Relationships =========================
-    public function posts()
+    public function posts() : HasMany
     {
         return $this->hasMany(Post::class, 'user_id', 'id');
     }
 
-    public function avatar()
+    public function avatar() : MorphOne
     {
         return $this->morphOne(Media::class, 'model');
     }
@@ -118,9 +119,10 @@ class User extends Authenticatable implements HasMedia
             ->performOnCollections(enum('media.user.avatar'));
     }
     //  =============================== End Media =============================
-
+    //  =============================== Complementary Methods =================
     public function resolveRouteBinding($user)
     {
         return UserRepo::find($user);
     }
+    //  =============================== End Complementary Methods =============
 }
