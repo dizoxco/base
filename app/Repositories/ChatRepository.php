@@ -2,12 +2,13 @@
 
 namespace App\Repositories;
 
+use App\Models\Chat;
+use App\Models\Comment;
+use App\Models\User;
+use App\Repositories\Facades\UserRepo;
 use DB;
 use Illuminate\Support\Collection;
 use Throwable;
-use App\Models\Chat;
-use App\Models\User;
-use App\Repositories\Facades\UserRepo;
 
 class ChatRepository extends BaseRepository
 {
@@ -26,7 +27,7 @@ class ChatRepository extends BaseRepository
         return $user->chats()->with(['users' =>  $exceptSelfUser, 'comments'])->get();
     }
 
-    public function create(array $comment)
+    public function create(array $comment) : ?Chat
     {
         try {
             return DB::transaction(function () use ($comment) {
@@ -41,11 +42,11 @@ class ChatRepository extends BaseRepository
                 return $chat;
             });
         } catch (Throwable $throwable) {
-            return 0;
+            return null;
         }
     }
 
-    public function storeComment(Chat $chat, array $comment)
+    public function storeComment(Chat $chat, array $comment) : ?Comment
     {
         try {
             return DB::transaction(function () use ($chat, $comment) {
@@ -61,7 +62,7 @@ class ChatRepository extends BaseRepository
                 return $comment;
             });
         } catch (Throwable $throwable) {
-            return 0;
+            return null;
         }
     }
 }
