@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\ChatCollection;
-use App\Http\Resources\ChatResource;
-use App\Http\Resources\DBResource;
 use App\Models\Chat;
-use App\Repositories\Facades\ChatRepo;
 use Illuminate\Http\Request;
+use App\Http\Resources\DBResource;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ChatResource;
+use App\Http\Resources\ChatCollection;
+use App\Repositories\Facades\ChatRepo;
 
 class ChatController extends Controller
 {
@@ -21,7 +21,7 @@ class ChatController extends Controller
     {
         $createdChat = ChatRepo::create($request->all());
 
-        if ($createdChat === 0) {
+        if ($createdChat == 0) {
             return new DBResource($createdChat);
         }
 
@@ -37,7 +37,7 @@ class ChatController extends Controller
     {
         $createdComment = ChatRepo::storeComment($chat, $request->all());
 
-        if ($createdComment === 0) {
+        if ($createdComment == 0) {
             return new DBResource(0);
         }
 
