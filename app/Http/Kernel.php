@@ -6,6 +6,7 @@ use Illuminate\Auth\Middleware\Authorize;
 use App\Http\Middleware\AccessControlLayer;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Session\Middleware\StartSession;
+use Spatie\Permission\Middlewares\RoleMiddleware;
 use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Routing\Middleware\SubstituteBindings;
@@ -14,6 +15,7 @@ use Spatie\Permission\Middlewares\PermissionMiddleware;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Spatie\Permission\Middlewares\RoleOrPermissionMiddleware;
 use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 
@@ -64,13 +66,15 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'          =>  Authenticate::class,
-        'auth.basic'    =>  AuthenticateWithBasicAuth::class,
-        'bindings'      =>  SubstituteBindings::class,
-        'guest'         =>  Middleware\RedirectIfAuthenticated::class,
-        'throttle'      =>  ThrottleRequests::class,
-        'can'           =>  Authorize::class,
-        'acl'           =>  AccessControlLayer::class,
-        'permission'    =>  PermissionMiddleware::class,
+        'auth'                  =>  Authenticate::class,
+        'auth.basic'            =>  AuthenticateWithBasicAuth::class,
+        'bindings'              =>  SubstituteBindings::class,
+        'guest'                 =>  Middleware\RedirectIfAuthenticated::class,
+        'throttle'              =>  ThrottleRequests::class,
+        'can'                   =>  Authorize::class,
+        'acl'                   =>  AccessControlLayer::class,
+        'role'                  =>  RoleMiddleware::class,
+        'permission'            =>  PermissionMiddleware::class,
+        'role_or_permission'    =>  RoleOrPermissionMiddleware::class,
     ];
 }

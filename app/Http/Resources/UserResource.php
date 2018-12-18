@@ -2,35 +2,43 @@
 
 namespace App\Http\Resources;
 
-use App\Models\User;
-use Illuminate\Http\Resources\Json\Resource;
-
-class UserResource extends Resource
+class UserResource extends BaseResource
 {
 
     public function toArray($request)
     {
-        $relations = $this->getRelations();
         $resource = [
             'type'   =>  'user',
             'id'     =>  (string) $this->id,
             'attributes'   =>  [
                 'name'              =>  $this->name,
                 'email'             =>  $this->email,
-                'created_at'        =>  $this->when($this->created_at, $this->created_at->timestamp),
-                'updated_at'        =>  $this->when($this->updated_at, $this->updated_at->timestamp),
+                $this->mergeWhen($this->dates(), $this->dates())
             ],
-            $this->mergeWhen(isset($relations['posts']) && count($relations['posts']), [
-                'relations' => [
-                    'posts'             =>  $this->posts->pluck('id')
-                ]
-            ]),
-            $this->mergeWhen(isset($relations['comments']) && count($relations['comments']), [
-                'relations' => [
-                    'comments'             =>  $this->posts->pluck('id')
-                ]
-            ])
+            'relations' =>  [
+                $this->whenLoaded('avatar', function () {
+                    return ['avatar'    =>  $this->avatar];
+                }),
+                $this->whenLoaded('posts', function () {
+                    return ['posts'     =>  $this->posts->pluck('id')];
+                }),
+                $this->whenLoaded('comments', function () {
+                    return ['comments'  =>  $this->comments->pluck('id')];
+                }),
+            ],
         ];
         return $resource;
+    }
+
+    private function dates()
+    {
+        $dates = [];
+        $dateColumns = ['created_at', 'updated_at'];
+        foreach ($dateColumns as $column) {
+            if ($this->{$column} !== null) {
+                $dates[$column] = $this->{$column}->timestamp;
+            }
+        }
+        return empty($dates) ? false : $dates;
     }
 }

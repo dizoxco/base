@@ -17,7 +17,7 @@ return [
     'throttle'          =>  'Too many login attempts. Please try again in :seconds seconds.',
     'register'          =>  'Account was created for :full_name.',
     'register_failed'   =>  'Received information is incomplete.',
-    'activated'         =>  ':full_name account activated.',
+    'activated'         =>  'account activated.',
     'token_expired'     =>  'This token has expired',
 
 ];

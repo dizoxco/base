@@ -52,7 +52,7 @@ class UserControllerTest extends TestCase
 
         $response
             ->assertSuccessful()
-            ->assertHeader('Content-Type', enum('api', 'json'))
+            ->assertHeader('Content-Type', JSON)
             ->assertJsonMissingExact(['errors'])
             ->assertJson((array) $resource['data']);
     }
@@ -240,5 +240,22 @@ class UserControllerTest extends TestCase
             ->assertHeader('Content-Type', API::APPLICATION_VND_API_JSON)
             ->assertJsonMissingExact(['errors'])
             ->assertJson((array)$resource[0]['data']);
+    }
+
+    public function testUpdate()
+    {
+        $response   =   $this->auth->putJson(
+            route('api.users.update', ['user'  =>  1]),
+            [
+                'name'      =>  'test',
+                'avatar'    =>  'avatar',
+            ],
+            [
+                'Content-Type'      =>  JSON,
+                'X-Request-With'    =>  enum('system.request.xhr'),
+            ]
+        );
+
+        dd($response->content());
     }
 }

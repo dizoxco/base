@@ -41,11 +41,14 @@ class DatabaseSeeder extends Seeder
     public function permissions()
     {
         $permissions    =   [
-            //  user permissions
+            //  users permissions
             ['name' =>  'manage_users', 'guard_name'    =>  'api'],
 
-            //  post permissions
+            //  posts permissions
             ['name' =>  'manage_posts', 'guard_name'    =>  'api'],
+
+            //  tickets permissions
+            ['name' =>  'manage_tickets', 'guard_name'  =>  'api'],
         ];
         foreach ($permissions as $permission) {
             Permission::create($permission);
@@ -55,9 +58,7 @@ class DatabaseSeeder extends Seeder
     public function roles()
     {
         Role::create(['name' => 'admin', 'guard_name' => 'api'])->givePermissionTo(Permission::all());
-        Role::create(['name' => 'user', 'guard_name' => 'api'])->givePermissionTo(
-            Permission::whereName('manage_users')->first()
-        );
+        Role::create(['name' => 'user', 'guard_name' => 'api']);
     }
 
     public function passport()
@@ -67,7 +68,7 @@ class DatabaseSeeder extends Seeder
 
     public function users()
     {
-        $numbers        =   $this->command->ask('How Many Users Do You Want?', 10);
+        $numbers        =   (int) $this->command->ask('How Many Users Do You Want?', 10);
         $this->users    =   factory(User::class, $numbers)->create();
         $this->users->each(
             function (User $user) {
@@ -79,7 +80,7 @@ class DatabaseSeeder extends Seeder
 
     public function posts()
     {
-        $numbers        =   $this->command->ask('How many articles can be created per user?', 2);
+        $numbers        =   (int) $this->command->ask('How many articles can be created per user?', 2);
         $this->users->each(
             function (User $user) use ($numbers) {
                 for ($i = 1; $i <= $numbers; $i++) {
@@ -92,7 +93,7 @@ class DatabaseSeeder extends Seeder
 
     public function comments()
     {
-        $numbers        =   $this->command->ask('How many comments can be created per post?', 2);
+        $numbers        =   (int) $this->command->ask('How many comments can be created per post?', 2);
         Post::all()->each(function (Post $post) use ($numbers) {
             for ($i = 1; $i <= $numbers; $i++) {
                 $post->comments()->create(factory(Comment::class)->make(

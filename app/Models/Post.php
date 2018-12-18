@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\File;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
-    use SoftDeletes;
+    use SoftDeletes, HasMediaTrait, HasMediaRelation;
 
     protected $perPage  =   10;
 
@@ -29,12 +33,49 @@ class Post extends Model
 
     public function comments()
     {
-        return $this->morphMany(Comment::class, 'commentable');
+        return $this->morphMany(Comment::class, 'commentable')->where('id', 1);
     }
 
-    public function tags()
+    public function banner()
     {
-//        return $this->morphToMany(Tag::class, 'taggables');
+        return $this->hasManyThrough(
+            Media::class,
+            MediaRelation::class,
+            'model_id',
+            'id',
+            'id',
+            'media_id'
+        )
+            ->where('media_relations.model_type', self::class)
+            ->where('media_relations.collection_name', enum('media.post.banner'));
+    }
+    public function attaches()
+    {
+        return $this->hasManyThrough(
+            Media::class,
+            MediaRelation::class,
+            'model_id',
+            'id',
+            'id',
+            'media_id'
+        )
+            ->where('media_relations.model_type', self::class)
+            ->where('media_relations.collection_name', enum('media.post.attach'));
     }
     //  =============================== End Relationships =====================
+
+    public function registerMediaCollections()
+    {
+        //  Register media collection for avatar that only accepts images
+        $this->addMediaCollection(enum('media.post.banner'))
+            ->acceptsFile(function (File $file) {
+                $allowedMimes  =   [
+                    'image/jpeg','image/png','image/tiff','image/bmp',
+                ];
+                return in_array($file->mimeType, $allowedMimes);
+            })
+            ->singleFile();
+
+        $this->addMediaCollection(enum('media.post.attach'));
+    }
 }

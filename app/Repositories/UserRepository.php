@@ -2,17 +2,14 @@
 
 namespace App\Repositories;
 
-use Exception;
-use Log;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
-use Illuminate\Database\QueryException;
+use Throwable;
 
 class UserRepository extends BaseRepository
 {
-
-    const NO_ROWS_AFFECTED  =   0;
 
     public function find(int $id)   :   ?User
     {
@@ -67,23 +64,23 @@ class UserRepository extends BaseRepository
             ->get();
     }
 
+
     /**
      * @param array $data
-     * @return User|int
+     * @return User|\Illuminate\Database\Eloquent\Model|int
      */
     public function create(array $data)
     {
         try {
-            return  User::create($data);
+            return User::create($data);
         } catch (QueryException $queryException) {
-            Log::error($queryException->getMessage());
-            return self::NO_ROWS_AFFECTED;
+            return 0;
         }
     }
 
     /**
      * @param User|array $user
-     * @return bool|int
+     * @return bool|int|null
      */
     public function delete($user)
     {
@@ -95,8 +92,8 @@ class UserRepository extends BaseRepository
             $ids    =   is_array($user) ? $user : func_get_args();
             return  User::whereIn('id', $ids)->delete();
 
-        } catch (Exception $exception) {
-            return self::NO_ROWS_AFFECTED;
+        } catch (Throwable $throwable) {
+            return 0;
         }
     }
 
@@ -114,8 +111,8 @@ class UserRepository extends BaseRepository
             $ids    =   is_array($user) ? $user : func_get_args();
             return  User::whereIn('id', $ids)->restore();
 
-        } catch (Exception $exception) {
-            return self::NO_ROWS_AFFECTED;
+        } catch (Throwable $throwable) {
+            return 0;
         }
     }
 
@@ -133,12 +130,12 @@ class UserRepository extends BaseRepository
             $ids    =   is_array($user) ? $user : func_get_args();
             return  User::whereIn('id', $ids)->forceDelete();
 
-        } catch (Exception $exception) {
-            return self::NO_ROWS_AFFECTED;
+        } catch (Throwable $throwable) {
+            return 0;
         }
     }
 
-    public function active(string $token)   :   int
+    public function activate(string $token)   :   int
     {
         return User::where('activation_token', '=', $token)->update([
             'active'            =>  true,
@@ -146,12 +143,33 @@ class UserRepository extends BaseRepository
         ]);
     }
 
+    public function isActive($user)
+    {
+        try {
+            if ($user instanceof User) {
+                return  $user->activation_token === null;
+            }
+
+            $ids    =   is_array($user) ? $user : func_get_args();
+            return  User::whereIn('id', $ids)->get()->every(function ($user) {
+                return $user->activation_token === null;
+            });
+        } catch (Throwable $throwable) {
+            return 0;
+        }
+    }
+
     public function update($user, array $data)  :   int
     {
+        if (empty($data)) {
+            return 0;
+        }
+
         if ($user instanceof User) {
             return $user->update($data);
         }
-        $ids    =   is_array($user)? $user: [$user];
+
+        $ids    =   is_array($user) ? $user: [$user];
         return  User::whereIn('id', $ids)->update($data);
     }
 

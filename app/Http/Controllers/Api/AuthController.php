@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\User\UserStoreEvent;
 use App\Models\User;
+use Laravel\Passport\PersonalAccessTokenFactory;
 use Laravel\Passport\Token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -93,7 +95,8 @@ class AuthController extends Controller
      */
     public function register(StoreUserRequest $request)
     {
-        if (UserRepo::create($request->all())) {
+        if ($user = UserRepo::create($request->all())) {
+            event(new UserStoreEvent($user));
             return response()->json(
                 [
                     'message' => trans('auth.register', [
@@ -122,12 +125,10 @@ class AuthController extends Controller
      */
     public function activate(Request $request, $token)
     {
-        if (UserRepo::active($token)) {
+        if (UserRepo::activate($token)) {
             return response()->json(
                 [
-                    'message' => trans('auth.activated', [
-                        'full_name' =>  $request->user('api')->fullname
-                    ])
+                    'message' => trans('auth.activated')
                 ],
                 Response::HTTP_OK
             );
