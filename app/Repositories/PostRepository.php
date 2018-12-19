@@ -3,25 +3,30 @@
 namespace App\Repositories;
 
 use App\Models\Post;
+use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
+use Throwable;
 
-class PostRepository
+class PostRepository extends BaseRepository
 {
 
-    public function find(int $id)   :   ?User
+    const NO_ROWS_AFFECTED  =   0;
+
+    public function find(int $id)   :   ?Post
     {
-        return User::find($id)->first();
+        return Post::find($id);
     }
 
-    public function findByEmail(string $email)  :   ?User
+    public function findByTitle(string $title)  :   ?Post
     {
-        return User::whereEmail($email)->first();
+        return Post::whereTitle($title)->first();
     }
 
     public function searchBy(array $columns, string $value) :   Collection
     {
-        $builder    =   User::query();
+        $builder    =   Post::query();
         foreach ($columns as $column) {
             $builder->orWhere(
                 function ($query) use ($column, $value) {
@@ -32,55 +37,132 @@ class PostRepository
         return $builder->get();
     }
 
-    public function getAll()    :   Collection
+    public function getAll($params = [])    :   Collection
     {
-        return QueryBuilder::for(Post::query())
-            ->allowedFilters(['name', 'email'])
-            ->allowedIncludes(['posts', 'comments'])
-            ->allowedSorts(['created_at'])
-            ->get();
+        $posts  =   QueryBuilder::for(Post::query())
+            ->allowedFilters(['title', 'slug'])
+            ->allowedIncludes(['post', 'comments'])
+            ->allowedSorts(['created_at','updated_at','deleted_at','published_at']);
+        $this->applyParams($posts, $params);
+        return $posts->get();
     }
 
     public function getBy(string $column, string $value)  :   Collection
     {
-        return QueryBuilder::for(User::query())
-            ->allowedFilters(['name', 'email'])
-            ->allowedIncludes(['posts', 'comments'])
-            ->allowedSorts(['created_at'])
+        return QueryBuilder::for(Post::query())
+            ->allowedFilters(['title', 'slug'])
+            ->allowedIncludes(['post', 'comments'])
+            ->allowedSorts(['created_at','updated_at','deleted_at','published_at'])
             ->where($column, '=', $value)
             ->get();
     }
 
     public function getTrashed()    :   Collection
     {
-        return QueryBuilder::for(User::query())
-            ->allowedFilters(['name', 'email'])
-            ->allowedIncludes(['posts', 'comments'])
-            ->allowedSorts(['created_at'])
+        return QueryBuilder::for(Post::query())
+            ->allowedFilters(['title', 'slug'])
+            ->allowedIncludes(['post', 'comments'])
+            ->allowedSorts(['created_at','updated_at','deleted_at','published_at'])
             ->onlyTrashed()
             ->get();
     }
 
-    public function store(array $data) :   User
+    /**
+     * @param array $data
+     * @return Post|\Illuminate\Database\Eloquent\Model|int
+     */
+    public function create(array $data)
     {
-        return  User::create($data);
+        try {
+            return Post::create($data);
+        } catch (Throwable $throwable) {
+            return 0;
+        }
     }
 
-    public function delete($user)    :   bool
+    /**
+     * @param $post
+     * @return bool|int|null
+     * @throws \Exception
+     */
+    public function delete($post)
     {
-        if ($user instanceof User){
-            return  $user::delete();
+        try {
+            if ($post instanceof Post) {
+                return  $post->delete();
+            }
+            $ids    =   is_array($post) ? $post : func_get_args();
+            return  Post::whereIn('id', $ids)->delete();
+
+        } catch (Exception $exception) {
+            return 0;
         }
-        $ids    =   is_array($user) ? $user : func_get_args();
-        return  User::whereIn('id', $ids)->delete();
     }
 
-    public function update($user, array $data)  :   bool
+    /**
+     * @param Post|array $post
+     * @return bool|int
+     */
+    public function restore($post)
     {
-        if ($user instanceof User) {
-            return $user->update($data);
+        try {
+            if ($post instanceof Post) {
+                return  $post->restore();
+            }
+
+            $ids    =   is_array($post) ? $post : func_get_args();
+            return  Post::whereIn('id', $ids)->restore();
+
+        } catch (Exception $exception) {
+            return 0;
         }
-        $ids    =   is_array($user) ?: [$user];
-        return  User::whereIn('id', $user)->update($data);
+    }
+
+    /**
+     * @param Post|array $post
+     * @return bool|int
+     */
+    public function destroy($post)
+    {
+        try {
+            if ($post instanceof Post) {
+                return  $post->forceDelete();
+            }
+
+            $ids    =   is_array($post) ? $post : func_get_args();
+            return  Post::whereIn('id', $ids)->forceDelete();
+
+        } catch (Exception $exception) {
+            return 0;
+        }
+    }
+
+    /**
+     * @param $post
+     * @param array $data
+     * @return bool|int
+     */
+    public function update($post, array $data)
+    {
+        try {
+            if ($post instanceof Post) {
+                return $post->update($data);
+            }
+            $ids    =   is_array($post) ?: [$post];
+            return  Post::whereIn('id', $ids)->update($data);
+
+        } catch (Exception $exception) {
+            return 0;
+        }
+    }
+
+    public function user(Post $post)    :   User
+    {
+        return $post->user;
+    }
+
+    public function comment(Post $post)   :   Collection
+    {
+        return $post->comments;
     }
 }

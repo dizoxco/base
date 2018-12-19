@@ -3,15 +3,17 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
+use Throwable;
 
 class UserRepository extends BaseRepository
 {
 
     public function find(int $id)   :   ?User
     {
-        return User::find($id)->first();
+        return User::find($id);
     }
 
     public function findByEmail(string $email)  :   ?User
@@ -62,30 +64,116 @@ class UserRepository extends BaseRepository
             ->get();
     }
 
-    public function store(array $data) :   User
-    {
-        return  User::create($data);
-    }
 
-    public function delete($user)    :   bool
+    /**
+     * @param array $data
+     * @return User|\Illuminate\Database\Eloquent\Model|int
+     */
+    public function create(array $data)
     {
-        if ($user instanceof User){
-            return  $user::delete();
+        try {
+            return User::create($data);
+        } catch (QueryException $queryException) {
+            return 0;
         }
-        $ids    =   is_array($user) ? $user : func_get_args();
-        return  User::whereIn('id', $ids)->delete();
     }
 
-    public function update($user, array $data)
+    /**
+     * @param User|array $user
+     * @return bool|int|null
+     */
+    public function delete($user)
     {
+        try {
+            if ($user instanceof User) {
+                return  $user->delete();
+            }
+
+            $ids    =   is_array($user) ? $user : func_get_args();
+            return  User::whereIn('id', $ids)->delete();
+
+        } catch (Throwable $throwable) {
+            return 0;
+        }
+    }
+
+    /**
+     * @param User|array $user
+     * @return bool|int
+     */
+    public function restore($user)
+    {
+        try {
+            if ($user instanceof User) {
+                return  $user->restore();
+            }
+
+            $ids    =   is_array($user) ? $user : func_get_args();
+            return  User::whereIn('id', $ids)->restore();
+
+        } catch (Throwable $throwable) {
+            return 0;
+        }
+    }
+
+    /**
+     * @param User|array $user
+     * @return bool|int
+     */
+    public function destroy($user)
+    {
+        try {
+            if ($user instanceof User) {
+                return  $user->forceDelete();
+            }
+
+            $ids    =   is_array($user) ? $user : func_get_args();
+            return  User::whereIn('id', $ids)->forceDelete();
+
+        } catch (Throwable $throwable) {
+            return 0;
+        }
+    }
+
+    public function activate(string $token)   :   int
+    {
+        return User::where('activation_token', '=', $token)->update([
+            'active'            =>  true,
+            'activation_token'  =>  null,
+        ]);
+    }
+
+    public function isActive($user)
+    {
+        try {
+            if ($user instanceof User) {
+                return  $user->activation_token === null;
+            }
+
+            $ids    =   is_array($user) ? $user : func_get_args();
+            return  User::whereIn('id', $ids)->get()->every(function ($user) {
+                return $user->activation_token === null;
+            });
+        } catch (Throwable $throwable) {
+            return 0;
+        }
+    }
+
+    public function update($user, array $data)  :   int
+    {
+        if (empty($data)) {
+            return 0;
+        }
+
         if ($user instanceof User) {
             return $user->update($data);
         }
-        $ids    =   is_array($user)? $user: [$user];
+
+        $ids    =   is_array($user) ? $user: [$user];
         return  User::whereIn('id', $ids)->update($data);
     }
 
-    public function posts($user)
+    public function posts($user)    :   Collection
     {
         return $user->posts;
     }

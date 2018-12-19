@@ -2,12 +2,13 @@
 
 namespace App\Repositories\Facades;
 
+use App\Repositories\TicketRepository;
 use Illuminate\Support\Facades\Facade;
 
-class PostRepo extends Facade
+class TicketRepo extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \App\Repositories\PostRepository::class;
+        return TicketRepository::class;
     }
 }
