@@ -11,11 +11,18 @@
     },
     "devDependencies": {
         "axios": "^0.17",
+        "babel-preset-react": "^6.24.1",
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
+        "react": "^16.6.3",
+        "react-dom": "^16.6.3",
+        "react-redux": "^6.0.0",
+        "react-router-dom": "^4.3.1",
+        "redux": "^4.0.1",
+        "tailwindcss": "^0.7.3",
         "vue": "^2.5.7"
     }
 }
