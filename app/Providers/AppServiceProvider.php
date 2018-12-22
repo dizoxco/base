@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
             if (request()->isXmlHttpRequest()) {
                 return Response::make(
                     [
-                        'error' => ['not_found' => trans('http.not_found')]
+                        'errors' => ['not_found' => trans('http.not_found')]
                     ],
                     HTTP::HTTP_NOT_FOUND,
                     [
