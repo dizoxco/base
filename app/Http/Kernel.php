@@ -2,22 +2,20 @@
 
 namespace App\Http;
 
-use Illuminate\Auth\Middleware\Authorize;
 use App\Http\Middleware\AccessControlLayer;
+use App\Http\Middleware\CustomHttpHeaders;
 use Illuminate\Auth\Middleware\Authenticate;
-use Illuminate\Session\Middleware\StartSession;
-use Spatie\Permission\Middlewares\RoleMiddleware;
-use Illuminate\Routing\Middleware\ThrottleRequests;
-use Illuminate\Foundation\Http\Kernel as HttpKernel;
-use Illuminate\Routing\Middleware\SubstituteBindings;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Spatie\Permission\Middlewares\PermissionMiddleware;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
-use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Spatie\Permission\Middlewares\RoleOrPermissionMiddleware;
+use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
+use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Routing\Middleware\ThrottleRequests;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class Kernel extends HttpKernel
 {
@@ -34,6 +32,8 @@ class Kernel extends HttpKernel
         Middleware\TrimStrings::class,
         ConvertEmptyStringsToNull::class,
         Middleware\TrustProxies::class,
+        //  Add content-type : application/vnd.api+json to every response
+        CustomHttpHeaders::class
     ];
 
     /**
@@ -73,8 +73,8 @@ class Kernel extends HttpKernel
         'throttle'              =>  ThrottleRequests::class,
         'can'                   =>  Authorize::class,
         'acl'                   =>  AccessControlLayer::class,
-        'role'                  =>  RoleMiddleware::class,
-        'permission'            =>  PermissionMiddleware::class,
-        'role_or_permission'    =>  RoleOrPermissionMiddleware::class,
+        'role'                  =>  \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission'            =>  \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'role_or_permission'    =>  \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
     ];
 }
