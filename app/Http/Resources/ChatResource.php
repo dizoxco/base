@@ -30,11 +30,11 @@ class ChatResource extends BaseResource
     public function included()
     {
         return [
+            $this->whenLoaded('users', function () {
+                return ['users'     =>  new UserCollection($this->users)];
+            }),
             $this->whenLoaded('comments', function () {
                 return ['comments'  =>  new CommentCollection($this->comments)];
-            }),
-            $this->whenLoaded('users', function () {
-                return ['users'     =>  $this->users->pluck('id')];
             }),
         ];
     }

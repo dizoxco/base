@@ -42,5 +42,7 @@ class Chat extends Model
                 return $result;
             }
         }
+
+        return null;
     }
 }
