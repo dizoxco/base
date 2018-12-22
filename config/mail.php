@@ -5,8 +5,8 @@ return array(
     "host" => "smtp.mailtrap.io",
     "port" => 2525,
     "from" => array(
-        "address" => "from@example.com",
-        "name" => "Example"
+        "address" => "noreply@larabase.dev",
+        "name" => "Larabase Administration"
     ),
     "username" => "5593db13773ba5",
     "password" => "32d59f0010acc4",

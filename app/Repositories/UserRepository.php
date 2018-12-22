@@ -147,7 +147,7 @@ class UserRepository extends BaseRepository
     {
         try {
             if ($user instanceof User) {
-                return  $user->activation_token === null;
+                return  $this->find($user->id)->activation_token === null;
             }
 
             $ids    =   is_array($user) ? $user : func_get_args();
