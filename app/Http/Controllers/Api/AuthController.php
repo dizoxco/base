@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\User\UserStoreEvent;
-use App\Models\User;
-use Laravel\Passport\PersonalAccessTokenFactory;
-use Laravel\Passport\Token;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
-use App\Repositories\Facades\UserRepo;
 use App\Http\Requests\User\PostLoginRequest;
 use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Resources\UserResource;
+use App\Models\User;
+use App\Repositories\Facades\UserRepo;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Passport\Token;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -42,6 +41,7 @@ class AuthController extends Controller
         /** @var Token $token */
         $token          =   $tokenResult->token;
 
+        //  todo: test with remember me
         if ($request->filled('remember_me')) {
             $token->expires_at  =   now()->addWeek();
         }
@@ -62,28 +62,15 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        /** @var User $user */
-        $user   =   Auth::user();
+        $user   =   auth_user();
         $user->tokens()->each(function (Token $token) {
             $token->revoke();
         });
-        Auth::logout();
         return [
             'errors'    =>  [
                 'auth'  =>  [trans('auth.logout')]
             ]
         ];
-    }
-
-    /**
-     * Get the authenticated User
-     *
-     * @param Request $request
-     * @return UserResource
-     */
-    public function user(Request $request)
-    {
-        return new UserResource($request->user());
     }
 
     /**
@@ -95,13 +82,17 @@ class AuthController extends Controller
      */
     public function register(StoreUserRequest $request)
     {
-        if ($user = UserRepo::create($request->all())) {
+        $request->merge([
+            'activation_token'  =>  str_random(32)
+        ]);
+        if ($user = UserRepo::create($request->except('avatar'))) {
+            if ($request->hasFile('avatar')) {
+                $user->addMediaFromRequest('avatar')->toMediaCollection(enum('media.user.avatar'));
+            }
             event(new UserStoreEvent($user));
             return response()->json(
                 [
-                    'message' => trans('auth.register', [
-                        'full_name' =>  $request->user('api')->fullname
-                    ])
+                    'message' => trans('auth.register')
                 ],
                 Response::HTTP_CREATED
             );

@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\User\UserStoreEvent;
-use App\Models\User;
-use App\Http\Resources\DBResource;
-use App\Http\Resources\UserResource;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\RoleCollection;
-use App\Http\Resources\UserCollection;
-use App\Repositories\Facades\UserRepo;
-use App\Http\Resources\PermissionCollection;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Resources\DBResource;
+use App\Http\Resources\PermissionCollection;
+use App\Http\Resources\RoleCollection;
+use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
+use App\Models\User;
+use App\Repositories\Facades\UserRepo;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
