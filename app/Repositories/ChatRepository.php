@@ -51,7 +51,7 @@ class ChatRepository extends BaseRepository
         try {
             return DB::transaction(function () use ($chat, $comment) {
                 $comment = $chat->comments()->create([
-                    'body'      =>  $comment['body'],
+                    'body'      =>  $comment['body'] ?? null,
                     'user_id'   =>  auth_user()->id
                 ]);
 

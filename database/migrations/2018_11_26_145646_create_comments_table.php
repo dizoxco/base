@@ -17,7 +17,7 @@ class CreateCommentsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('parent_id')->default(0);
-            $table->text('body');
+            $table->text('body')->nullable();
             $table->morphs('commentable');
             $table->unsignedTinyInteger('stat')->nullable();
             $table->softDeletes();

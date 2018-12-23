@@ -37,7 +37,7 @@ Route::middleware('auth:api')->group(function () {
         Route::post('/', 'UserController@store')->name('store')->middleware('permission:manage_users');
 
         Route::prefix('{user}')->middleware('acl:user,manage_users')->group(function () {
-            Route::get('chats', 'ChatController@chats')->name('.chat');
+            Route::get('chats', 'ChatController@chats')->name('chat');
             Route::get('/', 'UserController@show')->name('show');
             Route::put('/', 'UserController@update')->name('update');
             Route::delete('/', 'UserController@delete')->name('delete');
