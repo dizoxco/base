@@ -21,6 +21,9 @@ class PermissionsTableSeeder extends Seeder
 
             //  tickets permissions
             ['name' =>  'manage_tickets', 'guard_name'  =>  'api'],
+
+            //  search panels permissions
+            ['name' =>  'manage_search_panels', 'guard_name'  =>  'api'],
         ];
         foreach ($permissions as $permission) {
             Permission::create($permission);
