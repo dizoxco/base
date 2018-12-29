@@ -19,8 +19,10 @@ class UserCollection extends BaseCollection
                     }
                 }
             }
+
             return (new UserResource($user))->additional($this->additional);
         });
+
         return parent::toArray($request);
     }
 }

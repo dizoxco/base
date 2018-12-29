@@ -22,8 +22,10 @@ class RoleCollection extends BaseCollection
                     }
                 }
             }
+
             return (new RoleResource($role))->additional($this->additional);
         });
+
         return parent::toArray($request);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Chat;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class StoreChatRequest extends FormRequest
 {
@@ -29,7 +29,7 @@ class StoreChatRequest extends FormRequest
                 'required',
                 'integer',
                 'exists:users,id',
-                Rule::notIn([auth_user()->id])
+                Rule::notIn([auth_user()->id]),
             ],
             'body'      =>  'required_without:file|string',
             'file'      =>  'required_without:body|file',

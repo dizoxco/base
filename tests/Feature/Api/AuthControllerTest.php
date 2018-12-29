@@ -2,20 +2,20 @@
 
 namespace Test\Feature\Api;
 
-use App\Events\User\UserStoreEvent;
-use App\Models\User;
-use App\Repositories\Facades\UserRepo;
 use Event;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
+use App\Models\User;
+use App\Events\User\UserStoreEvent;
+use Illuminate\Support\Facades\Auth;
+use App\Repositories\Facades\UserRepo;
+use Illuminate\Foundation\Testing\WithFaker;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthControllerTest extends TestCase
 {
     use WithFaker;
 
-    protected   $providedData;
+    protected $providedData;
 
     protected function setUp()
     {
@@ -46,12 +46,13 @@ class AuthControllerTest extends TestCase
     protected function dataProvider()
     {
         $password = str_random(6);
-        $this->providedData =   [
+        $this->providedData = [
             'name'                  =>  $this->faker()->firstName,
             'email'                 =>  $this->faker()->email,
             'password'              =>  $password,
             'password_confirmation' =>  $password,
         ];
+
         return $this;
     }
 
@@ -79,35 +80,35 @@ class AuthControllerTest extends TestCase
     {
         $this->clearConfigurationCache()->installPassport();
 
-        $user       =   factory(User::class)->create();
-        $credential =   [
+        $user = factory(User::class)->create();
+        $credential = [
             'email'     =>  $user->email,
             'password'  =>  '123456',
         ];
-        $response   =   $this->postJson($this->routeLogin(), $credential);
+        $response = $this->postJson($this->routeLogin(), $credential);
         $response->assertSuccessful()
             ->assertJsonStructure(['access_token', 'token_type', 'expires_at']);
 
         $this->assertAuthenticated();
     }
-    
+
     /**
      * @group auth.login
      * @test Let's check that it can reject a non-existed user from logging in
      */
     public function it_must_invalid_user_can_not_enter()
     {
-        $credential =   [
+        $credential = [
             'email'     =>  $this->faker->safeEmail,
             'password'  =>  $this->faker->numerify('######'),
         ];
-        $response   =   $this->postJson($this->routeLogin(), $credential);
+        $response = $this->postJson($this->routeLogin(), $credential);
         $response->assertStatus(Response::HTTP_NOT_FOUND)
             ->assertJsonValidationErrors(['email'])
             ->assertExactJson([
                 'errors'    =>  [
-                    'email' =>  [trans('auth.failed')]
-                ]
+                    'email' =>  [trans('auth.failed')],
+                ],
             ]);
     }
 
@@ -118,10 +119,10 @@ class AuthControllerTest extends TestCase
     public function it_should_the_logged_in_user_can_exit()
     {
         // fixme: the logout in real world works but in the tests not work
-        $response   =   $this->login()->getJson($this->routeLogOut());
+        $response = $this->login()->getJson($this->routeLogOut());
         $response->assertJsonStructure(['errors']);
         $this->assertGuest('api');
-        $response   =   $this->withMiddleware()->getJson(route('api.users.index'));
+        $response = $this->withMiddleware()->getJson(route('api.users.index'));
         $response->assertJsonStructure(['message'   =>   'Unauthenticated']);
     }
 
@@ -131,13 +132,13 @@ class AuthControllerTest extends TestCase
      */
     public function it_must_the_user_who_is_not_logged_in_can_not_log_out()
     {
-        $headers    =   [
+        $headers = [
             'Accept'            =>  enum('system.response.json'),
             'Content-Type'      =>  enum('system.response.json'),
-            'X-Requested-With'  =>  enum('system.request.xhr')
+            'X-Requested-With'  =>  enum('system.request.xhr'),
         ];
 
-        $response   =   $this->withHeaders($headers)->getJson($this->routeLogOut());
+        $response = $this->withHeaders($headers)->getJson($this->routeLogOut());
         $response->assertJsonStructure(['message'])
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertHeader('X-RateLimit-Limit', 60)
@@ -151,14 +152,14 @@ class AuthControllerTest extends TestCase
      */
     public function the_user_can_not_register_without_a_name()
     {
-        $response   =   $this->postJson(
+        $response = $this->postJson(
             $this->routeRegister(),
             $this->dataProvider()->without('name')
         );
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonStructure(['message', 'errors'])
             ->assertJsonValidationErrors('name');
-        
+
         Event::assertNotDispatched(UserStoreEvent::class);
     }
 
@@ -168,14 +169,14 @@ class AuthControllerTest extends TestCase
      */
     public function the_user_can_not_register_without_a_email()
     {
-        $response   =   $this->postJson(
+        $response = $this->postJson(
             $this->routeRegister(),
             $this->dataProvider()->without('email')
         );
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonStructure(['message', 'errors'])
             ->assertJsonValidationErrors('email');
-        
+
         Event::assertNotDispatched(UserStoreEvent::class);
     }
 
@@ -185,13 +186,13 @@ class AuthControllerTest extends TestCase
      */
     public function the_user_can_not_register_with_an_invalid_email()
     {
-        $data           =   $this->dataProvider()->without('email');
-        $data['email']  =   str_random();
-        $response   =   $this->postJson($this->routeRegister(), $data);
+        $data = $this->dataProvider()->without('email');
+        $data['email'] = str_random();
+        $response = $this->postJson($this->routeRegister(), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonStructure(['message', 'errors'])
             ->assertJsonValidationErrors('email');
-        
+
         Event::assertNotDispatched(UserStoreEvent::class);
     }
 
@@ -201,14 +202,14 @@ class AuthControllerTest extends TestCase
      */
     public function the_user_can_not_register_with_a_duplicate_email()
     {
-        $user           =   factory(User::class)->create();
-        $data           =   $this->dataProvider()->without('email');
-        $data['email']  =   $user->email;
+        $user = factory(User::class)->create();
+        $data = $this->dataProvider()->without('email');
+        $data['email'] = $user->email;
         $response = $this->postJson($this->routeRegister(), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonStructure(['message', 'errors'])
             ->assertJsonValidationErrors('email');
-        
+
         Event::assertNotDispatched(UserStoreEvent::class);
     }
 
@@ -225,7 +226,7 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonStructure(['message', 'errors'])
             ->assertJsonValidationErrors('password');
-        
+
         Event::assertNotDispatched(UserStoreEvent::class);
     }
 
@@ -235,15 +236,15 @@ class AuthControllerTest extends TestCase
      */
     public function the_user_can_not_register_with_none_string_password()
     {
-        $data           =   $this->dataProvider()->without('password');
-        $nonStringValue =   [null , true, false, []];
+        $data = $this->dataProvider()->without('password');
+        $nonStringValue = [null, true, false, []];
         foreach ($nonStringValue as $value) {
-            $data['password']   =   $value;
+            $data['password'] = $value;
             $response = $this->postJson($this->routeRegister(), $data);
             $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertJsonStructure(['message', 'errors'])
                 ->assertJsonValidationErrors('password');
-            
+
             Event::assertNotDispatched(UserStoreEvent::class);
         }
     }
@@ -254,11 +255,11 @@ class AuthControllerTest extends TestCase
      */
     public function the_user_can_not_register_with_a_less_than_six_character_password()
     {
-        $data       =   $this->dataProvider()->without('password');
-        
+        $data = $this->dataProvider()->without('password');
+
         for ($i = 0; $i < 6; $i++) {
-            $data['password']   =   str_random($i);
-            $response           =   $this->postJson($this->routeRegister(), $data);
+            $data['password'] = str_random($i);
+            $response = $this->postJson($this->routeRegister(), $data);
             $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertJsonStructure(['message', 'errors'])
                 ->assertJsonValidationErrors('password');
@@ -282,19 +283,17 @@ class AuthControllerTest extends TestCase
         Event::assertNotDispatched(UserStoreEvent::class);
     }
 
-
     /**
      * @group auth.register
      * @test Let's check that it can register a non existed user or not
      */
     public function it_should_register_a_non_existed_user()
     {
-        
         $data = $this->dataProvider()->getData();
-        $response   =   $this->postJson($this->routeRegister(),$data);
+        $response = $this->postJson($this->routeRegister(), $data);
         $response->assertStatus(Response::HTTP_CREATED)
             ->assertJson([
-                'message'   =>  trans('auth.register')
+                'message'   =>  trans('auth.register'),
             ]);
 
         $this->assertDatabaseHas('users', [
@@ -302,10 +301,10 @@ class AuthControllerTest extends TestCase
             'email' =>  $data['email'],
         ]);
 
-        $user   =   User::first();
+        $user = User::first();
         $this->assertNotNull($user->activation_token);
         Event::assertDispatched(UserStoreEvent::class, function ($event) use ($user) {
-           return $event->user->is($user);
+            return $event->user->is($user);
         });
     }
 
@@ -315,9 +314,9 @@ class AuthControllerTest extends TestCase
      */
     public function it_should_active_a_non_activated_registered_user()
     {
-        $user       =   factory(User::class)->create();
-        $uri        =   route('api.auth.activate', ['token' =>  $user->activation_token]);
-        $response   =   $this->getJson($uri);
+        $user = factory(User::class)->create();
+        $uri = route('api.auth.activate', ['token' =>  $user->activation_token]);
+        $response = $this->getJson($uri);
         $response->assertSuccessful()->assertJsonStructure(['message']);
         $this->assertTrue(UserRepo::isActive($user->id));
     }
@@ -328,15 +327,15 @@ class AuthControllerTest extends TestCase
      */
     public function an_active_user_should_not_be_reactivated()
     {
-        $user       =   factory(User::class)->create();
-        $uri        =   route('api.auth.activate', ['token' =>  $user->activation_token]);
-        $response   =   $this->getJson($uri);
+        $user = factory(User::class)->create();
+        $uri = route('api.auth.activate', ['token' =>  $user->activation_token]);
+        $response = $this->getJson($uri);
         $response->assertSuccessful()->assertJson(['message'   =>  trans('auth.activated')]);
         $this->assertTrue(UserRepo::isActive($user));
 
-        $second_response    =   $this->getJson($uri);
+        $second_response = $this->getJson($uri);
         $second_response->assertStatus(Response::HTTP_BAD_REQUEST)->assertJson([
-            'message'   =>  trans('auth.token_expired')
+            'message'   =>  trans('auth.token_expired'),
         ]);
         $this->assertTrue(UserRepo::isActive($user));
     }
@@ -347,21 +346,21 @@ class AuthControllerTest extends TestCase
      */
     public function it_should_not_active_a_user_with_null_or_invalid_token()
     {
-        $auth       =   $this->login();
-        $user_id    =   Auth::id();
-        $tokens     =   [null, true, false, str_random(32)];
+        $auth = $this->login();
+        $user_id = Auth::id();
+        $tokens = [null, true, false, str_random(32)];
         foreach ($tokens as $token) {
-            $uri        =   route('api.auth.activate', ['token' =>  $token]);
-            $response   =   $auth->getJson($uri);
+            $uri = route('api.auth.activate', ['token' =>  $token]);
+            $response = $auth->getJson($uri);
             if (empty($token)) {
                 $response->assertStatus(Response::HTTP_NOT_FOUND)
                     ->assertJson([
-                        'message'   =>  trans('http.not_found')
+                        'message'   =>  trans('http.not_found'),
                     ]);
             } else {
                 $response->assertStatus(Response::HTTP_BAD_REQUEST)
                     ->assertJson([
-                        'message'   =>  trans('auth.token_expired')
+                        'message'   =>  trans('auth.token_expired'),
                     ]);
             }
         }

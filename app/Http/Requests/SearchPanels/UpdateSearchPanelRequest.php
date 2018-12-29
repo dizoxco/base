@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\SearchPanels;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateSearchPanelRequest extends FormRequest
 {
@@ -32,7 +32,7 @@ class UpdateSearchPanelRequest extends FormRequest
                 Rule::unique(
                     'search_panels',
                     'slug'
-                )->ignore($this->input('slug'), 'slug')
+                )->ignore($this->input('slug'), 'slug'),
             ],
             'description'    =>  'nullable|string',
             'model'          =>  'required|string',

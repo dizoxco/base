@@ -2,20 +2,20 @@
 
 namespace Test\Feature\Api;
 
+use Tests\TestCase;
 use App\Models\Post;
-use App\Models\SearchPanel;
 use App\Models\User;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\SearchPanel;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
+use Illuminate\Foundation\Testing\WithFaker;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\TestCase;
 
 class SearchPanelControllerTest extends TestCase
 {
     use WithFaker;
 
-    protected   $providedData   =   [];
+    protected $providedData = [];
 
     /**
      * @return mixed
@@ -29,6 +29,7 @@ class SearchPanelControllerTest extends TestCase
         $this->assertTrue($search_panel->hasRole('admin'));
         $this->assertTrue($search_panel->hasPermissionTo('manage_search_panels', 'api'));
         $this->assertCount(1, User::all());
+
         return $search_panel;
     }
 
@@ -81,8 +82,8 @@ class SearchPanelControllerTest extends TestCase
 
     protected function dataProvider()
     {
-        $title  =   $this->faker->sentence();
-        $this->providedData =   [
+        $title = $this->faker->sentence();
+        $this->providedData = [
             'title'         =>  $title,
             'slug'          =>  str_slug($title),
             'description'   =>  $this->faker->sentences(3, true),
@@ -92,9 +93,9 @@ class SearchPanelControllerTest extends TestCase
                     'label' =>  'برچسب',
                     'query' =>  'between',
                     'field' =>  'price',
-                    'min'   =>  mt_rand(1,15),
-                    'max'   =>  mt_rand(16,30),
-                ]
+                    'min'   =>  mt_rand(1, 15),
+                    'max'   =>  mt_rand(16, 30),
+                ],
             ]),
             'filters'       =>  json_encode([
                 'type' =>  [
@@ -114,10 +115,11 @@ class SearchPanelControllerTest extends TestCase
                             'label' =>  'نوع سوم',
                             'value' =>  3,
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ]),
         ];
+
         return $this;
     }
 
@@ -128,7 +130,8 @@ class SearchPanelControllerTest extends TestCase
 
     protected function withPutMethod()
     {
-        $this->providedData['_method']  =   'put';
+        $this->providedData['_method'] = 'put';
+
         return $this;
     }
 
@@ -150,19 +153,19 @@ class SearchPanelControllerTest extends TestCase
     public function it_should_shows_all_available_search_panels_to_privileged_users()
     {
         factory(SearchPanel::class, 5)->create(
-            $this->dataProvider()->without('title','slug','description')
+            $this->dataProvider()->without('title', 'slug', 'description')
         );
-        $search_panel   =   $this->userWithManageSearchPanelsPermission();
-        $response       =   $this->login($search_panel)->getJson($this->routeIndex());
+        $search_panel = $this->userWithManageSearchPanelsPermission();
+        $response = $this->login($search_panel)->getJson($this->routeIndex());
         $response->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonStructure([
                 'data'  =>  ['*'    =>  [
-                    'id','title','slug','description','model','options','filters'
-                ]]
+                    'id', 'title', 'slug', 'description', 'model', 'options', 'filters',
+                ]],
             ]);
 
-        $panels =   $response->decodeResponseJson()['data'];
+        $panels = $response->decodeResponseJson()['data'];
         foreach ($panels as $panel) {
             $this->assertJson($panel['options']);
             $this->assertJson($panel['filters']);
@@ -176,9 +179,9 @@ class SearchPanelControllerTest extends TestCase
     public function it_should_only_auth_user_with_manage_search_panels_permission_can_access()
     {
         factory(SearchPanel::class)->create(
-            $this->dataProvider()->without('title','slug','description')
+            $this->dataProvider()->without('title', 'slug', 'description')
         );
-        $response       =   $this->getJson($this->routeIndex());
+        $response = $this->getJson($this->routeIndex());
         $response->assertStatus(Response::HTTP_UNAUTHORIZED)
 //            ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJson(enum('system.response.unauthenticated'));
@@ -192,310 +195,304 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_reject_search_panel_store_requests_without_title()
     {
-        $garbage    =   'title';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'title';
+        $data = $this->dataProvider()->without($garbage);
 
-        $response   =   $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
+        $response = $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
 
-        $this->assertDatabaseMissing('search_panels',[
+        $this->assertDatabaseMissing('search_panels', [
            'slug'   =>  $data['slug'],
            'model'  =>  $data['model'],
         ]);
     }
-    
+
     /**
      * @group search.panels.store
      * @test Let's check that it can reject store request with non string title or not
      */
     public function it_must_reject_search_panel_store_requests_with_non_string_title()
     {
-        $garbage    =   'title';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'title';
+        $data = $this->dataProvider()->without($garbage);
         $this->login($this->userWithManageSearchPanelsPermission());
         foreach ([null, false, true, '', []] as $invalid_title) {
-
-            $data['title']  =   $invalid_title;
-            $response       =   $this->postJson($this->routeStore(), $data);
+            $data['title'] = $invalid_title;
+            $response = $this->postJson($this->routeStore(), $data);
             $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
                 ->assertJsonValidationErrors($garbage);
 
-            $this->assertDatabaseMissing('search_panels',[
+            $this->assertDatabaseMissing('search_panels', [
                 'slug'   =>  $data['slug'],
                 'model'  =>  $data['model'],
             ]);
         }
     }
-    
+
     /**
      * @group search.panels.store
      * @test Let's check that it can reject store request without slug or not
      */
     public function it_must_reject_search_panel_store_requests_without_slug()
     {
-        $garbage    =   'slug';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'slug';
+        $data = $this->dataProvider()->without($garbage);
 
-        $response   =   $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
+        $response = $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
 
-        $this->assertDatabaseMissing('search_panels',[
+        $this->assertDatabaseMissing('search_panels', [
             'title' =>  $data['title'],
             'model' =>  $data['model'],
         ]);
     }
-    
+
     /**
      * @group search.panels.store
      * @test Let's check that it can reject store request with non string slug or not
      */
     public function it_must_reject_search_panel_store_requests_with_non_string_slug()
     {
-        $garbage    =   'slug';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'slug';
+        $data = $this->dataProvider()->without($garbage);
         $this->login($this->userWithManageSearchPanelsPermission());
         foreach ([null, false, true, '', []] as $invalid_title) {
-
-            $data['slug']   =   $invalid_title;
-            $response       =   $this->postJson($this->routeStore(), $data);
+            $data['slug'] = $invalid_title;
+            $response = $this->postJson($this->routeStore(), $data);
             $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
                 ->assertJsonValidationErrors($garbage);
 
-            $this->assertDatabaseMissing('search_panels',[
+            $this->assertDatabaseMissing('search_panels', [
                 'title' =>  $data['title'],
                 'model' =>  $data['model'],
             ]);
         }
     }
-    
+
     /**
      * @group search.panels.store
      * @test Let's check that it can reject store request with duplicated slug or not
      */
     public function it_must_reject_search_panel_store_requests_with_duplicated_slug()
     {
-        $existed_search_panel   =   factory(SearchPanel::class)->create(
-            $this->dataProvider()->without('title',' slug', 'description')
+        $existed_search_panel = factory(SearchPanel::class)->create(
+            $this->dataProvider()->without('title', ' slug', 'description')
         );
-        $garbage        =   'slug';
-        $data           =   $this->dataProvider()->without($garbage);
-        $data['slug']   =   $existed_search_panel->slug;
+        $garbage = 'slug';
+        $data = $this->dataProvider()->without($garbage);
+        $data['slug'] = $existed_search_panel->slug;
 
-        $response   =   $this->login(
+        $response = $this->login(
             $this->userWithManageSearchPanelsPermission()
         )->postJson($this->routeStore(), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
 
-        $this->assertDatabaseMissing('search_panels',[
+        $this->assertDatabaseMissing('search_panels', [
             'title' =>  $data['title'],
             'model' =>  $data['model'],
         ]);
-
     }
-    
+
     /**
      * @group search.panels.store
      * @test Let's check that it can accept store request without description or not
      */
     public function it_must_accept_search_panel_store_requests_without_description()
     {
-        $garbage        =   'description';
-        $data           =   $this->dataProvider()->without($garbage);
+        $garbage = 'description';
+        $data = $this->dataProvider()->without($garbage);
 
-
-        $response   =   $this->login(
+        $response = $this->login(
             $this->userWithManageSearchPanelsPermission()
         )->postJson($this->routeStore(), $data);
 
         $response->assertStatus(Response::HTTP_CREATED)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonStructure([
-                'data'  =>  ['id','title','slug','model','options','filters']
+                'data'  =>  ['id', 'title', 'slug', 'model', 'options', 'filters'],
             ]);
 
-        $this->assertDatabaseHas('search_panels',[
+        $this->assertDatabaseHas('search_panels', [
             'slug'  =>  $data['slug'],
             'model' =>  $data['model'],
         ]);
     }
-    
+
     /**
      * @group search.panels.store
      * @test Let's check that it can reject store request with non string description or not
      */
     public function it_must_reject_search_panel_store_requests_with_non_string_description()
     {
-        $garbage    =   'description';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'description';
+        $data = $this->dataProvider()->without($garbage);
         $this->login($this->userWithManageSearchPanelsPermission());
-        foreach ([array(), random_int(0,mt_getrandmax())] as $invalid_description) {
-            $data['description']    =   $invalid_description;
-            $response               =   $this->postJson($this->routeStore(), $data);
+        foreach ([[], random_int(0, mt_getrandmax())] as $invalid_description) {
+            $data['description'] = $invalid_description;
+            $response = $this->postJson($this->routeStore(), $data);
             $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
                 ->assertJsonValidationErrors($garbage);
 
-            $this->assertDatabaseMissing('search_panels',[
+            $this->assertDatabaseMissing('search_panels', [
                 'title' =>  $data['title'],
                 'model' =>  $data['model'],
             ]);
         }
     }
-    
+
     /**
      * @group search.panels.store
      * @test Let's check that it can reject store request without model or not
      */
     public function it_must_reject_search_panel_store_requests_without_model()
     {
-        $garbage    =   'model';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'model';
+        $data = $this->dataProvider()->without($garbage);
 
-        $response   =   $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
+        $response = $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
 
-        $this->assertDatabaseMissing('search_panels',[
+        $this->assertDatabaseMissing('search_panels', [
             'title' =>  $data['title'],
             'slug'  =>  $data['slug'],
         ]);
     }
-    
+
     /**
      * @group search.panels.store
      * @test Let's check that it can reject store request with non string model or not
      */
     public function it_must_reject_search_panel_store_requests_with_non_string_model()
     {
-        $garbage    =   'model';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'model';
+        $data = $this->dataProvider()->without($garbage);
         $this->login($this->userWithManageSearchPanelsPermission());
-        foreach ([array(), random_int(0,mt_getrandmax())] as $invalid_description) {
-            $data['model']  =   $invalid_description;
-            $response       =   $this->postJson($this->routeStore(), $data);
+        foreach ([[], random_int(0, mt_getrandmax())] as $invalid_description) {
+            $data['model'] = $invalid_description;
+            $response = $this->postJson($this->routeStore(), $data);
             $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
                 ->assertJsonValidationErrors($garbage);
 
-            $this->assertDatabaseMissing('search_panels',[
+            $this->assertDatabaseMissing('search_panels', [
                 'title' =>  $data['title'],
                 'slug'  =>  $data['slug'],
             ]);
         }
     }
-    
+
     /**
      * @group search.panels.store
      * @test Let's check that it can reject store request without filters or not
      */
     public function it_must_reject_search_panel_store_requests_without_filters()
     {
-        $garbage    =   'filters';
-        $data       =   $this->dataProvider()->without($garbage);
-        $response   =   $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
+        $garbage = 'filters';
+        $data = $this->dataProvider()->without($garbage);
+        $response = $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
 
-        $this->assertDatabaseMissing('search_panels',[
+        $this->assertDatabaseMissing('search_panels', [
             'title' =>  $data['title'],
             'slug'  =>  $data['slug'],
         ]);
     }
-    
+
     /**
      * @group search.panels.store
      * @test Let's check that it can reject store request with non json filters or not
      */
     public function it_must_reject_search_panel_store_requests_with_non_json_filters()
     {
-        $garbage    =   'filters';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'filters';
+        $data = $this->dataProvider()->without($garbage);
         $this->login($this->userWithManageSearchPanelsPermission());
         // todo:if true sent then it will pass
-        foreach ([null, false, "", []] as $invalid_title) {
-
-            $data['filters']    =   $invalid_title;
-            $response           =   $this->postJson($this->routeStore(), $data);
+        foreach ([null, false, '', []] as $invalid_title) {
+            $data['filters'] = $invalid_title;
+            $response = $this->postJson($this->routeStore(), $data);
             $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
                 ->assertJsonValidationErrors($garbage);
 
-            $this->assertDatabaseMissing('search_panels',[
+            $this->assertDatabaseMissing('search_panels', [
                 'title' =>  $data['title'],
                 'model' =>  $data['model'],
             ]);
         }
     }
-    
+
     /**
      * @group search.panels.store
      * @test Let's check that it can reject store request without options or not
      */
     public function it_must_reject_search_panel_store_requests_without_options()
     {
-        $garbage    =   'options';
-        $data       =   $this->dataProvider()->without($garbage);
-        $response   =   $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
+        $garbage = 'options';
+        $data = $this->dataProvider()->without($garbage);
+        $response = $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
 
-        $this->assertDatabaseMissing('search_panels',[
+        $this->assertDatabaseMissing('search_panels', [
             'title' =>  $data['title'],
             'slug'  =>  $data['slug'],
         ]);
     }
-    
+
     /**
      * @group search.panels.store
      * @test Let's check that it can reject store request with non json options or not
      */
     public function it_must_reject_search_panel_store_requests_with_non_json_options()
     {
-        $garbage    =   'options';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'options';
+        $data = $this->dataProvider()->without($garbage);
         $this->login($this->userWithManageSearchPanelsPermission());
         // todo:if true sent then it will pass
-        foreach ([null, false, "", []] as $invalid_title) {
-
-            $data['filters']    =   $invalid_title;
-            $response           =   $this->postJson($this->routeStore(), $data);
+        foreach ([null, false, '', []] as $invalid_title) {
+            $data['filters'] = $invalid_title;
+            $response = $this->postJson($this->routeStore(), $data);
             $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
                 ->assertJsonValidationErrors($garbage);
 
-            $this->assertDatabaseMissing('search_panels',[
+            $this->assertDatabaseMissing('search_panels', [
                 'title' =>  $data['title'],
                 'model' =>  $data['model'],
             ]);
         }
     }
-    
+
     /**
      * @group search.panels.store
      * @test Let's check that it can reject store request with correct data
      */
     public function it_should_store_new_search_panel()
     {
-        $data       =   $this->dataProvider()->getData();
-        $response   =   $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
+        $data = $this->dataProvider()->getData();
+        $response = $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
         $response->assertStatus(Response::HTTP_CREATED)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonStructure([
-                'data'  =>  ['id','title','slug','model','options','filters']
+                'data'  =>  ['id', 'title', 'slug', 'model', 'options', 'filters'],
             ]);
 
-        $this->assertDatabaseHas('search_panels',[
+        $this->assertDatabaseHas('search_panels', [
             'title' =>  $data['title'],
             'slug'  =>  $data['slug'],
             'model' =>  $data['model'],
@@ -517,7 +514,7 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_return_not_found_if_search_panel_not_exists()
     {
-        $response       =   $this->login(
+        $response = $this->login(
             $this->userWithManageSearchPanelsPermission()
         )->getJson($this->routeShow(random_int(1, mt_getrandmax())));
 
@@ -525,8 +522,8 @@ class SearchPanelControllerTest extends TestCase
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJson([
                 'errors'    =>  [
-                    'not_found' =>  trans('http.not_found')
-                ]
+                    'not_found' =>  trans('http.not_found'),
+                ],
             ]);
     }
 
@@ -536,24 +533,23 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_should_return_search_panel_resource_when_search_panel_exists()
     {
-        $sp =   factory(SearchPanel::class)->create(
+        $sp = factory(SearchPanel::class)->create(
             $this->dataProvider()->getData()
         );
 
-        $this->assertDatabaseHas('search_panels',[
+        $this->assertDatabaseHas('search_panels', [
             'title' =>  $sp->title,
             'slug'  =>  $sp->slug,
         ]);
 
-        $response       =   $this->login(
+        $response = $this->login(
             $this->userWithManageSearchPanelsPermission()
         )->getJson($this->routeShow($sp->slug));
-
 
         $response->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonStructure([
-                'data'  =>  ['title', 'slug', 'description', 'model', 'options', 'filters']
+                'data'  =>  ['title', 'slug', 'description', 'model', 'options', 'filters'],
             ]);
     }
 
@@ -563,14 +559,14 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_reject_search_panel_update_requests_without_title()
     {
-        $existed_search_panel   =   factory(SearchPanel::class)->create(
+        $existed_search_panel = factory(SearchPanel::class)->create(
             $this->dataProvider()->getData()
         );
 
-        $garbage    =   'title';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'title';
+        $data = $this->dataProvider()->without($garbage);
 
-        $response   =   $this->login(
+        $response = $this->login(
             $this->userWithManageSearchPanelsPermission()
         )->putJson($this->routeUpdate($existed_search_panel->slug), $data);
 
@@ -578,7 +574,7 @@ class SearchPanelControllerTest extends TestCase
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
 
-        $this->assertDatabaseMissing('search_panels',[
+        $this->assertDatabaseMissing('search_panels', [
             'slug'   =>  $data['slug'],
             'model'  =>  $data['model'],
         ]);
@@ -590,22 +586,21 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_reject_search_panel_update_requests_with_non_string_title()
     {
-        $existed_search_panel   =   factory(SearchPanel::class)->create(
+        $existed_search_panel = factory(SearchPanel::class)->create(
             $this->dataProvider()->getData()
         );
-        
-        $garbage    =   'title';
-        $data       =   $this->dataProvider()->without($garbage);
+
+        $garbage = 'title';
+        $data = $this->dataProvider()->without($garbage);
         $this->login($this->userWithManageSearchPanelsPermission());
         foreach ([null, false, true, '', []] as $invalid_title) {
-
-            $data['title']  =   $invalid_title;
-            $response       =   $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+            $data['title'] = $invalid_title;
+            $response = $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
             $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
                 ->assertJsonValidationErrors($garbage);
 
-            $this->assertDatabaseMissing('search_panels',[
+            $this->assertDatabaseMissing('search_panels', [
                 'slug'   =>  $data['slug'],
                 'model'  =>  $data['model'],
             ]);
@@ -618,19 +613,19 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_reject_search_panel_update_requests_without_slug()
     {
-        $existed_search_panel   =   factory(SearchPanel::class)->create(
+        $existed_search_panel = factory(SearchPanel::class)->create(
             $this->dataProvider()->getData()
         );
 
-        $garbage    =   'slug';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'slug';
+        $data = $this->dataProvider()->without($garbage);
 
-        $response   =   $this->login($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+        $response = $this->login($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
 
-        $this->assertDatabaseMissing('search_panels',[
+        $this->assertDatabaseMissing('search_panels', [
             'title' =>  $data['title'],
             'model' =>  $data['model'],
         ]);
@@ -642,22 +637,21 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_reject_search_panel_update_requests_with_non_string_slug()
     {
-        $existed_search_panel   =   factory(SearchPanel::class)->create(
+        $existed_search_panel = factory(SearchPanel::class)->create(
             $this->dataProvider()->getData()
         );
 
-        $garbage    =   'slug';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'slug';
+        $data = $this->dataProvider()->without($garbage);
         $this->login($this->userWithManageSearchPanelsPermission());
         foreach ([null, false, true, '', []] as $invalid_title) {
-
-            $data['slug']   =   $invalid_title;
-            $response       =   $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+            $data['slug'] = $invalid_title;
+            $response = $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
             $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
                 ->assertJsonValidationErrors($garbage);
 
-            $this->assertDatabaseMissing('search_panels',[
+            $this->assertDatabaseMissing('search_panels', [
                 'title' =>  $data['title'],
                 'model' =>  $data['model'],
             ]);
@@ -670,28 +664,27 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_accept_search_panel_update_requests_with_same_slug()
     {
-        $garbage        =   'slug';
-        $data           =   $this->dataProvider()->without($garbage);
-        $search_panels  =   factory(SearchPanel::class)->create(
-            $this->dataProvider()->without('title',' slug', 'description')
+        $garbage = 'slug';
+        $data = $this->dataProvider()->without($garbage);
+        $search_panels = factory(SearchPanel::class)->create(
+            $this->dataProvider()->without('title', ' slug', 'description')
         );
-        $data['slug']   =   $search_panels->first()->slug;
+        $data['slug'] = $search_panels->first()->slug;
 
-        $response   =   $this->login(
+        $response = $this->login(
             $this->userWithManageSearchPanelsPermission()
         )->putJson($this->routeUpdate($search_panels->first()->slug), $data);
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJson([
-                'data'  =>  ['row-effected'   =>  1]
+                'data'  =>  ['row-effected'   =>  1],
             ]);
 
-        $this->assertDatabaseHas('search_panels',[
+        $this->assertDatabaseHas('search_panels', [
             'title' =>  $data['title'],
             'model' =>  $data['model'],
         ]);
-
     }
 
     /**
@@ -700,14 +693,14 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_accept_search_panel_update_requests_without_description()
     {
-        $existed_search_panel   =   factory(SearchPanel::class)->create(
+        $existed_search_panel = factory(SearchPanel::class)->create(
             $this->dataProvider()->getData()
         );
 
-        $garbage        =   'description';
-        $data           =   $this->dataProvider()->without($garbage);
+        $garbage = 'description';
+        $data = $this->dataProvider()->without($garbage);
 
-        $response   =   $this->login(
+        $response = $this->login(
             $this->userWithManageSearchPanelsPermission()
         )->putJson($this->routeUpdate($existed_search_panel->slug), $data);
 
@@ -715,7 +708,7 @@ class SearchPanelControllerTest extends TestCase
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJson(['data'  =>  ['row-effected' => 1]]);
 
-        $this->assertDatabaseHas('search_panels',[
+        $this->assertDatabaseHas('search_panels', [
             'slug'  =>  $data['slug'],
             'model' =>  $data['model'],
         ]);
@@ -727,21 +720,21 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_reject_search_panel_update_requests_with_non_string_description()
     {
-        $existed_search_panel   =   factory(SearchPanel::class)->create(
+        $existed_search_panel = factory(SearchPanel::class)->create(
             $this->dataProvider()->getData()
         );
 
-        $garbage    =   'description';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'description';
+        $data = $this->dataProvider()->without($garbage);
         $this->login($this->userWithManageSearchPanelsPermission());
-        foreach ([array(), random_int(0,mt_getrandmax())] as $invalid_description) {
-            $data['description']    =   $invalid_description;
-            $response               =   $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+        foreach ([[], random_int(0, mt_getrandmax())] as $invalid_description) {
+            $data['description'] = $invalid_description;
+            $response = $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
             $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
                 ->assertJsonValidationErrors($garbage);
 
-            $this->assertDatabaseMissing('search_panels',[
+            $this->assertDatabaseMissing('search_panels', [
                 'title' =>  $data['title'],
                 'model' =>  $data['model'],
             ]);
@@ -754,19 +747,19 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_reject_search_panel_update_requests_without_model()
     {
-        $existed_search_panel   =   factory(SearchPanel::class)->create(
+        $existed_search_panel = factory(SearchPanel::class)->create(
             $this->dataProvider()->getData()
         );
 
-        $garbage    =   'model';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'model';
+        $data = $this->dataProvider()->without($garbage);
 
-        $response   =   $this->login($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+        $response = $this->login($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
 
-        $this->assertDatabaseMissing('search_panels',[
+        $this->assertDatabaseMissing('search_panels', [
             'title' =>  $data['title'],
             'slug'  =>  $data['slug'],
         ]);
@@ -778,21 +771,21 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_reject_search_panel_update_requests_with_non_string_model()
     {
-        $existed_search_panel   =   factory(SearchPanel::class)->create(
+        $existed_search_panel = factory(SearchPanel::class)->create(
             $this->dataProvider()->getData()
         );
 
-        $garbage    =   'model';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'model';
+        $data = $this->dataProvider()->without($garbage);
         $this->login($this->userWithManageSearchPanelsPermission());
-        foreach ([array(), random_int(0,mt_getrandmax())] as $invalid_description) {
-            $data['model']  =   $invalid_description;
-            $response       =   $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+        foreach ([[], random_int(0, mt_getrandmax())] as $invalid_description) {
+            $data['model'] = $invalid_description;
+            $response = $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
             $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
                 ->assertJsonValidationErrors($garbage);
 
-            $this->assertDatabaseMissing('search_panels',[
+            $this->assertDatabaseMissing('search_panels', [
                 'title' =>  $data['title'],
                 'slug'  =>  $data['slug'],
             ]);
@@ -805,18 +798,18 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_reject_search_panel_update_requests_without_filters()
     {
-        $existed_search_panel   =   factory(SearchPanel::class)->create(
+        $existed_search_panel = factory(SearchPanel::class)->create(
             $this->dataProvider()->getData()
         );
 
-        $garbage    =   'filters';
-        $data       =   $this->dataProvider()->without($garbage);
-        $response   =   $this->login($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+        $garbage = 'filters';
+        $data = $this->dataProvider()->without($garbage);
+        $response = $this->login($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
 
-        $this->assertDatabaseMissing('search_panels',[
+        $this->assertDatabaseMissing('search_panels', [
             'title' =>  $data['title'],
             'slug'  =>  $data['slug'],
         ]);
@@ -828,23 +821,22 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_reject_search_panel_update_requests_with_non_json_filters()
     {
-        $existed_search_panel   =   factory(SearchPanel::class)->create(
+        $existed_search_panel = factory(SearchPanel::class)->create(
             $this->dataProvider()->getData()
         );
 
-        $garbage    =   'filters';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'filters';
+        $data = $this->dataProvider()->without($garbage);
         $this->login($this->userWithManageSearchPanelsPermission());
         // todo:if true sent then it will pass
-        foreach ([null, false, "", []] as $invalid_title) {
-
-            $data['filters']    =   $invalid_title;
-            $response           =   $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+        foreach ([null, false, '', []] as $invalid_title) {
+            $data['filters'] = $invalid_title;
+            $response = $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
             $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
                 ->assertJsonValidationErrors($garbage);
 
-            $this->assertDatabaseMissing('search_panels',[
+            $this->assertDatabaseMissing('search_panels', [
                 'title' =>  $data['title'],
                 'model' =>  $data['model'],
             ]);
@@ -857,18 +849,18 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_reject_search_panel_update_requests_without_options()
     {
-        $existed_search_panel   =   factory(SearchPanel::class)->create(
+        $existed_search_panel = factory(SearchPanel::class)->create(
             $this->dataProvider()->getData()
         );
 
-        $garbage    =   'options';
-        $data       =   $this->dataProvider()->without($garbage);
-        $response   =   $this->login($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+        $garbage = 'options';
+        $data = $this->dataProvider()->without($garbage);
+        $response = $this->login($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
 
-        $this->assertDatabaseMissing('search_panels',[
+        $this->assertDatabaseMissing('search_panels', [
             'title' =>  $data['title'],
             'slug'  =>  $data['slug'],
         ]);
@@ -880,22 +872,21 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_reject_search_panel_update_requests_with_non_json_options()
     {
-        $existed_search_panel   =   factory(SearchPanel::class)->create(
+        $existed_search_panel = factory(SearchPanel::class)->create(
             $this->dataProvider()->getData()
         );
-        $garbage    =   'options';
-        $data       =   $this->dataProvider()->without($garbage);
+        $garbage = 'options';
+        $data = $this->dataProvider()->without($garbage);
         $this->login($this->userWithManageSearchPanelsPermission());
         // todo:if true sent then it will pass
-        foreach ([null, false, "", []] as $invalid_title) {
-
-            $data['filters']    =   $invalid_title;
-            $response           =   $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+        foreach ([null, false, '', []] as $invalid_title) {
+            $data['filters'] = $invalid_title;
+            $response = $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
             $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
                 ->assertJsonValidationErrors($garbage);
 
-            $this->assertDatabaseMissing('search_panels',[
+            $this->assertDatabaseMissing('search_panels', [
                 'title' =>  $data['title'],
                 'model' =>  $data['model'],
             ]);
@@ -908,16 +899,16 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_should_update_new_search_panel()
     {
-        $existed_search_panel   =   factory(SearchPanel::class)->create(
+        $existed_search_panel = factory(SearchPanel::class)->create(
             $this->dataProvider()->getData()
         );
-        $data       =   $this->dataProvider()->getData();
-        $response   =   $this->login($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+        $data = $this->dataProvider()->getData();
+        $response = $this->login($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
         $response->assertStatus(Response::HTTP_OK)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJson(['data'  =>  ['row-effected' => 1]]);
 
-        $this->assertDatabaseHas('search_panels',[
+        $this->assertDatabaseHas('search_panels', [
             'title' =>  $data['title'],
             'slug'  =>  $data['slug'],
             'model' =>  $data['model'],

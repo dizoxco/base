@@ -2,44 +2,43 @@
 
 namespace App\Models;
 
-use App\Repositories\Facades\SPRepo;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Builder as DatabaseBuilder;
 use Illuminate\Http\Request;
+use App\Repositories\Facades\SPRepo;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Query\Builder as DatabaseBuilder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class SearchPanel extends Model
 {
-
-    protected $fillable =   [
+    protected $fillable = [
         'title', 'slug', 'description', 'model', 'options', 'filters',
     ];
 
     /** @var array $tags */
-    protected $tags     =   [];
+    protected $tags = [];
 
     /** @var EloquentBuilder $builder */
     protected $builder;
 
     /** @var array $operators */
-    public static $operators   =   ['=', '<>', '!=', '>', '>=', '<', '<='];
+    public static $operators = ['=', '<>', '!=', '>', '>=', '<', '<='];
 
     public function result(Request $request) : LengthAwarePaginator
     {
-        $this->builder  =   $this->getAttribute('model')::query();
+        $this->builder = $this->getAttribute('model')::query();
 
         // add filters to query
-        if (!empty($this->getAttribute('filters'))) {
+        if (! empty($this->getAttribute('filters'))) {
             $this->filters();
         }
 
         // add received options form user to query
-        if (!empty($this->getAttribute('options'))) {
+        if (! empty($this->getAttribute('options'))) {
             $this->options($request);
         }
 
-        if (!empty($this->tags)) {
+        if (! empty($this->tags)) {
             $this->optTags();
         }
 
@@ -49,7 +48,7 @@ class SearchPanel extends Model
     private function optTags()
     {
         foreach ($this->tags as $tag) {
-            $this->builder->whereIn('id',function (DatabaseBuilder $builder) use ($tag) {
+            $this->builder->whereIn('id', function (DatabaseBuilder $builder) use ($tag) {
                 $builder->select('taggable_id')
                     ->distinct()
                     ->from('taggables')
@@ -60,13 +59,13 @@ class SearchPanel extends Model
 
     private function filters() : void
     {
-        $filters    =   json_decode($this->getAttribute('filters'), true);
+        $filters = json_decode($this->getAttribute('filters'), true);
         foreach ($filters as $filter) {
 
             // is between , range or tag
             if (method_exists($this, $filter['query'])) {
                 $method = $filter['query'];
-                // is compare
+            // is compare
             } elseif (in_array($filter['query'], self::$operators)) {
                 $method = 'compare';
             }
@@ -79,22 +78,22 @@ class SearchPanel extends Model
 
     private function options(Request $request) : void
     {
-        $url_params =   $request->all();
-        $options    =   json_decode($this->getAttribute('options'), true);
+        $url_params = $request->all();
+        $options = json_decode($this->getAttribute('options'), true);
 
         foreach ($url_params as $key => $value) {
             if (array_key_exists($key, $options)) {
-                $option =   $options[$key];
+                $option = $options[$key];
 
                 $parameters = [$option];
                 if (method_exists($this, $option['query'])) {
-                    $method =   $option['query'];
+                    $method = $option['query'];
                 } elseif (in_array($option['query'], self::$operators)) {
                     $method = 'Compare';
                 }
 
                 if (isset($method)) {
-                    $parameters[]   =   $request->input($key);
+                    $parameters[] = $request->input($key);
                     call_user_func_array([$this, $method], $parameters);
                 }
             }
@@ -104,9 +103,9 @@ class SearchPanel extends Model
     private function compare($filter, $index = null): void
     {
         if ($index !== null && is_array($filter['items'])) {
-            $value  =   $filter['items'][$index]['value'];
+            $value = $filter['items'][$index]['value'];
         } else {
-            $value  =   $filter['items'];
+            $value = $filter['items'];
         }
         $this->builder->where($filter['field'], $filter['query'], $value);
     }
@@ -121,24 +120,24 @@ class SearchPanel extends Model
         $this->builder->whereBetween(
             $filter['field'], [
                 $filter['ranges'][$index]['start'],
-                $filter['ranges'][$index]['finish']
+                $filter['ranges'][$index]['finish'],
             ]
         );
     }
 
     private function tag($filter, $indexes = null): void
     {
-        $tags_id    =   array_pluck($filter['tag'], 'id');
+        $tags_id = array_pluck($filter['tag'], 'id');
         if ($indexes !== null) {
-            $ids    =   [];
+            $ids = [];
             foreach (array_wrap($indexes) as $index) {
                 if (isset($tags_id[$index])) {
-                    $ids[]  =   $tags_id[$index];
+                    $ids[] = $tags_id[$index];
                 }
             }
-            $tags_id    =   $ids;
+            $tags_id = $ids;
         }
-        $this->tags[]   =   $tags_id;
+        $this->tags[] = $tags_id;
     }
 
     public function resolveRouteBinding($slug)

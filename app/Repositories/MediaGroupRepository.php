@@ -3,8 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\MediaGroup;
-use Illuminate\Database\QueryException;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Database\QueryException;
 
 class MediaGroupRepository
 {
@@ -20,11 +20,12 @@ class MediaGroupRepository
 
     public function getAll($params = [])    :   Collection
     {
-        $mediaGroups    =   QueryBuilder::for(MediaGroup::query())
+        $mediaGroups = QueryBuilder::for(MediaGroup::query())
             ->allowedFilters(['name'])
             ->allowedIncludes('files')
-            ->allowedSorts(['name', 'created_at', 'updated_at',]);
+            ->allowedSorts(['name', 'created_at', 'updated_at']);
         $this->applyParams($mediaGroups, $params);
+
         return $mediaGroups->get();
     }
 
@@ -33,7 +34,7 @@ class MediaGroupRepository
         return QueryBuilder::for(MediaGroup::query())
             ->allowedFilters(['name'])
             ->allowedIncludes('files')
-            ->allowedSorts(['name', 'created_at', 'updated_at',])
+            ->allowedSorts(['name', 'created_at', 'updated_at'])
             ->where($column, '=', $value)
             ->get();
     }
@@ -56,7 +57,8 @@ class MediaGroupRepository
         if ($mediaGroup instanceof MediaGroup) {
             return $mediaGroup->update($data);
         }
-        $ids    =   is_array($mediaGroup)? $mediaGroup: [$mediaGroup];
+        $ids = is_array($mediaGroup) ? $mediaGroup : [$mediaGroup];
+
         return  MediaGroup::whereIn('id', $ids)->update($data);
     }
 
@@ -67,9 +69,9 @@ class MediaGroupRepository
                 return  $mediaGroup->forceDelete();
             }
 
-            $ids    =   is_array($mediaGroup) ? $mediaGroup : func_get_args();
-            return  MediaGroup::whereIn('id', $ids)->forceDelete();
+            $ids = is_array($mediaGroup) ? $mediaGroup : func_get_args();
 
+            return  MediaGroup::whereIn('id', $ids)->forceDelete();
         } catch (Exception $exception) {
             return 0;
         }

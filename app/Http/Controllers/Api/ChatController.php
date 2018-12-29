@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Chat;
+use App\Http\Resources\DBResource;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ChatResource;
+use App\Http\Resources\ChatCollection;
+use App\Repositories\Facades\ChatRepo;
 use App\Http\Requests\Chat\StoreChatRequest;
 use App\Http\Requests\Chat\UpdateChatRequest;
-use App\Http\Resources\ChatCollection;
-use App\Http\Resources\ChatResource;
-use App\Http\Resources\DBResource;
-use App\Models\Chat;
-use App\Repositories\Facades\ChatRepo;
 
 class ChatController extends Controller
 {
@@ -32,6 +32,7 @@ class ChatController extends Controller
     public function show(Chat $chat)
     {
         $chat->load(['comments', 'comments.media']);
+
         return new ChatResource($chat);
     }
 

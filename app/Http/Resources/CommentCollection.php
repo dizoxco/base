@@ -11,7 +11,7 @@ class CommentCollection extends BaseCollection
     {
         $this->collection->transform(function ($comment) {
             foreach ($comment->getRelations() as $relation => $items) {
-                $resource   =   $this->resource($relation);
+                $resource = $this->resource($relation);
                 if ($items instanceof Model) {
                     $this->includes[$relation][$items->id] = new $resource($items);
                     break;
@@ -24,8 +24,10 @@ class CommentCollection extends BaseCollection
                 }
                 //  fixme: comment collection do not have media included
             }
+
             return (new CommentResource($comment))->additional($this->additional);
         });
+
         return parent::toArray($request);
     }
 

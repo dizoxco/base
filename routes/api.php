@@ -11,7 +11,6 @@ Route::name('auth.')->prefix('auth')->group(function () {
 
 Route::middleware('auth:api')->group(function () {
     Route::name('user.')->prefix('user')->group(function () {
-
         Route::name('chats.')->prefix('chats')->group(function () {
             Route::get('/', 'ChatController@index')->name('index');
             Route::post('/', 'ChatController@store')->name('store');
@@ -43,9 +42,8 @@ Route::middleware('auth:api')->group(function () {
             Route::delete('destroy', 'SearchPanelController@destroy')->name('destroy');
         });
     });
-    
-    Route::name('users.')->prefix('users')->group(function () {
 
+    Route::name('users.')->prefix('users')->group(function () {
         Route::get('/', 'UserController@index')->name('index')->middleware('permission:manage_users');
         Route::post('/', 'UserController@store')->name('store')->middleware('permission:manage_users');
 
@@ -63,7 +61,6 @@ Route::middleware('auth:api')->group(function () {
     });
 
     Route::name('posts.')->prefix('posts')->group(function () {
-
         Route::get('/', 'PostController@index')->name('index')->middleware('permission:manager_posts');
         Route::post('/', 'PostController@store')->name('store')->middleware('permission:manager_posts');
 
@@ -92,5 +89,5 @@ Route::middleware('auth:api')->group(function () {
 });
 
 Route::name('search.')->prefix('searchs')->group(function () {
-    Route::get('/{search_panel}','SearchController@show')->name('show');
+    Route::get('/{search_panel}', 'SearchController@show')->name('show');
 });

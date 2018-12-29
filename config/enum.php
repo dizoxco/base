@@ -34,6 +34,6 @@ return [
             2   =>  'warning',
             3   =>  'danger',
             4   =>  'critical',
-        ]
-    ]
+        ],
+    ],
 ];

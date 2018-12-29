@@ -2,11 +2,11 @@
 
 namespace App\Exceptions;
 
+use Response;
 use Exception;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Response;
-use Spatie\Permission\Exceptions\UnauthorizedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -60,11 +60,11 @@ class Handler extends ExceptionHandler
         if ($exception instanceof NotFoundHttpException) {
             return response(
                 [
-                    'message'   =>  trans('http.not_found')
+                    'message'   =>  trans('http.not_found'),
                 ],
                 \Symfony\Component\HttpFoundation\Response::HTTP_NOT_FOUND,
                 [
-                    'Content-Type'  =>  enum('system.response.json')
+                    'Content-Type'  =>  enum('system.response.json'),
                 ]
             );
         }
@@ -72,11 +72,11 @@ class Handler extends ExceptionHandler
         if ($exception instanceof UnauthorizedException) {
             return response(
                 [
-                    'message'   =>  trans('http.unauthorized')
+                    'message'   =>  trans('http.unauthorized'),
                 ],
                 \Symfony\Component\HttpFoundation\Response::HTTP_UNAUTHORIZED,
                 [
-                    'Content-Type'  =>  enum('system.response.json')
+                    'Content-Type'  =>  enum('system.response.json'),
                 ]
             );
         }

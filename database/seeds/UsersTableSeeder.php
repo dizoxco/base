@@ -13,8 +13,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $numbers        =   (int) $this->command->ask('How Many Users Do You Want?', 10);
-        $this->users    =   factory(User::class, $numbers)->create();
+        $numbers = (int) $this->command->ask('How Many Users Do You Want?', 10);
+        $this->users = factory(User::class, $numbers)->create();
         $this->users->each(
             function (User $user) {
                 $user->assignRole(Role::inRandomOrder()->first());
