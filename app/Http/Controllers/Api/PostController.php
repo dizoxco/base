@@ -18,7 +18,7 @@ class PostController extends Controller
     public function index()
     {
         return new PostCollection(PostRepo::getAll([
-            'with'  =>  ['user','comments']
+            'with'  =>  ['user', 'comments'],
         ]));
     }
 
@@ -32,12 +32,12 @@ class PostController extends Controller
             'user_id'   =>  auth_user()->id,
         ]);
 
-        $createdPost    =   PostRepo::create($request->all());
+        $createdPost = PostRepo::create($request->all());
         if ($createdPost === 0) {
             return new DBResource($createdPost);
         }
 
-        $messageBag =   [];
+        $messageBag = [];
         if ($request->has('banner')) {
             try {
                 $createdPost
@@ -69,7 +69,8 @@ class PostController extends Controller
                 $messageBag['banner'] = "Post {$createdPost->title} created without some attachments.";
             }
         }
-        $resource   =   new PostResource($createdPost);
+        $resource = new PostResource($createdPost);
+
         return empty($messageBag) ? $resource : $resource->additional($messageBag);
     }
 
@@ -87,12 +88,12 @@ class PostController extends Controller
             'user_id'   =>  1,
         ]);
 
-        $updatedPost    =   PostRepo::update($post, $request->all());
+        $updatedPost = PostRepo::update($post, $request->all());
         if ($updatedPost === 0) {
             return new DBResource($updatedPost);
         }
 
-        $messageBag =   [];
+        $messageBag = [];
         if ($request->has('banner')) {
             try {
                 $post
@@ -124,7 +125,8 @@ class PostController extends Controller
                 $messageBag['banner'] = "Post {$post->title} updated without some attachments.";
             }
         }
-        $resource   =   new PostResource($post);
+        $resource = new PostResource($post);
+
         return empty($messageBag) ? $resource : $resource->additional($messageBag);
     }
 
@@ -161,6 +163,7 @@ class PostController extends Controller
         } else {
             $slug = $slug->slug;
             $slug++;
+
             return $this->makeSlug($slug);
         }
     }

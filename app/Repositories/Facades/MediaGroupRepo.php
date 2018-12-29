@@ -2,8 +2,8 @@
 
 namespace App\Repositories\Facades;
 
-use App\Repositories\MediaGroupRepository;
 use Illuminate\Support\Facades\Facade;
+use App\Repositories\MediaGroupRepository;
 
 class MediaGroupRepo extends Facade
 {

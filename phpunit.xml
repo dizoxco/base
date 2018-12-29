@@ -7,8 +7,12 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
-         processIsolation="false"
-         stopOnFailure="false">
+         processIsolation="true"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         stopOnRisky="false">
     <testsuites>
         <testsuite name="Feature">
             <directory suffix="Test.php">./tests/Feature</directory>

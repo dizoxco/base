@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
-abstract class TestCase extends BaseTestCase
+class TestCase extends BaseTestCase
 {
     use CreatesApplication;
     use DatabaseMigrations;
@@ -30,30 +30,31 @@ abstract class TestCase extends BaseTestCase
     public function signInFromApi(User $user = null)
     {
         if ($user === null) {
-            $user       =   factory(User::class)->create();
+            $user = factory(User::class)->create();
         }
 
-        $credential =   [
+        $credential = [
             'email'     =>  $user->email,
             'password'  =>  '123456',
         ];
-        $uri        =   route('api.auth.login');
-        $response   =   $this->postJson($uri, $credential);
-        $headers    =   [
+        $uri = route('api.auth.login');
+        $response = $this->postJson($uri, $credential);
+        $headers = [
             'Accept'            =>  enum('system.response.json'),
             'Content-Type'      =>  enum('system.response.json'),
             'X-Requested-With'  =>  enum('system.request.xhr'),
-            'Authorization'     =>  "Bearer {$response->json()['access_token']}"
+            'Authorization'     =>  "Bearer {$response->json()['access_token']}",
         ];
+
         return $this->withHeaders($headers);
     }
 
     public function signOutFromApi()
     {
-        $uri    =   route('api.auth.logout');
+        $uri = route('api.auth.logout');
         $this->getJson($uri);
 
-        $headers    =   [
+        $headers = [
             'Accept'            =>  enum('system.response.json'),
             'Content-Type'      =>  enum('system.response.json'),
             'X-Requested-With'  =>  enum('system.request.xhr'),

@@ -2,36 +2,36 @@
 
 namespace App\Models;
 
+use Spatie\MediaLibrary\File;
+use Laravel\Passport\HasApiTokens;
+use Spatie\MediaLibrary\Models\Media;
 use App\Repositories\Facades\UserRepo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
-use Spatie\MediaLibrary\File;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Models\Media;
-use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements HasMedia
 {
     use Notifiable, SoftDeletes, HasApiTokens, HasRoles, HasMediaTrait, HasMediaRelation;
 
-    protected $perPage  =   2;
+    protected $perPage = 2;
 
-    protected $casts    =   [
+    protected $casts = [
         'deleted_at'    =>  'datetime',
-        'active'        =>  'boolean'
+        'active'        =>  'boolean',
     ];
 
-    protected $fillable =   [
-        'google_id', 'name', 'avatar', 'email', 'password', 'active', 'activation_token'
+    protected $fillable = [
+        'google_id', 'name', 'avatar', 'email', 'password', 'active', 'activation_token',
     ];
 
-    protected $hidden   =   [
+    protected $hidden = [
         'password', 'remember_token', 'activation_token',
     ];
 
@@ -40,6 +40,7 @@ class User extends Authenticatable implements HasMedia
     {
         return "{$this->name} {$this->family}";
     }
+
     //  =============================== End Accessor ==========================
 
     //  =============================== Relationships =========================
@@ -93,6 +94,7 @@ class User extends Authenticatable implements HasMedia
             $query->where('user_id', '=', $userId);
         })->whereType(enum('chat.type.chat'))->first();
     }
+
     //  =============================== End Relationships =====================
 
     //  =============================== Media =================================
@@ -102,9 +104,10 @@ class User extends Authenticatable implements HasMedia
         //  Register media collection for avatar that only accepts images
         $this->addMediaCollection(enum('media.user.avatar'))
             ->acceptsFile(function (File $file) {
-                $allowedMimes  =   [
-                    'image/jpeg','image/png','image/tiff','image/bmp',
+                $allowedMimes = [
+                    'image/jpeg', 'image/png', 'image/tiff', 'image/bmp',
                 ];
+
                 return in_array($file->mimeType, $allowedMimes);
             })
             ->singleFile();
@@ -118,11 +121,13 @@ class User extends Authenticatable implements HasMedia
             ->nonQueued()
             ->performOnCollections(enum('media.user.avatar'));
     }
+
     //  =============================== End Media =============================
     //  =============================== Complementary Methods =================
     public function resolveRouteBinding($user)
     {
         return UserRepo::find($user);
     }
+
     //  =============================== End Complementary Methods =============
 }

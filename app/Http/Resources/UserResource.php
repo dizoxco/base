@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 class UserResource extends BaseResource
 {
-
     public function toArray($request)
     {
         $resource = [
@@ -13,7 +12,7 @@ class UserResource extends BaseResource
             'attributes'   =>  [
                 'name'              =>  $this->name,
                 'email'             =>  $this->email,
-                $this->mergeWhen($this->dates(), $this->dates())
+                $this->mergeWhen($this->dates(), $this->dates()),
             ],
             'relations' =>  [
                 $this->whenLoaded('avatar', function () {
@@ -27,6 +26,7 @@ class UserResource extends BaseResource
                 }),
             ],
         ];
+
         return $resource;
     }
 
@@ -39,6 +39,7 @@ class UserResource extends BaseResource
                 $dates[$column] = $this->{$column}->timestamp;
             }
         }
+
         return empty($dates) ? false : $dates;
     }
 }

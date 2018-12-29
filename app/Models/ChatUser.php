@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class ChatUser extends Pivot
 {
-    protected $table    =   'chat_users';
+    protected $table = 'chat_users';
 }
