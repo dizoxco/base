@@ -16,7 +16,7 @@ class CommentResource extends BaseResource
                 'commentable_id'    =>  $this->commentable_id,
                 'commentable_type'  =>  $this->commentable_type,
                 'stat'              =>  $this->when($this->stat !== null, $this->stat),
-                $this->mergeWhen($this->dates(), $this->dates())
+                $this->mergeWhen($this->dates(), $this->dates()),
             ],
             'relations' =>  [
                 $this->whenLoaded('commentable', function () {
@@ -26,8 +26,9 @@ class CommentResource extends BaseResource
                     return ['media'  =>  $this->media->pluck('id')];
                 }),
             ],
-            'included'  =>  $this->included()
+            'included'  =>  $this->included(),
         ];
+
         return $resource;
     }
 
@@ -52,6 +53,7 @@ class CommentResource extends BaseResource
                 $dates[$column] = $this->{$column}->timestamp;
             }
         }
+
         return empty($dates) ? false : $dates;
     }
 }

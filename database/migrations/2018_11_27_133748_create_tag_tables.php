@@ -13,7 +13,6 @@ class CreateTagTables extends Migration
      */
     public function up()
     {
-
         Schema::create('taxonomies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('slug');
@@ -31,14 +30,13 @@ class CreateTagTables extends Migration
             $table->timestamps();
 
             $table->foreign('taxonomy_id')->references('id')->on('taxonomies')->onDelete('cascade');
-
         });
 
         Schema::create('taggables', function (Blueprint $table) {
             $table->unsignedInteger('tag_id')->index();
-            $table->unsignedInteger("taggable_id");
-            $table->char("taggable_type",100);
-            $table->index(["taggable_id", "taggable_type"]);
+            $table->unsignedInteger('taggable_id');
+            $table->char('taggable_type', 100);
+            $table->index(['taggable_id', 'taggable_type']);
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }

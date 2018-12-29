@@ -26,10 +26,11 @@ class RoleResource extends Resource
             ],
             $this->mergeWhen(isset($relations['permissions']) && count($relations['permissions']), [
                 'relations' => [
-                    'permissions'             =>  $this->permissions->pluck('id')
-                ]
-            ])
+                    'permissions'             =>  $this->permissions->pluck('id'),
+                ],
+            ]),
         ];
+
         return $resource;
     }
 }

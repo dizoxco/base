@@ -12,9 +12,8 @@ class Taxonomy extends Model
     /** @var array $fillable */
     protected $fillable = ['slug', 'label'];
 
-
     public function tags()
     {
-        return $this->hasMany(Tag::class , 'taxonomy_id' , 'id');
+        return $this->hasMany(Tag::class, 'taxonomy_id', 'id');
     }
 }

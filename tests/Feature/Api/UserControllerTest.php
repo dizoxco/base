@@ -2,25 +2,23 @@
 
 namespace Test\Feature\Api;
 
-use App\Events\User\UserStoreEvent;
-use App\Http\Resources\PostsCollection;
-use App\Http\Resources\UsersCollection;
-use App\Models\User;
-use Event;
 use Hash;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Http\UploadedFile;
-use Spatie\MediaLibrary\Models\Media;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\PermissionRegistrar;
-use Symfony\Component\HttpFoundation\Response;
+use Event;
 use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Http\UploadedFile;
+use Spatie\Permission\Models\Role;
+use App\Events\User\UserStoreEvent;
+use Spatie\MediaLibrary\Models\Media;
+use Spatie\Permission\PermissionRegistrar;
+use Illuminate\Foundation\Testing\WithFaker;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserControllerTest extends TestCase
 {
     use WithFaker;
 
-    protected   $providedData   =   [];
+    protected $providedData = [];
 
     /**
      * @return mixed
@@ -34,6 +32,7 @@ class UserControllerTest extends TestCase
         $this->assertTrue($user->hasRole('admin'));
         $this->assertTrue($user->hasPermissionTo('manage_users', 'api'));
         $this->assertCount(1, User::all());
+
         return $user;
     }
 
@@ -101,14 +100,15 @@ class UserControllerTest extends TestCase
 
     protected function dataProvider()
     {
-        $password           =   str_random(random_int(6, 30));
-        $this->providedData =   [
+        $password = str_random(random_int(6, 30));
+        $this->providedData = [
             'name'                  =>  $this->faker()->firstName,
             'email'                 =>  $this->faker()->email,
             'password'              =>  $password,
             'password_confirmation' =>  $password,
             'avatar'                =>  UploadedFile::fake()->image('avatar.jpg'),
         ];
+
         return $this;
     }
 
@@ -119,7 +119,8 @@ class UserControllerTest extends TestCase
 
     protected function withPutMethod()
     {
-        $this->providedData['_method']  =   'put';
+        $this->providedData['_method'] = 'put';
+
         return $this;
     }
 
@@ -141,13 +142,13 @@ class UserControllerTest extends TestCase
     public function it_must_unauthorized_user_should_not_have_access_to_user_list()
     {
         factory(User::class, 5)->create();
-        $headers    =   [
+        $headers = [
             'Accept'            =>  enum('system.response.json'),
             'Content-Type'      =>  enum('system.response.json'),
             'X-Requested-With'  =>  enum('system.request.xhr'),
         ];
 
-        $response   =   $this->getJson($this->routeIndex(), $headers);
+        $response = $this->getJson($this->routeIndex(), $headers);
         $response
             ->assertStatus(Response::HTTP_UNAUTHORIZED)
             ->assertHeader('Content-Type', enum('system.response.json'))
@@ -161,7 +162,7 @@ class UserControllerTest extends TestCase
     public function it_must_authorized_user_without_manage_users_permission_have_not_access_to_user_list()
     {
         factory(User::class, 5)->create();
-        $response   =   $this->login()->withMiddleware()->getJson($this->routeIndex());
+        $response = $this->login()->withMiddleware()->getJson($this->routeIndex());
         $response
             ->assertStatus(Response::HTTP_UNAUTHORIZED)
             ->assertHeader('Content-Type', enum('system.response.json'))
@@ -178,20 +179,20 @@ class UserControllerTest extends TestCase
         $this->artisan('db:seed', ['--class'    =>  'RolesTableSeeder']);
         $this->artisan('db:seed', ['--class'    =>  'UsersTableSeeder']);
         // todo: how to unified role id in entire application
-        $user   =   factory(User::class)->create()->assignRole(Role::first());
+        $user = factory(User::class)->create()->assignRole(Role::first());
 
         $this->assertTrue($user->hasRole('admin'));
         $this->assertTrue($user->hasPermissionTo('manage_users', 'api'));
 
-        $response   =   $this->login($user)->getJson($this->routeIndex());
+        $response = $this->login($user)->getJson($this->routeIndex());
         $response
             ->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonMissingExact(['errors'])
             ->assertJsonStructure([
                 'data'  =>  ['*'    =>  [
-                    'id','type','attributes','relations'
-                ]]
+                    'id', 'type', 'attributes', 'relations',
+                ]],
             ]);
     }
 
@@ -201,16 +202,16 @@ class UserControllerTest extends TestCase
      */
     public function it_must_always_return_user_resource()
     {
-        $user       =   $this->userWithManageUsersPermission();
-        $response   =   $this->login($user)->getJson($this->routeIndex());
+        $user = $this->userWithManageUsersPermission();
+        $response = $this->login($user)->getJson($this->routeIndex());
         $response
             ->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonMissingExact(['errors'])
             ->assertJsonStructure([
                 'data'  =>  ['*'    =>  [
-                    'id','type','attributes','relations'
-                ]]
+                    'id', 'type', 'attributes', 'relations',
+                ]],
             ]);
     }
 
@@ -220,18 +221,18 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_store_request_that_does_not_contain_the_name()
     {
-        $user       =   $this->userWithManageUsersPermission();
-        $data       =   $this->dataProvider()->without('name');
-        $response   =   $this->login($user)->postJson($this->routeStore(), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->without('name');
+        $response = $this->login($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
-            ->assertJsonStructure(['errors','message'])
+            ->assertJsonStructure(['errors', 'message'])
             ->assertJsonValidationErrors('name');
 
         $this->assertDatabaseMissing('users', [
-            'email' =>  $data['email']
+            'email' =>  $data['email'],
         ]);
     }
 
@@ -241,18 +242,18 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_store_request_that_does_not_contain_the_email()
     {
-        $user       =   $this->userWithManageUsersPermission();
-        $data       =   $this->dataProvider()->without('email');
-        $response   =   $this->login($user)->postJson($this->routeStore(), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->without('email');
+        $response = $this->login($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
-            ->assertJsonStructure(['errors','message'])
+            ->assertJsonStructure(['errors', 'message'])
             ->assertJsonValidationErrors('email');
 
         $this->assertDatabaseMissing('users', [
-            'name'  =>  $data['name']
+            'name'  =>  $data['name'],
         ]);
     }
 
@@ -262,43 +263,43 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_store_request_that_does_not_contain_a_valid_email()
     {
-        $user           =   $this->userWithManageUsersPermission();
-        $data           =   $this->dataProvider()->without('email');
-        $data['email']  =   str_random();
-        $response       =   $this->login($user)->postJson($this->routeStore(), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->without('email');
+        $data['email'] = str_random();
+        $response = $this->login($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
-            ->assertJsonStructure(['errors','message'])
+            ->assertJsonStructure(['errors', 'message'])
             ->assertJsonValidationErrors('email');
 
         $this->assertDatabaseMissing('users', [
             'email' =>  $data['email'],
-            'name'  =>  $data['name']
+            'name'  =>  $data['name'],
         ]);
     }
 
     /**
-    * @group users.store
-    * @test
-    */
+     * @group users.store
+     * @test
+     */
     public function it_must_reject_user_store_request_that_contain_duplicated_email()
     {
-        $user           =   $this->userWithManageUsersPermission();
-        $data           =   $this->dataProvider()->without('email');
-        $data['email']  =   $user->email;
-        $response       =   $this->login($user)->postJson($this->routeStore(), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->without('email');
+        $data['email'] = $user->email;
+        $response = $this->login($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
-            ->assertJsonStructure(['errors','message'])
+            ->assertJsonStructure(['errors', 'message'])
             ->assertJsonValidationErrors('email');
 
         $this->assertDatabaseMissing('users', [
             'email' =>  $data['email'],
-            'name'  =>  $data['name']
+            'name'  =>  $data['name'],
         ]);
     }
 
@@ -308,19 +309,19 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_store_request_that_does_not_contain_the_password()
     {
-        $user       =   $this->userWithManageUsersPermission();
-        $data       =   $this->dataProvider()->without('password');
-        $response   =   $this->login($user)->postJson($this->routeStore(), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->without('password');
+        $response = $this->login($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
-            ->assertJsonStructure(['errors','message'])
+            ->assertJsonStructure(['errors', 'message'])
             ->assertJsonValidationErrors('password');
 
         $this->assertDatabaseMissing('users', [
             'email' =>  $data['email'],
-            'name'  =>  $data['name']
+            'name'  =>  $data['name'],
         ]);
     }
 
@@ -331,22 +332,22 @@ class UserControllerTest extends TestCase
     public function it_must_reject_user_store_request_that_does_not_contain_string_password()
     {
         $this->login($this->userWithManageUsersPermission());
-        $data   =   $this->dataProvider()->without('password');
+        $data = $this->dataProvider()->without('password');
 
-        $invalidPasswords   =   [null, false, true, [], ''];
+        $invalidPasswords = [null, false, true, [], ''];
         foreach ($invalidPasswords as $password) {
-            $data['password']   =   $password;
-            $response           =   $this->postJson($this->routeStore(), $data);
+            $data['password'] = $password;
+            $response = $this->postJson($this->routeStore(), $data);
 
             $response
                 ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
-                ->assertJsonStructure(['errors','message'])
+                ->assertJsonStructure(['errors', 'message'])
                 ->assertJsonValidationErrors('password');
 
             $this->assertDatabaseMissing('users', [
                 'email' =>  $data['email'],
-                'name'  =>  $data['name']
+                'name'  =>  $data['name'],
             ]);
         }
     }
@@ -358,21 +359,21 @@ class UserControllerTest extends TestCase
     public function it_must_reject_user_store_request_that_does_not_contain_a_least_six_char_password()
     {
         $this->login($this->userWithManageUsersPermission());
-        $data   =   $this->dataProvider()->without('password');
+        $data = $this->dataProvider()->without('password');
 
         for ($i = 0; $i < 6; $i++) {
-            $data['password']   =   str_random($i);
-            $response           =   $this->postJson($this->routeStore(), $data);
+            $data['password'] = str_random($i);
+            $response = $this->postJson($this->routeStore(), $data);
 
             $response
                 ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
-                ->assertJsonStructure(['errors','message'])
+                ->assertJsonStructure(['errors', 'message'])
                 ->assertJsonValidationErrors('password');
 
             $this->assertDatabaseMissing('users', [
                 'email' =>  $data['email'],
-                'name'  =>  $data['name']
+                'name'  =>  $data['name'],
             ]);
         }
     }
@@ -384,46 +385,46 @@ class UserControllerTest extends TestCase
     public function it_must_reject_user_store_request_that_contain_more_than_thirty_char_password()
     {
         $this->login($this->userWithManageUsersPermission());
-        $data   =   $this->dataProvider()->without('password');
+        $data = $this->dataProvider()->without('password');
 
-        $prime_number   =   [31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
+        $prime_number = [31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
         foreach ($prime_number as $i) {
-            $data['password']               =   str_random($i);
-            $data['password_confirmation']  =   $data['password'];
+            $data['password'] = str_random($i);
+            $data['password_confirmation'] = $data['password'];
 
-            $response   =   $this->postJson($this->routeStore(), $data);
+            $response = $this->postJson($this->routeStore(), $data);
             $response
                 ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
-                ->assertJsonStructure(['errors','message'])
+                ->assertJsonStructure(['errors', 'message'])
                 ->assertJsonValidationErrors('password');
 
             $this->assertDatabaseMissing('users', [
                 'email' =>  $data['email'],
-                'name'  =>  $data['name']
+                'name'  =>  $data['name'],
             ]);
         }
     }
-    
+
     /**
      * @group users.store
      * @test
      */
     public function it_must_reject_user_store_request_that_does_not_contain_confirmed_password()
     {
-        $user       =   $this->userWithManageUsersPermission();
-        $data       =   $this->dataProvider()->without('password_confirmation');
-        $response   =   $this->login($user)->postJson($this->routeStore(), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->without('password_confirmation');
+        $response = $this->login($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
-            ->assertJsonStructure(['errors','message'])
+            ->assertJsonStructure(['errors', 'message'])
             ->assertJsonValidationErrors('password');
 
         $this->assertDatabaseMissing('users', [
             'email' =>  $data['email'],
-            'name'  =>  $data['name']
+            'name'  =>  $data['name'],
         ]);
     }
 
@@ -434,26 +435,26 @@ class UserControllerTest extends TestCase
     public function it_must_reject_user_store_request_that_contain_none_image_avatar()
     {
         $this->login($this->userWithManageUsersPermission());
-        $data       =   $this->dataProvider()->without('avatar');
+        $data = $this->dataProvider()->without('avatar');
 
-        $invalidImages  =   [
-            null, false,true, str_random(), random_int(0, mt_getrandmax()),
-            UploadedFile::fake()->create('excel.xls', 1024 * 10)
+        $invalidImages = [
+            null, false, true, str_random(), random_int(0, mt_getrandmax()),
+            UploadedFile::fake()->create('excel.xls', 1024 * 10),
             ];
 
         foreach ($invalidImages as $image) {
-            $data['avatar'] =   $image;
-            $response       =   $this->postJson($this->routeStore(), $data);
+            $data['avatar'] = $image;
+            $response = $this->postJson($this->routeStore(), $data);
 
             $response
                 ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
-                ->assertJsonStructure(['errors','message'])
+                ->assertJsonStructure(['errors', 'message'])
                 ->assertJsonValidationErrors('avatar');
 
             $this->assertDatabaseMissing('users', [
                 'email' =>  $data['email'],
-                'name'  =>  $data['name']
+                'name'  =>  $data['name'],
             ]);
         }
     }
@@ -464,26 +465,26 @@ class UserControllerTest extends TestCase
      */
     public function the_user_password_that_is_stored_must_be_encrypted()
     {
-        $user       =   $this->userWithManageUsersPermission();
-        $data       =   $this->dataProvider()->getData();
-        $response   =   $this->login($user)->postJson($this->routeStore(), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->getData();
+        $response = $this->login($user)->postJson($this->routeStore(), $data);
         $response
             ->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonMissing(['errors'])
             ->assertJsonStructure([
                 'data'  =>  [
-                    'id','type','attributes','relations'
-                ]
+                    'id', 'type', 'attributes', 'relations',
+                ],
             ]);
 
         $this->assertDatabaseHas('users', [
             'email' =>  $data['email'],
-            'name'  =>  $data['name']
+            'name'  =>  $data['name'],
         ]);
 
-        $createdUser    =   User::whereEmail($data['email'])->first();
-        $isHash         =   Hash::check($data['password'], $createdUser->password);
+        $createdUser = User::whereEmail($data['email'])->first();
+        $isHash = Hash::check($data['password'], $createdUser->password);
         $this->assertTrue($isHash);
     }
 
@@ -493,9 +494,9 @@ class UserControllerTest extends TestCase
      */
     public function the_newly_saved_user_must_have_the_activation_token()
     {
-        $user       =   $this->userWithManageUsersPermission();
-        $data       =   $this->dataProvider()->getData();
-        $response   =   $this->login($user)->postJson($this->routeStore(), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->getData();
+        $response = $this->login($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertSuccessful()
@@ -503,16 +504,16 @@ class UserControllerTest extends TestCase
             ->assertJsonMissing(['errors'])
             ->assertJsonStructure([
                 'data'  =>  [
-                    'id','type','attributes','relations'
-                ]
+                    'id', 'type', 'attributes', 'relations',
+                ],
             ]);
 
         $this->assertDatabaseHas('users', [
             'email' =>  $data['email'],
-            'name'  =>  $data['name']
+            'name'  =>  $data['name'],
         ]);
 
-        $createdUser    =   User::whereEmail($data['email'])->first();
+        $createdUser = User::whereEmail($data['email'])->first();
         $this->assertNotNull($createdUser->activation_token);
     }
 
@@ -522,9 +523,9 @@ class UserControllerTest extends TestCase
      */
     public function the_newly_saved_user_if_sends_avatar_must_have_the_avatar()
     {
-        $user       =   $this->userWithManageUsersPermission();
-        $data       =   $this->dataProvider()->getData();
-        $response   =   $this->login($user)->postJson($this->routeStore(), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->getData();
+        $response = $this->login($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertSuccessful()
@@ -532,16 +533,16 @@ class UserControllerTest extends TestCase
             ->assertJsonMissing(['errors'])
             ->assertJsonStructure([
                 'data'  =>  [
-                    'id','type','attributes','relations'
-                ]
+                    'id', 'type', 'attributes', 'relations',
+                ],
             ]);
 
         $this->assertDatabaseHas('users', [
             'email' =>  $data['email'],
-            'name'  =>  $data['name']
+            'name'  =>  $data['name'],
         ]);
 
-        $createdUser    =   User::whereEmail($data['email'])->first();
+        $createdUser = User::whereEmail($data['email'])->first();
         $this->assertInstanceOf(Media::class, $createdUser->media->first());
     }
 
@@ -552,9 +553,9 @@ class UserControllerTest extends TestCase
     public function after_saving_a_new_user_send_an_activation_email()
     {
         Event::fake();
-        $user       =   $this->userWithManageUsersPermission();
-        $data       =   $this->dataProvider()->getData();
-        $response   =   $this->login($user)->postJson($this->routeStore(), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->getData();
+        $response = $this->login($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertSuccessful()
@@ -562,18 +563,18 @@ class UserControllerTest extends TestCase
             ->assertJsonMissing(['errors'])
             ->assertJsonStructure([
                 'data'  =>  [
-                    'id','type','attributes','relations'
-                ]
+                    'id', 'type', 'attributes', 'relations',
+                ],
             ]);
 
         $this->assertDatabaseHas('users', [
             'email' =>  $data['email'],
-            'name'  =>  $data['name']
+            'name'  =>  $data['name'],
         ]);
 
         Event::assertDispatched(UserStoreEvent::class, function ($event) use ($data) {
-            return $event->user->name   === $data['name']
-                && $event->user->email  === $data['email'];
+            return $event->user->name === $data['name']
+                && $event->user->email === $data['email'];
         });
     }
 
@@ -583,18 +584,18 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_update_request_that_does_not_contain_the_name()
     {
-        $user       =   $this->userWithManageUsersPermission();
-        $data       =   $this->dataProvider()->withPutMethod()->without('name');
-        $response   =   $this->login($user)->postJson($this->routeUpdate($user), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->withPutMethod()->without('name');
+        $response = $this->login($user)->postJson($this->routeUpdate($user), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
-            ->assertJsonStructure(['errors','message'])
+            ->assertJsonStructure(['errors', 'message'])
             ->assertJsonValidationErrors('name');
 
         $this->assertDatabaseMissing('users', [
-            'email' =>  $data['email']
+            'email' =>  $data['email'],
         ]);
 
         $this->assertDatabaseHas('users', [
@@ -608,18 +609,18 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_update_request_that_does_not_contain_the_email()
     {
-        $user       =   $this->userWithManageUsersPermission();
-        $data       =   $this->dataProvider()->withPutMethod()->without('email');
-        $response   =   $this->login($user)->postJson($this->routeUpdate($user), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->withPutMethod()->without('email');
+        $response = $this->login($user)->postJson($this->routeUpdate($user), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
-            ->assertJsonStructure(['errors','message'])
+            ->assertJsonStructure(['errors', 'message'])
             ->assertJsonValidationErrors('email');
 
         $this->assertDatabaseMissing('users', [
-            'name'  =>  $data['name']
+            'name'  =>  $data['name'],
         ]);
 
         $this->assertDatabaseHas('users', [
@@ -634,20 +635,20 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_update_request_that_does_not_contain_a_valid_email()
     {
-        $user           =   $this->userWithManageUsersPermission();
-        $data           =   $this->dataProvider()->withPutMethod()->without('email');
-        $data['email']  =   str_random();
-        $response       =   $this->login($user)->postJson($this->routeUpdate($user), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->withPutMethod()->without('email');
+        $data['email'] = str_random();
+        $response = $this->login($user)->postJson($this->routeUpdate($user), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
-            ->assertJsonStructure(['errors','message'])
+            ->assertJsonStructure(['errors', 'message'])
             ->assertJsonValidationErrors('email');
 
         $this->assertDatabaseMissing('users', [
             'email' =>  $data['email'],
-            'name'  =>  $data['name']
+            'name'  =>  $data['name'],
         ]);
 
         $this->assertDatabaseHas('users', [
@@ -662,22 +663,22 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_update_request_that_contain_duplicated_email()
     {
-        $user           =   $this->userWithManageUsersPermission();
-        $another_user   =   factory(User::class)->create();
+        $user = $this->userWithManageUsersPermission();
+        $another_user = factory(User::class)->create();
 
-        $data           =   $this->dataProvider()->withPutMethod()->without('email');
-        $data['email']  =   $another_user->email;
+        $data = $this->dataProvider()->withPutMethod()->without('email');
+        $data['email'] = $another_user->email;
 
-        $response       =   $this->login($user)->postJson($this->routeUpdate($user), $data);
+        $response = $this->login($user)->postJson($this->routeUpdate($user), $data);
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
-            ->assertJsonStructure(['errors','message'])
+            ->assertJsonStructure(['errors', 'message'])
             ->assertJsonValidationErrors('email');
 
         $this->assertDatabaseMissing('users', [
             'email' =>  $data['email'],
-            'name'  =>  $data['name']
+            'name'  =>  $data['name'],
         ]);
 
         $this->assertDatabaseHas('users', [
@@ -697,15 +698,14 @@ class UserControllerTest extends TestCase
      */
     public function it_must_accept_user_update_request_that_does_not_contain_the_password()
     {
-        $user       =   $this->userWithManageUsersPermission();
-        $data       =   $this->dataProvider()->withPutMethod()->without('password');
-        $response   =   $this->login($user)->postJson($this->routeUpdate($user), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->withPutMethod()->without('password');
+        $response = $this->login($user)->postJson($this->routeUpdate($user), $data);
 
         $response
             ->assertStatus(Response::HTTP_OK)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJson(['data' => ['row-effected'  =>  1]]);
-
 
         $this->assertDatabaseHas('users', [
             'name'  =>  $data['name'],
@@ -720,10 +720,10 @@ class UserControllerTest extends TestCase
     public function it_should_accept_user_update_request_that_does_not_contain_string_password()
     {
         $this->login($user = $this->userWithManageUsersPermission());
-        $data   =   $this->dataProvider()->withPutMethod()->without('password');
+        $data = $this->dataProvider()->withPutMethod()->without('password');
 
-        $data['password']   =   null;
-        $response           =   $this->postJson($this->routeUpdate($user), $data);
+        $data['password'] = null;
+        $response = $this->postJson($this->routeUpdate($user), $data);
         $response
             ->assertStatus(Response::HTTP_OK)
             ->assertHeader('Content-Type', enum('system.response.json'))
@@ -737,20 +737,20 @@ class UserControllerTest extends TestCase
     public function it_must_reject_user_update_request_that_does_not_contain_a_least_six_char_password()
     {
         $this->login($user = $this->userWithManageUsersPermission());
-        $data   =   $this->dataProvider()->withPutMethod()->without('password');
+        $data = $this->dataProvider()->withPutMethod()->without('password');
 
         for ($i = 1; $i < 6; $i++) {
-            $data['password']   =   str_random($i);
-            $response           =   $this->postJson($this->routeUpdate($user), $data);
+            $data['password'] = str_random($i);
+            $response = $this->postJson($this->routeUpdate($user), $data);
             $response
                 ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
-                ->assertJsonStructure(['errors','message'])
+                ->assertJsonStructure(['errors', 'message'])
                 ->assertJsonValidationErrors('password');
 
             $this->assertDatabaseMissing('users', [
                 'email' =>  $data['email'],
-                'name'  =>  $data['name']
+                'name'  =>  $data['name'],
             ]);
 
             $this->assertDatabaseHas('users', [
@@ -767,23 +767,23 @@ class UserControllerTest extends TestCase
     public function it_must_reject_user_update_request_that_contain_more_than_thirty_char_password()
     {
         $this->login($user = $this->userWithManageUsersPermission());
-        $data   =   $this->dataProvider()->withPutMethod()->without('password');
+        $data = $this->dataProvider()->withPutMethod()->without('password');
 
-        $prime_number   =   [31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
+        $prime_number = [31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
         foreach ($prime_number as $i) {
-            $data['password']               =   str_random($i);
-            $data['password_confirmation']  =   $data['password'];
+            $data['password'] = str_random($i);
+            $data['password_confirmation'] = $data['password'];
 
-            $response   =   $this->postJson($this->routeUpdate($user), $data);
+            $response = $this->postJson($this->routeUpdate($user), $data);
             $response
                 ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
-                ->assertJsonStructure(['errors','message'])
+                ->assertJsonStructure(['errors', 'message'])
                 ->assertJsonValidationErrors('password');
 
             $this->assertDatabaseMissing('users', [
                 'email' =>  $data['email'],
-                'name'  =>  $data['name']
+                'name'  =>  $data['name'],
             ]);
 
             $this->assertDatabaseHas('users', [
@@ -799,19 +799,19 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_update_request_that_does_not_contain_confirmed_password()
     {
-        $user       =   $this->userWithManageUsersPermission();
-        $data       =   $this->dataProvider()->withPutMethod()->without('password_confirmation');
-        $response   =   $this->login($user)->postJson($this->routeUpdate($user), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->withPutMethod()->without('password_confirmation');
+        $response = $this->login($user)->postJson($this->routeUpdate($user), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
-            ->assertJsonStructure(['errors','message'])
+            ->assertJsonStructure(['errors', 'message'])
             ->assertJsonValidationErrors('password');
 
         $this->assertDatabaseMissing('users', [
             'email' =>  $data['email'],
-            'name'  =>  $data['name']
+            'name'  =>  $data['name'],
         ]);
 
         $this->assertDatabaseHas('users', [
@@ -827,26 +827,26 @@ class UserControllerTest extends TestCase
     public function it_must_reject_user_update_request_that_contain_none_image_avatar()
     {
         $this->login($user = $this->userWithManageUsersPermission());
-        $data       =   $this->dataProvider()->withPutMethod()->without('avatar');
+        $data = $this->dataProvider()->withPutMethod()->without('avatar');
 
-        $invalidImages  =   [
-            null, false,true, str_random(), random_int(0, mt_getrandmax()),
-            UploadedFile::fake()->create('excel.xls', 1024 * 10)
+        $invalidImages = [
+            null, false, true, str_random(), random_int(0, mt_getrandmax()),
+            UploadedFile::fake()->create('excel.xls', 1024 * 10),
         ];
 
         foreach ($invalidImages as $image) {
-            $data['avatar'] =   $image;
-            $response       =   $this->postJson($this->routeUpdate($user), $data);
+            $data['avatar'] = $image;
+            $response = $this->postJson($this->routeUpdate($user), $data);
 
             $response
                 ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
                 ->assertHeader('Content-Type', enum('system.response.json'))
-                ->assertJsonStructure(['errors','message'])
+                ->assertJsonStructure(['errors', 'message'])
                 ->assertJsonValidationErrors('avatar');
 
             $this->assertDatabaseMissing('users', [
                 'email' =>  $data['email'],
-                'name'  =>  $data['name']
+                'name'  =>  $data['name'],
             ]);
 
             $this->assertDatabaseHas('users', [
@@ -862,9 +862,9 @@ class UserControllerTest extends TestCase
      */
     public function the_user_password_that_is_updated_must_be_encrypted()
     {
-        $user       =   $this->userWithManageUsersPermission();
-        $data       =   $this->dataProvider()->withPutMethod()->getData();
-        $response   =   $this->login($user)->postJson($this->routeUpdate($user), $data);
+        $user = $this->userWithManageUsersPermission();
+        $data = $this->dataProvider()->withPutMethod()->getData();
+        $response = $this->login($user)->postJson($this->routeUpdate($user), $data);
         $response
             ->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
@@ -873,11 +873,11 @@ class UserControllerTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'email' =>  $data['email'],
-            'name'  =>  $data['name']
+            'name'  =>  $data['name'],
         ]);
 
-        $createdUser    =   User::whereEmail($data['email'])->first();
-        $isHash         =   Hash::check($data['password'], $createdUser->password);
+        $createdUser = User::whereEmail($data['email'])->first();
+        $isHash = Hash::check($data['password'], $createdUser->password);
         $this->assertTrue($isHash);
     }
 

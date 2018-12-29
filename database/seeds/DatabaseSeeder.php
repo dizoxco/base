@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Post;
 use App\Models\Tag;
-use App\Models\Taxonomy;
+use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Taxonomy;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
 use Spatie\Permission\Models\Role;
@@ -12,7 +12,6 @@ use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
-
     protected $seeds = [
         'migrate',
         'permissions',
@@ -43,7 +42,7 @@ class DatabaseSeeder extends Seeder
 
     public function permissions()
     {
-        $permissions    =   [
+        $permissions = [
             //  users permissions
             ['name' =>  'manage_users', 'guard_name'    =>  'api'],
 
@@ -83,12 +82,10 @@ class DatabaseSeeder extends Seeder
         Tag::create(['group_id' => 1, 'label' => 'نوکیا', 'slug' => 'nokia']);
         Tag::create(['group_id' => 1, 'label' => 'هواوی', 'slug' => 'huawei']);
 
-
         Tag::create(['group_id' => 2, 'label' => 'قرمز', 'slug' => 'red']);
         Tag::create(['group_id' => 2, 'label' => 'ابی', 'slug' => 'blue']);
         Tag::create(['group_id' => 2, 'label' => 'سبز', 'slug' => 'green']);
         Tag::create(['group_id' => 2, 'label' => 'زرد', 'slug' => 'yellow']);
-
 
         Tag::create(['group_id' => 3, 'label' => 'موبایل', 'slug' => 'mobile']);
         Tag::create(['group_id' => 4, 'label' => 'پیراهن', 'slug' => 'shirt']);
@@ -96,8 +93,8 @@ class DatabaseSeeder extends Seeder
 
     public function users()
     {
-        $numbers        =   (int) $this->command->ask('How Many Users Do You Want?', 10);
-        $this->users    =   factory(User::class, $numbers)->create();
+        $numbers = (int) $this->command->ask('How Many Users Do You Want?', 10);
+        $this->users = factory(User::class, $numbers)->create();
         $this->users->each(
             function (User $user) {
                 $user->assignRole(Role::inRandomOrder()->first());
@@ -108,7 +105,7 @@ class DatabaseSeeder extends Seeder
 
     public function posts()
     {
-        $numbers        =   (int) $this->command->ask('How many articles can be created per user?', 2);
+        $numbers = (int) $this->command->ask('How many articles can be created per user?', 2);
         $this->users->each(
             function (User $user) use ($numbers) {
                 for ($i = 1; $i <= $numbers; $i++) {
@@ -121,12 +118,12 @@ class DatabaseSeeder extends Seeder
 
     public function comments()
     {
-        $numbers        =   (int) $this->command->ask('How many comments can be created per post?', 2);
+        $numbers = (int) $this->command->ask('How many comments can be created per post?', 2);
         Post::all()->each(function (Post $post) use ($numbers) {
             for ($i = 1; $i <= $numbers; $i++) {
                 $post->comments()->create(factory(Comment::class)->make(
                     [
-                        'user_id'   =>  User::inRandomOrder()->first()->id
+                        'user_id'   =>  User::inRandomOrder()->first()->id,
                     ]
                 )->toArray());
             }

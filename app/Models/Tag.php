@@ -9,7 +9,7 @@ class Tag extends Model
     protected $table = 'tags';
 
     protected $fillable = [
-        'parent_id', 'taxonomy_id', 'label', 'slug', 'metadata'
+        'parent_id', 'taxonomy_id', 'label', 'slug', 'metadata',
     ];
 
     /**

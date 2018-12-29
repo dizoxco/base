@@ -2,14 +2,13 @@
 
 namespace Tests\Feature\Api;
 
-use App\Models\Post;
-use App\Models\Product;
-use App\Models\SearchPanel;
 use App\Models\Tag;
-use App\Models\User;
-use App\Repositories\Facades\PostRepo;
-use Illuminate\Support\Collection;
 use Tests\TestCase;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\SearchPanel;
+use Illuminate\Support\Collection;
+use App\Repositories\Facades\PostRepo;
 
 class SearchControllerTest extends TestCase
 {
@@ -39,17 +38,18 @@ class SearchControllerTest extends TestCase
 
     protected function routeShow($search_panel, array $paramters = [])
     {
-        $params =   ['search_panel' =>  $search_panel];
-        if (!empty($paramters)) {
-            $params =   array_merge($params, $paramters);
+        $params = ['search_panel' =>  $search_panel];
+        if (! empty($paramters)) {
+            $params = array_merge($params, $paramters);
         }
+
         return route('api.search.show', $params);
     }
 
     protected function seedDatabase(array $filters, array $options = [])
     {
-        $this->brands   =   [1 => 'apple',2 =>  'samsung',3 =>  'microsoft'];
-        $this->colors   =   [4 => 'red',5 =>  'green',6 => 'blue'];
+        $this->brands = [1 => 'apple', 2 =>  'samsung', 3 =>  'microsoft'];
+        $this->colors = [4 => 'red', 5 =>  'green', 6 => 'blue'];
 
         foreach ($this->brands as $brand) {
             factory(Tag::class)->create(['label'=>$brand, 'slug'=>$brand]);
@@ -58,25 +58,24 @@ class SearchControllerTest extends TestCase
             factory(Tag::class)->create(['label'=>$color, 'slug'=>$color]);
         }
 
-        $this->user     =   factory(User::class)->create();
-        $this->posts    =   factory(Post::class, 1000)->create(['user_id'=>$this->user->id])->each(
-            function (Post $post)
-            {
+        $this->user = factory(User::class)->create();
+        $this->posts = factory(Post::class, 1000)->create(['user_id'=>$this->user->id])->each(
+            function (Post $post) {
                 $post->tags()->sync(array_rand($this->brands), false);
-                $post->tags()->sync(array_rand($this->colors,2), false);
+                $post->tags()->sync(array_rand($this->colors, 2), false);
             }
         );
 
-        $this->search_panel   =   factory(SearchPanel::class)->create([
+        $this->search_panel = factory(SearchPanel::class)->create([
             'model'     =>  Post::class,
             'filters'   =>  json_encode($filters),
-            'options'   =>  json_encode($options)
+            'options'   =>  json_encode($options),
         ]);
 
         return $this;
     }
 
-    protected function filterBetween($field,$query,$min,$max):array
+    protected function filterBetween($field, $query, $min, $max):array
     {
         return [
             $field  =>  [
@@ -85,7 +84,7 @@ class SearchControllerTest extends TestCase
                 'field' =>  $field,
                 'min'   =>  $min,
                 'max'   =>  $max,
-            ]
+            ],
         ];
     }
 
@@ -97,7 +96,7 @@ class SearchControllerTest extends TestCase
                 'query' =>  $query,
                 'field' =>  $field,
                 'items' =>  $items,
-            ]
+            ],
         ];
     }
 
@@ -108,11 +107,11 @@ class SearchControllerTest extends TestCase
                 'label' =>  $query,
                 'query' =>  $query,
                 'field' =>  $field,
-                'ranges'=>  $ranges
-            ]
+                'ranges'=>  $ranges,
+            ],
         ];
     }
-    
+
     protected function assertCondition($first, $operator, $second)
     {
         switch ($operator) {
@@ -132,55 +131,55 @@ class SearchControllerTest extends TestCase
 
     public function test_filter_between()
     {
-        $min    =   '-1';
-        $max    =   mt_rand($min, 1001);
-        $filters    =   $this->filterBetween('id','between',$min,$max);
-        $response   =   $this->seedDatabase($filters)->getJson($this->routeShow($this->search_panel->slug));
+        $min = '-1';
+        $max = mt_rand($min, 1001);
+        $filters = $this->filterBetween('id', 'between', $min, $max);
+        $response = $this->seedDatabase($filters)->getJson($this->routeShow($this->search_panel->slug));
         $response->assertSuccessful();
 
-        $posts      =   $response->decodeResponseJson();
+        $posts = $response->decodeResponseJson();
         $this->assertCount(10, $posts['data']);
 
-        $first_page =   $posts['from'];
-        $last_page  =   $posts['last_page'];
+        $first_page = $posts['from'];
+        $last_page = $posts['last_page'];
         foreach (range($first_page, $last_page) as $page) {
-            $response   =   $this->getJson($this->routeShow($this->search_panel->slug, ['page'  =>  $page]));
+            $response = $this->getJson($this->routeShow($this->search_panel->slug, ['page'  =>  $page]));
             $response->assertSuccessful();
             $response->assertJsonStructure([
-                'current_page','data','first_page_url','from','last_page',
-                'last_page_url','next_page_url','path','per_page','prev_page_url',
-                'to','total'
+                'current_page', 'data', 'first_page_url', 'from', 'last_page',
+                'last_page_url', 'next_page_url', 'path', 'per_page', 'prev_page_url',
+                'to', 'total',
             ]);
-            $posts      =   $response->decodeResponseJson();
+            $posts = $response->decodeResponseJson();
             foreach ($posts['data'] as $post) {
-                $this->assertTrue($post['id'] >= $min &&$post['id'] <= $max);
+                $this->assertTrue($post['id'] >= $min && $post['id'] <= $max);
             }
         }
     }
 
     public function test_filter_compare()
     {
-        $id         =   mt_rand(1,1000);
-        $structure  =   [
-            'current_page','data','first_page_url','from','last_page',
-            'last_page_url','next_page_url','path','per_page','prev_page_url',
-            'to','total'
+        $id = mt_rand(1, 1000);
+        $structure = [
+            'current_page', 'data', 'first_page_url', 'from', 'last_page',
+            'last_page_url', 'next_page_url', 'path', 'per_page', 'prev_page_url',
+            'to', 'total',
         ];
 
-        $operator   =   array_random(SearchPanel::$operators);
+        $operator = array_random(SearchPanel::$operators);
 
-        $filters    =   $this->filterCompare('id',$operator,$id);
-        $response   =   $this->seedDatabase($filters)->getJson($this->routeShow($this->search_panel->slug));
+        $filters = $this->filterCompare('id', $operator, $id);
+        $response = $this->seedDatabase($filters)->getJson($this->routeShow($this->search_panel->slug));
         $response->assertSuccessful();
         $response->assertJsonStructure($structure);
-        $posts      =   $response->decodeResponseJson();
-        $first_page =   $posts['from'];
-        $last_page  =   $posts['last_page'];
+        $posts = $response->decodeResponseJson();
+        $first_page = $posts['from'];
+        $last_page = $posts['last_page'];
         foreach (range($first_page, $last_page) as $page) {
-            $response   =   $this->getJson($this->routeShow($this->search_panel->slug, ['page'  =>  $page]));
+            $response = $this->getJson($this->routeShow($this->search_panel->slug, ['page'  =>  $page]));
             $response->assertSuccessful();
             $response->assertJsonStructure($structure);
-            $posts  =   $response->decodeResponseJson();
+            $posts = $response->decodeResponseJson();
             foreach ($posts['data'] as $post) {
                 $this->assertTrue($this->assertCondition($post['id'], $operator, $id));
             }
@@ -190,59 +189,59 @@ class SearchControllerTest extends TestCase
     public function test_filter_tag()
     {
         //  Start seeding database
-        $filters    =   [
+        $filters = [
             'brand' =>  [
                 'label' =>  'برند',
                 'query' =>  'tag',
                 'tag'  =>  [
                     ['id'   =>  1,  'label' =>  'apple'],
                 ],
-            ]
+            ],
         ];
 
         $this->seedDatabase($filters);
 
         //  Test without url parameter
-        $response   =   $this->getJson($this->routeShow($this->search_panel->slug));
+        $response = $this->getJson($this->routeShow($this->search_panel->slug));
         $response->assertSuccessful();
 
-        $posts  =   $response->decodeResponseJson();
+        $posts = $response->decodeResponseJson();
         $this->assertTrue(count($posts) > (new Post())->getPerPage());
 
         foreach ($posts['data'] as $post) {
-            $tags_id    =   Post::find($post['id'])->tags->pluck('id')->toArray();
+            $tags_id = Post::find($post['id'])->tags->pluck('id')->toArray();
             $this->assertTrue(in_array(1, $tags_id));
-            $this->assertFalse(in_array([2,3], $tags_id));
+            $this->assertFalse(in_array([2, 3], $tags_id));
         }
     }
 
     public function test_option_between()
     {
-        $min    =   '-1';
-        $max    =   mt_rand($min, 1001);
-        $options    =   $this->filterBetween('id','between',$min,$max);
+        $min = '-1';
+        $max = mt_rand($min, 1001);
+        $options = $this->filterBetween('id', 'between', $min, $max);
         $this->seedDatabase([], $options);
-        $response   =   $this->getJson(
-            $this->routeShow($this->search_panel->slug,['id[min]'=>$min,'id[max]'=>$max])
+        $response = $this->getJson(
+            $this->routeShow($this->search_panel->slug, ['id[min]'=>$min, 'id[max]'=>$max])
         );
         $response->assertSuccessful();
 
-        $posts      =   $response->decodeResponseJson();
+        $posts = $response->decodeResponseJson();
         $this->assertCount((new Post())->getPerPage(), $posts['data']);
 
-        $first_page =   $posts['from'];
-        $last_page  =   $posts['last_page'];
+        $first_page = $posts['from'];
+        $last_page = $posts['last_page'];
         foreach (range($first_page, $last_page) as $page) {
-            $response   =   $this->getJson($this->routeShow(
-                $this->search_panel->slug, ['page'  =>  $page,'id[min]'=>$min,'id[max]'=>$max])
+            $response = $this->getJson($this->routeShow(
+                $this->search_panel->slug, ['page'  =>  $page, 'id[min]'=>$min, 'id[max]'=>$max])
             );
             $response->assertSuccessful();
             $response->assertJsonStructure([
-                'current_page','data','first_page_url','from','last_page',
-                'last_page_url','next_page_url','path','per_page','prev_page_url',
-                'to','total'
+                'current_page', 'data', 'first_page_url', 'from', 'last_page',
+                'last_page_url', 'next_page_url', 'path', 'per_page', 'prev_page_url',
+                'to', 'total',
             ]);
-            $posts      =   $response->decodeResponseJson();
+            $posts = $response->decodeResponseJson();
             foreach ($posts['data'] as $post) {
                 $this->assertTrue($post['id'] >= $min && $post['id'] <= $max);
             }
@@ -251,74 +250,73 @@ class SearchControllerTest extends TestCase
 
     public function test_options_range()
     {
-        $ranges =   [
-            ['start' => '-1','finish' => '330'],
-            ['start' => '331','finish'=> '660'],
-            ['start' => '661','finish'=> '1001'],
+        $ranges = [
+            ['start' => '-1', 'finish' => '330'],
+            ['start' => '331', 'finish'=> '660'],
+            ['start' => '661', 'finish'=> '1001'],
         ];
-        $options=   $this->filterRange('id','range', $ranges);
+        $options = $this->filterRange('id', 'range', $ranges);
         $this->seedDatabase([], $options);
         foreach ($ranges as $index => $range) {
-            $response   =   $this->getJson(
-                $this->routeShow($this->search_panel->slug,['id'    =>  $index])
+            $response = $this->getJson(
+                $this->routeShow($this->search_panel->slug, ['id'    =>  $index])
             );
             $response->assertSuccessful();
-            $posts      =   $response->decodeResponseJson();
+            $posts = $response->decodeResponseJson();
             $this->assertCount((new Post())->getPerPage(), $posts['data']);
-            $first_page =   $posts['from'];
-            $last_page  =   $posts['last_page'];
+            $first_page = $posts['from'];
+            $last_page = $posts['last_page'];
             foreach (range($first_page, $last_page) as $page) {
-                $response   =   $this->getJson($this->routeShow(
-                    $this->search_panel->slug, ['page'  =>  $page,'id'=>$index])
+                $response = $this->getJson($this->routeShow(
+                    $this->search_panel->slug, ['page'  =>  $page, 'id'=>$index])
                 );
                 $response->assertSuccessful();
                 $response->assertJsonStructure([
-                    'current_page','data','first_page_url','from','last_page',
-                    'last_page_url','next_page_url','path','per_page','prev_page_url',
-                    'to','total'
+                    'current_page', 'data', 'first_page_url', 'from', 'last_page',
+                    'last_page_url', 'next_page_url', 'path', 'per_page', 'prev_page_url',
+                    'to', 'total',
                 ]);
-                $posts      =   $response->decodeResponseJson();
+                $posts = $response->decodeResponseJson();
                 foreach ($posts['data'] as $post) {
                     $this->assertTrue($post['id'] >= $range['start'] && $post['id'] <= $range['finish']);
                 }
             }
-
         }
     }
 
     public function test_option_compare()
     {
-        $operator   =   array_random(SearchPanel::$operators);
-        $options    =   $this->filterCompare('id', $operator, [
+        $operator = array_random(SearchPanel::$operators);
+        $options = $this->filterCompare('id', $operator, [
             ['value'    =>  100],
             ['value'    =>  200],
             ['value'    =>  300],
         ]);
-        $structure  =   [
-            'current_page','data','first_page_url','from','last_page',
-            'last_page_url','next_page_url','path','per_page','prev_page_url',
-            'to','total'
+        $structure = [
+            'current_page', 'data', 'first_page_url', 'from', 'last_page',
+            'last_page_url', 'next_page_url', 'path', 'per_page', 'prev_page_url',
+            'to', 'total',
         ];
         $this->seedDatabase([], $options);
 
         foreach ($options['id']['items'] as $index => $option) {
-            $response   =   $this->getJson(
-                $this->routeShow($this->search_panel->slug,['id' => $index])
+            $response = $this->getJson(
+                $this->routeShow($this->search_panel->slug, ['id' => $index])
             );
             $response->assertSuccessful();
             $response->assertJsonStructure($structure);
-            $posts      =   $response->decodeResponseJson();
-            $first_page =   $posts['from'];
-            $last_page  =   $posts['last_page'];
+            $posts = $response->decodeResponseJson();
+            $first_page = $posts['from'];
+            $last_page = $posts['last_page'];
             foreach (range($first_page, $last_page) as $page) {
-                $response   =   $this->getJson(
-                    $this->routeShow($this->search_panel->slug, ['page'  =>  $page,'id' => $index])
+                $response = $this->getJson(
+                    $this->routeShow($this->search_panel->slug, ['page'  =>  $page, 'id' => $index])
                 );
                 $response->assertSuccessful();
                 $response->assertJsonStructure($structure);
-                $posts  =   $response->decodeResponseJson();
+                $posts = $response->decodeResponseJson();
                 foreach ($posts['data'] as $post) {
-                    $r =$this->assertCondition($post['id'], $operator, $option['value']);
+                    $r = $this->assertCondition($post['id'], $operator, $option['value']);
                     if ($r === false) {
                         dd($post['id'], $operator, $option['value']);
                     }
@@ -331,7 +329,7 @@ class SearchControllerTest extends TestCase
     public function test_option_tag()
     {
         //  Start seeding database
-        $options =   [
+        $options = [
             'brand' =>  [
                 'label' =>  'برند',
                 'query' =>  'tag',
@@ -349,55 +347,55 @@ class SearchControllerTest extends TestCase
                     ['id'   =>  5,  'label' =>  'green'],
                     ['id'   =>  6,  'label' =>  'blue'],
                 ],
-            ]
+            ],
         ];
-        $structure  =   [
-            'current_page','data','first_page_url','from','last_page',
-            'last_page_url','next_page_url','path','per_page','prev_page_url',
-            'to','total'
+        $structure = [
+            'current_page', 'data', 'first_page_url', 'from', 'last_page',
+            'last_page_url', 'next_page_url', 'path', 'per_page', 'prev_page_url',
+            'to', 'total',
         ];
 
         $this->seedDatabase([], $options);
 
         foreach ($options['brand']['tag'] as $key => $brand) {
-            $response   =   $this->getJson(
+            $response = $this->getJson(
                 $this->routeShow($this->search_panel->slug, ['brand'    =>  $key])
             );
             $response->assertSuccessful();
             $response->assertJsonStructure($structure);
-            $posts  =   $response->decodeResponseJson();
+            $posts = $response->decodeResponseJson();
             foreach ($posts['data'] as $post) {
-                $post   =   PostRepo::find($post['id']);
-                $post_brand =   array_flip($post->tags->pluck('label')->toArray());
+                $post = PostRepo::find($post['id']);
+                $post_brand = array_flip($post->tags->pluck('label')->toArray());
                 $this->assertArrayHasKey($brand['label'], $post_brand);
             }
         }
 
         foreach ($options['color']['tag'] as $key => $color) {
-            $response   =   $this->getJson(
+            $response = $this->getJson(
                 $this->routeShow($this->search_panel->slug, ['color'    =>  $key])
             );
             $response->assertSuccessful();
             $response->assertJsonStructure($structure);
-            $posts  =   $response->decodeResponseJson();
+            $posts = $response->decodeResponseJson();
             foreach ($posts['data'] as $post) {
-                $post   =   PostRepo::find($post['id']);
-                $post_brand =   array_flip($post->tags->pluck('label')->toArray());
+                $post = PostRepo::find($post['id']);
+                $post_brand = array_flip($post->tags->pluck('label')->toArray());
                 $this->assertArrayHasKey($color['label'], $post_brand);
             }
         }
 
         foreach ($options['brand']['tag'] as $brand_key => $brand) {
             foreach ($options['color']['tag'] as $color_key => $color) {
-                $response   =   $this->getJson(
+                $response = $this->getJson(
                     $this->routeShow($this->search_panel->slug, ['brand'    =>  $brand_key, 'color'=>$color_key])
                 );
                 $response->assertSuccessful();
                 $response->assertJsonStructure($structure);
-                $posts  =   $response->decodeResponseJson();
+                $posts = $response->decodeResponseJson();
                 foreach ($posts['data'] as $post) {
-                    $post   =   PostRepo::find($post['id']);
-                    $post_brand =   array_flip($post->tags->pluck('label')->toArray());
+                    $post = PostRepo::find($post['id']);
+                    $post_brand = array_flip($post->tags->pluck('label')->toArray());
                     $this->assertArrayHasKey($color['label'], $post_brand);
                     $this->assertArrayHasKey($brand['label'], $post_brand);
                 }

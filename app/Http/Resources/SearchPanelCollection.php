@@ -2,8 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\BaseCollection;
-
 class SearchPanelCollection extends BaseCollection
 {
     /**

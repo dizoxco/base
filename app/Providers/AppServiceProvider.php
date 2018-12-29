@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Request;
-use Symfony\Component\HttpFoundation\Response as HTTP;
 use Response;
+use Illuminate\Support\ServiceProvider;
+use Symfony\Component\HttpFoundation\Response as HTTP;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,11 +34,11 @@ class AppServiceProvider extends ServiceProvider
             if (request()->isXmlHttpRequest()) {
                 return Response::make(
                     [
-                        'errors' => ['not_found' => trans('http.not_found')]
+                        'errors' => ['not_found' => trans('http.not_found')],
                     ],
                     HTTP::HTTP_NOT_FOUND,
                     [
-                        'Content-Type'  =>  enum('system.response.json')
+                        'Content-Type'  =>  enum('system.response.json'),
                     ]
                 );
             } else {

@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Chat extends Model
 {
-
-    protected $fillable =   ['type', 'attribute'];
+    protected $fillable = ['type', 'attribute'];
 
     public function users() : BelongsToMany
     {
@@ -30,11 +29,11 @@ class Chat extends Model
         $route = request()->route();
 
         if ($route->hasParameters()) {
-            if ($route->hasParameter("chat")) {
+            if ($route->hasParameter('chat')) {
                 $result = $this->whereId($value)->whereType(enum('chat.type.chat'))->first();
             }
 
-            if ($route->hasParameter("ticket")) {
+            if ($route->hasParameter('ticket')) {
                 $result = $this->whereId($value)->whereType(enum('chat.type.ticket'))->first();
             }
 
@@ -42,7 +41,5 @@ class Chat extends Model
                 return $result;
             }
         }
-
-        return null;
     }
 }

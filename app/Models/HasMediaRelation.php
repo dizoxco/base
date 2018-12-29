@@ -14,5 +14,4 @@ trait HasMediaRelation
             'media_relations'
         );
     }
-
 }

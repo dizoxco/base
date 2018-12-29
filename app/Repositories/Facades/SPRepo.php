@@ -2,8 +2,8 @@
 
 namespace App\Repositories\Facades;
 
-use App\Repositories\SearchPanelRepository;
 use Illuminate\Support\Facades\Facade;
+use App\Repositories\SearchPanelRepository;
 
 class SPRepo extends Facade
 {
@@ -12,4 +12,3 @@ class SPRepo extends Facade
         return SearchPanelRepository::class;
     }
 }
-

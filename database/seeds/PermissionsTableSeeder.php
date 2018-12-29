@@ -12,7 +12,7 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        $permissions    =   [
+        $permissions = [
             //  users permissions
             ['name' =>  'manage_users', 'guard_name'    =>  'api'],
 
