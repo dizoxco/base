@@ -17,6 +17,7 @@ return [
         ],
         'response'  =>  [
             'json'  =>  'application/vnd.api+json',
+            'unauthenticated'   =>  ['message'  =>  'Unauthenticated.'],
         ],
     ],
 
