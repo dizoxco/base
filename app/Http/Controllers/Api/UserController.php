@@ -51,7 +51,17 @@ class UserController extends Controller
         if ($request->hasFile('avatar')) {
             $user->addMediaFromRequest('avatar')->toMediaCollection(enum('media.user.avatar'));
         }
-        return new DBResource(UserRepo::update($user, $request->except('avatar')));
+
+        if (empty($request->input('password'))) {
+            unset($request['password']);
+        } else {
+            $request->merge([
+                'password'  =>  bcrypt($request->input('password'))
+            ]);
+        }
+
+        $resource   =   new DBResource(UserRepo::update($user, $request->except('avatar')));
+        return  $resource->response()->setStatusCode(Response::HTTP_OK);
     }
 
     public function delete(User $user)
