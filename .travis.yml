@@ -1,11 +1,20 @@
 language: php
 
 php:
+  - 7.0
   - 7.1
+  - 7.2
+  - 7.3
 
-sudo: false
+before_install:
+  - sudo apt-get -qq update
+  - yes | pecl install imagick
+  - sudo apt-get install -y ghostscript
+  - travis_retry composer self-update
 
-
+install:
+  - travis_retry composer update
+  
 before_script:
   - cp .env.travis .env
   - composer self-update
@@ -14,7 +23,7 @@ before_script:
 
 
 script:
-  - vendor/bin/phpunit --coverage-html=Coverage
+  - vendor/bin/phpunit
 
 cache:
   directories:
