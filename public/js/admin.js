@@ -1327,11 +1327,11 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return createStore; });
-/* unused harmony export combineReducers */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return createStore; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return combineReducers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return bindActionCreators; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return applyMiddleware; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return compose; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return compose; });
 /* unused harmony export __DO_NOT_USE__ActionTypes */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_symbol_observable__ = __webpack_require__(54);
 
@@ -2947,6 +2947,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__admin_pages_Dashboard__ = __webpack_require__(89);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__admin_pages_Posts__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__admin_pages_Setting__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__admin_reducers_UserReducer__ = __webpack_require__(99);
 
 
 
@@ -2960,8 +2961,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || __WEBPACK_IMPORTED_MODULE_4_redux__["c" /* compose */];
-var store = Object(__WEBPACK_IMPORTED_MODULE_4_redux__["d" /* createStore */])(__WEBPACK_IMPORTED_MODULE_6__admin_reducers_PostReducer__["a" /* default */], composeEnhancers(Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* applyMiddleware */])(__WEBPACK_IMPORTED_MODULE_5_redux_thunk__["a" /* default */])));
+
+var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || __WEBPACK_IMPORTED_MODULE_4_redux__["d" /* compose */];
+var store = Object(__WEBPACK_IMPORTED_MODULE_4_redux__["e" /* createStore */])(Object(__WEBPACK_IMPORTED_MODULE_4_redux__["c" /* combineReducers */])({
+    posts: __WEBPACK_IMPORTED_MODULE_6__admin_reducers_PostReducer__["a" /* default */],
+    user: __WEBPACK_IMPORTED_MODULE_10__admin_reducers_UserReducer__["a" /* default */]
+}), composeEnhancers(Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* applyMiddleware */])(__WEBPACK_IMPORTED_MODULE_5_redux_thunk__["a" /* default */])));
 
 __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_2_react_redux__["a" /* Provider */],
@@ -29295,14 +29300,7 @@ var Posts = function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        counter: state.counter
-    };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return {
-        // onIncrementCounter: () => dispatc({type: 'INCREMENT'})
-        onIncrementCounter: __WEBPACK_IMPORTED_MODULE_2__actions__["a" /* increment */]
+        counter: state.posts.counter
     };
 };
 
@@ -29370,6 +29368,39 @@ var Setting = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (Setting);
+
+/***/ }),
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var initialState = {
+    token: null,
+    info: null
+};
+var UserReducer = function UserReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case 'INCREMENT':
+            return _extends({}, state, {
+                counter: state.counter + 1
+            });
+            break;
+        default:
+            return state;
+            break;
+    }
+};
+/* harmony default export */ __webpack_exports__["a"] = (UserReducer);
 
 /***/ })
 /******/ ]);

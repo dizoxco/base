@@ -11,14 +11,7 @@ class Posts extends Component{
 
 const mapStateToProps = state => {
     return {
-        counter: state.counter
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        // onIncrementCounter: () => dispatc({type: 'INCREMENT'})
-        onIncrementCounter: increment
+        counter: state.posts.counter
     };
 };
 

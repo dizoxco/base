@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Link, Route } from "react-router-dom";
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
 import PostReducer from './admin/reducers/PostReducer';
@@ -10,9 +10,16 @@ import PostReducer from './admin/reducers/PostReducer';
 import Dashboard from './admin/pages/Dashboard'
 import Posts from './admin/pages/Posts';
 import Setting from './admin/pages/Setting';
+import UserReducer from './admin/reducers/UserReducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(PostReducer, composeEnhancers( applyMiddleware(thunk)));
+const store = createStore(
+                combineReducers({
+                    posts: PostReducer,
+                    user: UserReducer
+                }),
+                composeEnhancers( applyMiddleware(thunk))
+            );
 
 ReactDOM.render(
     <Provider store={store}>
