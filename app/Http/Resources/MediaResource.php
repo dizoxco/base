@@ -24,9 +24,10 @@ class MediaResource extends Resource
                 'custom_properties' =>  $this->custom_properties,
                 'responsive_images' =>  $this->responsive_images,
                 'order_column'      =>  $this->order_column,
-                $this->mergeWhen($this->dates(), $this->dates())
-            ]
+                $this->mergeWhen($this->dates(), $this->dates()),
+            ],
         ];
+
         return $resource;
     }
 
@@ -39,6 +40,7 @@ class MediaResource extends Resource
                 $dates[$column] = $this->{$column}->timestamp;
             }
         }
+
         return empty($dates) ? false : $dates;
     }
 }

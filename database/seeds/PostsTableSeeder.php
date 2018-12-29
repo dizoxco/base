@@ -13,7 +13,7 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        $numbers        =   (int) $this->command->ask('How many articles can be created per user?', 2);
+        $numbers = (int) $this->command->ask('How many articles can be created per user?', 2);
         $this->users->each(
             function (User $user) use ($numbers) {
                 for ($i = 1; $i <= $numbers; $i++) {

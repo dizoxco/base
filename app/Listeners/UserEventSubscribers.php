@@ -2,7 +2,6 @@
 
 namespace App\Listeners;
 
-use App\Events\User\MadeOrderEvent;
 use App\Events\User\UserStoreEvent;
 use App\Notifications\User\UserStoreNotification;
 

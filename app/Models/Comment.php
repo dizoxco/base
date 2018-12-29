@@ -10,12 +10,12 @@ class Comment extends Model implements HasMedia
 {
     use HasMediaTrait;
 
-    protected $fillable =   [
-        'user_id','parent_id','body','commentable_id','commentable_type',
-        'stat','deleted_at','created_at','updated_at'
+    protected $fillable = [
+        'user_id', 'parent_id', 'body', 'commentable_id', 'commentable_type',
+        'stat', 'deleted_at', 'created_at', 'updated_at',
     ];
 
-    protected $perPage  =   10;
+    protected $perPage = 10;
 
     public function commentable()
     {

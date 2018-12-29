@@ -19,6 +19,7 @@ class TicketController extends Controller
         } else {
             $tickets = TicketRepo::getByUser(auth_user());
         }
+
         return new TicketCollection($tickets);
     }
 

@@ -19,6 +19,7 @@ class TagResource
                 'updated_at'        =>  $this->when($this->updated_at, $this->updated_at->timestamp),
             ],
         ];
+
         return $resource;
     }
 }

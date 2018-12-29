@@ -3,8 +3,8 @@
 use App\Models\User;
 use Faker\Factory as Faker;
 
-$faker      =   Faker::create('fa_IR');
-$password   =   bcrypt(123456);
+$faker = Faker::create('fa_IR');
+$password = bcrypt(123456);
 $factory->define(User::class, function () use ($faker, $password) {
     return [
         'name'              =>  $faker->name,

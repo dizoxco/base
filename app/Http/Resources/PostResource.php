@@ -19,7 +19,7 @@ class PostResource extends Resource
                 'body'          =>  $this->body,
                 'banner'        =>  $this->banner,
                 'attachments'   =>  $this->attachments,
-                $this->mergeWhen($this->dates(), $this->dates())
+                $this->mergeWhen($this->dates(), $this->dates()),
             ],
             'relations' =>  [
                 $this->whenLoaded('user', function () {
@@ -31,8 +31,9 @@ class PostResource extends Resource
                 $this->whenLoaded('tags', function () {
                     return ['tags'  =>  $this->tags->pluck('id')];
                 }),
-            ]
+            ],
         ];
+
         return $resource;
     }
 
@@ -45,6 +46,7 @@ class PostResource extends Resource
                 $dates[$column] = $this->{$column}->timestamp;
             }
         }
+
         return empty($dates) ? false : $dates;
     }
 }

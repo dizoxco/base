@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
+use App\Http\Resources\DBResource;
 use App\Events\User\UserStoreEvent;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\StoreUserRequest;
-use App\Http\Requests\User\UpdateUserRequest;
-use App\Http\Resources\DBResource;
-use App\Http\Resources\PermissionCollection;
+use App\Http\Resources\UserResource;
 use App\Http\Resources\RoleCollection;
 use App\Http\Resources\UserCollection;
-use App\Http\Resources\UserResource;
-use App\Models\User;
 use App\Repositories\Facades\UserRepo;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Resources\PermissionCollection;
+use App\Http\Requests\User\UpdateUserRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -25,10 +25,10 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $data = $request->except('avatar');
-        $data['password']           =   bcrypt($data['password']);
-        $data['activation_token']   =   str_random(32);
+        $data['password'] = bcrypt($data['password']);
+        $data['activation_token'] = str_random(32);
 
-        $createdUser    =   UserRepo::create($data);
+        $createdUser = UserRepo::create($data);
         if ($createdUser === 0) {
             return new DBResource($createdUser);
         }
@@ -38,6 +38,7 @@ class UserController extends Controller
         }
 
         event(new UserStoreEvent($createdUser));
+
         return new UserResource($createdUser);
     }
 
@@ -51,7 +52,18 @@ class UserController extends Controller
         if ($request->hasFile('avatar')) {
             $user->addMediaFromRequest('avatar')->toMediaCollection(enum('media.user.avatar'));
         }
-        return new DBResource(UserRepo::update($user, $request->except('avatar')));
+
+        if (empty($request->input('password'))) {
+            unset($request['password']);
+        } else {
+            $request->merge([
+                'password'  =>  bcrypt($request->input('password')),
+            ]);
+        }
+
+        $resource = new DBResource(UserRepo::update($user, $request->except('avatar')));
+
+        return  $resource->response()->setStatusCode(Response::HTTP_OK);
     }
 
     public function delete(User $user)
@@ -60,15 +72,16 @@ class UserController extends Controller
             return response(
                 [
                     'error' => [
-                        'unauthorized'  =>  trans('http.unauthorized')
-                    ]
+                        'unauthorized'  =>  trans('http.unauthorized'),
+                    ],
                 ],
                 Response::HTTP_UNAUTHORIZED,
                 [
-                    'Content-Type' => enum('system.response.json')
+                    'Content-Type' => enum('system.response.json'),
                 ]
             );
         }
+
         return new DBResource(UserRepo::delete($user));
     }
 
@@ -78,15 +91,16 @@ class UserController extends Controller
             return response(
                 [
                     'error' => [
-                        'unauthorized'  =>  trans('http.unauthorized')
-                    ]
+                        'unauthorized'  =>  trans('http.unauthorized'),
+                    ],
                 ],
                 Response::HTTP_UNAUTHORIZED,
                 [
-                    'Content-Type' => enum('system.response.json')
+                    'Content-Type' => enum('system.response.json'),
                 ]
             );
         }
+
         return new DBResource(UserRepo::restore($user));
     }
 
@@ -96,20 +110,21 @@ class UserController extends Controller
             return response(
                 [
                     'error' => [
-                        'unauthorized'  =>  trans('http.unauthorized')
-                    ]
+                        'unauthorized'  =>  trans('http.unauthorized'),
+                    ],
                 ],
                 Response::HTTP_UNAUTHORIZED,
                 [
-                    'Content-Type' => enum('system.response.json')
+                    'Content-Type' => enum('system.response.json'),
                 ]
             );
         }
+
         return new DBResource(UserRepo::destroy($user));
     }
 
     /**
-     * Show a list of user roles
+     * Show a list of user roles.
      *
      * @param User $user
      * @return RoleCollection
@@ -120,7 +135,7 @@ class UserController extends Controller
     }
 
     /**
-     * Sync user roles
+     * Sync user roles.
      *
      * @param User $user
      * @param Request $request
@@ -129,11 +144,12 @@ class UserController extends Controller
     public function syncRoles(User $user, Request $request)
     {
         $user->syncRoles($request->roles);
+
         return new RoleCollection(UserRepo::roles($user));
     }
 
     /**
-     * index users permissions
+     * index users permissions.
      *
      * @param User $user
      * @return PermissionCollection

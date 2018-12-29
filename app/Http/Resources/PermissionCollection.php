@@ -16,8 +16,10 @@ class PermissionCollection extends BaseCollection
                     }
                 }
             }
+
             return (new PermissionResource($role))->additional($this->additional);
         });
+
         return parent::toArray($request);
     }
 }

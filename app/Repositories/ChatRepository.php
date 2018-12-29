@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Models\Chat;
-use App\Models\Comment;
-use App\Models\User;
-use App\Repositories\Facades\UserRepo;
 use DB;
-use Illuminate\Support\Collection;
 use Throwable;
+use App\Models\Chat;
+use App\Models\User;
+use App\Models\Comment;
+use Illuminate\Support\Collection;
+use App\Repositories\Facades\UserRepo;
 
 class ChatRepository extends BaseRepository
 {
@@ -20,7 +20,7 @@ class ChatRepository extends BaseRepository
             return collect();
         }
 
-        $exceptSelfUser =   function ($query) use ($user) {
+        $exceptSelfUser = function ($query) use ($user) {
             $query->whereNotIn('user_id', [$user->id]);
         };
 
@@ -39,6 +39,7 @@ class ChatRepository extends BaseRepository
                 }
 
                 $this->storeComment($chat, $comment);
+
                 return $chat;
             });
         } catch (Throwable $throwable) {
@@ -52,7 +53,7 @@ class ChatRepository extends BaseRepository
             return DB::transaction(function () use ($chat, $comment) {
                 $comment = $chat->comments()->create([
                     'body'      =>  $comment['body'] ?? null,
-                    'user_id'   =>  auth_user()->id
+                    'user_id'   =>  auth_user()->id,
                 ]);
 
                 if (request()->hasFile('file')) {

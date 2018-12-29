@@ -16,8 +16,9 @@ class CustomHttpHeaders
     public function handle($request, Closure $next)
     {
         if ($request->isXmlHttpRequest()) {
-            $response   =   $next($request);
+            $response = $next($request);
             $response->header('Content-Type', enum('system.response.json'));
+
             return $response;
         } else {
             return $next($request);
