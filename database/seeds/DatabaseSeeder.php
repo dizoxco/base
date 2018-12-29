@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Post;
+use App\Models\Tag;
+use App\Models\Taxonomy;
 use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Database\Seeder;
@@ -16,6 +18,7 @@ class DatabaseSeeder extends Seeder
         'permissions',
         'roles',
         'passport',
+        'tags',
         'users',
         'posts',
         'comments',
@@ -49,6 +52,9 @@ class DatabaseSeeder extends Seeder
 
             //  tickets permissions
             ['name' =>  'manage_tickets', 'guard_name'  =>  'api'],
+
+            //  search panels permissions
+            ['name' =>  'manage_search_panels', 'guard_name'  =>  'api'],
         ];
         foreach ($permissions as $permission) {
             Permission::create($permission);
@@ -64,6 +70,28 @@ class DatabaseSeeder extends Seeder
     public function passport()
     {
         $this->command->call('passport:install');
+    }
+
+    public function tags()
+    {
+        Taxonomy::create(['group_name' => 'brand', 'label' => 'برند']);
+        Taxonomy::create(['group_name' => 'color', 'label' => 'رنگ']);
+        Taxonomy::create(['group_name' => 'mobile', 'label' => 'موبایل']);
+        Taxonomy::create(['group_name' => 'shirt', 'label' => 'پیراهن']);
+
+        Tag::create(['group_id' => 1, 'label' => 'سونی', 'slug' => 'sony']);
+        Tag::create(['group_id' => 1, 'label' => 'نوکیا', 'slug' => 'nokia']);
+        Tag::create(['group_id' => 1, 'label' => 'هواوی', 'slug' => 'huawei']);
+
+
+        Tag::create(['group_id' => 2, 'label' => 'قرمز', 'slug' => 'red']);
+        Tag::create(['group_id' => 2, 'label' => 'ابی', 'slug' => 'blue']);
+        Tag::create(['group_id' => 2, 'label' => 'سبز', 'slug' => 'green']);
+        Tag::create(['group_id' => 2, 'label' => 'زرد', 'slug' => 'yellow']);
+
+
+        Tag::create(['group_id' => 3, 'label' => 'موبایل', 'slug' => 'mobile']);
+        Tag::create(['group_id' => 4, 'label' => 'پیراهن', 'slug' => 'shirt']);
     }
 
     public function users()

@@ -49,6 +49,7 @@ class Post extends Model implements HasMedia
             ->where('media_relations.model_type', self::class)
             ->where('media_relations.collection_name', enum('media.post.banner'));
     }
+
     public function attaches()
     {
         return $this->hasManyThrough(
@@ -61,6 +62,11 @@ class Post extends Model implements HasMedia
         )
             ->where('media_relations.model_type', self::class)
             ->where('media_relations.collection_name', enum('media.post.attach'));
+    }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
     }
     //  =============================== End Relationships =====================
 
