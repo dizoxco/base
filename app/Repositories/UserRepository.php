@@ -151,9 +151,7 @@ class UserRepository extends BaseRepository
             }
 
             $ids    =   is_array($user) ? $user : func_get_args();
-            return  User::whereIn('id', $ids)->get()->every(function ($user) {
-                return $user->activation_token === null;
-            });
+            return  User::whereNotNull('activation_token')->whereIn('id', $ids)->count() === count($ids);
         } catch (Throwable $throwable) {
             return 0;
         }
@@ -165,12 +163,16 @@ class UserRepository extends BaseRepository
             return 0;
         }
 
-        if ($user instanceof User) {
-            return $user->update($data);
-        }
+        try {
+            if ($user instanceof User) {
+                return $user->update($data);
+            }
 
-        $ids    =   is_array($user) ? $user: [$user];
-        return  User::whereIn('id', $ids)->update($data);
+            $ids    =   is_array($user) ? $user: [$user];
+            return  User::whereIn('id', $ids)->update($data);
+        } catch (Throwable $throwable) {
+            return 0;
+        }
     }
 
     public function posts($user)    :   Collection
