@@ -31,6 +31,19 @@ Route::middleware('auth:api')->group(function () {
         });
     });
 
+    Route::name('searchpanels.')->prefix('search')->group(function () {
+        Route::get('/', 'SearchPanelController@index')->name('index')->middleware('permission:manage_search_panels');
+        Route::post('/', 'SearchPanelController@store')->name('store')->middleware('permission:manage_search_panels');
+
+        Route::prefix('{search_panel}')->middleware('acl:search_panel,manage_search_panels')->group(function () {
+            Route::get('/', 'SearchPanelController@show')->name('show');
+            Route::put('/', 'SearchPanelController@update')->name('update');
+            Route::delete('/', 'SearchPanelController@delete')->name('delete');
+            Route::get('restore', 'SearchPanelController@restore')->name('restore');
+            Route::delete('destroy', 'SearchPanelController@destroy')->name('destroy');
+        });
+    });
+    
     Route::name('users.')->prefix('users')->group(function () {
 
         Route::get('/', 'UserController@index')->name('index')->middleware('permission:manage_users');
@@ -76,4 +89,8 @@ Route::middleware('auth:api')->group(function () {
         Route::get('{medium}', 'MediaGroupController@show');
         Route::post('{medium}', 'MediaGroupController@store');
     });
+});
+
+Route::name('search.')->prefix('searchs')->group(function () {
+    Route::get('/{search_panel}','SearchController@show')->name('show');
 });
