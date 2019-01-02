@@ -5,12 +5,35 @@ import { BrowserRouter, Link, Route } from "react-router-dom";
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
-import PostReducer from './admin/reducers/PostReducer';
 
-import Dashboard from './admin/pages/Dashboard'
-import Posts from './admin/pages/Posts';
-import Setting from './admin/pages/Setting';
-import UserReducer from './admin/reducers/UserReducer';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import pink from '@material-ui/core/colors/pink';
+import Toolbar from '@material-ui/core/Toolbar';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+import { RTL } from "./admin/components"
+import { Dashboard, Posts, Setting } from './admin/pages'
+import { PostReducer, UserReducer } from './admin/reducers';
+
+const theme = createMuiTheme({
+    direction: 'rtl',
+    palette: {
+        type: 'dark',
+        primary: pink,
+    },
+    typography: {
+        fontFamily: [
+            "Roboto",
+            "-apple-system",
+            "BlinkMacSystemFont",
+            "Segoe UI",
+            "Arial",
+            "sans-serif"
+        ].join(","),
+        useNextVariants: true
+    }
+});
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
@@ -24,18 +47,31 @@ const store = createStore(
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
-            <div>
-                <div className="text-center">
-                    <Link className="p-2" to="/admin">dashboard</Link>
-                    <Link className="p-2" to="/admin/users">users</Link>
-                    <Link className="p-2" to="/admin/posts">posts</Link>
-                    <Link className="p-2" to="/admin/tickets">tickets</Link>
-                    <Link className="p-2" to="/admin/setting">settings</Link>
-                </div>
-                <Route path="/admin" exact component={Dashboard} />
-                <Route path="/admin/posts" exact component={Posts} />
-                <Route path="/admin/setting" exact component={Setting} />
-            </div>
+            <RTL>
+                <MuiThemeProvider theme={theme}>
+                    <Button color="primary">Primary</Button>
+                    <AppBar position="static">
+                        <Toolbar>
+                            News
+                            <Button color="inherit" >dd</Button>
+                        </Toolbar>
+                    </AppBar>
+                    <div id="main-content">
+                        <Route path="/admin" exact component={Dashboard} />
+                        <Route path="/admin/posts" exact component={Posts} />
+                        <Route path="/admin/setting" exact component={Setting} />
+                    </div>
+                    <div id="side-nav">
+                        <ul>
+                            <li><Link className="p-2" to="/admin">dashboard</Link></li>
+                            <li><Link className="p-2" to="/admin/users">users</Link></li>
+                            <li><Link className="p-2" to="/admin/posts">posts</Link></li>
+                            <li><Link className="p-2" to="/admin/tickets">tickets</Link></li>
+                            <li><Link className="p-2" to="/admin/setting">settings</Link></li>
+                        </ul>
+                    </div>
+                </MuiThemeProvider>
+            </RTL>
         </BrowserRouter>
     </Provider>,
     document.querySelector('#root')
