@@ -5,8 +5,8 @@ export default class Button extends Component{
     
     render(){
         return(
-            <MUIButton 
-                variant="contained" 
+            <MUIButton
+                variant="outlined"
                 href={this.props.href}
                 color="primary"
             >

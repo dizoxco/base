@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Page from "../components/Page";
 
-import { Radio, Text, Checkbox } from "../components/form";
+import { Radio, Select, Switch, Text, Checkbox } from "../components/form";
 
 export default class Dashboard extends Component {
     render() {
@@ -22,8 +22,13 @@ export default class Dashboard extends Component {
             >
                 <Text label="search" />
                 <Radio />
+                <Radio />
                 <Checkbox />
                 <Checkbox />
+                <Switch />
+                <Switch />
+                <Select />
+                <Select />
             </Page>
                 
         );

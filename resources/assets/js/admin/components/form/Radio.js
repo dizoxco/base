@@ -17,12 +17,7 @@ export default class Radio extends Component{
                     control={<MUIRadio color="primary" />}
                     label="زن"
                     labelPlacement="start"
-                />
-                <FormControlLabel
-                    value="male"
-                    control={<MUIRadio color="primary" />}
-                    label="مرد"
-                    labelPlacement="start"
+                    style={{ flexDirection: 'row' }}
                 />
             </RadioGroup>
         );

@@ -1,15 +1,11 @@
 import React, { Component } from "react";
-import TextField from '@material-ui/core/TextField';
+import MUISwitch from '@material-ui/core/Switch';
 
 export default class Switch extends Component{
     render(){
         return(
-            <TextField
-                id={ this.props.id }
-                label={ this.props.label }
-                defaultValue={ this.props.value }
-                placeholder={ this.props.placeholder }
-                variant="outlined"
+            <MUISwitch
+                value="checkedA"
             />
         );
     }
