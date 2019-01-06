@@ -12,6 +12,8 @@
     "devDependencies": {
         "@material-ui/core": "^3.7.1",
         "axios": "^0.17",
+        "babel-plugin-transform-class-properties": "^6.24.1",
+        "babel-preset-es2016": "^6.24.1",
         "babel-preset-react": "^6.24.1",
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.1",
@@ -24,6 +26,7 @@
         "react-jss": "^8.6.1",
         "react-redux": "^6.0.0",
         "react-router-dom": "^4.3.1",
+        "react-table": "^6.8.6",
         "redux": "^4.0.1",
         "redux-thunk": "^2.3.0",
         "tailwindcss": "^0.7.3",

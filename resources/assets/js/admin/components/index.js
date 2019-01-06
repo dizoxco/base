@@ -2,6 +2,7 @@ import { Button, Checkbox, Radio, Select, Switch, Text } from './form'
 
 import Page from './Page';
 import RTL from './RTL';
+import Table from './Table';
 
 export {
     Button,
@@ -11,5 +12,6 @@ export {
     RTL,
     Select,
     Switch,
-    Text
+    Text,
+    Table
 } 
