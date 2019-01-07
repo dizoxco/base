@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Link, Route } from "react-router-dom";
+import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
@@ -13,13 +14,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { RTL } from "./admin/components"
-import { Dashboard, Posts, Setting } from './admin/pages'
+import { Dashboard, Posts, Setting, Users } from './admin/pages'
 import { PostReducer, UserReducer } from './admin/reducers';
 
 const theme = createMuiTheme({
     direction: 'rtl',
     palette: {
-        type: 'dark',
+        // type: 'dark',
         primary: pink,
     },
     typography: {
@@ -49,17 +50,29 @@ ReactDOM.render(
         <BrowserRouter>
             <RTL>
                 <MuiThemeProvider theme={theme}>
-                    <Button color="primary">Primary</Button>
                     <AppBar position="static">
                         <Toolbar>
                             News
                             <Button color="inherit" >dd</Button>
                         </Toolbar>
                     </AppBar>
-                    <div id="main-content">
-                        <Route path="/admin" exact component={Dashboard} />
-                        <Route path="/admin/posts" exact component={Posts} />
-                        <Route path="/admin/setting" exact component={Setting} />
+                    <div id="main-content" >
+                        <Route render={({location}) => (
+                            <TransitionGroup>
+                                <CSSTransition
+                                    key={location.key}
+                                    timeout={300}
+                                    classNames="fade"
+                                >
+                                    <Switch location={location}>
+                                        <Route path="/admin" exact component={Dashboard} />
+                                        <Route path="/admin/posts" exact component={Posts} />
+                                        <Route path="/admin/setting" exact component={Setting} />
+                                        <Route path="/admin/Users" exact component={Users} />
+                                    </Switch>
+                                </CSSTransition>
+                            </TransitionGroup>
+                        )} />
                     </div>
                     <div id="side-nav">
                         <ul>

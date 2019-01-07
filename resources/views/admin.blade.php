@@ -7,7 +7,7 @@
     <title>Document</title>
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 </head>
-<body class="bg-white" dir="rtl">
+<body class="bg-grey-lighter font-sans" dir="rtl">
     <div id="root"></div>
     <script src="{{ asset('js/admin.js') }}"></script>
 </body>

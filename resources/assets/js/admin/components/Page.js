@@ -1,37 +1,38 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import { Button, Text } from "./form";
+import { Button, Icon, Tab } from "./";
 
 export default class Page extends Component{
     
     render(){
         let back, button, input;
         if( this.props.back.title !== undefined && this.props.back.link !== undefined ){
-            back = <div><Link to={ this.props.back.link }>{ this.props.back.title }</Link></div>;
+            back = <Link to={ this.props.back.link }><Icon icon="add" /></Link>;
         }
         
         if( this.props.button !== undefined ){
             let label = this.props.button.label ? this.props.button.label : null;
-            button = <Button label={label} />;
+            button = <Button type="outlined" icon="delete" label={label} className="float-left" />;
         }
 
-        if( this.props.input !== undefined ){
-
-            input = <Text label="search" />;
-        }
 
         return(
             <div id="page">
                 <div id="page-header" className="bg-primary-light">
-                    { back }
-                    { this.props.title }
-                    { this.props.description }
-                    { input }
-                    { button }
+                    <div className="container mx-auto">
+                        <h1 className="text-4xl leading-normal inline-block" >
+                            { back }
+                            { this.props.title }
+                        </h1>                        
+                        { button }
+                        <Tab value={1} tabs={['الف', 'ب', 'جججج']} />
+                    </div>
                 </div>
-                <div id="page-content" className="container mx-auto shadow-md bg-blue rounded-lg">
-                    { this.props.children }
+                <div id="page-content" className=" bg-white rounded-t-lg">
+                    <div className="container mx-auto" >
+                        { this.props.children }
+                    </div>
                     <br/>
                     <br/>
                     <br/>

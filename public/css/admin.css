@@ -2557,7 +2557,7 @@ table {
 }
 
 .rounded-lg {
-  border-radius: .5rem;
+  border-radius: 1.5rem;
 }
 
 .rounded-full {
@@ -2625,23 +2625,23 @@ table {
 }
 
 .rounded-t-lg {
-  border-top-left-radius: .5rem;
-  border-top-right-radius: .5rem;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
 }
 
 .rounded-r-lg {
-  border-top-right-radius: .5rem;
-  border-bottom-right-radius: .5rem;
+  border-top-right-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
 }
 
 .rounded-b-lg {
-  border-bottom-right-radius: .5rem;
-  border-bottom-left-radius: .5rem;
+  border-bottom-right-radius: 1.5rem;
+  border-bottom-left-radius: 1.5rem;
 }
 
 .rounded-l-lg {
-  border-top-left-radius: .5rem;
-  border-bottom-left-radius: .5rem;
+  border-top-left-radius: 1.5rem;
+  border-bottom-left-radius: 1.5rem;
 }
 
 .rounded-t-full {
@@ -2713,19 +2713,19 @@ table {
 }
 
 .rounded-tl-lg {
-  border-top-left-radius: .5rem;
+  border-top-left-radius: 1.5rem;
 }
 
 .rounded-tr-lg {
-  border-top-right-radius: .5rem;
+  border-top-right-radius: 1.5rem;
 }
 
 .rounded-br-lg {
-  border-bottom-right-radius: .5rem;
+  border-bottom-right-radius: 1.5rem;
 }
 
 .rounded-bl-lg {
-  border-bottom-left-radius: .5rem;
+  border-bottom-left-radius: 1.5rem;
 }
 
 .rounded-tl-full {
@@ -3141,7 +3141,7 @@ table {
 }
 
 .font-sans {
-  font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
 }
 
 .font-serif {
@@ -6954,6 +6954,103 @@ table {
           user-select: none;
 }
 
+.fade-appear,
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-appear-active,
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  -webkit-transition: opacity 150ms linear;
+  transition: opacity 150ms linear;
+}
+
+.fade-exit {
+  opacity: 1;
+  margin-top: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0;
+  margin-top: 50px;
+  -webkit-transition: all .3s ease-in;
+  transition: all .3s ease-in;
+}
+
+@font-face {
+  font-family: IRANSans;
+  font-style: normal;
+  font-weight: 900;
+  src: url("/fonts/IRANSans/eot/IRANSansWeb(FaNum)_Black.eot");
+  src: url("/fonts/IRANSans/eot/IRANSansWeb(FaNum)_Black.eot?#iefix") format("embedded-opentype"), url("/fonts/IRANSans/woff2/IRANSansWeb(FaNum)_Black.woff2") format("woff2"), url("/fonts/IRANSans/woff/IRANSansWeb(FaNum)_Black.woff") format("woff"), url("/fonts/IRANSans/ttf/IRANSansWeb(FaNum)_Black.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: IRANSans;
+  font-style: normal;
+  font-weight: bold;
+  src: url("/fonts/IRANSans/eot/IRANSansWeb(FaNum)_Bold.eot");
+  src: url("/fonts/IRANSans/eot/IRANSansWeb(FaNum)_Bold.eot?#iefix") format("embedded-opentype"), url("/fonts/IRANSans/woff2/IRANSansWeb(FaNum)_Bold.woff2") format("woff2"), url("/fonts/IRANSans/woff/IRANSansWeb(FaNum)_Bold.woff") format("woff"), url("/fonts/IRANSans/ttf/IRANSansWeb(FaNum)_Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: IRANSans;
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/IRANSans/eot/IRANSansWeb(FaNum)_Medium.eot");
+  src: url("/fonts/IRANSans/eot/IRANSansWeb(FaNum)_Medium.eot?#iefix") format("embedded-opentype"), url("/fonts/IRANSans/woff2/IRANSansWeb(FaNum)_Medium.woff2") format("woff2"), url("/fonts/IRANSans/woff/IRANSansWeb(FaNum)_Medium.woff") format("woff"), url("/fonts/IRANSans/ttf/IRANSansWeb(FaNum)_Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: IRANSans;
+  font-style: normal;
+  font-weight: 300;
+  src: url("/fonts/IRANSans/eot/IRANSansWeb(FaNum)_Light.eot");
+  src: url("/fonts/IRANSans/eot/IRANSansWeb(FaNum)_Light.eot?#iefix") format("embedded-opentype"), url("/fonts/IRANSans/woff2/IRANSansWeb(FaNum)_Light.woff2") format("woff2"), url("/fonts/IRANSans/woff/IRANSansWeb(FaNum)_Light.woff") format("woff"), url("/fonts/IRANSans/ttf/IRANSansWeb(FaNum)_Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: IRANSans;
+  font-style: normal;
+  font-weight: 200;
+  src: url("/fonts/IRANSans/eot/IRANSansWeb(FaNum)_UltraLight.eot");
+  src: url("/fonts/IRANSans/eot/IRANSansWeb(FaNum)_UltraLight.eot?#iefix") format("embedded-opentype"), url("/fonts/IRANSans/woff2/IRANSansWeb(FaNum)_UltraLight.woff2") format("woff2"), url("/fonts/IRANSans/woff/IRANSansWeb(FaNum)_UltraLight.woff") format("woff"), url("/fonts/IRANSans/ttf/IRANSansWeb(FaNum)_UltraLight.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: IRANSans;
+  font-style: normal;
+  font-weight: normal;
+  src: url("/fonts/IRANSans/eot/IRANSansWeb(FaNum).eot");
+  src: url("/fonts/IRANSans/eot/IRANSansWeb(FaNum).eot?#iefix") format("embedded-opentype"), url("/fonts/IRANSans/woff2/IRANSansWeb(FaNum).woff2") format("woff2"), url("/fonts/IRANSans/woff/IRANSansWeb(FaNum).woff") format("woff"), url("/fonts/IRANSans/ttf/IRANSansWeb(FaNum).ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v41/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format("woff2");
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -moz-font-feature-settings: 'liga';
+  -moz-osx-font-smoothing: grayscale;
+}
+
 #root {
   direction: rtl;
   text-align: right;
@@ -9002,7 +9099,7 @@ table {
   }
 
   .sm\:rounded-lg {
-    border-radius: .5rem;
+    border-radius: 1.5rem;
   }
 
   .sm\:rounded-full {
@@ -9070,23 +9167,23 @@ table {
   }
 
   .sm\:rounded-t-lg {
-    border-top-left-radius: .5rem;
-    border-top-right-radius: .5rem;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
   }
 
   .sm\:rounded-r-lg {
-    border-top-right-radius: .5rem;
-    border-bottom-right-radius: .5rem;
+    border-top-right-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
   }
 
   .sm\:rounded-b-lg {
-    border-bottom-right-radius: .5rem;
-    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
   }
 
   .sm\:rounded-l-lg {
-    border-top-left-radius: .5rem;
-    border-bottom-left-radius: .5rem;
+    border-top-left-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
   }
 
   .sm\:rounded-t-full {
@@ -9158,19 +9255,19 @@ table {
   }
 
   .sm\:rounded-tl-lg {
-    border-top-left-radius: .5rem;
+    border-top-left-radius: 1.5rem;
   }
 
   .sm\:rounded-tr-lg {
-    border-top-right-radius: .5rem;
+    border-top-right-radius: 1.5rem;
   }
 
   .sm\:rounded-br-lg {
-    border-bottom-right-radius: .5rem;
+    border-bottom-right-radius: 1.5rem;
   }
 
   .sm\:rounded-bl-lg {
-    border-bottom-left-radius: .5rem;
+    border-bottom-left-radius: 1.5rem;
   }
 
   .sm\:rounded-tl-full {
@@ -9586,7 +9683,7 @@ table {
   }
 
   .sm\:font-sans {
-    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
   }
 
   .sm\:font-serif {
@@ -14908,7 +15005,7 @@ table {
   }
 
   .md\:rounded-lg {
-    border-radius: .5rem;
+    border-radius: 1.5rem;
   }
 
   .md\:rounded-full {
@@ -14976,23 +15073,23 @@ table {
   }
 
   .md\:rounded-t-lg {
-    border-top-left-radius: .5rem;
-    border-top-right-radius: .5rem;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
   }
 
   .md\:rounded-r-lg {
-    border-top-right-radius: .5rem;
-    border-bottom-right-radius: .5rem;
+    border-top-right-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
   }
 
   .md\:rounded-b-lg {
-    border-bottom-right-radius: .5rem;
-    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
   }
 
   .md\:rounded-l-lg {
-    border-top-left-radius: .5rem;
-    border-bottom-left-radius: .5rem;
+    border-top-left-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
   }
 
   .md\:rounded-t-full {
@@ -15064,19 +15161,19 @@ table {
   }
 
   .md\:rounded-tl-lg {
-    border-top-left-radius: .5rem;
+    border-top-left-radius: 1.5rem;
   }
 
   .md\:rounded-tr-lg {
-    border-top-right-radius: .5rem;
+    border-top-right-radius: 1.5rem;
   }
 
   .md\:rounded-br-lg {
-    border-bottom-right-radius: .5rem;
+    border-bottom-right-radius: 1.5rem;
   }
 
   .md\:rounded-bl-lg {
-    border-bottom-left-radius: .5rem;
+    border-bottom-left-radius: 1.5rem;
   }
 
   .md\:rounded-tl-full {
@@ -15492,7 +15589,7 @@ table {
   }
 
   .md\:font-sans {
-    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
   }
 
   .md\:font-serif {
@@ -20814,7 +20911,7 @@ table {
   }
 
   .lg\:rounded-lg {
-    border-radius: .5rem;
+    border-radius: 1.5rem;
   }
 
   .lg\:rounded-full {
@@ -20882,23 +20979,23 @@ table {
   }
 
   .lg\:rounded-t-lg {
-    border-top-left-radius: .5rem;
-    border-top-right-radius: .5rem;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
   }
 
   .lg\:rounded-r-lg {
-    border-top-right-radius: .5rem;
-    border-bottom-right-radius: .5rem;
+    border-top-right-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
   }
 
   .lg\:rounded-b-lg {
-    border-bottom-right-radius: .5rem;
-    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
   }
 
   .lg\:rounded-l-lg {
-    border-top-left-radius: .5rem;
-    border-bottom-left-radius: .5rem;
+    border-top-left-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
   }
 
   .lg\:rounded-t-full {
@@ -20970,19 +21067,19 @@ table {
   }
 
   .lg\:rounded-tl-lg {
-    border-top-left-radius: .5rem;
+    border-top-left-radius: 1.5rem;
   }
 
   .lg\:rounded-tr-lg {
-    border-top-right-radius: .5rem;
+    border-top-right-radius: 1.5rem;
   }
 
   .lg\:rounded-br-lg {
-    border-bottom-right-radius: .5rem;
+    border-bottom-right-radius: 1.5rem;
   }
 
   .lg\:rounded-bl-lg {
-    border-bottom-left-radius: .5rem;
+    border-bottom-left-radius: 1.5rem;
   }
 
   .lg\:rounded-tl-full {
@@ -21398,7 +21495,7 @@ table {
   }
 
   .lg\:font-sans {
-    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
   }
 
   .lg\:font-serif {
@@ -26720,7 +26817,7 @@ table {
   }
 
   .xl\:rounded-lg {
-    border-radius: .5rem;
+    border-radius: 1.5rem;
   }
 
   .xl\:rounded-full {
@@ -26788,23 +26885,23 @@ table {
   }
 
   .xl\:rounded-t-lg {
-    border-top-left-radius: .5rem;
-    border-top-right-radius: .5rem;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
   }
 
   .xl\:rounded-r-lg {
-    border-top-right-radius: .5rem;
-    border-bottom-right-radius: .5rem;
+    border-top-right-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
   }
 
   .xl\:rounded-b-lg {
-    border-bottom-right-radius: .5rem;
-    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
   }
 
   .xl\:rounded-l-lg {
-    border-top-left-radius: .5rem;
-    border-bottom-left-radius: .5rem;
+    border-top-left-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
   }
 
   .xl\:rounded-t-full {
@@ -26876,19 +26973,19 @@ table {
   }
 
   .xl\:rounded-tl-lg {
-    border-top-left-radius: .5rem;
+    border-top-left-radius: 1.5rem;
   }
 
   .xl\:rounded-tr-lg {
-    border-top-right-radius: .5rem;
+    border-top-right-radius: 1.5rem;
   }
 
   .xl\:rounded-br-lg {
-    border-bottom-right-radius: .5rem;
+    border-bottom-right-radius: 1.5rem;
   }
 
   .xl\:rounded-bl-lg {
-    border-bottom-left-radius: .5rem;
+    border-bottom-left-radius: 1.5rem;
   }
 
   .xl\:rounded-tl-full {
@@ -27304,7 +27401,7 @@ table {
   }
 
   .xl\:font-sans {
-    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
   }
 
   .xl\:font-serif {
