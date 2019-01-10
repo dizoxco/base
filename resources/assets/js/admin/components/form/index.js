@@ -1,15 +1,15 @@
-import Button from './Button';
-import Checkbox from './Checkbox';
-import Radio from './Radio';
-import Select from "./Select";
-import Switch from './Switch';
-import Text from './Text';
+export { Button } from './Button';
+export { Checkbox } from './Checkbox';
+export { Radio } from './Radio';
+export { Select } from "./Select";
+export { Switch } from './Switch';
+export { Text } from './Text';
 
-export {
-    Button,
-    Checkbox,
-    Radio,
-    Select,
-    Switch,
-    Text
-} 
+// export {
+//     Button,
+//     Checkbox,
+//     Radio,
+//     Select,
+//     Switch,
+//     Text
+// } 

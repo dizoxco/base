@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TextField from '@material-ui/core/TextField';
 
-export default class Text extends Component{
+export class Text extends Component{
     render(){
         return(
             <TextField

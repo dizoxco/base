@@ -7051,14 +7051,33 @@ table {
   -moz-osx-font-smoothing: grayscale;
 }
 
+span[class^="MuiPrivateTabIndicator"] {
+  background-color: #fff !important;
+}
+
+span[class^="MuiPrivateTabIndicator"]:before {
+  content: '';
+  border: 1px solid red;
+  display: block;
+  position: absolute;
+  width: 80%;
+  top: -35px;
+  right: 10%;
+  height: 29px;
+  border-radius: 10px;
+}
+
 #root {
   direction: rtl;
   text-align: right;
-  padding-right: 300px;
 }
 
 #root #top-nav {
   height: 60px;
+}
+
+#root #main-content {
+  margin-right: 300px;
 }
 
 #root #main-content #page #page-header {
@@ -7075,7 +7094,7 @@ table {
   top: 0;
   width: 300px;
   height: 100%;
-  background-color: gray;
+  background-color: #5b5;
 }
 
 @media (min-width: 576px) {

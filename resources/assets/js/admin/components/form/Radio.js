@@ -4,7 +4,7 @@ import MUIRadio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 
-export default class Radio extends Component{
+export class Radio extends Component{
     render(){
         return(
             <RadioGroup

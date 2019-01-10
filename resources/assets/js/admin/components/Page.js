@@ -3,13 +3,12 @@ import { Link } from "react-router-dom";
 
 import { Button, Icon, Tab } from "./";
 
-export default class Page extends Component{
+export class Page extends Component{
     
     render(){
-        let back, button, input;
-        if( this.props.back.title !== undefined && this.props.back.link !== undefined ){
-            back = <Link to={ this.props.back.link }><Icon icon="add" /></Link>;
-        }
+        let back, button;
+
+        let tabs = ( this.props.tabs !== undefined )? <Tab tabs={this.props.tabs} />: null;
         
         if( this.props.button !== undefined ){
             let label = this.props.button.label ? this.props.button.label : null;
@@ -22,14 +21,13 @@ export default class Page extends Component{
                 <div id="page-header" className="bg-primary-light">
                     <div className="container mx-auto">
                         <h1 className="text-4xl leading-normal inline-block" >
-                            { back }
                             { this.props.title }
                         </h1>                        
                         { button }
-                        <Tab value={1} tabs={['الف', 'ب', 'جججج']} />
                     </div>
                 </div>
-                <div id="page-content" className=" bg-white rounded-t-lg">
+                <div id="page-content" className="bg-white rounded-t-lg overflow-hidden">
+                    {tabs}
                     <div className="container mx-auto" >
                         { this.props.children }
                     </div>

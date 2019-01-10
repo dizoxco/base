@@ -10,11 +10,11 @@ const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 // Custom Material-UI class name generator.
 const generateClassName = createGenerateClassName();
 
- const RTL = (props)=> {
+export const RTL = (props)=> {
     return (
         <JssProvider jss={jss} generateClassName={generateClassName}>
             {props.children}
         </JssProvider>
     );
 };
-export default RTL;
+// export RTL;

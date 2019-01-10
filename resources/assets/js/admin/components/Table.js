@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
 
-export default class Table extends Component{
+export class Table extends Component{
     render(){
         const data = [{
                 name: 'omid shojaei',

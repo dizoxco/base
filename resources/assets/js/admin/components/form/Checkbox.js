@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import MUICheckbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-export default class Checkbox extends Component{
+export class Checkbox extends Component{
     render(){
         return(
             <FormControlLabel

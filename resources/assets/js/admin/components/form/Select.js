@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MUISelect from '@material-ui/core/Select';
 
-export default class Select extends Component{
+export class Select extends Component{
     constructor(props) {
         super(props);
         this.state = {
