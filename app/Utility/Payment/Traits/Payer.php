@@ -2,9 +2,9 @@
 
 namespace App\Utility\Payment\Traits;
 
-use App\Utility\Payment\Contracts\IsPayable;
-use Illuminate\Validation\Validator;
 use InvalidArgumentException;
+use Illuminate\Validation\Validator;
+use App\Utility\Payment\Contracts\IsPayable;
 
 trait Payer
 {
@@ -22,6 +22,7 @@ trait Payer
         if ($v->fails()) {
             throw new InvalidArgumentException($v->errors()->first());
         }
+
         return $payment_method->execute();
     }
 
@@ -29,8 +30,10 @@ trait Payer
     {
         $method = $this->getAttribute('method');
         $payment_method = new $method();
+
         return $payment_method->verify($this);
     }
+
     // ================================ End Payment Operates ==================
 
     // ================================ Payment validated and stored ==========
@@ -44,7 +47,7 @@ trait Payer
             'user_id'   =>  $options['user_id'],
             'amount'    =>  $options['amount'],
             'method'    =>  $options['method'],
-            'options'   =>  array_except($options, ['user_id', 'amount', 'method','model'])
+            'options'   =>  array_except($options, ['user_id', 'amount', 'method', 'model']),
         ]);
 
         return $model;
@@ -60,10 +63,9 @@ trait Payer
         ]);
 
         $v->after(function (Validator $validator) use ($attributes) {
-
             $class_base = $this->namespace.ucfirst($attributes['method']);
             if (! class_exists($class_base)) {
-                $validator->errors()->add('method' , 'Payment method "'.$attributes['method'].'" not set.');
+                $validator->errors()->add('method', 'Payment method "'.$attributes['method'].'" not set.');
             }
 
             if (! $attributes['model'] instanceof IsPayable) {
@@ -75,5 +77,6 @@ trait Payer
             throw new InvalidArgumentException($v->errors()->first());
         }
     }
+
     // ================================ Payment validated and stored ==========
 }

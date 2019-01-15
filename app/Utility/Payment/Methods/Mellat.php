@@ -2,19 +2,18 @@
 
 namespace App\Utility\Payment\Methods;
 
-use App\Utility\Payment\Contracts\PaymentMethod;
 use Larabookir\Gateway\Gateway;
+use App\Utility\Payment\Contracts\PaymentMethod;
 use Larabookir\Gateway\Mellat\Mellat as MellatGateway;
 
 class Mellat implements PaymentMethod
 {
-
     private $options;
 
     public function rules(): array
     {
         return [
-            'amount' => 'required|min:1'
+            'amount' => 'required|min:1',
         ];
     }
 
@@ -25,6 +24,7 @@ class Mellat implements PaymentMethod
         $mellat->price($this->options['amount'])->ready();
         $this->options['ref_id'] = $mellat->refId();
         $this->options['trans_id'] = $mellat->transactionId();
+
         return $this->options;
     }
 
@@ -38,6 +38,7 @@ class Mellat implements PaymentMethod
         try {
             $gateway = new MellatGateway();
             $result = $gateway->verify($transaction);
+
             return $result instanceof MellatGateway;
         } catch (\Throwable $throwable) {
             return $throwable;

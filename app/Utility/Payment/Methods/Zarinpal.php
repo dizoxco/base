@@ -2,8 +2,8 @@
 
 namespace App\Utility\Payment\Methods;
 
-use App\Utility\Payment\Contracts\PaymentMethod;
 use Zarinpal\Zarinpal as ZarinpalGateway;
+use App\Utility\Payment\Contracts\PaymentMethod;
 
 class Zarinpal implements PaymentMethod
 {
@@ -27,6 +27,7 @@ class Zarinpal implements PaymentMethod
         );
         $this->options['Authority'] = $results['Authority'];
         $this->options['method'] = self::class;
+
         return $this->options;
     }
 
@@ -39,6 +40,7 @@ class Zarinpal implements PaymentMethod
     {
         $zarinpal = new ZarinpalGateway(config('gateway.zarinpal.merchant-id'));
         $authority = $transaction->options['Authority'];
+
         return $zarinpal->verify($transaction->amount, $authority);
     }
 

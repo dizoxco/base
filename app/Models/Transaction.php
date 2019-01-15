@@ -10,14 +10,13 @@ class Transaction extends Model
     use Payer;
 
     protected $fillable = [
-        'payable_id','payable_type','user_id','amount','method','track_code','options',
+        'payable_id', 'payable_type', 'user_id', 'amount', 'method', 'track_code', 'options',
     ];
 
     protected $casts = [
         'amount' => 'integer',
         'options' => 'array',
     ];
-
 
     public function payable()
     {

@@ -28,7 +28,7 @@ return [
         'username'     => '',
         'password'     => '',
         'terminalId'   => 0000000,
-        'callback-url' => '/'
+        'callback-url' => '/',
     ],
 
     //--------------------------------
@@ -45,7 +45,7 @@ return [
     //--------------------------------
     'payir'    => [
         'api'          => 'xxxxxxxxxxxxxxxxxxxx',
-        'callback-url' => '/'
+        'callback-url' => '/',
     ],
 
     //--------------------------------
@@ -55,15 +55,15 @@ return [
         'merchant'      => '',
         'transactionKey'=> '',
         'terminalId'    => 000000000,
-        'callback-url'  => '/'
+        'callback-url'  => '/',
     ],
-    
+
     //--------------------------------
     // Parsian gateway
     //--------------------------------
     'parsian' => [
         'pin'          => 'xxxxxxxxxxxxxxxxxxxx',
-        'callback-url' => '/'
+        'callback-url' => '/',
     ],
     //--------------------------------
     // Pasargad gateway
@@ -72,7 +72,7 @@ return [
         'terminalId'    => 000000,
         'merchantId'    => 000000,
         'certificate-path'    => storage_path('gateway/pasargad/certificate.xml'),
-        'callback-url' => '/gateway/callback/pasargad'
+        'callback-url' => '/gateway/callback/pasargad',
     ],
 
     //--------------------------------
@@ -102,17 +102,17 @@ return [
             'mode'                   => 'sandbox', //'sandbox' or 'live'
             'http.ConnectionTimeOut' => 30,
             'log.LogEnabled'         => true,
-            'log.FileName'           => storage_path() . '/logs/paypal.log',
-            /**
+            'log.FileName'           => storage_path().'/logs/paypal.log',
+            /*
              * Available option 'FINE', 'INFO', 'WARN' or 'ERROR'
              *
              * Logging is most verbose in the 'FINE' level and decreases as you
              * proceed towards ERROR
              */
             'call_back_url'          => '/gateway/callback/paypal',
-            'log.LogLevel'           => 'FINE'
+            'log.LogLevel'           => 'FINE',
 
-        ]
+        ],
     ],
     //-------------------------------
     // Tables names

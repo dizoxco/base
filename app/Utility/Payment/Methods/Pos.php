@@ -16,7 +16,7 @@ class Pos implements PaymentMethod
     public function rules(): array
     {
         return [
-            'amount' => 'required|integer|min:1'
+            'amount' => 'required|integer|min:1',
         ];
     }
 
