@@ -1,4 +1,4 @@
-import { routeMixer } from "../utilities/helpers";
+import { routeMixer } from "../helpers";
 
 const routeslist = {
     api: {
@@ -9,7 +9,7 @@ const routeslist = {
         },
         users: {
             prefix: '/users',
-            index: '/index',
+            index: '',
             posts: {
                 prefix: '/posts',
                 index: '/index',

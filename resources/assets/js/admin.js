@@ -24,7 +24,7 @@ const store = createStore(
                 combineReducers({
                     posts: PostReducer,
                     snacks: SnackReducer,
-                    user: UserReducer
+                    users: UserReducer
                 }),
                 composeEnhancers( applyMiddleware(thunk))
             );

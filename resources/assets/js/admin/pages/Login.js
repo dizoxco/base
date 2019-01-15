@@ -4,6 +4,7 @@ import { getToken } from "../actions"
 import { Button, Changer, Text } from "../components"
 
 class Login extends Component{
+ 
     state = {
         form:{
             email: 'pshirazi@example.org',
@@ -11,11 +12,7 @@ class Login extends Component{
         }
     }
 
-    login
-
     render(){
-        console.log('render login');
-        
         return(
             <div className="container mx-auto py-10 text-center">
                 ورود به پنل مدیریتی
@@ -48,7 +45,7 @@ class Login extends Component{
 
 const mapStateToProps = state => {
     return {
-        counter: state.user.token
+        counter: state.users.token
     };
 };
 

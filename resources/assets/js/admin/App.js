@@ -32,6 +32,8 @@ class App extends Component{
     logOut = () => this.props.logOut();
     
     render(){
+        // console.log( document.cookie.split(';') );
+        
         
         // if (!this.props.user.token) return <Redirect to="/admin/login" />;
         // if (this.props.location.pathname == '/admin/login'){
@@ -107,7 +109,7 @@ class App extends Component{
 const mapStateToProps = state => {
     return {
         snacks: state.snacks,
-        user: state.user
+        user: state.users
     };
 };
 

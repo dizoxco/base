@@ -1,3 +1,3 @@
-export { increment } from './posts';
-export { getToken, logOut } from './auth';
-export { flushSnacks } from './snacks';
+export { increment } from './PostActions';
+export { getToken, logOut, getUsers } from './UserActions';
+export { flushSnacks } from './SnackActions';
