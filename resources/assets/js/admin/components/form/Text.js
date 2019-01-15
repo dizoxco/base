@@ -10,6 +10,9 @@ export class Text extends Component{
                 defaultValue={ this.props.value }
                 placeholder={ this.props.placeholder }
                 variant="outlined"
+                onChange={this.props.onChange}
+                name={this.props.name}
+                type={this.props.type}
             />
         );
     }

@@ -1,10 +1,8 @@
 import React, {Component} from "react";
 
 import { Radio, Select, Switch, Page, Table, Text, Checkbox } from "../components";
-import { routes } from '../routes';
 export default class Dashboard extends Component {
     render() {
-        console.log( routes('api.users.posts.index') );
         return (
             <Page                
                 title='داشبورد'

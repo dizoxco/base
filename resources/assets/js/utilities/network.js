@@ -1,54 +1,54 @@
-import Axios from 'axios';
-import {getToken, routeBinder} from './helpers/index';
-import Request from '../request/request';
+// import Axios from 'axios';
+// import {getToken, routeBinder} from './helpers/index';
+// import Request from './request';
 
-export default class Network {
+// export default class Network {
 
-    axois = Axios;
+//     axois = Axios;
 
-    url: String;
+//     url: String;
 
-    request: Request;
+//     request: Request;
 
-    constructor(requestedUrl: String, params: Array) {
+//     constructor(requestedUrl: String, params: Array) {
 
-        this.axois.defaults.headers.common['Authorization'] = getToken();
+//         this.axois.defaults.headers.common['Authorization'] = getToken();
 
-        const {url, request} = routeBinder(requestedUrl, params);
+//         const {url, request} = routeBinder(requestedUrl, params);
 
-        this.url = url;
+//         this.url = url;
 
-        this.request = request;
-    }
+//         this.request = request;
+//     }
 
 
-    get = (): Promise => {
+//     get = (): Promise => {
 
-        return this.axois.get(this.url, this.request.getConfig());
-    };
+//         return this.axois.get(this.url, this.request.getConfig());
+//     };
 
-    post = (): Promise => {
+//     post = (): Promise => {
 
-        return this.axois.post(this.url, this.request.all(), this.request.getConfig());
-    };
+//         return this.axois.post(this.url, this.request.all(), this.request.getConfig());
+//     };
 
-    put = (): Promise => {
+//     put = (): Promise => {
 
-        this.request.merge('_method', 'PUT');
+//         this.request.merge('_method', 'PUT');
 
-        return this.axois.post(this.url, this.request.all(), this.request.getConfig());
-    };
+//         return this.axois.post(this.url, this.request.all(), this.request.getConfig());
+//     };
 
-    patch = (): Promise => {
+//     patch = (): Promise => {
 
-        this.request.merge('_method', 'PATCH');
+//         this.request.merge('_method', 'PATCH');
 
-        return this.axois.post(this.url, this.request.all(), this.request.getConfig());
-    };
+//         return this.axois.post(this.url, this.request.all(), this.request.getConfig());
+//     };
 
-    delete = (): Promise => {
+//     delete = (): Promise => {
 
-        return this.axois.delete(this.url, this.request.getConfig());
-    };
+//         return this.axois.delete(this.url, this.request.getConfig());
+//     };
 
-}
+// }

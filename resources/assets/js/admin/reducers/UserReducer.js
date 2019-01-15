@@ -2,17 +2,18 @@ const initialState = {
     token: null,
     info: null
 }
-const UserReducer = (state = initialState, action) => {
+export const UserReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'INCREMENT':
+        case 'TOKEN':
             return {
                 ...state,
-                counter: state.counter + 1
+                token: action.payload.access_token
             };
-            break;
+        case 'LOGOUT': return {
+                ...state,
+                token: null
+            };
         default:
             return state;
-            break;
     }
 }
-export default UserReducer;

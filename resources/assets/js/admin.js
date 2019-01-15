@@ -13,15 +13,17 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { List, RTL } from "./admin/components"
 import { Dashboard, Login, Posts, Setting, Users } from './admin/pages'
-import { PostReducer, UserReducer } from './admin/reducers';
+import { PostReducer, SnackReducer, UserReducer } from './admin/reducers';
 
 import App from './admin/App';
 
+import { SnackbarProvider } from 'notistack';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
                 combineReducers({
                     posts: PostReducer,
+                    snacks: SnackReducer,
                     user: UserReducer
                 }),
                 composeEnhancers( applyMiddleware(thunk))
@@ -50,7 +52,13 @@ ReactDOM.render(
             <RTL>
                 <MuiThemeProvider theme={theme}>
                     <Route render={({location}) => (
-                        <App location={location} />
+                        <SnackbarProvider 
+                            maxSnack={5} 
+                            anchorOrigin={{vertical: 'top', horizontal: 'left'}}
+                            action={[<span style={{color: "red"}}>X</span>]}
+                        >
+                            <App location={location} />
+                        </SnackbarProvider>
                     )} />
                 </MuiThemeProvider>
             </RTL>

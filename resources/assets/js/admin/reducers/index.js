@@ -1,7 +1,3 @@
-import PostReducer from './PostReducer';
-import UserReducer from './UserReducer';
-
-export {
-    PostReducer,
-    UserReducer
-} 
+export { PostReducer } from './PostReducer';
+export { UserReducer } from './UserReducer';
+export { SnackReducer } from './SnackReducer';

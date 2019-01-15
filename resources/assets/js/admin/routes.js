@@ -1,23 +1,25 @@
+import { routeMixer } from "../utilities/helpers";
+
 const routeslist = {
     api: {
-        base: '/api',
+        prefix: '/api',
+        auth: {
+            prefix: '/auth',
+            login: '/login'
+        },
         users: {
-            base: '/users',
+            prefix: '/users',
             index: '/index',
             posts: {
-                base: '/posts',
+                prefix: '/posts',
                 index: '/index',
-            }
-        }
+            },
+            show: '/{user}/show',
+            edit: '/{user}/edit',
+        },
     }
 };
 
-export const routes = (path, params = null) => {
-    let result = ''
-    var value = path.split('.').reduce(function(a, b) {
-        result += ( a[b].base == undefined )? a[b]: a[b].base ; 
-        return a[b];
-    }, routeslist);
-
-    return result;
+export default (path, params = null) => {
+    return routeMixer(routeslist, path, params);
 }

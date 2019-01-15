@@ -21,6 +21,7 @@
         "jss-rtl": "^0.2.3",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
+        "notistack": "^0.4.1",
         "react": "^16.6.3",
         "react-dom": "^16.6.3",
         "react-jss": "^8.6.1",

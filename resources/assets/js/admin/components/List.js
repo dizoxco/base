@@ -13,7 +13,7 @@ export class List extends Component{
         let icon = (i.icon !== undefined)? <ListItemIcon><Icon icon={i.icon} /></ListItemIcon> : null;        
         if (i.link == undefined) {
             return (
-                <ListItem key={index} >
+                <ListItem key={index} onClick={i.onClick} >
                     {icon}
                     <ListItemText primary={i.text} />
                 </ListItem>
@@ -21,7 +21,7 @@ export class List extends Component{
         }else{
             return (
                 <Link to={i.link} key={i.text} >
-                    <ListItem button>
+                    <ListItem button onClick={i.onClick} >
                         {icon}
                         <ListItemText primary={i.text} />
                     </ListItem>

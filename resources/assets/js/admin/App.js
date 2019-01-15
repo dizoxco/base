@@ -14,12 +14,29 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { List, RTL } from "./components"
 import { Dashboard, Login, Posts, Setting, Users } from './pages'
 
+import { withSnackbar } from 'notistack';
+import { connect } from "react-redux";
 
+import { flushSnacks, logOut } from "./actions";
+class App extends Component{
+    componentDidUpdate(){
+        const { enqueueSnackbar } = this.props;
+        this.props.snacks.map((snack) => {
+            enqueueSnackbar( snack.message, {
+                variant: snack.variant,
+            });
+        });
+        if( this.props.snacks.length ) this.props.flushSnacks();
+    }
 
-export default class App extends Component{
+    logOut = () => this.props.logOut();
+    
     render(){
-        console.log(this.props.location);
-        if (this.props.location.pathname == '/admin/login'){
+        
+        // if (!this.props.user.token) return <Redirect to="/admin/login" />;
+        // if (this.props.location.pathname == '/admin/login'){
+            // return <Login />;
+        if (this.props.user.token == null){
             return <Login />;
         } else {
             return(
@@ -73,8 +90,9 @@ export default class App extends Component{
                                     link: '/admin/tickets',
                                     icon: 'add'
                                 },{
-                                    text: 'ورود',
-                                    link: '/admin/login',
+                                    text: 'خروج',
+                                    // link: '/admin/login',
+                                    onClick: this.logOut,
                                     icon: 'add'
                                 }
                             ]}
@@ -85,3 +103,12 @@ export default class App extends Component{
         }
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        snacks: state.snacks,
+        user: state.user
+    };
+};
+
+export default connect(mapStateToProps, {flushSnacks, logOut})(withSnackbar(App));

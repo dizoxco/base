@@ -3,7 +3,7 @@ const initialState = {
     post: null,
     counter: 7  
 }
-const PostReducer = (state = initialState, action) => {
+export const PostReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'INCREMENT':
             return {
@@ -16,4 +16,3 @@ const PostReducer = (state = initialState, action) => {
             break;
     }
 }
-export default PostReducer;

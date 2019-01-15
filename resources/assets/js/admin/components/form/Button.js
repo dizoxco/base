@@ -14,7 +14,12 @@ export class Button extends Component{
         switch (this.props.type) {
             case 'icon':
                 return(
-                    <IconButton className={this.props.className} aria-label="Delete" color="primary">
+                    <IconButton 
+                        className={this.props.className}
+                        aria-label="Delete"
+                        color="primary"
+                        onClick={this.props.onClick}
+                    >
                         { icon }
                     </IconButton>
                 );
@@ -25,6 +30,7 @@ export class Button extends Component{
                         href={this.props.href}
                         color="primary"
                         className={this.props.className}
+                        onClick={this.props.onClick}
                     >
                         { icon } { this.props.label }
                     </MUIButton>
