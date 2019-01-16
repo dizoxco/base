@@ -1,5 +1,7 @@
-export {getting, posting}from './network';
-export {getCookie, setCookie} from './cookie';
+export { getting, posting } from './network';
+export { eraseCookie, getCookie, setCookie } from './cookie';
+
+
 export const routeMixer = (routeslist, path, prams=null) => {
     let result = ''
     path.split('.').reduce(function(a, b) {

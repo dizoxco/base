@@ -5,7 +5,6 @@ export const Changer = (component, e) => {
             form = component.state.form;
         }
     }
-    // console.log(form);
         
     component.setState({
         form: {

@@ -2,13 +2,9 @@ import { getting, posting, setCookie } from "../../helpers";
 import routes from '../routes';
 
 export const getUsers = () => {
-    console.log(routes('api.users.index'));
-    
     return (dispatch) => {
         getting(routes('api.users.index'))
             .then(response => {
-                console.log(response);
-                
                     return dispatch({
                         type: 'GET-USERS',
                         payload: response
@@ -17,7 +13,6 @@ export const getUsers = () => {
             )
             .catch(error => {
                 console.log(error.response);
-                
             }
             );
     }
