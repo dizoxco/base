@@ -10,7 +10,9 @@ class Taxonomy extends Model
     protected $table = 'taxonomies';
 
     /** @var array $fillable */
-    protected $fillable = ['slug', 'label'];
+    protected $fillable = [
+        'slug', 'label', 'group_name',
+    ];
 
     public function tags()
     {

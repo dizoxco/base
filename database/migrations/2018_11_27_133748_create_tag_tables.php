@@ -15,9 +15,11 @@ class CreateTagTables extends Migration
     {
         Schema::create('taxonomies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('slug');
+            $table->char('group_name', 192);
+            $table->string('slug')->unique();
             $table->string('label');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
 
         Schema::create('tags', function (Blueprint $table) {
@@ -27,7 +29,8 @@ class CreateTagTables extends Migration
             $table->string('label');
             $table->string('slug')->unique();
             $table->json('metadata')->nullable();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
 
             $table->foreign('taxonomy_id')->references('id')->on('taxonomies')->onDelete('cascade');
         });

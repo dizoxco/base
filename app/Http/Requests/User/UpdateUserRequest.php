@@ -14,12 +14,14 @@ class UpdateUserRequest extends FormRequest
 
     public function rules()
     {
+        $user = request()->route()->parameter('user') ?? auth_user();
+
         return [
             'name'      =>  'required',
             'email'     =>  [
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignore(auth_user()->id),
+                Rule::unique('users', 'email')->ignore($user->id),
             ],
             'password'  =>  'nullable|string|min:6|max:30|confirmed',
             'avatar'    =>  'image',

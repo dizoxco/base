@@ -38,7 +38,7 @@ class UserRepository extends BaseRepository
     {
         $users = QueryBuilder::for(User::query())
             ->allowedFilters(['name', 'email'])
-            ->allowedIncludes(['posts', 'comments'])
+            ->allowedIncludes(['posts', 'avatar', 'chats', 'tickets'])
             ->allowedSorts(['created_at']);
         $this->applyParams($users, $params);
 
@@ -49,7 +49,7 @@ class UserRepository extends BaseRepository
     {
         return QueryBuilder::for(User::query())
             ->allowedFilters(['name', 'email'])
-            ->allowedIncludes(['posts', 'comments'])
+            ->allowedIncludes(['posts', 'avatar', 'chats', 'tickets'])
             ->allowedSorts(['created_at'])
             ->where($column, '=', $value)
             ->get();
@@ -59,7 +59,7 @@ class UserRepository extends BaseRepository
     {
         return QueryBuilder::for(User::query())
             ->allowedFilters(['name', 'email'])
-            ->allowedIncludes(['posts', 'comments'])
+            ->allowedIncludes(['posts', 'avatar', 'chats', 'tickets'])
             ->allowedSorts(['created_at'])
             ->onlyTrashed()
             ->get();
@@ -74,6 +74,7 @@ class UserRepository extends BaseRepository
         try {
             return User::create($data);
         } catch (QueryException $queryException) {
+            // todo:change the 0s to null for method
             return 0;
         }
     }

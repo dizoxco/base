@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Support\Collection;
+
 class ChatCollection extends BaseCollection
 {
     public function toArray($request)
@@ -30,6 +32,9 @@ class ChatCollection extends BaseCollection
     public function resource($relation)
     {
         switch ($relation) {
+            case 'pivot':
+                return ChatResource::class;
+                break;
             case 'users':
                 return UserResource::class;
                 break;
