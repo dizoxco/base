@@ -1,5 +1,5 @@
 let mix = require('laravel-mix');
-
+const path = require('path');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -15,7 +15,9 @@ var tailwindcss = require('tailwindcss');
 mix.js('resources/assets/js/app.js', 'public/js')
    .react('resources/assets/js/admin.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
-   .sass('resources/assets/sass/admin.scss', 'public/css').options({
+   .sass('resources/assets/sass/admin.scss', 'public/css', {
+      includePaths: [path.resolve(__dirname, 'node_modules')]
+   }).options({
       processCssUrls: false,
       postCss: [ tailwindcss('resources/assets/sass/tailwind.js') ],
     });

@@ -152,7 +152,7 @@ class UserRepository extends BaseRepository
 
             $ids = is_array($user) ? $user : func_get_args();
 
-            return  User::whereNotNull('activation_token')->whereIn('id', $ids)->count() === count($ids);
+            return  User::whereNull('activation_token')->whereIn('id', $ids)->count() === count($ids);
         } catch (Throwable $throwable) {
             return 0;
         }
