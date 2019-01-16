@@ -44,6 +44,11 @@ class User extends Authenticatable implements HasMedia
     //  =============================== End Accessor ==========================
 
     //  =============================== Relationships =========================
+    public function address()
+    {
+        return $this->hasMany(Address::class, 'user_id', 'id');
+    }
+
     public function posts() : HasMany
     {
         return $this->hasMany(Post::class, 'user_id', 'id');
@@ -72,9 +77,29 @@ class User extends Authenticatable implements HasMedia
         )->where('chats.type', '=', enum('chat.type.ticket'));
     }
 
+    public function businesses() : BelongsToMany
+    {
+        return $this->belongsToMany(Business::class, 'businesses_users', 'user_id', 'business_id');
+    }
+
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class, 'user_id', 'id');
+    }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class, 'user_id', 'id');
+    }
+
+    public function productsPages() : HasMany
+    {
+        return $this->hasMany(Variation::class, 'user_id', 'id');
+    }
+
     public function hasChatWith(int $userId) : bool
     {
-        // fixme: equal to
+        // fixme:equal to
         // "select user_id from chat_users where chat_id in
         //  (SELECT chat_id FROM `chat_users` WHERE chat_users.user_id = $this->id)
         //  and user_id = $userId"
@@ -93,6 +118,11 @@ class User extends Authenticatable implements HasMedia
         })->whereHas('users', function ($query) use ($userId) {
             $query->where('user_id', '=', $userId);
         })->whereType(enum('chat.type.chat'))->first();
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class, 'user_id', 'id');
     }
 
     //  =============================== End Relationships =====================

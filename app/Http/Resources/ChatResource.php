@@ -22,22 +22,9 @@ class ChatResource extends BaseResource
                     return ['comments'  =>  $this->comments->pluck('id')];
                 }),
             ],
-            'included'  =>  $this->included(),
         ];
 
         return $resource;
-    }
-
-    public function included()
-    {
-        return [
-            $this->whenLoaded('users', function () {
-                return ['users'     =>  new UserCollection($this->users)];
-            }),
-            $this->whenLoaded('comments', function () {
-                return ['comments'  =>  new CommentCollection($this->comments)];
-            }),
-        ];
     }
 
     private function dates()
@@ -50,6 +37,6 @@ class ChatResource extends BaseResource
             }
         }
 
-        return empty($dates) ? false : $dates;
+        return ! empty($dates) ? $dates : false;
     }
 }
