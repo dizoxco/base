@@ -16,13 +16,16 @@ class UserResource extends BaseResource
             ],
             'relations' =>  [
                 $this->whenLoaded('avatar', function () {
-                    return ['avatar'    =>  $this->avatar];
+                    return ['avatar'    =>  $this->avatar->id];
                 }),
                 $this->whenLoaded('posts', function () {
                     return ['posts'     =>  $this->posts->pluck('id')];
                 }),
-                $this->whenLoaded('comments', function () {
-                    return ['comments'  =>  $this->comments->pluck('id')];
+                $this->whenLoaded('chats', function () {
+                    return ['chats'  =>  $this->chats->pluck('id')];
+                }),
+                $this->whenLoaded('tickets', function () {
+                    return ['tickets'  =>  $this->tickets->pluck('id')];
                 }),
             ],
         ];

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\Chat as Ticket;
-use App\Http\Resources\DBResource;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EffectedRows;
 use App\Http\Resources\TicketResource;
 use App\Http\Resources\TicketCollection;
 use App\Repositories\Facades\TicketRepo;
@@ -28,7 +28,7 @@ class TicketController extends Controller
         $createdTicket = TicketRepo::create($request->all());
 
         if ($createdTicket === 0) {
-            return new DBResource($createdTicket);
+            return new EffectedRows($createdTicket);
         }
 
         return new TicketResource($createdTicket);
@@ -48,7 +48,7 @@ class TicketController extends Controller
         $createdComment = TicketRepo::storeComment($ticket, $request->all());
 
         if ($createdComment === 0) {
-            return new DBResource(0);
+            return new EffectedRows(0);
         }
 
         return new TicketResource($createdComment);
