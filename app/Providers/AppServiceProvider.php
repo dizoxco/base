@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 use Response;
+use Throwable;
 use App\Models\Variation;
 use App\Observers\VariationObserver;
 use Illuminate\Support\ServiceProvider;
-use Throwable;
 
 class AppServiceProvider extends ServiceProvider
 {
