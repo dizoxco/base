@@ -59,19 +59,19 @@ class DatabaseSeeder extends Seeder
     {
         $permissions = [
             //  users permissions
-            ['name' =>  'manage_users',],
+            ['name' =>  'manage_users'],
 
             //  posts permissions
-            ['name' =>  'manage_posts',],
+            ['name' =>  'manage_posts'],
 
             //  tickets permissions
-            ['name' =>  'manage_tickets',],
+            ['name' =>  'manage_tickets'],
 
             //  search panels permissions
-            ['name' =>  'manage_search_panels',],
+            ['name' =>  'manage_search_panels'],
 
             //  businesses permissions
-            ['name' =>  'manage_businesses',],
+            ['name' =>  'manage_businesses'],
         ];
         foreach ($permissions as $permission) {
             Permission::create($permission);
