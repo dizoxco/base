@@ -2,14 +2,12 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Support\Collection;
-
-class ChatCollection extends BaseCollection
+class BusinessCollection extends BaseCollection
 {
     public function toArray($request)
     {
-        $this->collection->transform(function ($chat) {
-            foreach ($chat->getRelations() as $relation => $items) {
+        $this->collection->transform(function ($business) {
+            foreach ($business->getRelations() as $relation => $items) {
                 $resource = $this->resource($relation);
                 if ($items instanceof Model) {
                     $this->includes[$relation][$items->id] = new $resource($items);
@@ -23,7 +21,7 @@ class ChatCollection extends BaseCollection
                 }
             }
 
-            return (new ChatResource($chat))->additional($this->additional);
+            return (new BusinessResource($business))->additional($this->additional);
         });
 
         return parent::toArray($request);
@@ -33,13 +31,19 @@ class ChatCollection extends BaseCollection
     {
         switch ($relation) {
             case 'pivot':
-                return ChatResource::class;
-                break;
-            case 'users':
                 return UserResource::class;
                 break;
-            case 'comments':
-                return CommentResource::class;
+            case 'posts':
+                return PostResource::class;
+                break;
+            case 'avatar':
+                return MediaResource::class;
+                break;
+            case 'chats':
+                return ChatResource::class;
+                break;
+            case 'tickets':
+                return ChatResource::class;
                 break;
         }
     }
