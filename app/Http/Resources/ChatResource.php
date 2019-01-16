@@ -12,7 +12,7 @@ class ChatResource extends BaseResource
             'attributes'   =>  [
                 'type'      =>  $this->type,
                 'attribute' =>  $this->when($this->attribute !== null, json_decode($this->attribute)),
-                $this->mergeWhen($this->dates(), $this->dates())
+                $this->mergeWhen($this->dates(), $this->dates()),
             ],
             'relations' =>  [
                 $this->whenLoaded('users', function () {
@@ -22,19 +22,20 @@ class ChatResource extends BaseResource
                     return ['comments'  =>  $this->comments->pluck('id')];
                 }),
             ],
-            'included'  =>  $this->included()
+            'included'  =>  $this->included(),
         ];
+
         return $resource;
     }
 
     public function included()
     {
         return [
+            $this->whenLoaded('users', function () {
+                return ['users'     =>  new UserCollection($this->users)];
+            }),
             $this->whenLoaded('comments', function () {
                 return ['comments'  =>  new CommentCollection($this->comments)];
-            }),
-            $this->whenLoaded('users', function () {
-                return ['users'     =>  $this->users->pluck('id')];
             }),
         ];
     }
@@ -48,6 +49,7 @@ class ChatResource extends BaseResource
                 $dates[$column] = $this->{$column}->timestamp;
             }
         }
+
         return empty($dates) ? false : $dates;
     }
 }

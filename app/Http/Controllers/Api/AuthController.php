@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Events\User\UserStoreEvent;
 use App\Models\User;
-use Laravel\Passport\PersonalAccessTokenFactory;
 use Laravel\Passport\Token;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Events\User\UserStoreEvent;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Auth;
 use App\Repositories\Facades\UserRepo;
 use App\Http\Requests\User\PostLoginRequest;
 use App\Http\Requests\User\StoreUserRequest;
@@ -23,71 +21,61 @@ class AuthController extends Controller
      */
     public function login(PostLoginRequest $request)
     {
-        $credentials    =   $request->only(['email','password']);
-        if (!Auth::attempt($credentials)) {
+        $credentials = $request->only(['email', 'password']);
+        if (! Auth::attempt($credentials)) {
             return response()->json(
                 [
                     'errors'    =>  [
-                        'email' =>  [trans('auth.failed')]
-                    ]
+                        'email' =>  [trans('auth.failed')],
+                    ],
                 ],
                 Response::HTTP_NOT_FOUND
             );
         }
 
         /** @var User $user */
-        $user           =   Auth::user();
-        $tokenResult    =   $user->createToken('Personal Access Token');
+        $user = Auth::user();
+        $tokenResult = $user->createToken('Personal Access Token');
 
         /** @var Token $token */
-        $token          =   $tokenResult->token;
+        $token = $tokenResult->token;
 
+        //  todo: test with remember me
         if ($request->filled('remember_me')) {
-            $token->expires_at  =   now()->addWeek();
+            $token->expires_at = now()->addWeek();
         }
 
         $token->save();
+
         return response()->json([
             'access_token'  =>  $tokenResult->accessToken,
             'token_type'    =>  'Bearer',
-            'expires_at'    =>  $tokenResult->token->expires_at->toDateTimeString()
+            'expires_at'    =>  $tokenResult->token->expires_at->toDateTimeString(),
         ]);
     }
 
     /**
-     * Logout user (Revoke the token)
+     * Logout user (Revoke the token).
      *
      * @param Request $request
      * @return array
      */
     public function logout(Request $request)
     {
-        /** @var User $user */
-        $user   =   Auth::user();
+        $user = auth_user();
         $user->tokens()->each(function (Token $token) {
             $token->revoke();
         });
-        Auth::logout();
+
         return [
             'errors'    =>  [
-                'auth'  =>  [trans('auth.logout')]
-            ]
+                'auth'  =>  [trans('auth.logout')],
+            ],
         ];
     }
 
     /**
-     * Get the authenticated User
-     *
-     * @param Request $request
-     * @return UserResource
-     */
-    public function user(Request $request)
-    {
-        return new UserResource($request->user());
-    }
-
-    /**
-     * Create user
+     * Create user.
      *
      * @param StoreUserRequest $request
      *
@@ -95,20 +83,25 @@ class AuthController extends Controller
      */
     public function register(StoreUserRequest $request)
     {
-        if ($user = UserRepo::create($request->all())) {
+        $request->merge([
+            'activation_token'  =>  str_random(32),
+        ]);
+        if ($user = UserRepo::create($request->except('avatar'))) {
+            if ($request->hasFile('avatar')) {
+                $user->addMediaFromRequest('avatar')->toMediaCollection(enum('media.user.avatar'));
+            }
             event(new UserStoreEvent($user));
+
             return response()->json(
                 [
-                    'message' => trans('auth.register', [
-                        'full_name' =>  $request->user('api')->fullname
-                    ])
+                    'message' => trans('auth.register'),
                 ],
                 Response::HTTP_CREATED
             );
         } else {
             return response()->json(
                 [
-                    'message' =>  trans('auth.register_failed')
+                    'message' =>  trans('auth.register_failed'),
                 ],
                 Response::HTTP_BAD_REQUEST
             );
@@ -116,7 +109,7 @@ class AuthController extends Controller
     }
 
     /**
-     * active user account | method: get
+     * active user account | method: get.
      *
      * @param Request $request
      * @param $token
@@ -128,14 +121,14 @@ class AuthController extends Controller
         if (UserRepo::activate($token)) {
             return response()->json(
                 [
-                    'message' => trans('auth.activated')
+                    'message' => trans('auth.activated'),
                 ],
                 Response::HTTP_OK
             );
         } else {
             return response()->json(
                 [
-                    'message' => trans('auth.token_expired')
+                    'message' => trans('auth.token_expired'),
                 ],
                 Response::HTTP_BAD_REQUEST
             );

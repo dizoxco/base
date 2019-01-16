@@ -15,13 +15,34 @@ class CommentResource extends BaseResource
                 'body'              =>  $this->body,
                 'commentable_id'    =>  $this->commentable_id,
                 'commentable_type'  =>  $this->commentable_type,
-                'verify'            =>  $this->verify,
-                $this->mergeWhen($this->dates(), $this->dates())
-            ]
+                'stat'              =>  $this->when($this->stat !== null, $this->stat),
+                $this->mergeWhen($this->dates(), $this->dates()),
+            ],
+            'relations' =>  [
+                $this->whenLoaded('commentable', function () {
+                    return ['commentable'     =>  $this->commentable->pluck('id')];
+                }),
+                $this->whenLoaded('media', function () {
+                    return ['media'  =>  $this->media->pluck('id')];
+                }),
+            ],
+            'included'  =>  $this->included(),
         ];
+
         return $resource;
     }
 
+    public function included()
+    {
+        return [
+            $this->whenLoaded('commentable', function () {
+                return ['commentable'  =>  new $this->commentable];
+            }),
+            $this->whenLoaded('media', function () {
+                return ['media'     =>  new MediaResource($this->media->first())];
+            }),
+        ];
+    }
 
     private function dates()
     {
@@ -32,6 +53,7 @@ class CommentResource extends BaseResource
                 $dates[$column] = $this->{$column}->timestamp;
             }
         }
+
         return empty($dates) ? false : $dates;
     }
 }

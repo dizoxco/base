@@ -2,16 +2,14 @@
 
 namespace App\Listeners;
 
-use App\Events\User\MadeOrderEvent;
 use App\Events\User\UserStoreEvent;
-use App\Notifications\User\OnUserStore;
+use App\Notifications\User\UserStoreNotification;
 
 class UserEventSubscribers
 {
-
-    public function onUserStore($event)
+    public function onUserStore(UserStoreEvent $event)
     {
-        $event->user->notify(new OnUserStore());
+        $event->user->notify(new UserStoreNotification($event->user));
     }
 
     public function subscribe($event)

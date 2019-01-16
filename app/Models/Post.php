@@ -2,29 +2,30 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\File;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class Post extends Model implements HasMedia
 {
     use SoftDeletes, HasMediaTrait, HasMediaRelation;
 
-    protected $perPage  =   10;
+    protected $perPage = 10;
 
     protected $fillable = [
-        'user_id', 'title', 'slug', 'image', 'abstract', 'body'
+        'user_id', 'title', 'slug', 'image', 'abstract', 'body',
     ];
 
-    protected $casts    =   [
+    protected $casts = [
         'deleted_at'    =>  'datetime',
         'published_at'  =>  'datetime',
         'created_at'    =>  'datetime',
         'updated_at'    =>  'datetime',
     ];
+
     //  =============================== Relationships =========================
     public function user()
     {
@@ -49,6 +50,7 @@ class Post extends Model implements HasMedia
             ->where('media_relations.model_type', self::class)
             ->where('media_relations.collection_name', enum('media.post.banner'));
     }
+
     public function attaches()
     {
         return $this->hasManyThrough(
@@ -62,6 +64,12 @@ class Post extends Model implements HasMedia
             ->where('media_relations.model_type', self::class)
             ->where('media_relations.collection_name', enum('media.post.attach'));
     }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
+
     //  =============================== End Relationships =====================
 
     public function registerMediaCollections()
@@ -69,9 +77,10 @@ class Post extends Model implements HasMedia
         //  Register media collection for avatar that only accepts images
         $this->addMediaCollection(enum('media.post.banner'))
             ->acceptsFile(function (File $file) {
-                $allowedMimes  =   [
-                    'image/jpeg','image/png','image/tiff','image/bmp',
+                $allowedMimes = [
+                    'image/jpeg', 'image/png', 'image/tiff', 'image/bmp',
                 ];
+
                 return in_array($file->mimeType, $allowedMimes);
             })
             ->singleFile();

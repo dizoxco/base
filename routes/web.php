@@ -9,4 +9,4 @@ Route::any('lab', function () {
 });
 
 Route::view('admin', 'admin');
-Route::view('admin/{any}','admin')->where('any', '.*');
+Route::view('admin/{any}', 'admin')->where('any', '.*');

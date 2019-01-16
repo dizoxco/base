@@ -2,17 +2,15 @@
 
 namespace App\Repositories;
 
+use Throwable;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
-use Throwable;
 
 class PostRepository extends BaseRepository
 {
-
-    const NO_ROWS_AFFECTED  =   0;
+    const NO_ROWS_AFFECTED = 0;
 
     public function find(int $id)   :   ?Post
     {
@@ -26,7 +24,7 @@ class PostRepository extends BaseRepository
 
     public function searchBy(array $columns, string $value) :   Collection
     {
-        $builder    =   Post::query();
+        $builder = Post::query();
         foreach ($columns as $column) {
             $builder->orWhere(
                 function ($query) use ($column, $value) {
@@ -34,16 +32,18 @@ class PostRepository extends BaseRepository
                 }
             );
         }
+
         return $builder->get();
     }
 
     public function getAll($params = [])    :   Collection
     {
-        $posts  =   QueryBuilder::for(Post::query())
+        $posts = QueryBuilder::for(Post::query())
             ->allowedFilters(['title', 'slug'])
             ->allowedIncludes(['post', 'comments'])
-            ->allowedSorts(['created_at','updated_at','deleted_at','published_at']);
+            ->allowedSorts(['created_at', 'updated_at', 'deleted_at', 'published_at']);
         $this->applyParams($posts, $params);
+
         return $posts->get();
     }
 
@@ -52,7 +52,7 @@ class PostRepository extends BaseRepository
         return QueryBuilder::for(Post::query())
             ->allowedFilters(['title', 'slug'])
             ->allowedIncludes(['post', 'comments'])
-            ->allowedSorts(['created_at','updated_at','deleted_at','published_at'])
+            ->allowedSorts(['created_at', 'updated_at', 'deleted_at', 'published_at'])
             ->where($column, '=', $value)
             ->get();
     }
@@ -62,7 +62,7 @@ class PostRepository extends BaseRepository
         return QueryBuilder::for(Post::query())
             ->allowedFilters(['title', 'slug'])
             ->allowedIncludes(['post', 'comments'])
-            ->allowedSorts(['created_at','updated_at','deleted_at','published_at'])
+            ->allowedSorts(['created_at', 'updated_at', 'deleted_at', 'published_at'])
             ->onlyTrashed()
             ->get();
     }
@@ -91,9 +91,9 @@ class PostRepository extends BaseRepository
             if ($post instanceof Post) {
                 return  $post->delete();
             }
-            $ids    =   is_array($post) ? $post : func_get_args();
-            return  Post::whereIn('id', $ids)->delete();
+            $ids = is_array($post) ? $post : func_get_args();
 
+            return  Post::whereIn('id', $ids)->delete();
         } catch (Exception $exception) {
             return 0;
         }
@@ -110,9 +110,9 @@ class PostRepository extends BaseRepository
                 return  $post->restore();
             }
 
-            $ids    =   is_array($post) ? $post : func_get_args();
-            return  Post::whereIn('id', $ids)->restore();
+            $ids = is_array($post) ? $post : func_get_args();
 
+            return  Post::whereIn('id', $ids)->restore();
         } catch (Exception $exception) {
             return 0;
         }
@@ -129,9 +129,9 @@ class PostRepository extends BaseRepository
                 return  $post->forceDelete();
             }
 
-            $ids    =   is_array($post) ? $post : func_get_args();
-            return  Post::whereIn('id', $ids)->forceDelete();
+            $ids = is_array($post) ? $post : func_get_args();
 
+            return  Post::whereIn('id', $ids)->forceDelete();
         } catch (Exception $exception) {
             return 0;
         }
@@ -148,9 +148,9 @@ class PostRepository extends BaseRepository
             if ($post instanceof Post) {
                 return $post->update($data);
             }
-            $ids    =   is_array($post) ?: [$post];
-            return  Post::whereIn('id', $ids)->update($data);
+            $ids = is_array($post) ?: [$post];
 
+            return  Post::whereIn('id', $ids)->update($data);
         } catch (Exception $exception) {
             return 0;
         }

@@ -21,24 +21,24 @@ class AccessControlLayer
      */
     public function handle($request, Closure $next, $routeParameter, $permission = null)
     {
-        $user       =   Auth::user() ?? $request->user('api');
+        $user = Auth::user() ?? $request->user('api');
 
         if ($user === null) {
             return $this->forbidden();
         }
 
         if ($permission === null) {
-            $permission =   $routeParameter;
-            if (!$user->hasPermissionTo($permission, 'api')) {
+            $permission = $routeParameter;
+            if (! $user->hasPermissionTo($permission, 'api')) {
                 return $this->forbidden();
             }
         }
 
         if ($permission !== null) {
-            $resource   =   $request->route()->parameter($routeParameter);
+            $resource = $request->route()->parameter($routeParameter);
 
             if ($resource instanceof Model) {
-                if ($user->id !== $resource->user_id && !$user->hasPermissionTo($permission, 'api')) {
+                if ($user->id !== $resource->user_id && ! $user->hasPermissionTo($permission, 'api')) {
                     return $this->forbidden();
                 }
             }
@@ -46,7 +46,6 @@ class AccessControlLayer
             if ($resource instanceof Response) {
                 return $resource;
             }
-
         }
 
         return $next($request);
@@ -60,8 +59,8 @@ class AccessControlLayer
         return response(
             [
                 'errors' => [
-                    'forbidden' => trans('http.forbidden')
-                ]
+                    'forbidden' => trans('http.forbidden'),
+                ],
             ],
             Response::HTTP_FORBIDDEN,
             [

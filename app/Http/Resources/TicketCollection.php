@@ -8,7 +8,7 @@ class TicketCollection extends BaseCollection
     {
         $this->collection->transform(function ($chat) {
             foreach ($chat->getRelations() as $relation => $items) {
-                $resource   =   $this->resource($relation);
+                $resource = $this->resource($relation);
                 if ($items instanceof Model) {
                     $this->includes[$relation][$items->id] = new $resource($items);
                     break;
@@ -20,8 +20,10 @@ class TicketCollection extends BaseCollection
                     }
                 }
             }
+
             return (new TicketResource($chat))->additional($this->additional);
         });
+
         return parent::toArray($request);
     }
 

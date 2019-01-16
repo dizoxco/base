@@ -4,13 +4,12 @@ namespace Tests;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
-abstract class TestCase extends BaseTestCase
+class TestCase extends BaseTestCase
 {
-    use CreatesApplication, DatabaseMigrations, DatabaseTransactions;
+    use CreatesApplication;
+    use DatabaseMigrations;
 
     public function clearConfigurationCache()
     {
@@ -28,50 +27,39 @@ abstract class TestCase extends BaseTestCase
         return $this;
     }
 
-    public function setHeaders()
+    public function signInFromApi(User $user = null)
     {
-        $headers    =   [
-            'Content-Type'      =>  'application/json',
-            'X-Requested-With'  =>  'XMLHttpRequest',
-        ];
-        return $this->withHeaders($headers);
-    }
+        if ($user === null) {
+            $user = factory(User::class)->create();
+        }
 
-    public function signInFromWeb()
-    {
-        $this->actingAs(
-            factory(User::class)->create()
-        );
-
-        //  return $this because we want to method chain a series of action
-        return $this;
-    }
-
-    public function signInFromApi()
-    {
-        $user       =   factory(User::class)->create();
-        $uri        =   route('api.auth.login');
-        $credential =   [
+        $credential = [
             'email'     =>  $user->email,
             'password'  =>  '123456',
         ];
-        $response   =   $this->postJson($uri, $credential);
-        $headers    =   [
-            'Accept'            =>  'application/vnd.api+json',
-            'Content-Type'      =>  'application/json',
-            'X-Requested-With'  =>  'XMLHttpRequest',
-            'Authorization'     =>  "{$response->json()['token_type']} {$response->json()['access_token']}"
+        $uri = route('api.auth.login');
+        $response = $this->postJson($uri, $credential);
+        $headers = [
+            'Accept'            =>  enum('system.response.json'),
+            'Content-Type'      =>  enum('system.response.json'),
+            'X-Requested-With'  =>  enum('system.request.xhr'),
+            'Authorization'     =>  "Bearer {$response->json()['access_token']}",
         ];
-        $this->withHeaders($headers);
-        return $this;
+
+        return $this->withHeaders($headers);
     }
 
     public function signOutFromApi()
     {
-        $uri    =   route('api.auth.logout');
+        $uri = route('api.auth.logout');
         $this->getJson($uri);
 
+        $headers = [
+            'Accept'            =>  enum('system.response.json'),
+            'Content-Type'      =>  enum('system.response.json'),
+            'X-Requested-With'  =>  enum('system.request.xhr'),
+        ];
         //  return $this because we want to method chain a series of action
-        return $this;
+        return $this->withHeaders($headers);
     }
 }

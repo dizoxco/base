@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 class TagCollection extends BaseCollection
 {
-
     /**
      * TagCollection constructor.
      * @param $request
@@ -22,8 +21,10 @@ class TagCollection extends BaseCollection
                     }
                 }
             }
+
             return (new TagResource($post))->additional($this->additional);
         });
+
         return parent::toArray($request);
     }
 }

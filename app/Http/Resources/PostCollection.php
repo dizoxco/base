@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class PostCollection extends BaseCollection
 {
@@ -11,7 +11,7 @@ class PostCollection extends BaseCollection
     {
         $this->collection->transform(function ($post) {
             foreach ($post->getRelations() as $relation => $items) {
-                $resource   =   $this->resource($relation);
+                $resource = $this->resource($relation);
                 if ($items instanceof Model) {
                     $this->includes[$relation][$items->id] = new $resource($items);
                     break;
@@ -23,8 +23,10 @@ class PostCollection extends BaseCollection
                     }
                 }
             }
+
             return (new PostResource($post))->additional($this->additional);
         });
+
         return parent::toArray($request);
     }
 

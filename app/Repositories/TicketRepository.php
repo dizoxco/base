@@ -2,18 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Http\Resources\DBResource;
-use App\Models\Chat as Ticket;
+use DB;
+use Throwable;
 use App\Models\Chat;
 use App\Models\User;
-use App\Repositories\Facades\UserRepo;
-use DB;
+use App\Models\Chat as Ticket;
 use Spatie\QueryBuilder\QueryBuilder;
-use Throwable;
+use App\Repositories\Facades\UserRepo;
 
 class TicketRepository extends BaseRepository
 {
-
     public function getAll()
     {
         return QueryBuilder::for(Ticket::class)
@@ -29,7 +27,7 @@ class TicketRepository extends BaseRepository
         $user = $user instanceof User ? $user : UserRepo::find($user);
 
         if ($user === null) {
-            return null;
+            return;
         }
 
         return $user->tickets()->with(['users', 'comments', 'comments.media'])->get();
@@ -37,12 +35,12 @@ class TicketRepository extends BaseRepository
 
     public function getByCategory(int $categoryId)
     {
-        return Ticket::where("attribute->category_id", "=", $categoryId)->get();
+        return Ticket::where('attribute->category_id', '=', $categoryId)->get();
     }
 
     public function getByTitle(string $title)
     {
-        return Ticket::where("attribute->title", "=", $title)->get();
+        return Ticket::where('attribute->title', '=', $title)->get();
     }
 
     public function create(array $comment)
@@ -53,11 +51,12 @@ class TicketRepository extends BaseRepository
                     'type'      => enum('chat.type.ticket'),
                     'attribute' => json_encode([
                         'title'         =>  $comment['title'],
-                        'category_id'   =>  $comment['category_id']
+                        'category_id'   =>  $comment['category_id'],
                     ]),
                 ]);
                 $chat->users()->attach(0);
                 $this->storeComment($chat, $comment);
+
                 return $chat;
             });
         } catch (Throwable $throwable) {
@@ -70,12 +69,13 @@ class TicketRepository extends BaseRepository
         try {
             $comment = $chat->comments()->create([
                 'body'      =>  $comment['body'],
-                'user_id'   =>  auth_user()->id
+                'user_id'   =>  auth_user()->id,
             ]);
 
             if (request()->hasFile('file')) {
                 $comment->addMediaFromRequest('file')->toMediaCollection();
             }
+
             return $comment;
         } catch (Throwable $throwable) {
             return 0;

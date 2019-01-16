@@ -9,7 +9,6 @@ use Prophecy\Exception\Doubler\MethodNotFoundException;
 
 class SMSChannel
 {
-
     public function send($notifiable, Notification $notification)
     {
         throw_unless(
@@ -24,19 +23,20 @@ class SMSChannel
         $message = $notification->toSMS($notifiable);
 
         throw_if(
-            !is_array($message),
+            ! is_array($message),
             new Exception(
-                "Type error: Return value of toSMS() must be of the type array returned ".gettype($message)
+                'Type error: Return value of toSMS() must be of the type array returned '.gettype($message)
             )
         );
 
         extract($message);
         if (count($message) == 2) {
-            if (!$receiver = $notifiable->getAttributeValue('mobile')) {
-                if (!$receiver = $notifiable->routeNotificationFor('sms')) {
+            if (! $receiver = $notifiable->getAttributeValue('mobile')) {
+                if (! $receiver = $notifiable->routeNotificationFor('sms')) {
                     return;
                 }
             }
+
             return Smsir::ultraFastSend(
                 $parameters,
                 $template_id,

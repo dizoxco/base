@@ -2,15 +2,14 @@
 
 namespace App\Repositories;
 
+use Throwable;
 use App\Models\User;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
-use Throwable;
+use Illuminate\Database\QueryException;
 
 class UserRepository extends BaseRepository
 {
-
     public function find(int $id)   :   ?User
     {
         return User::find($id);
@@ -23,7 +22,7 @@ class UserRepository extends BaseRepository
 
     public function searchBy(array $columns, string $value) :   Collection
     {
-        $builder    =   User::query();
+        $builder = User::query();
         foreach ($columns as $column) {
             $builder->orWhere(
                 function ($query) use ($column, $value) {
@@ -31,6 +30,7 @@ class UserRepository extends BaseRepository
                 }
             );
         }
+
         return $builder->get();
     }
 
@@ -41,6 +41,7 @@ class UserRepository extends BaseRepository
             ->allowedIncludes(['posts', 'comments'])
             ->allowedSorts(['created_at']);
         $this->applyParams($users, $params);
+
         return $users->get();
     }
 
@@ -63,7 +64,6 @@ class UserRepository extends BaseRepository
             ->onlyTrashed()
             ->get();
     }
-
 
     /**
      * @param array $data
@@ -89,9 +89,9 @@ class UserRepository extends BaseRepository
                 return  $user->delete();
             }
 
-            $ids    =   is_array($user) ? $user : func_get_args();
-            return  User::whereIn('id', $ids)->delete();
+            $ids = is_array($user) ? $user : func_get_args();
 
+            return  User::whereIn('id', $ids)->delete();
         } catch (Throwable $throwable) {
             return 0;
         }
@@ -108,9 +108,9 @@ class UserRepository extends BaseRepository
                 return  $user->restore();
             }
 
-            $ids    =   is_array($user) ? $user : func_get_args();
-            return  User::whereIn('id', $ids)->restore();
+            $ids = is_array($user) ? $user : func_get_args();
 
+            return  User::whereIn('id', $ids)->restore();
         } catch (Throwable $throwable) {
             return 0;
         }
@@ -127,9 +127,9 @@ class UserRepository extends BaseRepository
                 return  $user->forceDelete();
             }
 
-            $ids    =   is_array($user) ? $user : func_get_args();
-            return  User::whereIn('id', $ids)->forceDelete();
+            $ids = is_array($user) ? $user : func_get_args();
 
+            return  User::whereIn('id', $ids)->forceDelete();
         } catch (Throwable $throwable) {
             return 0;
         }
@@ -147,13 +147,12 @@ class UserRepository extends BaseRepository
     {
         try {
             if ($user instanceof User) {
-                return  $user->activation_token === null;
+                return  $this->find($user->id)->activation_token === null;
             }
 
-            $ids    =   is_array($user) ? $user : func_get_args();
-            return  User::whereIn('id', $ids)->get()->every(function ($user) {
-                return $user->activation_token === null;
-            });
+            $ids = is_array($user) ? $user : func_get_args();
+
+            return  User::whereNull('activation_token')->whereIn('id', $ids)->count() === count($ids);
         } catch (Throwable $throwable) {
             return 0;
         }
@@ -165,12 +164,17 @@ class UserRepository extends BaseRepository
             return 0;
         }
 
-        if ($user instanceof User) {
-            return $user->update($data);
-        }
+        try {
+            if ($user instanceof User) {
+                return $user->update($data);
+            }
 
-        $ids    =   is_array($user) ? $user: [$user];
-        return  User::whereIn('id', $ids)->update($data);
+            $ids = is_array($user) ? $user : [$user];
+
+            return  User::whereIn('id', $ids)->update($data);
+        } catch (Throwable $throwable) {
+            return 0;
+        }
     }
 
     public function posts($user)    :   Collection

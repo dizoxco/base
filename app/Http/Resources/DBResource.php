@@ -10,7 +10,7 @@ class DBResource extends Resource
     public function toArray($request)
     {
         return [
-            'row-effected' => (int) $this->resource
+            'row-effected' => (int) $this->resource,
         ];
     }
 

@@ -16,7 +16,7 @@ class PostLoginRequest extends FormRequest
         return [
             'email'         =>  'required|email',
             'password'      =>  'required|string|min:6',
-            'remember_me'   =>  'boolean'
+            'remember_me'   =>  'boolean',
         ];
     }
 }
