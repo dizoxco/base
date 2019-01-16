@@ -4,7 +4,10 @@ namespace App\Exceptions;
 
 use Response;
 use Exception;
+use Spatie\QueryBuilder\Exceptions\InvalidFilterQuery;
+use Symfony\Component\HttpFoundation\Response as HTTP;
 use Spatie\Permission\Exceptions\UnauthorizedException;
+use Spatie\QueryBuilder\Exceptions\InvalidIncludeQuery;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -53,32 +56,22 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof ModelNotFoundException) {
-            return Response::modelNotFound($request);
-        }
-
-        if ($exception instanceof NotFoundHttpException) {
-            return response(
-                [
-                    'message'   =>  trans('http.not_found'),
-                ],
-                \Symfony\Component\HttpFoundation\Response::HTTP_NOT_FOUND,
-                [
-                    'Content-Type'  =>  enum('system.response.json'),
-                ]
-            );
+        if (
+            $exception instanceof ModelNotFoundException
+            || $exception instanceof NotFoundHttpException
+        ) {
+            return Response::custom('not_found', $exception, HTTP::HTTP_NOT_FOUND);
         }
 
         if ($exception instanceof UnauthorizedException) {
-            return response(
-                [
-                    'message'   =>  trans('http.unauthorized'),
-                ],
-                \Symfony\Component\HttpFoundation\Response::HTTP_UNAUTHORIZED,
-                [
-                    'Content-Type'  =>  enum('system.response.json'),
-                ]
-            );
+            return Response::custom('unauthorized', $exception, HTTP::HTTP_UNAUTHORIZED);
+        }
+
+        if (
+            $exception instanceof InvalidFilterQuery
+            || $exception instanceof InvalidIncludeQuery
+        ) {
+            return Response::custom('bad_request', $exception, HTTP::HTTP_BAD_REQUEST);
         }
 
         return parent::render($request, $exception);
