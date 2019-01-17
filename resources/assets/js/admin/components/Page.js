@@ -1,11 +1,19 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import { Button, Icon, Tab } from "./";
 
 export class Page extends Component{
     
     render(){
+        if (this.props.loading){
+            return <div>Loading ...</div>
+        }
+
+        if (this.props.redirect !== undefined) {
+            return <Redirect push to={this.props.redirect} />;
+        }
+        
         let back, button;
 
         let tabs = ( this.props.tabs !== undefined )? <Tab tabs={this.props.tabs} />: null;

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getPosts } from "../actions"
 import { Page, Table } from "../components";
 
-class Posts extends Component{
+class Post extends Component{
 
     state = {}
 
@@ -19,14 +19,19 @@ class Posts extends Component{
     }
 
     render(){
+        console.log(this.props.match.params.user);
+        console.log(this.props.post || 'dd');
+        
         return(
             <Page                
-                title='مطالب'
+                // title={this.props.post.attributes.title}
+                title='dd'
                 button={{
                     label: 'save'
                 }}
                 tabs={['نمایش', 'ویرایش', 'پیرایش نیما']}
                 redirect={this.state.redirect}
+                loading={this.props.post == undefined}
             >   
                 <Table
                     data={this.props.posts}
@@ -50,8 +55,9 @@ class Posts extends Component{
 
 const mapStateToProps = state => {
     return {
-        posts: state.posts.posts
+        posts: state.posts.posts,
+        post: state.posts.posts.find( element => element.id == 1 )
     };
 };
 
-export default connect(mapStateToProps, { getPosts })(Posts);
+export default connect(mapStateToProps, { getPosts })(Post);

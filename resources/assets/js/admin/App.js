@@ -12,7 +12,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 
 import { List, RTL } from "./components"
-import { Dashboard, Login, Posts, Setting, Users } from './pages'
+import { Dashboard, Login, Post, Posts, Setting, Users } from './pages'
 
 import { withSnackbar } from 'notistack';
 import { connect } from "react-redux";
@@ -68,6 +68,7 @@ class App extends Component{
                                     <Switch location={location}>
                                         <Route path="/admin" exact component={Dashboard} />
                                         <Route path="/admin/posts" exact component={Posts} />
+                                        <Route path="/admin/posts/:user" exact component={Post} />
                                         <Route path="/admin/setting" exact component={Setting} />
                                         <Route path="/admin/Users" exact component={Users} />
                                         <Route path="/admin/login" exact component={Login} />
