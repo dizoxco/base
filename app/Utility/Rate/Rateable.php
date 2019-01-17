@@ -2,9 +2,9 @@
 
 namespace App\Utility\Rate;
 
+use Exception;
 use App\Models\Rate;
 use App\Models\RateFormat;
-use Exception;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait Rateable
@@ -12,7 +12,7 @@ trait Rateable
     private $namespace = 'App\\Utility\\Rate\\Methods\\';
 
     /**
-     * set polymorphic relation to associated model
+     * set polymorphic relation to associated model.
      * @return MorphMany
      */
     public function rates() : MorphMany
@@ -31,7 +31,7 @@ trait Rateable
         $config = $this->getRateFormat();
         $format = $config->type;
 
-        if (!class_exists($format)) {
+        if (! class_exists($format)) {
             throw new Exception("$format not found.");
         }
 
@@ -45,7 +45,7 @@ trait Rateable
         if ($result = $this->update()) {
             $this->rates()->create([
                 'user_id' => $request->get('user_id'),
-                'rate_detail' => json_encode(['type'])
+                'rate_detail' => json_encode(['type']),
             ]);
         }
 
@@ -53,7 +53,7 @@ trait Rateable
     }
 
     /**
-     * get model rate result
+     * get model rate result.
      *
      * @return object | int | null
      */
@@ -63,7 +63,7 @@ trait Rateable
     }
 
     /**
-     * get model rate data
+     * get model rate data.
      *
      * @return object | null
      */
@@ -73,7 +73,7 @@ trait Rateable
     }
 
     /**
-     * each model must have it's own implementation
+     * each model must have it's own implementation.
      *
      * @return RateFormat
      */

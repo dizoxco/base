@@ -13,7 +13,6 @@ class CreateRatesTable extends Migration
      */
     public function up()
     {
-
         Schema::create('rates', function (Blueprint $table) {
             $table->increments('id');
             $table->morphs('rateable');
@@ -23,7 +22,6 @@ class CreateRatesTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade');
         });
-
     }
 
     /**

@@ -14,7 +14,7 @@ abstract class BaseRate
 
     protected $data;
 
-    public function __construct(array $format,Request $request, $result, $data)
+    public function __construct(array $format, Request $request, $result, $data)
     {
         $this->format = $format;
         $this->request = $request;

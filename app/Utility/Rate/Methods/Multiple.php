@@ -7,12 +7,11 @@ use App\Utility\Rate\BaseRate;
 
 class Multiple extends BaseRate
 {
-
     public function __construct($format, $request, $rate, $data)
     {
         parent::__construct($format, $request, $rate, $data);
 
-        $this->request = $this->request->get($this->format['slug'],[]);
+        $this->request = $this->request->get($this->format['slug'], []);
     }
 
     protected function firstTime()
@@ -25,8 +24,7 @@ class Multiple extends BaseRate
 
         $this->result->total_rate = 0;
 
-        foreach ($this->format['values'] as $item){
-
+        foreach ($this->format['values'] as $item) {
             $this->data->{$item} = 0;
 
             $this->result->{$item} = 0;
@@ -35,16 +33,14 @@ class Multiple extends BaseRate
 
     protected function updateRate()
     {
-
         $this->data->users_count += 1;
 
         $this->result->total_rate = 0;
 
-        foreach ($this->format['values'] as $item){
+        foreach ($this->format['values'] as $item) {
+            $this->data->{$item} += array_key_exists($item, $this->request) ? $this->request[$item] : 0;
 
-            $this->data->{$item} += key_exists($item , $this->request) ? $this->request[$item] : 0;
-
-            $this->result->{$item} =  $this->data->{$item}  / $this->data->users_count;
+            $this->result->{$item} = $this->data->{$item} / $this->data->users_count;
 
             $this->result->total_rate += $this->result->{$item};
         }
