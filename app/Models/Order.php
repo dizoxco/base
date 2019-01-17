@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Utility\Payment\Contracts\IsPayable;
 use App\Utility\Payment\Traits\Payable;
 use Illuminate\Database\Eloquent\Model;
+use App\Utility\Payment\Contracts\IsPayable;
 
 class Order extends Model implements IsPayable
 {

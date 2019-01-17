@@ -43,7 +43,7 @@ class StoreBusinessRequest extends FormRequest
                     'company_economical_number' => 'required|digits:12',
                     'company_sign_owners' => 'required|string',
                 ];
-        
+
                 $private_business = [
                     'owner_name' => 'required|string',
                     'owner_family' => 'required|string',
