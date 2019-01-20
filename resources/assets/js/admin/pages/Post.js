@@ -2,61 +2,90 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getPosts } from "../actions"
-import { Page, Table } from "../components";
+import { Form, Page, Show, Text } from "../components";
 
 class Post extends Component{
 
-    state = {}
-
-    componentDidMount = () => {
-        this.props.getPosts();
+    state = {        
+        tab: 1
     }
 
-    tdClick = (rowInfo) => {
-        this.setState({
-            redirect: '/admin/posts/' + 1
-        })
+    componentDidMount(){
+        if (this.props.post == null) {
+            this.props.getPosts();
+        }
     }
+
 
     render(){
-        console.log(this.props.match.params.user);
-        console.log(this.props.post || 'dd');
+        console.log(this.props.post);
         
+        if (this.props.post === null) {
+            return <div>loading ....................</div>
+        }
+
+        if (this.props.post === undefined) {
+            return <div>undefined ....................</div>
+        }
         return(
             <Page                
                 // title={this.props.post.attributes.title}
-                title='dd'
+                title={this.props.post.attributes.title}
                 button={{
                     label: 'save'
                 }}
-                tabs={['نمایش', 'ویرایش', 'پیرایش نیما']}
+                tabs={['نمایش', 'ویرایش اطلاعات']}
+                tab={this.state.tab}
                 redirect={this.state.redirect}
                 loading={this.props.post == undefined}
-            >   
-                <Table
-                    data={this.props.posts}
-                    columns={[
-                        {
-                            Header: 'id',
-                            accessor: 'id',
-                            width: 70
-                        },
-                        {
-                            Header: 'email',
-                            accessor: 'attributes.title'
-                        }
-                    ]}
-                    tdClick={this.tdClick}
-                />
+                onChange={(tab) => this.setState({tab})}
+            >
+                <Form show={this.state.tab == 0}>
+                    <Show data={[
+                        { label: 'عنوان',       value: this.props.post.attributes.title},
+                        { label: 'نامک',        value: this.props.post.attributes.slug},
+                        { label: 'چکیده',       value: this.props.post.attributes.abstract},
+                        { label: 'محتوا',       value: this.props.post.attributes.body},
+                    ]} />
+                </Form>
+                <Form show={this.state.tab == 1}>
+                    <Text
+                        label='عنوان'
+                        name='a'
+                        value={this.props.post.attributes.title}
+                        half
+                    />
+                    <Text
+                        label='نامک'
+                        name='aa'
+                        value={this.props.post.attributes.title}
+                        half
+                    />
+                    <Text
+                        label='چکیده'
+                        name='aaa'
+                        value={this.props.post.attributes.title}
+                    />
+                    <Text
+                        label='محتوا'
+                        name='aaaa'
+                        value={this.props.post.attributes.title}
+                    />
+                </Form>
             </Page>
         );
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
+    if (state.posts.posts.length){
+        var post = state.posts.posts.find( element => element.id == props.match.params.user );
+    }else{
+        var post = null;
+    }
+
     return {
-        posts: state.posts.posts,
-        post: state.posts.posts.find( element => element.id == 1 )
+        post: post
     };
 };
 

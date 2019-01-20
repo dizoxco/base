@@ -27,6 +27,7 @@ class Posts extends Component{
                 }}
                 tabs={['نمایش', 'ویرایش', 'پیرایش نیما']}
                 redirect={this.state.redirect}
+                onChange={(value) => this.setState({tab: value})}
             >   
                 <Table
                     data={this.props.posts}

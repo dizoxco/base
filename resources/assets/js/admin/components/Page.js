@@ -5,6 +5,12 @@ import { Button, Icon, Tab } from "./";
 
 export class Page extends Component{
     
+    handleChange = (tab) => {
+        if (typeof this.props.onChange === "function") {
+            this.props.onChange(tab);
+        }
+    }
+
     render(){
         if (this.props.loading){
             return <div>Loading ...</div>
@@ -16,7 +22,7 @@ export class Page extends Component{
         
         let back, button;
 
-        let tabs = ( this.props.tabs !== undefined )? <Tab tabs={this.props.tabs} />: null;
+        let tabs = ( this.props.tabs !== undefined )? <Tab tabs={this.props.tabs} tab={this.props.tab} onChange={this.handleChange} />: null;
         
         if( this.props.button !== undefined ){
             let label = this.props.button.label ? this.props.button.label : null;
