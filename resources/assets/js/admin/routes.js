@@ -7,6 +7,11 @@ const routeslist = {
             prefix: '/auth',
             login: '/login'
         },
+        posts: {
+            prefix: '/posts',
+            index: '',
+            show: '/{post}'
+        },
         users: {
             prefix: '/users',
             index: '',
@@ -14,7 +19,7 @@ const routeslist = {
                 prefix: '/posts',
                 index: '/index',
             },
-            show: '/{user}/show',
+            show: '/{user}',
             edit: '/{user}/edit',
         },
     }

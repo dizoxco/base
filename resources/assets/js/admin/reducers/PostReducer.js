@@ -5,14 +5,17 @@ const initialState = {
 }
 export const PostReducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'GET-POSTS':
+            return {
+                ...state,
+                posts: action.payload.data
+            }
         case 'INCREMENT':
             return {
                 ...state,
                 counter: state.counter + 1
             };
-            break;
         default:
             return state;
-            break;
     }
 }

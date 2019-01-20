@@ -1,18 +1,58 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { increment } from "../actions"
+
+import { getPosts } from "../actions"
+import { Page, Table } from "../components";
+
 class Posts extends Component{
+
+    state = {}
+
+    componentDidMount = () => {
+        this.props.getPosts();
+    }
+
+    tdClick = (rowInfo) => {
+        this.setState({
+            redirect: '/admin/posts/' + 1
+        })
+    }
+
     render(){
         return(
-            <div onClick={this.props.increment}>Posts {this.props.counter}</div>
+            <Page                
+                title='مطالب'
+                button={{
+                    label: 'save'
+                }}
+                tabs={['نمایش', 'ویرایش', 'پیرایش نیما']}
+                redirect={this.state.redirect}
+                onChange={(value) => this.setState({tab: value})}
+            >   
+                <Table
+                    data={this.props.posts}
+                    columns={[
+                        {
+                            Header: 'id',
+                            accessor: 'id',
+                            width: 70
+                        },
+                        {
+                            Header: 'email',
+                            accessor: 'attributes.title'
+                        }
+                    ]}
+                    tdClick={this.tdClick}
+                />
+            </Page>
         );
     }
 }
 
 const mapStateToProps = state => {
     return {
-        counter: state.posts.counter
+        posts: state.posts.posts
     };
 };
 
-export default connect(mapStateToProps, { increment })(Posts);
+export default connect(mapStateToProps, { getPosts })(Posts);

@@ -20,9 +20,7 @@ export default class Dashboard extends Component {
                 <Switch />
                 <Select />
                 <Select />
-                <Table />
             </Page>
-                
         );
     }
 }

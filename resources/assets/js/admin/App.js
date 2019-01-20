@@ -12,14 +12,20 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 
 import { List, RTL } from "./components"
-import { Dashboard, Login, Posts, Setting, Users } from './pages'
+import { Dashboard, Login, Post, Posts, Setting, Users } from './pages'
 
 import { withSnackbar } from 'notistack';
 import { connect } from "react-redux";
 
-import { flushSnacks, logOut } from "./actions";
+import { flushSnacks } from "./actions";
+import { eraseCookie, getCookie } from "../helpers";
+
 class App extends Component{
     componentDidUpdate(){
+        
+        
+        
+
         const { enqueueSnackbar } = this.props;
         this.props.snacks.map((snack) => {
             enqueueSnackbar( snack.message, {
@@ -29,16 +35,18 @@ class App extends Component{
         if( this.props.snacks.length ) this.props.flushSnacks();
     }
 
-    logOut = () => this.props.logOut();
+    logOut = () => {
+        this.setState({ 'update': 'dd' })
+        eraseCookie('token');
+    }
     
     render(){
-        // console.log( document.cookie.split(';') );
         
         
         // if (!this.props.user.token) return <Redirect to="/admin/login" />;
         // if (this.props.location.pathname == '/admin/login'){
             // return <Login />;
-        if (this.props.user.token == null){
+        if (getCookie('token') == null){
             return <Login />;
         } else {
             return(
@@ -60,6 +68,7 @@ class App extends Component{
                                     <Switch location={location}>
                                         <Route path="/admin" exact component={Dashboard} />
                                         <Route path="/admin/posts" exact component={Posts} />
+                                        <Route path="/admin/posts/:user" exact component={Post} />
                                         <Route path="/admin/setting" exact component={Setting} />
                                         <Route path="/admin/Users" exact component={Users} />
                                         <Route path="/admin/login" exact component={Login} />
@@ -113,4 +122,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, {flushSnacks, logOut})(withSnackbar(App));
+export default connect(mapStateToProps, { flushSnacks })(withSnackbar(App));
