@@ -44,7 +44,7 @@ class User extends Authenticatable implements HasMedia
     //  =============================== End Accessor ==========================
 
     //  =============================== Relationships =========================
-    public function address()
+    public function address(): HasMany
     {
         return $this->hasMany(Address::class, 'user_id', 'id');
     }
@@ -90,11 +90,6 @@ class User extends Authenticatable implements HasMedia
     public function cart()
     {
         return $this->hasMany(Cart::class, 'user_id', 'id');
-    }
-
-    public function productsPages() : HasMany
-    {
-        return $this->hasMany(Variation::class, 'user_id', 'id');
     }
 
     public function hasChatWith(int $userId) : bool

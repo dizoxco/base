@@ -26,6 +26,9 @@ return [
             'ticket'    =>  1,
             'chat'      =>  2,
         ],
+        'responder' => [
+            'organ' => 0
+        ]
     ],
 
     'ticket'    =>  [

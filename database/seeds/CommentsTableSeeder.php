@@ -1,29 +1,46 @@
 <?php
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Comment;
-use Illuminate\Database\Seeder;
 
-class CommentsTableSeeder extends Seeder
+
+class CommentsTableSeeder extends CustomSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        $numbers = (int) $this->command->ask('How many comments can be created per post?', 2);
-        Post::all()->each(function (Post $post) use ($numbers) {
-            for ($i = 1; $i <= $numbers; $i++) {
-                $post->comments()->create(factory(Comment::class)->make(
-                    [
-                        'user_id'   =>  User::inRandomOrder()->first()->id,
-                    ]
-                )->toArray());
-            }
-        });
-        $this->command->line("Seeded {$numbers} comments for each posts");
+        parent::execute('comments');
     }
+
+    protected function createFromConfigFile($comments)
+    {
+        $this->create($comments['amount']);
+    }
+
+    protected function createAndSaveToConfigFile()
+    {
+        $amount = (int) $this->command->ask('Do you want how many comments?', 2);
+
+        $this->create($amount);
+
+        $config_comments['comments'] = ['amount'=> $amount];
+
+        $this->saveToFile($config_comments);
+    }
+
+    protected function create($amount): void
+    {
+        $posts = Post::all();
+        $users = User::all();
+        while ($amount) {
+            $comments[] = factory(Comment::class)->make([
+                'commentable_id' => $posts->random()->id,
+                'commentable_type' => Post::class,
+                'user_id' => $users->random()->id
+            ])->toArray();
+            $amount--;
+        }
+        Comment::insert($comments);
+    }
+
 }
