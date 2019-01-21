@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\Business;
-use App\Models\Product;
 use App\Models\User;
+use App\Models\Product;
+use App\Models\Business;
 
 class BusinessesTableSeeder extends CustomSeeder
 {
@@ -18,9 +18,9 @@ class BusinessesTableSeeder extends CustomSeeder
 
     protected function createAndSaveToConfigFile()
     {
-        $business   =   (int) $this->command->ask('How many business do you want?', 1);
-        $owners     =   (int) $this->command->ask('Each business belongsTo at most how many owners?', 1);
-        $products   =   (int) $this->command->ask('Each business have how many products?', 1);
+        $business = (int) $this->command->ask('How many business do you want?', 1);
+        $owners = (int) $this->command->ask('Each business belongsTo at most how many owners?', 1);
+        $products = (int) $this->command->ask('Each business have how many products?', 1);
 
         $this->create($business, $owners, $products);
 
@@ -41,7 +41,7 @@ class BusinessesTableSeeder extends CustomSeeder
         Business::all()->each(function ($business) use ($users, $config) {
             $business->users()->sync($users->random($config['owners']));
             $business->products()->createMany(
-                factory(Product::class, random_int(0,$config['products']))->make()->toArray()
+                factory(Product::class, random_int(0, $config['products']))->make()->toArray()
             );
         });
     }

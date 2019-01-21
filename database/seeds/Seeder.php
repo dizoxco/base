@@ -26,8 +26,9 @@ abstract class CustomSeeder extends Seeder
         );
     }
 
-    protected function yesOrNo(string $quastion): bool {
-        return $this->command->anticipate($quastion, ["y", "n"], "y") === "y" ? true : false;
+    protected function yesOrNo(string $quastion): bool
+    {
+        return $this->command->anticipate($quastion, ['y', 'n'], 'y') === 'y' ? true : false;
     }
 
     abstract protected function createFromConfigFile($config);

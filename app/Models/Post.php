@@ -2,23 +2,22 @@
 
 namespace App\Models;
 
-use App\Utility\Rate\Methods\Stars;
+use Spatie\MediaLibrary\File;
 use App\Utility\Rate\Rateable;
+use App\Utility\Rate\Methods\Stars;
+use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\File;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Models\Media;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Post extends Model implements HasMedia
 {
     use SoftDeletes, HasMediaTrait, HasMediaRelation, Rateable;
-
 
     protected $perPage = 10;
 
@@ -96,14 +95,14 @@ class Post extends Model implements HasMedia
     }
 
     /**
-     * each model must have it's own implementation
+     * each model must have it's own implementation.
      */
     public function getRateFormat(): RateFormat
     {
         return RateFormat::make([
             'name' => 'laptop',
             'slug' => 'laptop',
-            'collection_name' => Post::class,
+            'collection_name' => self::class,
             'description' => 'لپ تاپ ها',
             'values' => ['key' => 'star'],
             'type' => Stars::class,

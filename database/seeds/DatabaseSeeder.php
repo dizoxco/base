@@ -6,7 +6,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        if (!file_exists(base_path('seeder.json'))) {
+        if (! file_exists(base_path('seeder.json'))) {
             touch('seeder.json');
         }
 

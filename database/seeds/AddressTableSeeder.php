@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Address;
 use App\Models\User;
+use App\Models\Address;
 
 class AddressTableSeeder extends CustomSeeder
 {
@@ -17,7 +17,7 @@ class AddressTableSeeder extends CustomSeeder
 
     protected function createAndSaveToConfigFile()
     {
-        $amount = (int) $this->command->ask('How many address do you want? ',1);
+        $amount = (int) $this->command->ask('How many address do you want? ', 1);
 
         $this->create($amount);
 
@@ -29,7 +29,7 @@ class AddressTableSeeder extends CustomSeeder
         $users = User::all();
         while ($amount) {
             $address[] = factory(Address::class)->make([
-                'user_id' => $users->random()->id
+                'user_id' => $users->random()->id,
             ])->toArray();
             $amount--;
         }

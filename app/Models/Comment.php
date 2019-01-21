@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Utility\Rate\Methods\Multiple;
 use App\Utility\Rate\Rateable;
+use App\Utility\Rate\Methods\Multiple;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -25,7 +25,7 @@ class Comment extends Model implements HasMedia
     }
 
     /**
-     * each model must have it's own implementation
+     * each model must have it's own implementation.
      *
      * @return array
      */
@@ -44,7 +44,7 @@ class Comment extends Model implements HasMedia
             return RateFormat::make([
                 'name' => 'product',
                 'slug' => 'product',
-                'values' => ['RAM','CPU','HDD',],
+                'values' => ['RAM', 'CPU', 'HDD'],
                 'type' => Multiple::class,
             ]);
         }

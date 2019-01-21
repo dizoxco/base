@@ -21,7 +21,7 @@ class TicketTableSeeder extends CustomSeeder
 
         $this->create($amount);
 
-        $config_tickets['tickets'] = ['amount' => $amount,];
+        $config_tickets['tickets'] = ['amount' => $amount];
 
         $this->saveToFile($config_tickets);
     }
@@ -29,7 +29,7 @@ class TicketTableSeeder extends CustomSeeder
     protected function create($amount): void
     {
         Chat::insert(factory(Chat::class, $amount)->states('ticket')->make([
-            'attribute' => json_encode(['title' => str_random()])
+            'attribute' => json_encode(['title' => str_random()]),
         ])->toArray());
 
         $sql = [];
@@ -38,11 +38,11 @@ class TicketTableSeeder extends CustomSeeder
         foreach ($ids as $id) {
             $sql[] = [
                 'chat_id' => $id->id,
-                'user_id' => array_shift($user_ids)
+                'user_id' => array_shift($user_ids),
             ];
             $sql[] = [
                 'chat_id' => $id->id,
-                'user_id' => enum('chat.responder.organ')
+                'user_id' => enum('chat.responder.organ'),
             ];
         }
         DB::table('chat_users')->insert($sql);

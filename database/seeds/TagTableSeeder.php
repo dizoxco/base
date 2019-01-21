@@ -2,7 +2,6 @@
 
 use App\Models\Taxonomy;
 
-
 class TagTableSeeder extends CustomSeeder
 {
     public function run()
@@ -19,7 +18,7 @@ class TagTableSeeder extends CustomSeeder
             Taxonomy::create([
                 'group_name' => $taxonomy['group_name'],
                 'slug' => $taxonomy['slug'],
-                'label' => $taxonomy['label']
+                'label' => $taxonomy['label'],
             ])->tags()->createMany($tags);
             $tags = [];
         }
@@ -37,8 +36,8 @@ class TagTableSeeder extends CustomSeeder
             $taxonomie_tag_members = [];
             $want_more_member = true;
             while ($want_more_member) {
-                $tag_label = $this->command->ask('Enter a tag label for ' . $taxonomi_group_name);
-                $tag_slug = $this->command->ask('Enter a tag slug for ' . $taxonomi_group_name);
+                $tag_label = $this->command->ask('Enter a tag label for '.$taxonomi_group_name);
+                $tag_slug = $this->command->ask('Enter a tag slug for '.$taxonomi_group_name);
                 $taxonomie_tag_members[] = [
                     'label' => $tag_label,
                     'slug' => $tag_slug,
@@ -56,7 +55,7 @@ class TagTableSeeder extends CustomSeeder
                 'group_name' => $taxonomi_group_name,
                 'slug' => $taxonomi_slug,
                 'label' => $taxonomi_label,
-                'tags' => $taxonomie_tag_members
+                'tags' => $taxonomie_tag_members,
             ];
             $want_taxonomies = $this->command->anticipate('Do you want more taxonomies?', ['y', 'n'], 'y') === 'y' ? true : false;
         }

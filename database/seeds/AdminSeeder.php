@@ -34,7 +34,7 @@ class AdminSeeder extends CustomSeeder
 
         $config_users['admins'] = [
             'amount' => $amount,
-            'roles' => $admin_roles
+            'roles' => $admin_roles,
         ];
 
         $this->saveToFile($config_users);

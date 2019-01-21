@@ -27,8 +27,8 @@ return [
             'chat'      =>  2,
         ],
         'responder' => [
-            'organ' => 0
-        ]
+            'organ' => 0,
+        ],
     ],
 
     'ticket'    =>  [

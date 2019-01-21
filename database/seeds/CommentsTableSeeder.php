@@ -1,9 +1,8 @@
 <?php
 
-use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
-
+use App\Models\Comment;
 
 class CommentsTableSeeder extends CustomSeeder
 {
@@ -36,11 +35,10 @@ class CommentsTableSeeder extends CustomSeeder
             $comments[] = factory(Comment::class)->make([
                 'commentable_id' => $posts->random()->id,
                 'commentable_type' => Post::class,
-                'user_id' => $users->random()->id
+                'user_id' => $users->random()->id,
             ])->toArray();
             $amount--;
         }
         Comment::insert($comments);
     }
-
 }

@@ -30,8 +30,8 @@ class RolesTableSeeder extends CustomSeeder
             $role_permissions = [];
             $want_more_permission = true;
             while ($want_more_permission) {
-                $available_permissions  =   array_diff($available_permissions, $role_permissions);
-                $selected_permission    =   $this->command->anticipate('with which permission?', $available_permissions, '*');
+                $available_permissions = array_diff($available_permissions, $role_permissions);
+                $selected_permission = $this->command->anticipate('with which permission?', $available_permissions, '*');
                 if ($selected_permission === '*') {
                     $role_permissions = $available_permissions;
                     break;
@@ -44,7 +44,7 @@ class RolesTableSeeder extends CustomSeeder
 
             $config_role['roles'][] = [
                 'name' => $name,
-                'permissions' => $role_permissions
+                'permissions' => $role_permissions,
             ];
 
             $role_permissions = null;

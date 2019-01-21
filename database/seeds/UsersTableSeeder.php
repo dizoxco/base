@@ -2,8 +2,6 @@
 
 use App\Models\User;
 
-use Spatie\Permission\Models\Role;
-
 class UsersTableSeeder extends CustomSeeder
 {
     public function run()

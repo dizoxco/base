@@ -5,7 +5,7 @@ class MediaTableSeeder extends CustomSeeder
     public function run()
     {
         Storage::deleteDirectory('public/media');
-        Storage::makeDirectory('tmp',0777);
+        Storage::makeDirectory('tmp', 0777);
         parent::execute('media');
         Storage::deleteDirectory('tmp');
     }
@@ -22,7 +22,7 @@ class MediaTableSeeder extends CustomSeeder
             $model = $this->command->ask('Do you want media for which model?');
             $available_categories = [
                 'abstract', 'animals', 'business', 'cats', 'city', 'food', 'nightlife',
-                'fashion', 'people', 'nature', 'sports', 'technics', 'transport'
+                'fashion', 'people', 'nature', 'sports', 'technics', 'transport',
             ];
             $category = $this->command->anticipate('Do you want which category belongs to this model?', $available_categories);
             $amount = (int) $this->command->ask('Do you want how many media for '.$model.'?');
@@ -42,16 +42,16 @@ class MediaTableSeeder extends CustomSeeder
     protected function create($media)
     {
         foreach ($media as $medium) {
-            $model = "App\\Models\\".ucfirst($medium['model']);
+            $model = 'App\\Models\\'.ucfirst($medium['model']);
             $collection = $model::take($medium['amount'])->inRandomOrder()->get();
 
-            if (!method_exists($collection->first(),'addMediaFromUrl')) {
+            if (! method_exists($collection->first(), 'addMediaFromUrl')) {
                 continue;
             }
 
             $faker = Faker\Factory::create('fa_IR');
             foreach ($collection as $model) {
-                $image = $faker->image(storage_path('app/tmp'),400,300, $medium['category'], false);
+                $image = $faker->image(storage_path('app/tmp'), 400, 300, $medium['category'], false);
                 $model->addMediaFromUrl(storage_path("app/tmp/$image"))->toMediaCollection('default');
             }
         }
