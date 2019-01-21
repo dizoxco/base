@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getPosts } from "../actions"
-import { Form, Page, Show, Text } from "../components";
+import { Changer, Form, Page, Show, Text } from "../components";
 
 class Post extends Component{
 
@@ -11,15 +11,13 @@ class Post extends Component{
     }
 
     componentDidMount(){
-        if (this.props.post == null) {
+        if (this.props.post === null) {
             this.props.getPosts();
         }
     }
 
 
     render(){
-        console.log(this.props.post);
-        
         if (this.props.post === null) {
             return <div>loading ....................</div>
         }
@@ -54,6 +52,7 @@ class Post extends Component{
                         name='a'
                         value={this.props.post.attributes.title}
                         half
+                        onChange={ (e) => Changer(this, e) }
                     />
                     <Text
                         label='نامک'

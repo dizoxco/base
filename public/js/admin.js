@@ -62855,7 +62855,7 @@ var Post = function (_Component) {
     _createClass(Post, [{
         key: "componentDidMount",
         value: function componentDidMount() {
-            if (this.props.post == null) {
+            if (this.props.post === null) {
                 this.props.getPosts();
             }
         }
@@ -62863,8 +62863,6 @@ var Post = function (_Component) {
         key: "render",
         value: function render() {
             var _this2 = this;
-
-            console.log(this.props.post);
 
             if (this.props.post === null) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -62909,7 +62907,10 @@ var Post = function (_Component) {
                         label: "\u0639\u0646\u0648\u0627\u0646",
                         name: "a",
                         value: this.props.post.attributes.title,
-                        half: true
+                        half: true,
+                        onChange: function onChange(e) {
+                            return Object(__WEBPACK_IMPORTED_MODULE_3__components__["b" /* Changer */])(_this2, e);
+                        }
                     }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["o" /* Text */], {
                         label: "\u0646\u0627\u0645\u06A9",
