@@ -7,7 +7,6 @@ use App\Utility\Rate\BaseRate;
 
 class Like extends BaseRate
 {
-
     protected function firstTime()
     {
         $this->data = new Rating();

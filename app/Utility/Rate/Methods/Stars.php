@@ -7,7 +7,6 @@ use App\Utility\Rate\BaseRate;
 
 class Stars extends BaseRate
 {
-
     public function firstTime()
     {
         $this->data = new Rating();
@@ -18,7 +17,6 @@ class Stars extends BaseRate
 
         $this->result = 0;
     }
-
 
     public function updateRate()
     {

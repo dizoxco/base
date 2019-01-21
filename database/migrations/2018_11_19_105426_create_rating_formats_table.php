@@ -20,10 +20,9 @@ class CreateRatingFormatsTable extends Migration
             $table->string('collection_name');
             $table->text('description')->nullable();
             $table->json('values');
-            $table->char('type' , 100);
+            $table->char('type', 100);
             $table->timestamps();
         });
-
     }
 
     /**
