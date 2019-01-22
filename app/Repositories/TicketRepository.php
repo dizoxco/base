@@ -54,7 +54,7 @@ class TicketRepository extends BaseRepository
                         'category_id'   =>  $comment['category_id'],
                     ]),
                 ]);
-                $chat->users()->attach(0);
+                $chat->users()->attach(enum('chat.responder.organ'));
                 $this->storeComment($chat, $comment);
 
                 return $chat;
