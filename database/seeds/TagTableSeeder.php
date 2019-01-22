@@ -42,7 +42,7 @@ class TagTableSeeder extends CustomSeeder
                     'label' => $tag_label,
                     'slug' => $tag_slug,
                 ];
-                $want_more_member = $this->command->anticipate('Do you want more tags?', ['y', 'n'], 'y') === 'y' ? true : false;
+                $want_more_member = $this->yesOrNo('more tags?');
             }
 
             Taxonomy::create([

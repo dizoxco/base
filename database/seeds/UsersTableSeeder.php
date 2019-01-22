@@ -9,16 +9,16 @@ class UsersTableSeeder extends CustomSeeder
         parent::execute('users');
     }
 
-    protected function createFromConfigFile($config)
+    protected function createFromConfigFile($users)
     {
-        $this->create($config);
+        $this->create($users['amount']);
     }
 
     protected function createAndSaveToConfigFile()
     {
         $number = (int) $this->command->ask('How many users do you want?', 10);
         $this->create($number);
-        $this->saveToFile(['users' => $number]);
+        $this->saveToFile(['users' => ['amount' => $number]]);
     }
 
     protected function create($number)

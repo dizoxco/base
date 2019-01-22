@@ -21,9 +21,7 @@ class TicketTableSeeder extends CustomSeeder
 
         $this->create($amount);
 
-        $config_tickets['tickets'] = ['amount' => $amount];
-
-        $this->saveToFile($config_tickets);
+        $this->saveToFile(['tickets' => ['amount' => $amount]]);
     }
 
     protected function create($amount): void

@@ -1,0 +1,74 @@
+{
+    "roles": [
+        {
+            "name": "admin",
+            "permissions": [
+                "manage_users",
+                "manage_posts",
+                "manage_tickets",
+                "manage_search_panels",
+                "manage_businesses"
+            ]
+        },
+        {
+            "name": "editor",
+            "permissions": [
+                "manage_posts"
+            ]
+        }
+    ],
+    "passport": true,
+    "taxonomies": [
+        {
+            "group_name": "brands",
+            "slug": "brands",
+            "label": "brands",
+            "tags": [
+                {
+                    "label": "nokia",
+                    "slug": "nokia"
+                }
+            ]
+        }
+    ],
+    "users": {
+        "amount": 10
+    },
+    "address": {
+        "amount": 1
+    },
+    "tickets": {
+        "amount": 1
+    },
+    "posts": {
+        "amount": 2,
+        "roles": [
+            "editor"
+        ]
+    },
+    "comments": {
+        "amount": 2
+    },
+    "business": {
+        "amount": 1,
+        "owners": 1,
+        "products": 1
+    },
+    "media": [
+        {
+            "model": "user",
+            "amount": 1,
+            "category": "people"
+        }
+    ],
+    "assign_roles": [
+        {
+            "name": "admin",
+            "amount": 1
+        },
+        {
+            "name": "editor",
+            "amount": 1
+        }
+    ]
+}

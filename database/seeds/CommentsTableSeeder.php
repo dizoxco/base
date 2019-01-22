@@ -22,9 +22,7 @@ class CommentsTableSeeder extends CustomSeeder
 
         $this->create($amount);
 
-        $config_comments['comments'] = ['amount'=> $amount];
-
-        $this->saveToFile($config_comments);
+        $this->saveToFile(['comments' => ['amount'=> $amount]]);
     }
 
     protected function create($amount): void

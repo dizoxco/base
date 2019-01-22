@@ -28,9 +28,8 @@ class PostsTableSeeder extends CustomSeeder
             $want_more_writers = $this->yesOrNo('more roles?');
         }
 
-        $config_posts = ['amount'=> $amount, 'roles' => $writers];
-        $this->create($config_posts);
-        $this->saveToFile($config_posts);
+        $this->create(['amount'=> $amount, 'roles' => $writers]);
+        $this->saveToFile(['posts' => ['amount'=> $amount, 'roles' => $writers]]);
     }
 
     protected function create($config)

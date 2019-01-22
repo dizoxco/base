@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PassportTableSeeder::class);
         $this->call(TagTableSeeder::class);
         $this->call(UsersTableSeeder::class);
-        $this->call(AdminSeeder::class);
+        $this->call(AssignRoleSeeder::class);
         $this->call(AddressTableSeeder::class);
         $this->call(TicketTableSeeder::class);
         $this->call(PostsTableSeeder::class);

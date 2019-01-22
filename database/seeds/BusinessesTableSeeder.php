@@ -22,15 +22,9 @@ class BusinessesTableSeeder extends CustomSeeder
         $owners = (int) $this->command->ask('Each business belongsTo at most how many owners?', 1);
         $products = (int) $this->command->ask('Each business have how many products?', 1);
 
-        $this->create($business, $owners, $products);
+        $this->create(['amount'=> $business, 'owners'=> $owners, 'products'=> $products,]);
 
-        $config_business['business'] = [
-            'amount'=> $business,
-            'owners'=> $owners,
-            'products'=> $products,
-        ];
-
-        $this->saveToFile($config_business);
+        $this->saveToFile(['business' => ['amount'=> $business, 'owners'=> $owners, 'products'=> $products,]]);
     }
 
     protected function create($config): void
