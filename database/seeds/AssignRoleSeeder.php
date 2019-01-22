@@ -21,9 +21,9 @@ class AssignRoleSeeder extends CustomSeeder
         foreach ($roles as $role) {
             $amount = (int) $this->command->ask('How many <comment>'.strtoupper($role).'</comment> do you want? ', 1);
 
-            $this->create(['name' => $role, 'amount' => $amount,]);
+            $this->create(['name' => $role, 'amount' => $amount]);
 
-            $config_assign_roles[] = ['name' => $role, 'amount' => $amount,];
+            $config_assign_roles[] = ['name' => $role, 'amount' => $amount];
         }
         $this->saveToFile(['assign_roles' => $config_assign_roles]);
     }
