@@ -2,25 +2,43 @@
 
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
-class PostsTableSeeder extends Seeder
+class PostsTableSeeder extends CustomSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        $numbers = (int) $this->command->ask('How many articles can be created per user?', 2);
-        $this->users->each(
-            function (User $user) use ($numbers) {
-                for ($i = 1; $i <= $numbers; $i++) {
-                    $user->posts()->create(factory(Post::class)->make()->toArray());
-                }
-            }
-        );
-        $this->command->line("Seeded {$numbers} posts for each users");
+        parent::execute('posts');
+    }
+
+    protected function createFromConfigFile($posts)
+    {
+        $this->create($posts);
+    }
+
+    protected function createAndSaveToConfigFile()
+    {
+        $amount = (int) $this->command->ask('Do you want how many posts?', 2);
+        $roles = Role::pluck('name')->toArray();
+
+        $writers = [];
+        $want_more_writers = true;
+        while ($want_more_writers) {
+            $writers[] = $this->command->anticipate('Which role can have posts?', array_diff($roles, $writers));
+            $want_more_writers = $this->yesOrNo('more roles?');
+        }
+
+        $this->create(['amount'=> $amount, 'roles' => $writers]);
+        $this->saveToFile(['posts' => ['amount'=> $amount, 'roles' => $writers]]);
+    }
+
+    protected function create($config)
+    {
+        $writers = User::role($config['roles'])->get();
+        while ($config['amount']) {
+            $posts[] = factory(Post::class)->make(['user_id' => $writers->random()->id])->toArray();
+            $config['amount']--;
+        }
+        Post::insert($posts);
     }
 }
