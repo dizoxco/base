@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
-use App\Http\Resources\DBResource;
 use App\Events\User\UserStoreEvent;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EffectedRows;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\RoleCollection;
 use App\Http\Resources\UserCollection;
@@ -30,7 +30,7 @@ class UserController extends Controller
 
         $createdUser = UserRepo::create($data);
         if ($createdUser === 0) {
-            return new DBResource($createdUser);
+            return new EffectedRows($createdUser);
         }
 
         if ($request->hasFile('avatar')) {
@@ -61,7 +61,7 @@ class UserController extends Controller
             ]);
         }
 
-        $resource = new DBResource(UserRepo::update($user, $request->except('avatar')));
+        $resource = new EffectedRows(UserRepo::update($user, $request->except('avatar')));
 
         return  $resource->response()->setStatusCode(Response::HTTP_OK);
     }
@@ -82,7 +82,7 @@ class UserController extends Controller
             );
         }
 
-        return new DBResource(UserRepo::delete($user));
+        return new EffectedRows(UserRepo::delete($user));
     }
 
     public function restore(string $user)
@@ -101,7 +101,7 @@ class UserController extends Controller
             );
         }
 
-        return new DBResource(UserRepo::restore($user));
+        return new EffectedRows(UserRepo::restore($user));
     }
 
     public function destroy(string $user)
@@ -120,7 +120,7 @@ class UserController extends Controller
             );
         }
 
-        return new DBResource(UserRepo::destroy($user));
+        return new EffectedRows(UserRepo::destroy($user));
     }
 
     /**

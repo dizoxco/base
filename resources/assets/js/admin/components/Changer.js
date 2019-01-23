@@ -1,11 +1,10 @@
-export const Changer = (component, e) => {
+export const Changer = (component, e, key = 'form') => {
     let form = {};
     if(component.state !== null){
         if(component.state.form !== null){
             form = component.state.form;
         }
     }
-    // console.log(form);
         
     component.setState({
         form: {

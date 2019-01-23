@@ -1,14 +1,15 @@
 const initialState = {
     token: null,
     user: null,
-    users: null
+    users: []
 }
 export const UserReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'GET-USERS':
-            console.log(action.payload);
-            
-            break;
+            return {
+                ...state,
+                users: action.payload.data
+            }
         case 'TOKEN':
             return {
                 ...state,

@@ -1,25 +1,33 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 
-class UsersTableSeeder extends Seeder
+class UsersTableSeeder extends CustomSeeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        $numbers = (int) $this->command->ask('How Many Users Do You Want?', 10);
-        $this->users = factory(User::class, $numbers)->create();
-        $this->users->each(
-            function (User $user) {
-                $user->assignRole(Role::inRandomOrder()->first());
-            }
-        );
-        $this->command->line("Seeded {$numbers} users");
+        parent::execute('users');
+    }
+
+    protected function createFromConfigFile($users)
+    {
+        $this->create($users['amount']);
+    }
+
+    protected function createAndSaveToConfigFile()
+    {
+        $number = (int) $this->command->ask('How many users do you want?', 10);
+        $this->create($number);
+        $this->saveToFile(['users' => ['amount' => $number]]);
+    }
+
+    protected function create($number)
+    {
+        $users = factory(User::class, $number)->make()->toArray();
+        $password = bcrypt('123456');
+        array_walk($users, function (&$user) use ($password) {
+            $user['password'] = $password;
+        });
+        User::insert($users);
     }
 }

@@ -2,47 +2,33 @@
 
 namespace App\Providers;
 
-use Request;
 use Response;
+use Throwable;
+use App\Models\Variation;
+use App\Observers\VariationObserver;
 use Illuminate\Support\ServiceProvider;
-use Symfony\Component\HttpFoundation\Response as HTTP;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot()
     {
-        $this->modelNotFound();
+        $this->customResponse();
+
+        Variation::observe(VariationObserver::class);
     }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
+    public function customResponse()
     {
-    }
-
-    public function modelNotFound()
-    {
-        Response::macro('modelNotFound', function () {
+        Response::macro('custom', function (string $key, Throwable $throwable, int $status = 404) {
             if (request()->isXmlHttpRequest()) {
-                return Response::make(
-                    [
-                        'errors' => ['not_found' => trans('http.not_found')],
+                return Response::json([
+                        'message' => trans("http.$key"),
+                        'errors' => $throwable->getMessage(),
                     ],
-                    HTTP::HTTP_NOT_FOUND,
-                    [
-                        'Content-Type'  =>  enum('system.response.json'),
-                    ]
+                    $status
                 );
             } else {
-                abort(404);
+                abort(500, $throwable->getMessage());
             }
         });
     }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\SearchPanel;
-use App\Http\Resources\DBResource;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EffectedRows;
 use App\Repositories\Facades\SPRepo;
 use App\Http\Resources\SearchPanelResource;
 use App\Http\Resources\SearchPanelCollection;
@@ -23,7 +23,7 @@ class SearchPanelController extends Controller
     {
         $createdSearchPanel = SPRepo::create($request->all());
         if ($createdSearchPanel === null) {
-            return (new DBResource($createdSearchPanel))
+            return (new EffectedRows($createdSearchPanel))
                 ->response()->setStatusCode(Response::HTTP_BAD_REQUEST);
         }
         $createdSearchPanel = new SearchPanelResource($createdSearchPanel);
@@ -41,7 +41,7 @@ class SearchPanelController extends Controller
         $updated_search_panel = SPRepo::update($search_panel, $request->all());
         $status = $updated_search_panel === null ? Response::HTTP_BAD_REQUEST : Response::HTTP_OK;
 
-        return  (new DBResource($updated_search_panel))->response()->setStatusCode($status);
+        return  (new EffectedRows($updated_search_panel))->response()->setStatusCode($status);
     }
 
     public function delete(SearchPanel $search_panel)
@@ -49,7 +49,7 @@ class SearchPanelController extends Controller
         $deleted_search_panel = SPRepo::delete($search_panel);
         $status = $deleted_search_panel === null ? Response::HTTP_BAD_REQUEST : Response::HTTP_OK;
 
-        return  (new DBResource($deleted_search_panel))->response()->setStatusCode($status);
+        return  (new EffectedRows($deleted_search_panel))->response()->setStatusCode($status);
     }
 
     public function restore($search_panel)
@@ -57,7 +57,7 @@ class SearchPanelController extends Controller
         $restored_search_panel = SPRepo::restore($search_panel);
         $status = $restored_search_panel === null ? Response::HTTP_BAD_REQUEST : Response::HTTP_OK;
 
-        return  (new DBResource($restored_search_panel))->response()->setStatusCode($status);
+        return  (new EffectedRows($restored_search_panel))->response()->setStatusCode($status);
     }
 
     public function destroy($search_panel)
@@ -65,6 +65,6 @@ class SearchPanelController extends Controller
         $destroyed_search_panel = SPRepo::destroy($search_panel);
         $status = $destroyed_search_panel === null ? Response::HTTP_BAD_REQUEST : Response::HTTP_OK;
 
-        return  (new DBResource($destroyed_search_panel))->response()->setStatusCode($status);
+        return  (new EffectedRows($destroyed_search_panel))->response()->setStatusCode($status);
     }
 }
