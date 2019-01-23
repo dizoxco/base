@@ -124,4 +124,12 @@ return [
          */
         'store' => 'default',
     ],
+
+    'default' => [
+        ['name' => 'manage_users', 'guard_name' => 'web'],
+        ['name' => 'manage_posts', 'guard_name' => 'web'],
+        ['name' => 'manage_tickets', 'guard_name' => 'web'],
+        ['name' => 'manage_search_panels', 'guard_name' => 'web'],
+        ['name' => 'manage_businesses', 'guard_name' => 'web'],
+    ],
 ];

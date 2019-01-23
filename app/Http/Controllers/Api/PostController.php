@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Post;
-use App\Http\Resources\DBResource;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostCollection;
@@ -34,7 +33,7 @@ class PostController extends Controller
 
         $createdPost = PostRepo::create($request->all());
         if ($createdPost === 0) {
-            return new DBResource($createdPost);
+            return new EffectedRows($createdPost);
         }
 
         $messageBag = [];
@@ -90,7 +89,7 @@ class PostController extends Controller
 
         $updatedPost = PostRepo::update($post, $request->all());
         if ($updatedPost === 0) {
-            return new DBResource($updatedPost);
+            return new EffectedRows($updatedPost);
         }
 
         $messageBag = [];
@@ -132,22 +131,22 @@ class PostController extends Controller
 
     public function delete(Post $post)
     {
-        return new DBResource(PostRepo::delete($post));
+        return new EffectedRows(PostRepo::delete($post));
     }
 
     public function restore(string $post)
     {
-        return new DBResource(PostRepo::restore($post));
+        return new EffectedRows(PostRepo::restore($post));
     }
 
     public function destroy(string $post)
     {
-        return new DBResource(PostRepo::destroy($post));
+        return new EffectedRows(PostRepo::destroy($post));
     }
 
     public function storeComment(Post $post, StoreCommentRequest $request)
     {
-        return new DBResource(PostRepo::storeComment($post, $request->all()));
+        return new EffectedRows(PostRepo::storeComment($post, $request->all()));
     }
 
     private function makeSlug(string $slug)

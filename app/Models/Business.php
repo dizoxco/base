@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Business extends Model
 {
-    //todo:remove the legal business and personal business
     use SoftDeletes;
 
     protected $fillable = [
@@ -22,6 +21,6 @@ class Business extends Model
 
     public function products()
     {
-        return $this->belongsToMany(self::class, 'businesses_products', 'business_id', 'product_id', 'id', 'id');
+        return $this->belongsToMany(Product::class, 'businesses_products', 'business_id', 'product_id', 'id', 'id');
     }
 }
