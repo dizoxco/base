@@ -28,11 +28,13 @@ class AssignRoleSeeder extends CustomSeeder
         $this->saveToFile(['assign_roles' => $config_assign_roles]);
     }
 
-    protected function create($admins)
+    protected function create($roles)
     {
-        $users = User::take($admins['amount'])->inRandomOrder()->get();
-        foreach ($users as $user) {
-            $user->assignRole($admins['name']);
+        foreach ($roles as $role) {
+            $users = User::take($role['amount'])->inRandomOrder()->get();
+            foreach ($users as $user) {
+                $user->assignRole($role['name']);
+            }
         }
     }
 }
