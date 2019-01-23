@@ -1,38 +1,18 @@
 <?php
 
-use App\Models\User;
 use App\Models\Address;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
-class AddressTableSeeder extends CustomSeeder
+class AddressTableSeeder extends Seeder
 {
     public function run()
     {
-        parent::execute('address');
-    }
-
-    protected function createFromConfigFile($address)
-    {
-        $this->create($address['amount']);
-    }
-
-    protected function createAndSaveToConfigFile()
-    {
-        $amount = (int) $this->command->ask('How many address do you want? ', 1);
-
-        $this->create($amount);
-
-        $this->saveToFile(['address' => ['amount' => $amount]]);
-    }
-
-    protected function create($amount)
-    {
-        $users = User::all();
-        while ($amount) {
-            $address[] = factory(Address::class)->make([
-                'user_id' => $users->random()->id,
-            ])->toArray();
-            $amount--;
-        }
-        Address::insert($address);
+        $addresses = factory(Address::class, 1000)->make()->toArray();
+        $users = User::inRandomOrder()->pluck('id')->toArray();
+        array_walk($addresses, function (&$address) use ($users) {
+            $address['user_id'] = array_shift($users);
+        });
+        Address::insert($addresses);
     }
 }

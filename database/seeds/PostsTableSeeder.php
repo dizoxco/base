@@ -2,43 +2,24 @@
 
 use App\Models\Post;
 use App\Models\User;
-use Spatie\Permission\Models\Role;
+use Faker\Factory;
+use Illuminate\Database\Seeder;
 
-class PostsTableSeeder extends CustomSeeder
+class PostsTableSeeder extends Seeder
 {
     public function run()
     {
-        parent::execute('posts');
-    }
+        $editors = User::take(10)->inRandomOrder()->get();
 
-    protected function createFromConfigFile($posts)
-    {
-        $this->create($posts);
-    }
+        $posts = [];
+        $editors->each(function (User $editor) use (&$posts) {
+            factory(Post::class, 10)->create(['user_id' => $editor->id]);
+        });
 
-    protected function createAndSaveToConfigFile()
-    {
-        $amount = (int) $this->command->ask('Do you want how many posts?', 2);
-        $roles = Role::pluck('name')->toArray();
-
-        $writers = [];
-        $want_more_writers = true;
-        while ($want_more_writers) {
-            $writers[] = $this->command->anticipate('Which role can have posts?', array_diff($roles, $writers));
-            $want_more_writers = $this->yesOrNo('more roles?');
-        }
-
-        $this->create(['amount'=> $amount, 'roles' => $writers]);
-        $this->saveToFile(['posts' => ['amount'=> $amount, 'roles' => $writers]]);
-    }
-
-    protected function create($config)
-    {
-        $writers = User::role($config['roles'])->get();
-        while ($config['amount']) {
-            $posts[] = factory(Post::class)->make(['user_id' => $writers->random()->id])->toArray();
-            $config['amount']--;
-        }
-        Post::insert($posts);
+        $faker = Factory::create();
+        Post::all()->each(function (Post $post) use ($faker) {
+            $image = $faker->image(storage_path('app/tmp'), 400, 300, 'nightlife', false);
+            $post->addMediaFromUrl(storage_path("app/tmp/$image"))->toMediaCollection('banner');
+        });
     }
 }
