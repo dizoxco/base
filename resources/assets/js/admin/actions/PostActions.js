@@ -5,6 +5,12 @@ export const increment = () => dispatch => {
     dispatch({ type: 'INCREMENT' });
 };
 
+export const setPost = (id, attributes) => {
+    return (dispatch) => {
+        dispatch({ type: 'SET-POST', id, attributes })
+    }
+}
+
 export const getPosts = () => {
     return (dispatch) => {
         getting(routes('api.posts.index'))
