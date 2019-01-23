@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Models\Taxonomy;
+use Illuminate\Database\Seeder;
 
 class TagTableSeeder extends Seeder
 {
@@ -16,8 +16,8 @@ class TagTableSeeder extends Seeder
                     ['label' => 'apple',     'slug' => 'apple'],
                     ['label' => 'nokia',     'slug' => 'nokia'],
                     ['label' => 'samsung',   'slug' => 'samsung'],
-                    ['label' => 'sony',      'slug' => 'sony']
-                ]
+                    ['label' => 'sony',      'slug' => 'sony'],
+                ],
             ],
             [
                 'name' => 'colors',
@@ -27,9 +27,9 @@ class TagTableSeeder extends Seeder
                     ['label' => 'red',     'slug' => 'red'],
                     ['label' => 'blue',     'slug' => 'blue'],
                     ['label' => 'pink',   'slug' => 'pink'],
-                    ['label' => 'yellow',      'slug' => 'yellow']
-                ]
-            ]
+                    ['label' => 'yellow',      'slug' => 'yellow'],
+                ],
+            ],
         ];
         foreach ($taxonomies as $taxonomy) {
             Taxonomy::create([
