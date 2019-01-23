@@ -94,7 +94,7 @@ class App extends Component{
                                     icon: 'add'
                                 },{
                                     text: 'تنظیمات',
-                                    link: '/admin/settings',
+                                    link: '/admin/setting',
                                     icon: 'add'
                                 },{
                                     text: 'تیکت ها',

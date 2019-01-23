@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getPosts } from "../actions"
+import { getPosts, setPost } from "../actions"
 import { Changer, Form, Page, Show, Text } from "../components";
 
 class Post extends Component{
@@ -25,6 +25,7 @@ class Post extends Component{
         if (this.props.post === undefined) {
             return <div>undefined ....................</div>
         }
+        
         return(
             <Page                
                 // title={this.props.post.attributes.title}
@@ -49,26 +50,26 @@ class Post extends Component{
                 <Form show={this.state.tab == 1}>
                     <Text
                         label='عنوان'
-                        name='a'
                         value={this.props.post.attributes.title}
                         half
-                        onChange={ (e) => Changer(this, e) }
+                        onChange={ (e) => this.props.setPost(this.props.post.id, {title: e.target.value}) }
                     />
                     <Text
                         label='نامک'
-                        name='aa'
-                        value={this.props.post.attributes.title}
+                        value={this.props.post.attributes.slug}
                         half
+                        onChange={ (e) => this.props.setPost(this.props.post.id, {slug: e.target.value}) }
                     />
                     <Text
                         label='چکیده'
                         name='aaa'
-                        value={this.props.post.attributes.title}
+                        value={this.props.post.attributes.abstract}
+                        onChange={ (e) => this.props.setPost(this.props.post.id, {abstract: e.target.value}) }
                     />
                     <Text
                         label='محتوا'
-                        name='aaaa'
-                        value={this.props.post.attributes.title}
+                        value={this.props.post.attributes.body}
+                        onChange={ (e) => this.props.setPost(this.props.post.id, {body: e.target.value}) }
                     />
                 </Form>
             </Page>
@@ -88,4 +89,4 @@ const mapStateToProps = (state, props) => {
     };
 };
 
-export default connect(mapStateToProps, { getPosts })(Post);
+export default connect(mapStateToProps, { getPosts, setPost })(Post);
