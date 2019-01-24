@@ -22,10 +22,6 @@ import { eraseCookie, getCookie } from "../helpers";
 
 class App extends Component{
     componentDidUpdate(){
-        
-        
-        
-
         const { enqueueSnackbar } = this.props;
         this.props.snacks.map((snack) => {
             enqueueSnackbar( snack.message, {
@@ -85,15 +81,31 @@ class App extends Component{
                                     link: '/admin',
                                     icon: 'add'
                                 },{
-                                    text: 'کاربران',
-                                    link: '/admin/users',
-                                    icon: 'add'
-                                },{
                                     text: 'مطالب',
                                     link: '/admin/posts',
                                     icon: 'add'
                                 },{
-                                    text: 'تنظیمات',
+                                    text: 'کسب و کارها',
+                                    link: '/admin/businesses',
+                                    icon: 'add'
+                                },{
+                                    text: 'محصولات',
+                                    link: '/admin/products',
+                                    icon: 'add'
+                                },{
+                                    text: 'کاربران',
+                                    link: '/admin/users',
+                                    icon: 'add'
+                                },{
+                                    text: 'نظرات',
+                                    link: '/admin/users',
+                                    icon: 'add'
+                                },{
+                                    text: 'رسانه',
+                                    link: '/admin/posts',
+                                    icon: 'add'
+                                },{
+                                    text: 'تگ ها',
                                     link: '/admin/setting',
                                     icon: 'add'
                                 },{

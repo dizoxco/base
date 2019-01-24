@@ -60,36 +60,36 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 236);
+/******/ 	return __webpack_require__(__webpack_require__.s = 153);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 236:
+/***/ 153:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(237);
-__webpack_require__(238);
-module.exports = __webpack_require__(239);
+__webpack_require__(154);
+__webpack_require__(155);
+module.exports = __webpack_require__(156);
 
 
 /***/ }),
 
-/***/ 237:
+/***/ 154:
 /***/ (function(module, exports) {
 
 console.log('hello dear developers');
 
 /***/ }),
 
-/***/ 238:
+/***/ 155:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ 239:
+/***/ 156:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

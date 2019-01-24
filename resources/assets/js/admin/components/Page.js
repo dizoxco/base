@@ -26,7 +26,8 @@ export class Page extends Component{
         
         if( this.props.button !== undefined ){
             let label = this.props.button.label ? this.props.button.label : null;
-            button = <Button type="outlined" icon="delete" label={label} className="float-left" />;
+            let onClick = this.props.button.onClick ? this.props.button.onClick : undefined;
+            button = <Button type="outlined" icon="delete" label={label} onClick={onClick} className="float-left" />;
         }
 
 

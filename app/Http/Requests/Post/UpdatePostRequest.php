@@ -24,12 +24,12 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'     =>  'required|string',
-            'slug'      =>  'required|string',
-            'abstract'  =>  'required|string',
-            'body'      =>  'required|string',
-            'banner'    =>  'numeric|exists:media,id',
-            'attach.*'  =>  'numeric|exists:media,id',
+            'title'     =>  'string',
+            'slug'      =>  'string',
+            'abstract'  =>  'string',
+            'body'      =>  'string',
+            // 'banner'    =>  'nullable|numeric|exists:media,id',
+            // 'attach.*'  =>  'nullable|numeric|exists:media,id',
         ];
     }
 }
