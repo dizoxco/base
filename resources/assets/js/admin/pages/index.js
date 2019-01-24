@@ -4,8 +4,10 @@ import Post from './Post';
 import Posts from './Posts';
 import Setting from './Setting';
 import Users from './Users';
+import Businesses from './Businesses';
 
 export {
+    Businesses,
     Dashboard,
     Login,
     Post,

@@ -18,7 +18,6 @@ class Users extends Component{
                 button={{
                     label: 'save'
                 }}
-                tabs={['نمایش', 'ویرایش', 'پیرایش نیما']}
             >   
                 <Table
                     data={this.props.users}

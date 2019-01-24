@@ -7,6 +7,10 @@ const routeslist = {
             prefix: '/auth',
             login: '/login'
         },
+        businesses: {
+            prefix: '/businesses',
+            index: ''
+        },
         posts: {
             prefix: '/posts',
             index: '',

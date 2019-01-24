@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getPosts, getUsers } from "../actions"
+import { getBusinesses, getPosts, getUsers } from "../actions"
 import { Page, Icon, Table } from "../components";
 
-class Posts extends Component{
+class Businesses extends Component{
 
     state = {}
 
     componentDidMount = () => {
+        getBusinesses();
         if(this.props.posts.length == 0) this.props.getPosts();
         if(this.props.users.length == 0) this.props.getUsers();
     }
@@ -22,7 +23,7 @@ class Posts extends Component{
     render(){
         return(
             <Page                
-                title='مطالب'
+                title='کسب و کارها'
                 button={{
                     label: 'save'
                 }}
@@ -66,9 +67,10 @@ class Posts extends Component{
 
 const mapStateToProps = state => {
     return {
+        businesses: state.posts.businesses,
         posts: state.posts.posts,
         users: state.users.users
     };
 };
 
-export default connect(mapStateToProps, { getPosts, getUsers })(Posts);
+export default connect(mapStateToProps, { getBusinesses, getPosts, getUsers })(Businesses);

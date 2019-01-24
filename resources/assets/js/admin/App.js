@@ -12,7 +12,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 
 import { List, RTL } from "./components"
-import { Dashboard, Login, Post, Posts, Setting, Users } from './pages'
+import { Businesses, Dashboard, Login, Post, Posts, Setting, Users } from './pages'
 
 import { withSnackbar } from 'notistack';
 import { connect } from "react-redux";
@@ -63,6 +63,7 @@ class App extends Component{
                                 >
                                     <Switch location={location}>
                                         <Route path="/admin" exact component={Dashboard} />
+                                        <Route path="/admin/businesses" exact component={Businesses} />
                                         <Route path="/admin/posts" exact component={Posts} />
                                         <Route path="/admin/posts/:user" exact component={Post} />
                                         <Route path="/admin/setting" exact component={Setting} />
@@ -81,6 +82,10 @@ class App extends Component{
                                     link: '/admin',
                                     icon: 'add'
                                 },{
+                                    text: 'کاربران',
+                                    link: '/admin/users',
+                                    icon: 'add'
+                                },{
                                     text: 'مطالب',
                                     link: '/admin/posts',
                                     icon: 'add'
@@ -91,10 +96,6 @@ class App extends Component{
                                 },{
                                     text: 'محصولات',
                                     link: '/admin/products',
-                                    icon: 'add'
-                                },{
-                                    text: 'کاربران',
-                                    link: '/admin/users',
                                     icon: 'add'
                                 },{
                                     text: 'نظرات',
