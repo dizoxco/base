@@ -1,40 +1,31 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
-class AssignRoleSeeder extends CustomSeeder
+class AssignRoleSeeder extends Seeder
 {
     public function run()
     {
-        parent::execute('assign_roles');
-    }
+        $roles = [
+            'admin' => 10,
+            'editor' => 10,
+            'salesman' => 10,
+        ];
 
-    protected function createFromConfigFile($admins)
-    {
-        $this->create($admins);
-    }
-
-    protected function createAndSaveToConfigFile(): void
-    {
-        $roles = Role::pluck('name')->toArray();
-        foreach ($roles as $role) {
-            $amount = (int) $this->command->ask('How many <comment>'.strtoupper($role).'</comment> do you want? ', 1);
-
-            $this->create(['name' => $role, 'amount' => $amount]);
-
-            $config_assign_roles[] = ['name' => $role, 'amount' => $amount];
-        }
-        $this->saveToFile(['assign_roles' => $config_assign_roles]);
-    }
-
-    protected function create($roles)
-    {
-        foreach ($roles as $role) {
-            $users = User::take($role['amount'])->inRandomOrder()->get();
-            foreach ($users as $user) {
-                $user->assignRole($role['name']);
+        foreach ($roles as $name => $amount) {
+            $role_id = Role::whereName($name)->first(['id'])->id;
+            $user_ids = User::take($amount)->inRandomOrder()->pluck('id')->toArray();
+            $users = [];
+            foreach ($user_ids as $user_id) {
+                $users[] = [
+                    'role_id' => $role_id,
+                    'model_type' => User::class,
+                    'model_id' => $user_id,
+                ];
             }
+            DB::table('model_has_roles')->insert($users);
         }
     }
 }
