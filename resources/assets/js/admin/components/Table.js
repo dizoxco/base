@@ -75,16 +75,21 @@ export class Table extends Component{
         return(
             <div id="page">
                  <ReactTable
-                    data={data}
-                    columns={columns}
+                    data={this.props.data}
+                    columns={this.props.columns}
                     showPagination={true}
-                    defaultPageSize={2}
+                    defaultPageSize={10}
                     pageSizeOptions={[2, 10, 20, 25, 50, 100]}
                     multiSort={true}
                     filterable={true}
                     rowsText=""
                     nextText=">"
                     previousText="<"
+                    getTdProps={(state, rowInfo, column, instance)=>{
+                        return {
+                            onClick: () => this.props.tdClick(rowInfo)
+                        }                        
+                    }}
                 />
             </div>
         );

@@ -154,3 +154,14 @@ span[class^="MuiPrivateTabIndicator"] {
     background-color: #55bb55;
   }
 }
+
+.page-tab{
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity .3s;
+  &.show{
+    height: auto;
+    opacity: 1;
+  }
+}

@@ -2,8 +2,6 @@ import { getCookie } from './'
 import Axios from 'axios';
 
 export const getting = (url) => {
-    console.log(getCookie('token'));
-    
     const axiosPostConfig = {
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
