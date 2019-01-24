@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PostsTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
         $this->call(BusinessesTableSeeder::class);
+        $this->call(MediaGroupSeeder::class);
         Storage::deleteDirectory('tmp');
     }
 }
