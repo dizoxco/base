@@ -10,7 +10,12 @@ const routeslist = {
         posts: {
             prefix: '/posts',
             index: '',
-            show: '/{post}'
+            show: '/{post}',
+            update: '/{post}'
+        },
+        products: {
+            prefix: '/users',
+            index: '',
         },
         users: {
             prefix: '/users',

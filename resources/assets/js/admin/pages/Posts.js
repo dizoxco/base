@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getPosts, getUsers } from "../actions"
-import { Page, Table } from "../components";
+import { Page, Icon, Table } from "../components";
 
 class Posts extends Component{
 
@@ -39,6 +39,11 @@ class Posts extends Component{
                             width: 70
                         },
                         {
+                            Header: 'وضعیت',
+                            width: 50,
+                            Cell: row => row.original.oldAttributes? (<Icon icon="edit" />): '',
+                        },
+                        {
                             Header: 'عنوان',
                             accessor: 'attributes.title',
                         },
@@ -51,11 +56,6 @@ class Posts extends Component{
                                     <div>{ user? user.attributes.name: '...' }</div>
                                 )
                             }
-                        },
-                        {
-                            Header: 'وضعیت',
-                            width: 170,
-                            Cell: row => row.original.oldAttributes? (<div>ویرایش شده</div>): '',
                         }
                     ]}
                     tdClick={this.tdClick}

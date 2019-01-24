@@ -81,11 +81,11 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         //  make post's slug unique
-        $slug = $this->makeSlug($request->input('slug'));
-        $request->merge([
-            'slug'      =>  $slug,
-            'user_id'   =>  1,
-        ]);
+        // $slug = $this->makeSlug($request->input('slug'));
+        // $request->merge([
+        //     'slug'      =>  $slug,
+        //     'user_id'   =>  1,
+        // ]);
 
         $updatedPost = PostRepo::update($post, $request->all());
         if ($updatedPost === 0) {

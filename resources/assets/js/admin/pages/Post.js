@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getPosts, setPost } from "../actions"
+import { getPosts, setPost, updatePost } from "../actions"
 import { Changer, Form, Page, Show, Text } from "../components";
 
 class Post extends Component{
@@ -31,7 +31,8 @@ class Post extends Component{
                 // title={this.props.post.attributes.title}
                 title={this.props.post.attributes.title}
                 button={{
-                    label: 'save'
+                    label: 'save',
+                    onClick: updatePost(this.props.post)
                 }}
                 tabs={['نمایش', 'ویرایش اطلاعات']}
                 tab={this.state.tab}
@@ -89,4 +90,4 @@ const mapStateToProps = (state, props) => {
     };
 };
 
-export default connect(mapStateToProps, { getPosts, setPost })(Post);
+export default connect(mapStateToProps, { getPosts, setPost, updatePost })(Post);

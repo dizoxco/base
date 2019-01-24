@@ -29,7 +29,7 @@ class AccessControlLayer
 
         if ($permission === null) {
             $permission = $routeParameter;
-            if (! $user->hasPermissionTo($permission, 'api')) {
+            if (! $user->hasPermissionTo($permission)) {
                 return $this->forbidden();
             }
         }
@@ -38,7 +38,7 @@ class AccessControlLayer
             $resource = $request->route()->parameter($routeParameter);
 
             if ($resource instanceof Model) {
-                if ($user->id !== $resource->user_id && ! $user->hasPermissionTo($permission, 'api')) {
+                if ($user->id !== $resource->user_id && ! $user->hasPermissionTo($permission)) {
                     return $this->forbidden();
                 }
             }
