@@ -14,16 +14,16 @@ class RolesTableSeeder extends Seeder
                 'manage_tickets',
                 'manage_search_panels',
                 'manage_businesses',
-                'manage_products'
+                'manage_products',
             ],
             'editor' => [
                 'manage_posts',
                 'manage_tickets',
-                'manage_products'
+                'manage_products',
             ],
             'salesman' => [
-                'manage_orders'
-            ]
+                'manage_orders',
+            ],
         ];
         foreach ($roles as $name => $permissions) {
             Role::create(['name' => $name])->givePermissionTo($permissions);

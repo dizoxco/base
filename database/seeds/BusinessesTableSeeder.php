@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\Business;
-use App\Models\Product;
 use App\Models\User;
+use App\Models\Product;
+use App\Models\Business;
 use Illuminate\Database\Seeder;
 
 class BusinessesTableSeeder extends Seeder
