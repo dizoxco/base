@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\MediaGroup;
 use Faker\Factory;
+use App\Models\MediaGroup;
 use Illuminate\Database\Seeder;
 
 class MediaGroupSeeder extends Seeder

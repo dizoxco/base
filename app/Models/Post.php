@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
-use App\Utility\Rate\Methods\Stars;
+use Spatie\MediaLibrary\File;
 use App\Utility\Rate\Rateable;
+use App\Utility\Rate\Methods\Stars;
+use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\File;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Models\Media;
 
 class Post extends Model implements HasMedia
 {
@@ -45,7 +45,6 @@ class Post extends Model implements HasMedia
     public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
-
     }
 
     public function banner(): MorphToMany
@@ -60,7 +59,7 @@ class Post extends Model implements HasMedia
 
     private function mediagroups(): MorphToMany
     {
-        return $this->morphToMany(Media::class,'model','media_relations');
+        return $this->morphToMany(Media::class, 'model', 'media_relations');
     }
 
     //  =============================== End Relationships =====================
