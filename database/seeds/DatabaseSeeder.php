@@ -6,12 +6,8 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        if (! file_exists(base_path('seeder.json'))) {
-            touch('seeder.json');
-        }
-
-        define('CONFIG', json_decode(file_get_contents(base_path('seeder.json')), true));
-
+        Storage::deleteDirectory('public/media');
+        Storage::makeDirectory('tmp', 0777);
         $this->call(PermissionTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(PassportTableSeeder::class);
@@ -23,6 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PostsTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
         $this->call(BusinessesTableSeeder::class);
-        $this->call(MediaTableSeeder::class);
+        Storage::deleteDirectory('tmp');
     }
 }
