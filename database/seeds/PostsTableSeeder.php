@@ -13,11 +13,12 @@ class PostsTableSeeder extends Seeder
 
         $posts = [];
         $editors->each(function (User $editor) use (&$posts) {
-            factory(Post::class, 10)->create(['user_id' => $editor->id]);
+            $posts[] = factory(Post::class, 10)->make(['user_id' => $editor->id])->toArray();
         });
+        Post::insert(array_collapse($posts));
 
         $faker = Factory::create();
-        Post::all()->each(function (Post $post) use ($faker) {
+        Post::take(25)->inRandomOrder()->each(function (Post $post) use ($faker) {
             $image = $faker->image(storage_path('app/tmp'), 400, 300, 'nightlife', false);
             $post->addMediaFromUrl(storage_path("app/tmp/$image"))->toMediaCollection('banner');
         });
