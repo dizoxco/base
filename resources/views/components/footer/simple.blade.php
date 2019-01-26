@@ -1,0 +1,3 @@
+<div>
+    simple footer
+</div>
