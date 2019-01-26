@@ -135,6 +135,7 @@ Route::middleware('auth:api')->group(function () {
     });
 
     Route::name('mediagroup')->prefix('mediagroup')->group(function () {
+        Route::get('/', 'MediaGroupController@index');
         Route::get('{medium}', 'MediaGroupController@show');
         Route::post('{medium}', 'MediaGroupController@store');
     });

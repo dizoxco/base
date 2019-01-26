@@ -10,8 +10,8 @@ class MediaGroup extends Model implements HasMedia
 {
     use HasMediaTrait;
 
-    public function posts()
+    public function getFullNameAttribute()
     {
-        return $this->morphedByMany(Post::class, 'model_relations');
+        return 'media_group_'.$this->name;
     }
 }
