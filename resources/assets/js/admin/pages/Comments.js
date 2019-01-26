@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getPosts, getUsers } from "../actions"
+import { getBusinesses, getProducts, getComments } from "../actions"
 import { Page, Icon, Table } from "../components";
 
-class Posts extends Component{
+class Businesses extends Component{
 
     state = {}
 
     componentDidMount = () => {
-        if(this.props.posts.length == 0) this.props.getPosts();
-        if(this.props.users.length == 0) this.props.getUsers();
+        if(this.props.comments.length == 0) this.props.getComments();
+        if(this.props.products.length == 0) this.props.getProducts();
+        if(this.props.businesses.length == 0) this.props.getBusinesses();
     }
 
     tdClick = (rowInfo) => {
@@ -22,7 +23,7 @@ class Posts extends Component{
     render(){
         return(
             <Page                
-                title='مطالب'
+                title='نظرات'
                 button={{
                     label: 'save'
                 }}
@@ -30,7 +31,7 @@ class Posts extends Component{
                 onChange={(value) => this.setState({tab: value})}
             >   
                 <Table
-                    data={this.props.posts}
+                    data={this.props.products}
                     columns={[
                         {
                             Header: 'id',
@@ -45,16 +46,6 @@ class Posts extends Component{
                         {
                             Header: 'عنوان',
                             accessor: 'attributes.title',
-                        },
-                        {
-                            Header: 'نویسنده',
-                            width: 200,
-                            Cell: (row) => {
-                                var user = this.props.users.find( e => e.id == row.original.attributes.user_id );
-                                return (
-                                    <div>{ user? user.attributes.name: '...' }</div>
-                                )
-                            }
                         }
                     ]}
                     tdClick={this.tdClick}
@@ -66,9 +57,10 @@ class Posts extends Component{
 
 const mapStateToProps = state => {
     return {
-        posts: state.posts.posts,
-        users: state.users.users
+        comments: state.comments.comments,
+        products: state.products.products,
+        businesses: state.business.businesses
     };
 };
 
-export default connect(mapStateToProps, { getPosts, getUsers })(Posts);
+export default connect(mapStateToProps, { getBusinesses, getProducts, getComments })(Businesses);

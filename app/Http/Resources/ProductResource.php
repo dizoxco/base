@@ -12,6 +12,23 @@ class ProductResource extends BaseResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $resource = [
+            'type'   =>  'product',
+            'id'     =>  (string) $this->id,
+            'attributes'   =>  [
+                'user_id'      =>  $this->user_id,
+                'title'        =>  $this->title,
+                'slug'         =>  $this->slug,
+                'abstract'     =>  $this->abstract,
+                'body'         =>  $this->body,
+            ],
+            'relations' =>  [
+                $this->whenLoaded('user', function () {
+                    return ['user'  =>  $this->user->id];
+                })
+            ],
+        ];
+
+        return $resource;
     }
 }

@@ -18,14 +18,14 @@ class Users extends Component{
                 button={{
                     label: 'save'
                 }}
-                tabs={['نمایش', 'ویرایش', 'پیرایش نیما']}
             >   
                 <Table
                     data={this.props.users}
                     columns={[
                         {
                             Header: 'id',
-                            accessor: 'id'
+                            accessor: 'id',
+                            width: 70
                         },
                         {
                             Header: 'name',
