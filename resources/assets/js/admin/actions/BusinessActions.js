@@ -1,11 +1,11 @@
 import { getting, putting, posting, setCookie } from "../../helpers";
 import routes from '../routes';
 
-export const getProducts = () => {
+export const getBusinesses = () => {
     return (dispatch) => {
-        getting(routes('api.products.index'))
+        getting(routes('api.businesses.index'))
             .then(response => dispatch({
-                    type: 'GET-PRODUCTS',
+                    type: 'GET-BUSINESSES',
                     payload: response.data
             }))
             .catch( error => { console.log(error.response) } );

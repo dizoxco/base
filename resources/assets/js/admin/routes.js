@@ -11,6 +11,10 @@ const routeslist = {
             prefix: '/businesses',
             index: ''
         },
+        comments: {
+            prefix: '/comments',
+            index: ''
+        },
         posts: {
             prefix: '/posts',
             index: '',
@@ -18,7 +22,11 @@ const routeslist = {
             update: '/{post}'
         },
         products: {
-            prefix: '/users',
+            prefix: '/products',
+            index: '',
+        },
+        tickets: {
+            prefix: '/tickets',
             index: '',
         },
         users: {

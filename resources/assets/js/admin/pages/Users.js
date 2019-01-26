@@ -24,7 +24,8 @@ class Users extends Component{
                     columns={[
                         {
                             Header: 'id',
-                            accessor: 'id'
+                            accessor: 'id',
+                            width: 70
                         },
                         {
                             Header: 'name',

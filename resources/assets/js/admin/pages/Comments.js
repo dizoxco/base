@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getBusinesses } from "../actions"
+import { getBusinesses, getProducts, getComments } from "../actions"
 import { Page, Icon, Table } from "../components";
 
 class Businesses extends Component{
@@ -9,6 +9,8 @@ class Businesses extends Component{
     state = {}
 
     componentDidMount = () => {
+        if(this.props.comments.length == 0) this.props.getComments();
+        if(this.props.products.length == 0) this.props.getProducts();
         if(this.props.businesses.length == 0) this.props.getBusinesses();
     }
 
@@ -21,7 +23,7 @@ class Businesses extends Component{
     render(){
         return(
             <Page                
-                title='کسب و کارها'
+                title='نظرات'
                 button={{
                     label: 'save'
                 }}
@@ -29,7 +31,7 @@ class Businesses extends Component{
                 onChange={(value) => this.setState({tab: value})}
             >   
                 <Table
-                    data={this.props.businesses}
+                    data={this.props.products}
                     columns={[
                         {
                             Header: 'id',
@@ -43,7 +45,7 @@ class Businesses extends Component{
                         },
                         {
                             Header: 'عنوان',
-                            accessor: 'attributes.brand',
+                            accessor: 'attributes.title',
                         }
                     ]}
                     tdClick={this.tdClick}
@@ -55,8 +57,10 @@ class Businesses extends Component{
 
 const mapStateToProps = state => {
     return {
+        comments: state.comments.comments,
+        products: state.products.products,
         businesses: state.business.businesses
     };
 };
 
-export default connect(mapStateToProps, { getBusinesses })(Businesses);
+export default connect(mapStateToProps, { getBusinesses, getProducts, getComments })(Businesses);
