@@ -61,7 +61,6 @@ class SearchPanel extends Model
     {
         $filters = json_decode($this->getAttribute('filters'), true);
         foreach ($filters as $filter) {
-
             // is between , range or tag
             if (method_exists($this, $filter['query'])) {
                 $method = $filter['query'];
