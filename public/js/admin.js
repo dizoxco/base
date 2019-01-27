@@ -63016,7 +63016,7 @@ var Login = function (_Component) {
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Login.__proto__ || Object.getPrototypeOf(Login)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
             form: {
-                email: 'pshirazi@example.org',
+                email: 'admin@base.com',
                 password: '123456'
             }
         }, _temp), _possibleConstructorReturn(_this, _ret);
@@ -63267,9 +63267,7 @@ var Posts = function (_Component) {
             if (_this.props.posts.length == 0) _this.props.getPosts();
             if (_this.props.users.length == 0) _this.props.getUsers();
         }, _this.tdClick = function (rowInfo) {
-            _this.setState({
-                redirect: '/admin/posts/' + rowInfo.original.id
-            });
+            _this.props.history.push('/admin/posts/' + rowInfo.original.id);
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
@@ -63285,7 +63283,6 @@ var Posts = function (_Component) {
                     button: {
                         label: 'save'
                     },
-                    redirect: this.state.redirect,
                     onChange: function onChange(value) {
                         return _this2.setState({ tab: value });
                     }
