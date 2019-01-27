@@ -27,7 +27,6 @@ export class Select extends Component{
                     input={
                         <OutlinedInput
                             name="age"
-                            // labelWidth='ddd'
                             labelWidth={50}
                             id="agee"
                         />

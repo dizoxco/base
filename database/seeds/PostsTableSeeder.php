@@ -19,8 +19,9 @@ class PostsTableSeeder extends Seeder
 
         $faker = Factory::create();
         Post::take(25)->inRandomOrder()->each(function (Post $post) use ($faker) {
-            $image = $faker->image(storage_path('app/tmp'), 400, 300, 'nightlife', false);
-            $post->addMediaFromUrl(storage_path("app/tmp/$image"))->toMediaCollection('banner');
+            // $image = $faker->image(storage_path('app/tmp'), 400, 300, 'nightlife', false);
+            // $post->addMediaFromUrl(storage_path("app/tmp/$image"))->toMediaCollection('banner');
+            $post->addMediaFromUrl(base_path('resources/seed/blog-images/'.rand(1,20).'.jpg'))->toMediaCollection('banner');
         });
     }
 }

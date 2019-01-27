@@ -13,10 +13,8 @@ class Posts extends Component{
         if(this.props.users.length == 0) this.props.getUsers();
     }
 
-    tdClick = (rowInfo) => {
-        this.setState({
-            redirect: '/admin/posts/' + rowInfo.original.id
-        })
+    tdClick = (rowInfo) => {        
+        this.props.history.push('/admin/posts/' + rowInfo.original.id);
     }
 
     render(){
@@ -26,8 +24,6 @@ class Posts extends Component{
                 button={{
                     label: 'save'
                 }}
-                tabs={['نمایش', 'ویرایش', 'پیرایش نیما']}
-                redirect={this.state.redirect}
                 onChange={(value) => this.setState({tab: value})}
             >   
                 <Table

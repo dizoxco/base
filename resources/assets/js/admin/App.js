@@ -12,7 +12,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 
 import { List, RTL } from "./components"
-import { Dashboard, Login, Post, Posts, Setting, Users } from './pages'
+import { Businesses, Comments, Dashboard, Login, Post, Posts, Products, Setting, Tickets, Users } from './pages'
 
 import { withSnackbar } from 'notistack';
 import { connect } from "react-redux";
@@ -63,9 +63,13 @@ class App extends Component{
                                 >
                                     <Switch location={location}>
                                         <Route path="/admin" exact component={Dashboard} />
+                                        <Route path="/admin/businesses" exact component={Businesses} />
+                                        <Route path="/admin/comments" exact component={Comments} />
                                         <Route path="/admin/posts" exact component={Posts} />
                                         <Route path="/admin/posts/:user" exact component={Post} />
+                                        <Route path="/admin/products" exact component={Products} />
                                         <Route path="/admin/setting" exact component={Setting} />
+                                        <Route path="/admin/tickets" exact component={Tickets} />
                                         <Route path="/admin/Users" exact component={Users} />
                                         <Route path="/admin/login" exact component={Login} />
                                     </Switch>
@@ -81,6 +85,10 @@ class App extends Component{
                                     link: '/admin',
                                     icon: 'add'
                                 },{
+                                    text: 'کاربران',
+                                    link: '/admin/users',
+                                    icon: 'add'
+                                },{
                                     text: 'مطالب',
                                     link: '/admin/posts',
                                     icon: 'add'
@@ -93,12 +101,8 @@ class App extends Component{
                                     link: '/admin/products',
                                     icon: 'add'
                                 },{
-                                    text: 'کاربران',
-                                    link: '/admin/users',
-                                    icon: 'add'
-                                },{
                                     text: 'نظرات',
-                                    link: '/admin/users',
+                                    link: '/admin/comments',
                                     icon: 'add'
                                 },{
                                     text: 'رسانه',
