@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use App\Utility\Slug\Sluggable;
 use Spatie\MediaLibrary\File;
+use Spatie\Sluggable\HasSlug;
 use App\Utility\Rate\Rateable;
+use Spatie\Sluggable\SlugOptions;
 use App\Utility\Rate\Methods\Stars;
 use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
@@ -14,8 +15,6 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
 
 class Post extends Model implements HasMedia
 {
