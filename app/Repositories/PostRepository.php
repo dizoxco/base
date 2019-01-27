@@ -10,8 +10,6 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class PostRepository extends BaseRepository
 {
-    const NO_ROWS_AFFECTED = 0;
-
     public function find(int $id)   :   ?Post
     {
         return Post::find($id);
@@ -47,6 +45,11 @@ class PostRepository extends BaseRepository
         return $posts->get();
     }
 
+    public function getRecents($number = 10): Collection
+    {
+        return Post::take($number)->latest()->get();
+    }
+
     public function getBy(string $column, string $value)  :   Collection
     {
         return QueryBuilder::for(Post::query())
@@ -67,10 +70,6 @@ class PostRepository extends BaseRepository
             ->get();
     }
 
-    /**
-     * @param array $data
-     * @return Post|\Illuminate\Database\Eloquent\Model|int
-     */
     public function create(array $data)
     {
         try {
@@ -80,11 +79,6 @@ class PostRepository extends BaseRepository
         }
     }
 
-    /**
-     * @param $post
-     * @return bool|int|null
-     * @throws \Exception
-     */
     public function delete($post)
     {
         try {
@@ -99,10 +93,6 @@ class PostRepository extends BaseRepository
         }
     }
 
-    /**
-     * @param Post|array $post
-     * @return bool|int
-     */
     public function restore($post)
     {
         try {
@@ -118,10 +108,6 @@ class PostRepository extends BaseRepository
         }
     }
 
-    /**
-     * @param Post|array $post
-     * @return bool|int
-     */
     public function destroy($post)
     {
         try {
@@ -137,11 +123,6 @@ class PostRepository extends BaseRepository
         }
     }
 
-    /**
-     * @param $post
-     * @param array $data
-     * @return bool|int
-     */
     public function update($post, array $data)
     {
         try {
@@ -165,4 +146,6 @@ class PostRepository extends BaseRepository
     {
         return $post->comments;
     }
+
+
 }

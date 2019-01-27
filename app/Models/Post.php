@@ -102,6 +102,15 @@ class Post extends Model implements HasMedia
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
     }
+
+    public function resolveRouteBinding($slug)
+    {
+        if (request()->isXmlHttpRequest()) {
+            parent::resolveRouteBinding($slug);
+        } else {
+            return $this->whereSlug($slug)->firstOrFail();
+        }
+    }
 }
 
 //    public function banner(): HasManyThrough

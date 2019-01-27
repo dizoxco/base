@@ -41,4 +41,13 @@ class Tag extends Model
             ->generateSlugsFrom('label')
             ->saveSlugsTo('slug');
     }
+
+    public function resolveRouteBinding($slug)
+    {
+        if (request()->isXmlHttpRequest()) {
+            return parent::resolveRouteBinding($slug);
+        } else {
+            return $this->whereSlug($slug)->firstOrFail();
+        }
+    }
 }

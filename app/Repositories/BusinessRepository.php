@@ -44,6 +44,11 @@ class BusinessRepository extends BaseRepository
         return $businesses->get();
     }
 
+    public function getRecents($number = 10): Collection
+    {
+        return Business::take($number)->latest()->get();
+    }
+
     public function getBy(string $column, string $value) : Collection
     {
         return QueryBuilder::for(Business::query())
