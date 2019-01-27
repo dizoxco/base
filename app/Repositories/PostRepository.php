@@ -146,6 +146,4 @@ class PostRepository extends BaseRepository
     {
         return $post->comments;
     }
-
-
 }

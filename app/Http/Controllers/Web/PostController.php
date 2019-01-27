@@ -2,23 +2,25 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Models\Post;
 use App\Models\Tag;
-use App\Repositories\Facades\PostRepo;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\Facades\PostRepo;
 
 class PostController extends Controller
 {
     public function index()
     {
         $posts = PostRepo::getAll(['per_page' => 10]);
+
         return view('posts.index', compact('posts'));
     }
 
     public function tags(Tag $tag)
     {
         $posts = $tag->posts()->paginate(10);
+
         return view('posts.index', compact('posts'));
     }
 
