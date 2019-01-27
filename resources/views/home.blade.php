@@ -1,4 +1,6 @@
 @extends('layout')
 @section('content')
-    home page content
+    @php
+        dd($posts, $businesses, $products)
+    @endphp
 @endsection

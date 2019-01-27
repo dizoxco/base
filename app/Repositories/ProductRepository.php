@@ -44,6 +44,11 @@ class ProductRepository extends BaseRepository
         return $productes->get();
     }
 
+    public function getRecents($number = 10): Collection
+    {
+        return Product::take($number)->latest()->get();
+    }
+
     public function getBy(string $column, string $value) : Collection
     {
         return QueryBuilder::for(Product::query())
