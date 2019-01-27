@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Product extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasSlug;
 
     protected $fillable = [
         'title', 'slug', 'abstract', 'body', 'attributes', 'variations',
@@ -45,5 +47,13 @@ class Product extends Model
     public function belongsToOneBusiness() : bool
     {
         return (bool) $this->getAttribute('single');
+    }
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->usingLanguage('fa')
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
     }
 }

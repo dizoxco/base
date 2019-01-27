@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Utility\Slug\Sluggable;
 use Spatie\MediaLibrary\File;
 use App\Utility\Rate\Rateable;
 use App\Utility\Rate\Methods\Stars;
@@ -13,10 +14,12 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Post extends Model implements HasMedia
 {
-    use SoftDeletes, HasMediaTrait, HasMediaRelation, Rateable;
+    use SoftDeletes, HasMediaTrait, HasMediaRelation, Rateable, HasSlug;
 
     protected $perPage = 10;
 
@@ -90,6 +93,14 @@ class Post extends Model implements HasMedia
             'values' => ['key' => 'star'],
             'type' => Stars::class,
         ]);
+    }
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->usingLanguage('fa')
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
     }
 }
 
