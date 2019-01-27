@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Spatie\MediaLibrary\File;
+use Spatie\Sluggable\HasSlug;
 use App\Utility\Rate\Rateable;
+use Spatie\Sluggable\SlugOptions;
 use App\Utility\Rate\Methods\Stars;
 use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Post extends Model implements HasMedia
 {
-    use SoftDeletes, HasMediaTrait, HasMediaRelation, Rateable;
+    use SoftDeletes, HasMediaTrait, HasMediaRelation, Rateable, HasSlug;
 
     protected $perPage = 10;
 
@@ -90,6 +92,23 @@ class Post extends Model implements HasMedia
             'values' => ['key' => 'star'],
             'type' => Stars::class,
         ]);
+    }
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->usingLanguage('fa')
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
+    }
+
+    public function resolveRouteBinding($slug)
+    {
+        if (request()->isXmlHttpRequest()) {
+            parent::resolveRouteBinding($slug);
+        } else {
+            return $this->whereSlug($slug)->firstOrFail();
+        }
     }
 }
 

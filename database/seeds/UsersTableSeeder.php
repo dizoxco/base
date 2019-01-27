@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
         User::take(10)->get()->each(function (User $user) use ($faker) {
             // $image = $faker->image(storage_path('app/tmp'), 400, 300, 'people', false);
             // $user->addMediaFromUrl(storage_path("app/tmp/$image"))->toMediaCollection('avatar');
-            $user->addMediaFromUrl(base_path('resources/seed/avatar-images/'.rand(1,20).'.jpg'))->toMediaCollection('avatar');
+            $user->addMediaFromUrl(base_path('resources/seed/avatar-images/'.rand(1, 20).'.jpg'))->toMediaCollection('avatar');
         });
     }
 }

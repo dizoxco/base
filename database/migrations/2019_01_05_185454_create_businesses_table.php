@@ -15,7 +15,8 @@ class CreateBusinessesTable extends Migration
     {
         Schema::create('businesses', function (Blueprint $table) {
             $table->increments('id');
-            $table->char('brand', 100)->unique();
+            $table->char('brand', 100);
+            $table->char('slug', 100)->unique()->nullable();
             $table->char('province', 100);
             $table->char('city', 100);
             $table->char('tell', 8);

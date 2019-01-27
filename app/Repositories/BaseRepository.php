@@ -9,5 +9,9 @@ abstract class BaseRepository
         if (! empty($params['with'])) {
             $builder->with($params['with']);
         }
+
+        if (! empty($params['per_page'])) {
+            $builder->paginate($params['per_page']);
+        }
     }
 }

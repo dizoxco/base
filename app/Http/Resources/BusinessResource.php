@@ -25,7 +25,7 @@ class BusinessResource extends BaseResource
             'relations' =>  [
                 $this->whenLoaded('user', function () {
                     return ['user'  =>  $this->user->id];
-                })
+                }),
             ],
         ];
 

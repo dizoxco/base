@@ -11,7 +11,7 @@ class MediaGroupSeeder extends Seeder
         $faker = Factory::create('fa_IR');
         factory(MediaGroup::class, 50)->create()->each(function (MediaGroup $mediaGroup) use ($faker) {
             $mediaGroup->addMediaFromUrl(
-                base_path('resources/seed/blog-images/'.rand(1,20).'.jpg')
+                base_path('resources/seed/blog-images/'.rand(1, 20).'.jpg')
             )->toMediaCollection('banner');
         });
     }
