@@ -144,3 +144,10 @@ Route::middleware('auth:api')->group(function () {
 Route::name('search.')->prefix('searchs')->group(function () {
     Route::get('/{search_panel}', 'SearchController@show')->name('show');
 });
+
+Route::name('comments.')->prefix('comments')->middleware('permission:manage_comments')->group(function () {
+    Route::get('/', 'CommentController@index')->name('index');
+    Route::delete('{comment}', 'CommentController@delete')->name('delete');
+    Route::get('{comment}/restore', 'CommentController@restore')->name('restore');
+    Route::delete('{comment}/destroy', 'CommentController@destroy')->name('destroy');
+});
