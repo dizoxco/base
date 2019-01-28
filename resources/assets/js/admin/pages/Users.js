@@ -44,7 +44,7 @@ class Users extends Component{
 
 const mapStateToProps = state => {
     return {
-        users: state.users.users
+        users: state.users.index
     };
 };
 export default connect(mapStateToProps, {getUsers} )(Users);
