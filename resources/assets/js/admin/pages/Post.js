@@ -80,7 +80,7 @@ class Post extends Component{
 
 const mapStateToProps = (state, props) => {
     if (state.posts.posts.length){
-        var post = state.posts.posts.find( element => element.id == props.match.params.user );
+        var post = state.posts.posts.find( element => element.id == props.match.params.post );
     }else{
         var post = null;
     }
