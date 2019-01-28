@@ -30,6 +30,15 @@ class TagTableSeeder extends Seeder
                     ['label' => 'yellow',      'slug' => 'yellow'],
                 ],
             ],
+            [
+                'name' => 'Form Factor',
+                'slug' => 'forms',
+                'label' => 'انواع',
+                'tags' => [
+                    ['label' => 'mobile', 'slug' => 'mobiles'],
+                    ['label' => 'laptop', 'slug' => 'laptops'],
+                ],
+            ],
         ];
         foreach ($taxonomies as $taxonomy) {
             Taxonomy::create([
