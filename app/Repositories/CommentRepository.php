@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
+use Throwable;
 use App\Models\Comment;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
-use Throwable;
 
 class CommentRepository extends BaseRepository
 {
@@ -71,5 +71,5 @@ class CommentRepository extends BaseRepository
         } catch (Throwable $throwable) {
             return null;
         }
-    }    
+    }
 }

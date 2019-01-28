@@ -21,8 +21,9 @@ if (! function_exists('nav')) {
 }
 
 if (! function_exists('nav_path')) {
-    function nav_path($filename = null) {
-        if ( $filename === null) {
+    function nav_path($filename = null)
+    {
+        if ($filename === null) {
             return storage_path('app/navs/');
         }
 

@@ -1,11 +1,9 @@
 <?php
 
-
 namespace App\Repositories\Facades;
 
-
-use App\Repositories\CommentRepository;
 use Illuminate\Support\Facades\Facade;
+use App\Repositories\CommentRepository;
 
 class CommentRepo extends Facade
 {

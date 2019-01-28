@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Utility\Rate\Methods\Multiple;
 use App\Utility\Rate\Rateable;
+use App\Utility\Rate\Methods\Multiple;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class Comment extends Model implements HasMedia

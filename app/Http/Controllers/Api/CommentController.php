@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\CommentCollection;
-use App\Http\Resources\EffectedRows;
 use App\Models\Comment;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\EffectedRows;
+use App\Http\Resources\CommentCollection;
 use App\Repositories\Facades\CommentRepo;
 
 class CommentController extends Controller
