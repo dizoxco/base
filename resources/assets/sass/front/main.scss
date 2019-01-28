@@ -1,7 +1,7 @@
 @tailwind preflight;
 @tailwind components;
 @tailwind utilities;
-
+@import "~swiper/dist/css/swiper.min";
 body{
     direction: rtl;
     text-align: right;

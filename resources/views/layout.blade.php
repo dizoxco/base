@@ -14,5 +14,6 @@
 			@yield('content')
 		</div>
 		@component('components.footer.simple') @endcomponent
+		<script src="/js/app.js"></script>
 	</body>
 </html>

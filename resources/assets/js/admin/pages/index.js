@@ -6,6 +6,7 @@ import Posts from './Posts';
 import Products from './Products';
 import Setting from './Setting';
 import Tickets from './Tickets';
+import User from './User';
 import Users from './Users';
 import Businesses from './Businesses';
 
@@ -19,5 +20,6 @@ export {
     Products,
     Setting,
     Tickets,
+    User,
     Users
 } 
