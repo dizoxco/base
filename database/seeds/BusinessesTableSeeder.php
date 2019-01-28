@@ -1,10 +1,10 @@
 <?php
 
 use App\Models\Tag;
-use App\Models\Taxonomy;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Business;
+use App\Models\Taxonomy;
 use Illuminate\Database\Seeder;
 
 class BusinessesTableSeeder extends Seeder
@@ -19,7 +19,6 @@ class BusinessesTableSeeder extends Seeder
         $mobile_tag = Taxonomy::find(3)->first()->id;
 
         foreach ($businesses as $business) {
-
             $business->users()->attach($users->random(3));
 
             $products = $business->products()->createMany(

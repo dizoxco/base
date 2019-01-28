@@ -6,7 +6,6 @@ class SearchPanelTableSeeder extends Seeder
 {
     public function run()
     {
-
         \App\Models\SearchPanel::create([
             'title' => 'تلفن های همراه',
             'slug' => 'mobiles',
@@ -18,7 +17,7 @@ class SearchPanelTableSeeder extends Seeder
                     'query' => 'tag',
                     'tag' => App\Models\Tag::select(['id', 'label'])
                         ->get()
-                        ->toArray()
+                        ->toArray(),
                 ],
                 'colors' => [
                     'label' => 'انتخاب رنگ',
@@ -26,8 +25,8 @@ class SearchPanelTableSeeder extends Seeder
                     'tag' => App\Models\Tag::select(['id', 'label'])
                         ->whereIn('slug', ['red', 'blue'])
                         ->get()
-                        ->toArray()
-                ]
+                        ->toArray(),
+                ],
             ]),
             'filters' => json_encode([
                 'forms' => [
@@ -36,13 +35,10 @@ class SearchPanelTableSeeder extends Seeder
                     'tag' => App\Models\Tag::select(['id', 'label'])
                         ->whereSlug('mobiles')
                         ->get()
-                        ->toArray()
-                ]
+                        ->toArray(),
+                ],
             ]),
         ]);
-
-
-
 
         \App\Models\SearchPanel::create([
             'title' => 'تلفن های همراه',
@@ -55,7 +51,7 @@ class SearchPanelTableSeeder extends Seeder
                     'query' => 'tag',
                     'tag' => App\Models\Tag::select(['id', 'label'])
                         ->get()
-                        ->toArray()
+                        ->toArray(),
                 ],
                 'colors' => [
                     'label' => 'انتخاب رنگ',
@@ -63,8 +59,8 @@ class SearchPanelTableSeeder extends Seeder
                     'tag' => App\Models\Tag::select(['id', 'label'])
                         ->whereIn('slug', ['red', 'blue'])
                         ->get()
-                        ->toArray()
-                ]
+                        ->toArray(),
+                ],
             ]),
             'filters' => json_encode([
                 'forms' => [
@@ -73,8 +69,8 @@ class SearchPanelTableSeeder extends Seeder
                     'tag' => App\Models\Tag::select(['id', 'label'])
                         ->whereSlug('laptops')
                         ->get()
-                        ->toArray()
-                ]
+                        ->toArray(),
+                ],
             ]),
         ]);
     }
