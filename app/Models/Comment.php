@@ -6,11 +6,12 @@ use App\Utility\Rate\Rateable;
 use App\Utility\Rate\Methods\Multiple;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class Comment extends Model implements HasMedia
 {
-    use HasMediaTrait, Rateable;
+    use HasMediaTrait, Rateable, SoftDeletes;
 
     protected $fillable = [
         'user_id', 'parent_id', 'body', 'commentable_id', 'commentable_type',
@@ -24,11 +25,6 @@ class Comment extends Model implements HasMedia
         return $this->morphTo();
     }
 
-    /**
-     * each model must have it's own implementation.
-     *
-     * @return array
-     */
     public function getRateFormat(): RateFormat
     {
         if ($this->commentable instanceof Post) {
