@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Tag;
 use Faker\Factory;
 use App\Models\Post;
 use App\Models\User;
@@ -20,10 +21,8 @@ class PostsTableSeeder extends Seeder
         $media = MediaGroup::find(1)->media;
         $faker = Factory::create();
         Post::all()->each(function (Post $post) use ($faker, $media) {
-            // $image = $faker->image(storage_path('app/tmp'), 400, 300, 'nightlife', false);
+            $post->tags()->sync(Tag::inRandomOrder()->take(3)->pluck('id')->toArray());
             $post->banner()->sync([$media->random()->id => ['collection_name' => enum('media.post.banner')]]);
-            // $post->addMediaFromUrl(storage_path("app/tmp/$image"))->toMediaCollection('banner');
-            // $post->addMediaFromUrl(base_path('resources/seed/blog-images/'.rand(1, 20).'.jpg'))->toMediaCollection('banner');
         });
     }
 }

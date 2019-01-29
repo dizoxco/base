@@ -8,16 +8,15 @@ class MediaGroupSeeder extends Seeder
 {
     public function run()
     {
-        $faker = Factory::create('fa_IR');
-        $mgp = MediaGroup::create(['name' => 'posts', 'collection_name' => 'posts', 'description' => '']);
+        $mgp = MediaGroup::create(['name' => 'posts', 'collection_name' => 'posts', 'description' => 'posts']);
         foreach (range(1, 20) as $key) {
-            $mgp->addMediaFromUrl(
-                base_path('resources/seed/blog-images/'.$key.'.jpg')
-            )->toMediaCollection($mgp->name);
+            $mgp->addMediaFromUrl(resource_path('seed/blog-images/'.$key.'.jpg'))->toMediaCollection($mgp->name);
         }
 
-        // factory(MediaGroup::class, 1)->create(['name' => 'posts', 'collection_name' => 'posts'])->each(function (MediaGroup $mediaGroup) use ($faker) {
-
-        // });
+        $logos = Storage::disk('local')->files('logos');
+        $mgp = MediaGroup::create(['name' => 'logos', 'collection_name' => 'logos', 'description' => 'logos']);
+        foreach (range(1, 20) as $key) {
+            $mgp->addMediaFromUrl(storage_path('app/'.array_random($logos)))->toMediaCollection('logos');
+        }
     }
 }

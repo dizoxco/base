@@ -20,6 +20,11 @@ class BusinessRepository extends BaseRepository
         return Business::whereBrand($brand)->first();
     }
 
+    public function findBySlug(string $slug) : ?Business
+    {
+        return Business::whereslug($slug)->first();
+    }
+
     public function searchBy(array $columns, string $value) : Collection
     {
         $builder = Business::query();

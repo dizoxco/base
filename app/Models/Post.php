@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Repositories\Facades\PostRepo;
 use Spatie\MediaLibrary\File;
 use Spatie\Sluggable\HasSlug;
 use App\Utility\Rate\Rateable;
@@ -107,7 +108,9 @@ class Post extends Model implements HasMedia
         if (request()->isXmlHttpRequest()) {
             parent::resolveRouteBinding($slug);
         } else {
-            return $this->whereSlug($slug)->firstOrFail();
+            $post = PostRepo::findBySlug($slug);
+            abort_if($post === null, 404);
+            return $post;
         }
     }
 }
