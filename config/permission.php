@@ -133,5 +133,6 @@ return [
         ['name' => 'manage_tickets', 'guard_name' => 'web'],
         ['name' => 'manage_search_panels', 'guard_name' => 'web'],
         ['name' => 'manage_businesses', 'guard_name' => 'web'],
+        ['name' => 'manage_comments', 'guard_name' => 'web'],
     ],
 ];

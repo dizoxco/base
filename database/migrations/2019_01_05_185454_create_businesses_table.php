@@ -19,7 +19,7 @@ class CreateBusinessesTable extends Migration
             $table->char('slug', 100)->unique()->nullable();
             $table->char('province', 100);
             $table->char('city', 100);
-            $table->char('tell', 8);
+            $table->char('tell', 11);
             $table->char('phone_code', 3);
             $table->string('address');
             $table->char('postal_code', 10);

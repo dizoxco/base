@@ -9,6 +9,12 @@ return [
             'banner'    =>  'posts_banner',
             'attach'    =>  'posts_attach',
         ],
+        'product'  =>  [
+            'banner'    =>  'products_banner',
+        ],
+        'business'  =>  [
+            'logo'    =>  'business_logos',
+        ],
     ],
 
     'system'    =>  [

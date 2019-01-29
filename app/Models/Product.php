@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
+use App\Repositories\Facades\ProductRepo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -43,6 +45,16 @@ class Product extends Model
         return $this->hasMany(Variation::class, 'product_id', 'id');
     }
 
+    public function banner(): MorphToMany
+    {
+        return $this->mediagroups()->where('media_relations.collection_name', enum('media.product.banner'));
+    }
+
+    public function mediagroups(): MorphToMany
+    {
+        return $this->morphToMany(Media::class, 'model', 'media_relations');
+    }
+
     //  =============================== End Relationships =====================
     public function belongsToOneBusiness() : bool
     {
@@ -55,5 +67,17 @@ class Product extends Model
             ->usingLanguage('fa')
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
+    }
+
+    public function resolveRouteBinding($product)
+    {
+        if (request()->isXmlHttpRequest()) {
+            parent::resolveRouteBinding($product);
+        } else {
+            $product = ProductRepo::findBySlug($product);
+            abort_if($product === null, 404);
+
+            return $product;
+        }
     }
 }

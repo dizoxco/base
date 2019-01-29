@@ -8,6 +8,7 @@ use App\Utility\Rate\Rateable;
 use Spatie\Sluggable\SlugOptions;
 use App\Utility\Rate\Methods\Stars;
 use Spatie\MediaLibrary\Models\Media;
+use App\Repositories\Facades\PostRepo;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -107,7 +108,10 @@ class Post extends Model implements HasMedia
         if (request()->isXmlHttpRequest()) {
             parent::resolveRouteBinding($slug);
         } else {
-            return $this->whereSlug($slug)->firstOrFail();
+            $post = PostRepo::findBySlug($slug);
+            abort_if($post === null, 404);
+
+            return $post;
         }
     }
 }
