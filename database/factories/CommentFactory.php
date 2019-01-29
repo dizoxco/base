@@ -6,7 +6,7 @@ use Faker\Factory as Faker;
 $faker = Faker::create('fa_IR');
 $factory->define(Comment::class, function () use ($faker) {
     return [
-        'body'  =>  $faker->sentence,
+        'body'  =>  \faker()->sentence,
         'stat'  =>  true,
     ];
 });
