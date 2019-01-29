@@ -85,7 +85,7 @@ class PostRepository extends BaseRepository
             if ($post instanceof Post) {
                 return  $post->delete();
             }
-            $ids = is_array($post) ? $post: func_get_args();
+            $ids = is_array($post) ? $post : func_get_args();
 
             return  Post::whereIn('id', $ids)->delete();
         } catch (Exception $exception) {
@@ -100,7 +100,7 @@ class PostRepository extends BaseRepository
                 return  $post->restore();
             }
 
-            $ids = is_array($post) ? $post: func_get_args();
+            $ids = is_array($post) ? $post : func_get_args();
 
             return  Post::whereIn('id', $ids)->restore();
         } catch (Exception $exception) {
@@ -115,7 +115,7 @@ class PostRepository extends BaseRepository
                 return  $post->forceDelete();
             }
 
-            $ids = is_array($post) ? $post: func_get_args();
+            $ids = is_array($post) ? $post : func_get_args();
 
             return  Post::whereIn('id', $ids)->forceDelete();
         } catch (Exception $exception) {

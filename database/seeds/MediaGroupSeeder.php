@@ -1,6 +1,5 @@
 <?php
 
-use Faker\Factory;
 use App\Models\MediaGroup;
 use Illuminate\Database\Seeder;
 

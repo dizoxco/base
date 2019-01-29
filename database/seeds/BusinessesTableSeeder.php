@@ -1,11 +1,11 @@
 <?php
 
-use App\Models\MediaGroup;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Business;
 use App\Models\Taxonomy;
+use App\Models\MediaGroup;
 use Illuminate\Database\Seeder;
 
 class BusinessesTableSeeder extends Seeder

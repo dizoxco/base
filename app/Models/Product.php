@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Repositories\Facades\ProductRepo;
-use Spatie\MediaLibrary\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
+use App\Repositories\Facades\ProductRepo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -76,6 +76,7 @@ class Product extends Model
         } else {
             $product = ProductRepo::findBySlug($product);
             abort_if($product === null, 404);
+
             return $product;
         }
     }

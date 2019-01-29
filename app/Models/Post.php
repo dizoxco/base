@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Repositories\Facades\PostRepo;
 use Spatie\MediaLibrary\File;
 use Spatie\Sluggable\HasSlug;
 use App\Utility\Rate\Rateable;
 use Spatie\Sluggable\SlugOptions;
 use App\Utility\Rate\Methods\Stars;
 use Spatie\MediaLibrary\Models\Media;
+use App\Repositories\Facades\PostRepo;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -110,6 +110,7 @@ class Post extends Model implements HasMedia
         } else {
             $post = PostRepo::findBySlug($slug);
             abort_if($post === null, 404);
+
             return $post;
         }
     }

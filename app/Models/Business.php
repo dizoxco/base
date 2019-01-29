@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Repositories\Facades\BusinessRepo;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Spatie\MediaLibrary\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
+use App\Repositories\Facades\BusinessRepo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Business extends Model
@@ -39,6 +39,7 @@ class Business extends Model
     {
         return $this->morphToMany(Media::class, 'model', 'media_relations');
     }
+
     //  =============================== End Relationships =====================
 
     //  =============================== Complementary Methods =================
@@ -57,8 +58,10 @@ class Business extends Model
         } else {
             $business = BusinessRepo::findBySlug($business);
             abort_if($business === null, 404);
+
             return $business;
         }
     }
+
     //  =============================== End Complementary Methods =============
 }

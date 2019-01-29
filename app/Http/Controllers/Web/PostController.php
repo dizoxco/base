@@ -37,6 +37,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $recent = PostRepo::getRecents();
+
         return view('posts.show', compact('post', 'recent'));
     }
 
