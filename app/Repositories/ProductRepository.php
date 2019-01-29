@@ -15,9 +15,9 @@ class ProductRepository extends BaseRepository
         return Product::find($id);
     }
 
-    public function findByBrand(string $title) : ?Product
+    public function findBySlug(string $slug) : ?Product
     {
-        return Product::whereTitle($title)->first();
+        return Product::whereSlug($slug)->first();
     }
 
     public function searchBy(array $columns, string $value) : Collection

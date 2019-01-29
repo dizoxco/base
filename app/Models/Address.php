@@ -10,8 +10,11 @@ class Address extends Model
       'user_id', 'receiver', 'mobile', 'province', 'city', 'address', 'postal_code',
     ];
 
+    //  =============================== Relationships =========================
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    //  =============================== End Relationships =====================
 }
