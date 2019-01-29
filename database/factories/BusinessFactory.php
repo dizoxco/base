@@ -8,8 +8,8 @@ $factory->define(App\Models\Business::class, function () use ($faker) {
     return [
         'brand' => $faker->company,
         'slug' => str_slug($faker->company),
-        'province' => \faker()->province->first(),
-        'city' => \faker()->city->first(),
+        'province' => 'dd',
+        'city' => 'jhh',
         'tell' => $faker->phoneNumber,
         'phone_code' => $faker->numerify('0##'),
         'address' => $faker->address,

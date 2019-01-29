@@ -12,29 +12,33 @@ class BusinessesTableSeeder extends Seeder
 {
     public function run()
     {
-        Business::insert(factory(Business::class, 100)->make()->toArray());
+        Business::insert(factory(Business::class, 30)->make()->toArray());
 
         $users = User::all();
         $businesses = Business::all();
         $faker = Faker\Factory::create();
         $mobile_tag = Taxonomy::find(3)->first()->id;
         $banners = MediaGroup::find(1)->media;
-        $logos = MediaGroup::find(2)->media;
+        // $logos = MediaGroup::find(2)->media;
+        $tags = Tag::all();
 
         foreach ($businesses as $business) {
             $business->users()->attach($users->random(3));
-            $business->logo()->sync([$logos->random()->id => ['collection_name' => enum('media.business.logo')]]);
+            // $business->logo()->sync([$logos->random()->id => ['collection_name' => enum('media.business.logo')]]);
+            
+            $business->addMediaFromUrl(base_path('resources/seed/logo-images/'.rand(1, 20).'.png'))->toMediaCollection('business-logo');
 
             $products = $business->products()->createMany(
                 factory(Product::class, random_int(0, 10))->make()->toArray()
             );
 
             foreach ($products as $product) {
-                $product->tags()->sync(Tag::inRandomOrder()->take(3)->pluck('id')->toArray());
-                $product->banner()->sync([$banners->random()->id => ['collection_name' => enum('media.product.banner')]]);
-                if ($faker->boolean()) {
-                    $product->tags()->sync($mobile_tag, false);
-                }
+                $product->tags()->sync($tags->random(3)->pluck('id')->toArray());
+                // $product->banner()->sync([$banners->random()->id => ['collection_name' => enum('media.product.banner')]]);
+                $product->addMediaFromUrl(base_path('resources/seed/product-images/'.rand(1, 20).'.jpg'))->toMediaCollection('product-banner');
+                // if ($faker->boolean()) {
+                //     $product->tags()->sync($mobile_tag, false);
+                // }
             }
         }
     }
