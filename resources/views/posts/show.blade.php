@@ -15,21 +15,14 @@
                 <h3 class="py-4">پست های مرتبط</h3>
                 <div class="flex flex-row flex-wrap" column="2">
                     @foreach (range(1,3) as $id)
-                    <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 xl:w-1/2 p-2">
-                        @component('components.post.card-horizontal', ['post' => $recent[$id]])@endcomponent
+                    <div class="w-full md:w-1/2 p-2">
+                        @component('components.post.card-horizontal', ['post' => $recent[$id]]) @endcomponent
                     </div>
                     @endforeach
                 </div>
             </div>
             <div class="comments">
-            <h3>{{$post->comments->count()}} دیدگاه</h3>
-                @foreach ($post->comments as $comment)
-                <div class="bg-grey-light">
-                    {{-- @php print_r($comment->user) @endphp --}}
-                    <p>{{($comment->user->name)}}</p>
-                    <p>{{($comment->body)}}</p>
-                </div>
-                @endforeach
+                @component('components.comment',['post' => $post]) @endcomponent
             </div>
         </div>
     </div>    
