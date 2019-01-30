@@ -44,10 +44,25 @@ class ProductRepository extends BaseRepository
         return $productes->get();
     }
 
-    public function getRecents($number = 10): Collection
+    public function getRecent($number = 10): Collection
     {
         return Product::take($number)->latest()->get();
     }
+
+    public function getRelated(Product $product, int $number = 5): Collection
+    {
+        return $product
+            ->select(["id","title","slug","abstract","body","attributes","variations","single","available_at","created_at","updated_at","deleted_at"])
+            ->selectRaw('COUNT(DISTINCT(tag_id)) AS counter')
+            ->from($product->getTable())
+            ->join('taggables', 'taggable_id', '=', $product->getKeyName())
+            ->whereIn('tag_id', $product->tags->pluck('id')->toArray())
+            ->groupBy($product->getKeyName())
+            ->orderByDesc('counter')
+            ->orderByDesc('created_at')
+            ->take($number)
+            ->get();
+    }    
 
     public function getBy(string $column, string $value) : Collection
     {

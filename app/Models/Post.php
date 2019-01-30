@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
-use Spatie\MediaLibrary\File;
-use Spatie\Sluggable\HasSlug;
-use App\Utility\Rate\Rateable;
-use Spatie\Sluggable\SlugOptions;
-use App\Utility\Rate\Methods\Stars;
-use Spatie\MediaLibrary\Models\Media;
 use App\Repositories\Facades\PostRepo;
+use App\Utility\Rate\Methods\Stars;
+use App\Utility\Rate\Rateable;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\File;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Post extends Model implements HasMedia
 {
@@ -24,7 +24,7 @@ class Post extends Model implements HasMedia
     protected $perPage = 10;
 
     protected $fillable = [
-        'user_id', 'title', 'slug', 'image', 'abstract', 'body',
+        'user_id', 'title', 'slug', 'abstract', 'body',
     ];
 
     protected $casts = [
@@ -64,7 +64,6 @@ class Post extends Model implements HasMedia
     {
         return $this->morphToMany(Media::class, 'model', 'media_relations');
     }
-
     //  =============================== End Relationships =====================
 
     public function registerMediaCollections()
@@ -115,31 +114,3 @@ class Post extends Model implements HasMedia
         }
     }
 }
-
-//    public function banner(): HasManyThrough
-//    {
-//        return $this->hasManyThrough(
-//            Media::class,
-//            MediaRelation::class,
-//            'model_id',
-//            'id',
-//            'id',
-//            'media_id'
-//        )
-//            ->where('media_relations.model_type', self::class)
-//            ->where('media_relations.collection_name', enum('media.post.banner'));
-//    }
-//
-//    public function attaches(): HasManyThrough
-//    {
-//        return $this->hasManyThrough(
-//            Media::class,
-//            MediaRelation::class,
-//            'model_id',
-//            'id',
-//            'id',
-//            'media_id'
-//        )
-//            ->where('media_relations.model_type', self::class)
-//            ->where('media_relations.collection_name', enum('media.post.attach'));
-//    }
