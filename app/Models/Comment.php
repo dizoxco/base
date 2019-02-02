@@ -20,6 +20,11 @@ class Comment extends Model implements HasMedia
 
     protected $perPage = 10;
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function commentable()
     {
         return $this->morphTo();
