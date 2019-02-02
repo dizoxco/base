@@ -38,7 +38,7 @@ class PostRepository extends BaseRepository
     {
         $posts = QueryBuilder::for(Post::query())
             ->allowedFilters(['title', 'slug'])
-            ->allowedIncludes(['post', 'comments'])
+            ->allowedIncludes(['post', 'comments', 'banner'])
             ->allowedSorts(['created_at', 'updated_at', 'deleted_at', 'published_at']);
         $this->applyParams($posts, $params);
 

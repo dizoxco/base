@@ -10,14 +10,10 @@ class Businesses extends Component{
 
     componentDidMount = () => {
         if(this.props.comments.length == 0) this.props.getComments();
-        if(this.props.products.length == 0) this.props.getProducts();
-        if(this.props.businesses.length == 0) this.props.getBusinesses();
     }
 
     tdClick = (rowInfo) => {
-        this.setState({
-            redirect: '/admin/posts/' + rowInfo.original.id
-        })
+        this.props.history.push('/admin/comments/' + rowInfo.original.id);
     }
 
     render(){
@@ -31,7 +27,7 @@ class Businesses extends Component{
                 onChange={(value) => this.setState({tab: value})}
             >   
                 <Table
-                    data={this.props.products}
+                    data={this.props.comments}
                     columns={[
                         {
                             Header: 'id',
@@ -45,7 +41,7 @@ class Businesses extends Component{
                         },
                         {
                             Header: 'عنوان',
-                            accessor: 'attributes.title',
+                            accessor: 'attributes.body',
                         }
                     ]}
                     tdClick={this.tdClick}
@@ -57,9 +53,7 @@ class Businesses extends Component{
 
 const mapStateToProps = state => {
     return {
-        comments: state.comments.comments,
-        products: state.products.products,
-        businesses: state.business.businesses
+        comments: state.comments.index
     };
 };
 

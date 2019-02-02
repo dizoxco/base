@@ -22,7 +22,7 @@ import { SnackbarProvider } from 'notistack';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
                 combineReducers({
-                    business: BusinessReducer,
+                    businesses: BusinessReducer,
                     comments: CommentReducer,
                     posts: PostReducer,
                     products: ProductReducer,

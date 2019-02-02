@@ -1,52 +1,51 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getBusinesses, getPosts, setPost, updatePost } from "../actions"
+import { getComments, getPosts, setPost, updatePost } from "../actions"
 import { Changer, Form, Page, Show, Text } from "../components";
 
-class Business extends Component{
+class Comment extends Component{
 
     state = {        
         tab: 0
     }
 
     componentDidMount(){
-        if (this.props.business === null) {
-            this.props.getBusinesses();
+        if (this.props.comment === null) {
+            this.props.getComments();
         }
     }
 
 
     render(){
-        if (this.props.business === null) {
+        if (this.props.comment === null) {
             return <div>loading ....................</div>
         }
 
-        if (this.props.business === undefined) {
+        if (this.props.comment === undefined) {
             return <div>undefined ....................</div>
         }
         
         return(
             <Page                
-                // title={this.props.business.attributes.title}
-                title={this.props.business.attributes.title}
+                // title={this.props.post.attributes.title}
+                title={'#'+this.props.comment.id}
                 button={{
                     label: 'save',
-                    onClick: updatePost(this.props.business)
+                    onClick: updatePost(this.props.post)
                 }}
                 tabs={['نمایش', 'ویرایش اطلاعات']}
                 tab={this.state.tab}
                 redirect={this.state.redirect}
-                loading={this.props.business == undefined}
                 onChange={(tab) => this.setState({tab})}
             >
                 <Form show={this.state.tab == 0}>
                     <Show data={[
-                        { label: 'عنوان',       value: this.props.business.attributes.brand},
+                        { label: 'محتوا',       value: this.props.comment.attributes.body},
                     ]} />
                 </Form>
                 <Form show={this.state.tab == 1}>
-                   
+                    
                 </Form>
             </Page>
         );
@@ -54,10 +53,13 @@ class Business extends Component{
 }
 
 const mapStateToProps = (state, props) => {
-    var business = (state.businesses.index.length)?
-        state.businesses.index.find( element => element.id == props.match.params.business ):
-        null;
-    return { business };
+    if (state.comments.index.length){
+        var comment = state.comments.index.find( element => element.id == props.match.params.comment );
+    }else{
+        var comment = null;
+    }
+
+    return { comment };
 };
 
-export default connect(mapStateToProps, { getBusinesses, getPosts, setPost, updatePost })(Business);
+export default connect(mapStateToProps, { getComments, getPosts, setPost, updatePost })(Comment);

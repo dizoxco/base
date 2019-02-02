@@ -17,7 +17,7 @@ const routeslist = {
         },
         posts: {
             prefix: '/posts',
-            index: '',
+            index: '?include=banner',
             show: '/{post}',
             update: '/{post}'
         },

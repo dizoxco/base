@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getPosts, setPost, updatePost } from "../actions"
-import { Changer, Form, Page, Show, Text } from "../components";
+import { Loading, NotFound, Table, Form, Page, Show, Text } from "../components";
 
 class Post extends Component{
 
     state = {        
-        tab: 1
+        tab: 0
     }
 
     componentDidMount(){
@@ -18,26 +18,20 @@ class Post extends Component{
 
 
     render(){
-        if (this.props.post === null) {
-            return <div>loading ....................</div>
-        }
-
-        if (this.props.post === undefined) {
-            return <div>undefined ....................</div>
-        }
-        
+        if (this.props.post === null) return <Loading />
+        if (this.props.post === undefined) return <NotFound />
         return(
             <Page                
                 // title={this.props.post.attributes.title}
                 title={this.props.post.attributes.title}
                 button={{
                     label: 'save',
-                    onClick: updatePost(this.props.post)
+                    onClick: () => this.props.updatePost(this.props.post)
                 }}
-                tabs={['نمایش', 'ویرایش اطلاعات']}
+                tabs={['نمایش', 'ویرایش اطلاعات', 'نظرات']}
                 tab={this.state.tab}
                 redirect={this.state.redirect}
-                loading={this.props.post == undefined}
+                loading={this.props.post == null}
                 onChange={(tab) => this.setState({tab})}
             >
                 <Form show={this.state.tab == 0}>
@@ -73,20 +67,39 @@ class Post extends Component{
                         onChange={ (e) => this.props.setPost(this.props.post.id, {body: e.target.value}) }
                     />
                 </Form>
+                <Form show={this.state.tab == 2}>
+                    <Table
+                        data={this.props.comments}
+                        columns={[
+                            {
+                                Header: 'id',
+                                accessor: 'id',
+                                width: 70
+                            },
+                            {
+                                Header: 'وضعیت',
+                                width: 50,
+                                Cell: row => row.original.oldAttributes? (<Icon icon="edit" />): '',
+                            },
+                            {
+                                Header: 'عنوان',
+                                accessor: 'attributes.body',
+                            }
+                        ]}
+                        tdClick={this.tdClick}
+                    />
+                </Form>
             </Page>
         );
     }
 }
 
 const mapStateToProps = (state, props) => {
-    if (state.posts.posts.length){
-        var post = state.posts.posts.find( element => element.id == props.match.params.post );
-    }else{
-        var post = null;
-    }
-
-    return {
-        post: post
+    return { 
+        post: (state.posts.index.length)?
+            state.posts.index.find( element => element.id == props.match.params.post ):
+            null,
+        comments: state.comments.index
     };
 };
 

@@ -103,15 +103,15 @@ class Post extends Model implements HasMedia
             ->saveSlugsTo('slug');
     }
 
-    public function resolveRouteBinding($slug)
-    {
-        if (request()->isXmlHttpRequest()) {
-            parent::resolveRouteBinding($slug);
-        } else {
-            $post = PostRepo::findBySlug($slug);
-            abort_if($post === null, 404);
+    // public function resolveRouteBinding($slug)
+    // {
+    //     if (request()->isXmlHttpRequest()) {
+    //         parent::resolveRouteBinding($slug);
+    //     } else {
+    //         $post = PostRepo::findBySlug($slug);
+    //         abort_if($post === null, 404);
 
-            return $post;
-        }
-    }
+    //         return $post;
+    //     }
+    // }
 }

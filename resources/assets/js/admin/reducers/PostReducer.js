@@ -1,5 +1,5 @@
 const initialState = {
-    posts: [],
+    index: [],
     post: null,
     counter: 7  
 }
@@ -8,7 +8,7 @@ export const PostReducer = (state = initialState, action) => {
         case 'GET-POSTS':
             return {
                 ...state,
-                posts: action.payload.data
+                index: action.payload.data
             }
         case 'INCREMENT':
             return {
@@ -16,14 +16,12 @@ export const PostReducer = (state = initialState, action) => {
                 counter: state.counter + 1
             };
         case 'SET-POST':
-            let index = state.posts.findIndex((e) => e.id == action.id );
-            if(state.posts[index].oldAttributes == undefined){
-                state.posts[index].oldAttributes = state.posts[index].attributes;                
+            let i = state.index.findIndex((e) => e.id == action.id );
+            if(state.index[i].oldAttributes == undefined){
+                state.index[i].oldAttributes = state.index[i].attributes;                
             }
-            state.posts[index].attributes = { ...state.posts[index].attributes, ...action.attributes };
-            return{
-                ...state
-            }
+            state.index[i].attributes = { ...state.index[i].attributes, ...action.attributes };
+            return state;
         default:
             return state;
     }
