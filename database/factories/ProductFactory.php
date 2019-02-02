@@ -13,6 +13,6 @@ $factory->define(App\Models\Product::class, function () use ($faker) {
         'attributes'=>  json_encode($faker->paragraphs()),
         'variations'=>  json_encode($faker->paragraphs()),
         'single'    =>  $faker->boolean(),
-        'created_at'=>  $faker->dateTimeBetween('-5 years','+5 years'),
+        'created_at'=>  $faker->dateTimeBetween('-5 years', '+5 years'),
     ];
 });

@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Product;
-use App\Models\SearchPanel;
 use App\Models\Tag;
+use App\Models\Product;
 use App\Models\Taxonomy;
+use App\Models\SearchPanel;
 use Illuminate\Database\Seeder;
 
 class SearchPanelTableSeeder extends Seeder
@@ -20,9 +20,9 @@ class SearchPanelTableSeeder extends Seeder
                     'label' => 'مرتب سازی',
                     'query' => 'order',
                     'order' => [
-                        ['label' => 'برحسب عنوان', 'column' => 'title', 'dir' => 'asc',],
-                        ['label' => 'جدیدترین', 'column' => 'created_at', 'dir' => 'desc',],
-                        ['label' => 'قدیمی ترین', 'column' => 'created_at', 'dir' => 'asc',],
+                        ['label' => 'برحسب عنوان', 'column' => 'title', 'dir' => 'asc'],
+                        ['label' => 'جدیدترین', 'column' => 'created_at', 'dir' => 'desc'],
+                        ['label' => 'قدیمی ترین', 'column' => 'created_at', 'dir' => 'asc'],
                     ],
                 ],
                 'name' => [

@@ -150,7 +150,7 @@ class SearchPanel extends Model
         if (is_string($needle)) {
             $columns = explode(',', trim($filter['like'], ','));
             foreach ($columns as $column) {
-                $this->builder->where(function ($q) use($column, $needle) {
+                $this->builder->where(function ($q) use ($column, $needle) {
                     return $q->orWhere($column, 'like', "%$needle%");
                 });
             }
@@ -161,7 +161,7 @@ class SearchPanel extends Model
     {
         if (isset($orders['order'][$index])) {
             $query = $orders['order'][$index];
-            $this->builder->orderBy($query['column'],$query['dir']);
+            $this->builder->orderBy($query['column'], $query['dir']);
         }
     }
 
