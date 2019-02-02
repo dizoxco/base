@@ -17,7 +17,7 @@ class BusinessesTableSeeder extends Seeder
         $users = User::all();
         $businesses = Business::all();
         $faker = Faker\Factory::create();
-        $mobile_tag = Taxonomy::find(3)->first()->id;
+        $mobile_tag = Tag::whereSlug('mobiles')->first()->id;
         $banners = MediaGroup::find(1)->media;
         // $logos = MediaGroup::find(2)->media;
         $tags = Tag::all();
