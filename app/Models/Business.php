@@ -6,14 +6,17 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use App\Repositories\Facades\BusinessRepo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\Image\Manipulations;
 
-class Business extends Model
+class Business extends Model implements HasMedia
 {
-    use SoftDeletes, HasSlug;
+    use SoftDeletes, HasSlug, HasMediaTrait;
 
     protected $fillable = [
         'brand', 'province', 'city', 'tell', 'phone_code', 'address', 'postal_code', 'mobile', 'storage_address',
@@ -64,4 +67,16 @@ class Business extends Model
     }
 
     //  =============================== End Complementary Methods =============
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('business-logo')
+             ->singleFile()
+             ->registerMediaConversions(function (Media $media) {
+                 $this->addMediaConversion('thumb')
+                      ->crop(Manipulations::CROP_CENTER, 150, 150);
+             });
+
+        $this->addMediaCollection('business-gallery');
+    }
 }

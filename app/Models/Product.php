@@ -6,14 +6,17 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use App\Repositories\Facades\ProductRepo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\Image\Manipulations;
 
-class Product extends Model
+class Product extends Model implements HasMedia
 {
-    use SoftDeletes, HasSlug;
+    use SoftDeletes, HasSlug, HasMediaTrait;
 
     protected $fillable = [
         'title', 'slug', 'abstract', 'body', 'attributes', 'variations',
@@ -79,5 +82,19 @@ class Product extends Model
 
             return $product;
         }
+    }
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('product-banner')
+             ->singleFile()
+             ->registerMediaConversions(function (Media $media) {
+                 $this->addMediaConversion('thumb')
+                      ->crop(Manipulations::CROP_CENTER, 150, 150);
+                 $this->addMediaConversion('teaser')
+                      ->crop(Manipulations::CROP_CENTER, 450, 450);
+             });
+
+        $this->addMediaCollection('product-gallery');
     }
 }
