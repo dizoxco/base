@@ -8,6 +8,7 @@ class DatabaseSeeder extends Seeder
     {
         Storage::deleteDirectory('public/media');
         Storage::makeDirectory('tmp', 0777);
+        $this->call(CitiesTableSeeder::class);
         $this->call(PermissionTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(PassportTableSeeder::class);

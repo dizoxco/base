@@ -32,13 +32,24 @@
             </form>
         </div>
         <div class="w-3/4">
-            @forelse($products as $product)
-                <h3> {{ $product->title }}</h3>
-                <p>{{ $product->tags->pluck('label') }}</p>
-                <p>{{ $product->created_at->diffForHumans() }}</p>
-            @empty
-                <h1> هیچ محصولی برای این پنل تعریف نشده است. </h1>
-            @endforelse
+            <div class="flex flex-wrap">
+                @forelse($products as $product)
+                    <div class="w-1/3">
+                        @if($product->getMedia(enum('media.product.banner'))->isNotEmpty())
+                            <img src="{{$product->getFirstMedia(enum('media.product.banner'))->getFullUrl()}}" class="">
+                        @else
+                            <img src="https://dkstatics-public.digikala.com/digikala-products/4855241.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80" alt="">
+                        @endisset
+                        <a href="{{route('products.show', $product->slug)}}">
+                            <h3> {{ $product->title }}</h3>
+                        </a>
+                        <p>{{ $product->created_at->diffForHumans() }}</p>
+                        <p>@toman($product->price)</p>
+                    </div>
+                @empty
+                    <h1> هیچ محصولی برای این پنل تعریف نشده است. </h1>
+                @endforelse
+            </div>
         </div>
     </div>
 @endsection

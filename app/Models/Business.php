@@ -22,6 +22,10 @@ class Business extends Model implements HasMedia
         'brand', 'province', 'city', 'tell', 'phone_code', 'address', 'postal_code', 'mobile', 'storage_address',
     ];
 
+    protected $casts = [
+        'contact' => 'array'
+    ];
+
     //  =============================== Relationships =========================
     public function users() : BelongsToMany
     {
@@ -41,6 +45,11 @@ class Business extends Model implements HasMedia
     private function mediagroups(): MorphToMany
     {
         return $this->morphToMany(Media::class, 'model', 'media_relations');
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     //  =============================== End Relationships =====================

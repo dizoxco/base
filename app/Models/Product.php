@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
+use App\Repositories\Facades\ProductRepo;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use Spatie\MediaLibrary\Models\Media;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use App\Repositories\Facades\ProductRepo;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\Image\Manipulations;
 
 class Product extends Model implements HasMedia
 {
@@ -35,12 +36,7 @@ class Product extends Model implements HasMedia
 
     public function businesses()
     {
-        $relation = $this->belongsToMany(Business::class, 'businesses_products', 'product_id', 'business_id', 'id', 'id');
-        if ($this->belongsToOneBusiness()) {
-            return $relation->first();
-        }
-
-        return $relation;
+        return $this->belongsToMany(Business::class, 'businesses_products', 'product_id', 'business_id', 'id', 'id');
     }
 
     public function relatedVariations() : HasMany
@@ -48,21 +44,12 @@ class Product extends Model implements HasMedia
         return $this->hasMany(Variation::class, 'product_id', 'id');
     }
 
-    public function banner(): MorphToMany
+    public function comments(): MorphMany
     {
-        return $this->mediagroups()->where('media_relations.collection_name', enum('media.product.banner'));
-    }
-
-    public function mediagroups(): MorphToMany
-    {
-        return $this->morphToMany(Media::class, 'model', 'media_relations');
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     //  =============================== End Relationships =====================
-    public function belongsToOneBusiness() : bool
-    {
-        return (bool) $this->getAttribute('single');
-    }
 
     public function getSlugOptions(): SlugOptions
     {
@@ -87,14 +74,19 @@ class Product extends Model implements HasMedia
     public function registerMediaCollections()
     {
         $this->addMediaCollection('product-banner')
-             ->singleFile()
-             ->registerMediaConversions(function (Media $media) {
-                 $this->addMediaConversion('thumb')
-                      ->crop(Manipulations::CROP_CENTER, 150, 150);
-                 $this->addMediaConversion('teaser')
-                      ->crop(Manipulations::CROP_CENTER, 450, 450);
-             });
+            ->singleFile()
+            ->registerMediaConversions(function (Media $media) {
+                $this->addMediaConversion('thumb')
+                    ->crop(Manipulations::CROP_CENTER, 150, 150);
+                $this->addMediaConversion('teaser')
+                    ->crop(Manipulations::CROP_CENTER, 450, 450);
+            });
 
         $this->addMediaCollection('product-gallery');
+    }
+
+    public function related($number = 5)
+    {
+        return ProductRepo::getRelated($this, $number);
     }
 }

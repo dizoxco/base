@@ -23,6 +23,8 @@ class SearchPanelTableSeeder extends Seeder
                         ['label' => 'برحسب عنوان', 'column' => 'title', 'dir' => 'asc'],
                         ['label' => 'جدیدترین', 'column' => 'created_at', 'dir' => 'desc'],
                         ['label' => 'قدیمی ترین', 'column' => 'created_at', 'dir' => 'asc'],
+                        ['label' => 'ارزانترین', 'column' => 'price', 'dir' => 'asc'],
+                        ['label' => 'گرانترین', 'column' => 'price', 'dir' => 'desc'],
                     ],
                 ],
                 'name' => [

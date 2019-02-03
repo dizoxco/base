@@ -28,7 +28,7 @@ class SearchPanel extends Model
     /** @var array $operators */
     public static $operators = ['=', '<>', '!=', '>', '>=', '<', '<='];
 
-    public function result(Request $request) : LengthAwarePaginator
+    public function result(Request $request, $with = []) : LengthAwarePaginator
     {
         $this->builder = $this->getAttribute('model')::query();
 
@@ -47,7 +47,7 @@ class SearchPanel extends Model
         }
 
 //        dd($this->builder->toSql());
-        return $this->builder->with('tags')->paginate(request('per_page', 10));
+        return $this->builder->with($with)->paginate(request('per_page', 10));
     }
 
     private function optTags()

@@ -13,14 +13,15 @@ class SearchPanelController extends Controller
     public function search(Request $request, SearchPanel $searchPanel)
     {
         $options = $searchPanel->options;
-        $result = $searchPanel->result($request);
 
         if ($searchPanel->model === Product::class) {
-            return view('searchpanels.products', compact('options'))->withProducts($result);
+            $products = $searchPanel->result($request, ['tags','media']);
+            return view('searchpanels.products', compact('options', 'products'));
         }
 
         if ($searchPanel->model === Business::class) {
-            return view('searchpanels.businesses', compact('options'))->withBusinesses($result);
+            $businesses = $searchPanel->result($request);
+            return view('searchpanels.businesses', compact('options', 'businesses'));
         }
     }
 }
