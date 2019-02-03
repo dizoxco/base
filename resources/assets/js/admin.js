@@ -13,7 +13,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { List, RTL } from "./admin/components"
 import { Dashboard, Login, Posts, Setting, Users } from './admin/pages'
-import { BusinessReducer, CommentReducer, ProductReducer, PostReducer, SnackReducer, TicketReducer, UserReducer } from './admin/reducers';
+import { BusinessReducer, CommentReducer, MediaReducer, ProductReducer, PostReducer, SnackReducer, TicketReducer, UserReducer } from './admin/reducers';
 
 import App from './admin/App';
 
@@ -25,6 +25,7 @@ const store = createStore(
                     businesses: BusinessReducer,
                     comments: CommentReducer,
                     posts: PostReducer,
+                    media: MediaReducer,
                     products: ProductReducer,
                     snacks: SnackReducer,
                     tickets: TicketReducer,

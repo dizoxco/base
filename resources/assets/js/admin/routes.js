@@ -15,6 +15,10 @@ const routeslist = {
             prefix: '/comments',
             index: ''
         },
+        mediagroups: {
+            prefix: '/mediagroups',
+            index: '',
+        },
         posts: {
             prefix: '/posts',
             index: '?include=banner',

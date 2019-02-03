@@ -14,6 +14,10 @@
 			@yield('content')
 		</div>
 		@component('components.footer.simple') @endcomponent
+		<div class="flex flex-wrap">
+			<div class="w-1/2">col 1</div>
+			<div class="w-1/2"> col 2</div>
+		</div>
 		<script src="/js/app.js"></script>
 	</body>
 </html>
