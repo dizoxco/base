@@ -10,7 +10,7 @@
 	<body class="portal @can('admin menu') admin @endcan">
 		@component('components.nav.simple') @endcomponent
 		<div>master page</div>
-		<div id="contetn" class="container mx-auto">
+		<div id="content" class="container mx-auto">
 			@yield('content')
 		</div>
 		@component('components.footer.simple') @endcomponent

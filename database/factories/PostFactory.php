@@ -6,9 +6,9 @@ use Faker\Factory as Faker;
 $faker = Faker::create('fa_IR');
 $factory->define(Post::class, function () use ($faker) {
     return [
-        'title'     =>  $faker->sentence,
-        'slug'      =>  $faker->slug,
-        'abstract'  =>  $faker->sentence,
-        'body'      =>  $faker->paragraphs(4, true),
+        'title'     =>  $title = omidFaker(),
+        'slug'      =>  str_slug($title.str_random()),
+        'abstract'  =>  omidFaker('sentence', 3),
+        'body'      =>  omidFaker('sentence', 20) ,
     ];
 });

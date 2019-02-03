@@ -54,10 +54,10 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Post::class, 'user_id', 'id');
     }
 
-    public function avatar() : MorphOne
-    {
-        return $this->morphOne(Media::class, 'model');
-    }
+    // public function avatar() : MorphOne
+    // {
+    //     return $this->morphOne(Media::class, 'model');
+    // }
 
     public function chats() : BelongsToMany
     {

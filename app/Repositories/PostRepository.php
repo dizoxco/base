@@ -10,17 +10,17 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class PostRepository extends BaseRepository
 {
-    public function find(int $id)   :   ?Post
+    public function find(int $id): ?Post
     {
         return Post::find($id);
     }
 
-    public function findByTitle(string $title)  :   ?Post
+    public function findBySlug(string $slug): ?Post
     {
-        return Post::whereTitle($title)->first();
+        return Post::whereSlug($slug)->first();
     }
 
-    public function searchBy(array $columns, string $value) :   Collection
+    public function searchBy(array $columns, string $value): ?Collection
     {
         $builder = Post::query();
         foreach ($columns as $column) {
@@ -34,7 +34,7 @@ class PostRepository extends BaseRepository
         return $builder->get();
     }
 
-    public function getAll($params = [])    :   Collection
+    public function getAll($params = []) : ?Collection
     {
         $posts = QueryBuilder::for(Post::query())
             ->allowedFilters(['title', 'slug'])
@@ -45,12 +45,28 @@ class PostRepository extends BaseRepository
         return $posts->get();
     }
 
-    public function getRecents($number = 10): Collection
+    public function getRecent($number = 10): Collection
     {
         return Post::take($number)->latest()->get();
     }
 
-    public function getBy(string $column, string $value)  :   Collection
+    public function getRelated(Post $post, int $number = 5): Collection
+    {
+        return $post
+            ->select(['id', 'user_id', 'title', 'slug', 'abstract', 'body', 'published_at', 'created_at', 'updated_at', 'deleted_at'])
+            ->selectRaw('COUNT(DISTINCT(tag_id)) AS counter')
+            ->from($post->getTable())
+            ->join('taggables', 'taggable_id', '=', $post->getKeyName())
+            ->whereIn('tag_id', $post->tags->pluck('id')->toArray())
+            ->where('id', '!=', $post->getKey())
+            ->groupBy($post->getKeyName())
+            ->orderByDesc('counter')
+            ->orderByDesc('published_at')
+            ->take($number)
+            ->get();
+    }
+
+    public function getBy(string $column, string $value): ?Collection
     {
         return QueryBuilder::for(Post::query())
             ->allowedFilters(['title', 'slug'])
@@ -60,7 +76,7 @@ class PostRepository extends BaseRepository
             ->get();
     }
 
-    public function getTrashed()    :   Collection
+    public function getTrashed() : ?Collection
     {
         return QueryBuilder::for(Post::query())
             ->allowedFilters(['title', 'slug'])
@@ -137,12 +153,12 @@ class PostRepository extends BaseRepository
         }
     }
 
-    public function user(Post $post)    :   User
+    public function user(Post $post) : ?User
     {
         return $post->user;
     }
 
-    public function comment(Post $post)   :   Collection
+    public function comment(Post $post): ?Collection
     {
         return $post->comments;
     }
