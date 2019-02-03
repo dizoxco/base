@@ -8,8 +8,7 @@ $factory->define(App\Models\Address::class, function () use ($faker) {
         'user_id' => null,
         'receiver' => $faker->name,
         'mobile' => $faker->mobileNumber,
-        'province' => 'ds',
-        'city' => 'sdf',
+        'city_id' => \faker('city')->first()->id,
         'address' => $faker->address,
         'postal_code' => $faker->numerify('###########'),
     ];
