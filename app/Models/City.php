@@ -8,11 +8,11 @@ class City extends Model
 {
     public function county()
     {
-        return $this->belongsTo(County::class, 'county_id','id');
+        return $this->belongsTo(County::class, 'county_id', 'id');
     }
 
     public function province()
     {
-        return $this->belongsTo(Province::class, 'province_id','id');
+        return $this->belongsTo(Province::class, 'province_id', 'id');
     }
 }

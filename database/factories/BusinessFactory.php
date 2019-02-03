@@ -12,7 +12,7 @@ $factory->define(App\Models\Business::class, function () use ($faker) {
         'contact' => json_encode([
             'tel' => [
                 ['label' => 'کارخانه', 'value' => $faker->phoneNumber],
-                ['label' => 'دفتر', 'value' => $faker->phoneNumber]
+                ['label' => 'دفتر', 'value' => $faker->phoneNumber],
             ],
             'instagram' => [
                 ['label' => 'کارخانه', 'value' => $faker->url],
@@ -20,12 +20,12 @@ $factory->define(App\Models\Business::class, function () use ($faker) {
             ],
             'address' => [
                 ['label' => 'کارخانه', 'value' => $faker->address, 'extra' => [
-                    'label' => 'کد پستی', 'value' => rand(1111111111, 9999999999)
+                    'label' => 'کد پستی', 'value' => rand(1111111111, 9999999999),
                 ]],
                 ['label' => 'دفتر', 'value' => $faker->address, 'extra' => [
-                    'label' => 'کد پستی', 'value' => rand(1111111111, 9999999999)
+                    'label' => 'کد پستی', 'value' => rand(1111111111, 9999999999),
                 ]],
-            ]
-        ])
+            ],
+        ]),
     ];
 });

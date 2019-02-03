@@ -9,6 +9,6 @@ $factory->define(Post::class, function () use ($faker) {
         'title'     =>  $title = omidFaker(),
         'slug'      =>  str_slug($title.str_random()),
         'abstract'  =>  \faker('paragraph')->first(),
-        'body'      =>  implode(PHP_EOL, \faker('paragraph',4)->toArray()),
+        'body'      =>  implode(PHP_EOL, \faker('paragraph', 4)->toArray()),
     ];
 });
