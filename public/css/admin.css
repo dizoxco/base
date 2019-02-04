@@ -6579,6 +6579,10 @@ table {
   border-right: 0;
 }
 
+.ReactTable .rt-thead .rt-th:focus {
+  outline: none;
+}
+
 .ReactTable .rt-thead .rt-resizable-header {
   overflow: visible;
 }

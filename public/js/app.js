@@ -69,8 +69,8 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(154);
-__webpack_require__(159);
-module.exports = __webpack_require__(160);
+__webpack_require__(164);
+module.exports = __webpack_require__(165);
 
 
 /***/ }),
@@ -83,8 +83,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_swiper__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_textfield__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_textfield___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_textfield__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_auto_init__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_auto_init___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_auto_init__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_textfield__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_textfield___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_textfield__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_textfield_icon__ = __webpack_require__(160);
 
 
 
@@ -100,7 +103,23 @@ __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.swiper.simple').each(function (
 
 
 
-var textField = new __WEBPACK_IMPORTED_MODULE_2__material_textfield__["MDCTextField"](document.querySelector('.mdc-text-field'));
+
+// import {MDCRipple} from '@material/ripple';
+
+__WEBPACK_IMPORTED_MODULE_2__material_auto_init___default.a.register('mdc-text-field', __WEBPACK_IMPORTED_MODULE_3__material_textfield__["MDCTextField"]);
+__WEBPACK_IMPORTED_MODULE_2__material_auto_init___default.a.register('mdc-text-field-icon', __WEBPACK_IMPORTED_MODULE_4__material_textfield_icon__["a" /* MDCTextFieldIcon */]);
+
+// const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));
+
+
+// const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));
+// rrr.handleFocus();
+// MDCRipple.attachTo(document.querySelector('.omid'));
+
+// const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));
+// mdcAutoInit.register('mdc-ripple', MDCRipple);
+// MDCRipple.attachTo(document.querySelector('.mdc-button'));
+__WEBPACK_IMPORTED_MODULE_2__material_auto_init___default()();
 
 /***/ }),
 
@@ -10481,7 +10500,7 @@ return jQuery;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_dom7_dist_dom7_modular__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ssr_window__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ssr_window__ = __webpack_require__(83);
 /**
  * Swiper 4.4.6
  * Most modern mobile touch slider and framework with hardware accelerated transitions
@@ -17595,7 +17614,7 @@ Swiper.use(components);
 /* unused harmony export touchmove */
 /* unused harmony export resize */
 /* unused harmony export scroll */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ssr_window__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ssr_window__ = __webpack_require__(83);
 /**
  * Dom7 2.1.2
  * Minimalistic JavaScript library for DOM manipulation, with a jQuery-compatible API
@@ -18942,6 +18961,209 @@ function scroll(...args) {
 /***/ }),
 
 /***/ 158:
+/***/ (function(module, exports, __webpack_require__) {
+
+/*!
+ Material Components for the Web
+ Copyright (c) 2018 Google Inc.
+ License: MIT
+*/
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(true)
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["autoInit"] = factory();
+	else
+		root["mdc"] = root["mdc"] || {}, root["mdc"]["autoInit"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 86);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 86:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = mdcAutoInit;
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+var registry = Object.create(null);
+
+var CONSOLE_WARN = console.warn.bind(console);
+
+function _emit(evtType, evtData) {
+  var shouldBubble = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+  var evt = void 0;
+  if (typeof CustomEvent === 'function') {
+    evt = new CustomEvent(evtType, {
+      detail: evtData,
+      bubbles: shouldBubble
+    });
+  } else {
+    evt = document.createEvent('CustomEvent');
+    evt.initCustomEvent(evtType, shouldBubble, false, evtData);
+  }
+
+  document.dispatchEvent(evt);
+}
+
+/**
+ * Auto-initializes all mdc components on a page.
+ */
+function mdcAutoInit() {
+  var root = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document;
+  var warn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : CONSOLE_WARN;
+
+  var components = [];
+  var nodes = root.querySelectorAll('[data-mdc-auto-init]');
+  for (var i = 0, node; node = nodes[i]; i++) {
+    var ctorName = node.dataset.mdcAutoInit;
+    if (!ctorName) {
+      throw new Error('(mdc-auto-init) Constructor name must be given.');
+    }
+
+    var Ctor = registry[ctorName];
+    if (typeof Ctor !== 'function') {
+      throw new Error('(mdc-auto-init) Could not find constructor in registry for ' + ctorName);
+    }
+
+    if (node[ctorName]) {
+      warn('(mdc-auto-init) Component already initialized for ' + node + '. Skipping...');
+      continue;
+    }
+
+    // TODO: Should we make an eslint rule for an attachTo() static method?
+    var component = Ctor.attachTo(node);
+    Object.defineProperty(node, ctorName, {
+      value: component,
+      writable: false,
+      enumerable: false,
+      configurable: true
+    });
+    components.push(component);
+  }
+
+  _emit('MDCAutoInit:End', {});
+  return components;
+}
+
+mdcAutoInit.register = function (componentName, Ctor) {
+  var warn = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : CONSOLE_WARN;
+
+  if (typeof Ctor !== 'function') {
+    throw new Error('(mdc-auto-init) Invalid Ctor value ' + Ctor + '. Expected function');
+  }
+  if (registry[componentName]) {
+    warn('(mdc-auto-init) Overriding registration for ' + componentName + ' with ' + Ctor + '. ' + ('Was: ' + registry[componentName]));
+  }
+  registry[componentName] = Ctor;
+};
+
+mdcAutoInit.deregister = function (componentName) {
+  delete registry[componentName];
+};
+
+mdcAutoInit.deregisterAll = function () {
+  Object.keys(registry).forEach(this.deregister, this);
+};
+
+/***/ })
+
+/******/ });
+});
+//# sourceMappingURL=mdc.autoInit.js.map
+
+/***/ }),
+
+/***/ 159:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -24827,21 +25049,411 @@ var MDCTextFieldIconAdapter = function () {
 
 /***/ }),
 
-/***/ 159:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ 160:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MDCTextFieldIcon; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_base_component__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adapter__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__foundation__ = __webpack_require__(162);
+/* unused harmony reexport MDCTextFieldIconFoundation */
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+
+/**
+ * @extends {MDCComponent<!MDCTextFieldIconFoundation>}
+ * @final
+ */
+class MDCTextFieldIcon extends __WEBPACK_IMPORTED_MODULE_0__material_base_component__["a" /* default */] {
+  /**
+   * @param {!Element} root
+   * @return {!MDCTextFieldIcon}
+   */
+  static attachTo(root) {
+    return new MDCTextFieldIcon(root);
+  }
+
+  /**
+   * @return {!MDCTextFieldIconFoundation}
+   */
+  get foundation() {
+    return this.foundation_;
+  }
+
+  /**
+   * @return {!MDCTextFieldIconFoundation}
+   */
+  getDefaultFoundation() {
+    return new __WEBPACK_IMPORTED_MODULE_2__foundation__["a" /* default */](/** @type {!MDCTextFieldIconAdapter} */ (Object.assign({
+      getAttr: (attr) => this.root_.getAttribute(attr),
+      setAttr: (attr, value) => this.root_.setAttribute(attr, value),
+      removeAttr: (attr) => this.root_.removeAttribute(attr),
+      setContent: (content) => {
+        this.root_.textContent = content;
+      },
+      registerInteractionHandler: (evtType, handler) => this.root_.addEventListener(evtType, handler),
+      deregisterInteractionHandler: (evtType, handler) => this.root_.removeEventListener(evtType, handler),
+      notifyIconAction: () => this.emit(
+        __WEBPACK_IMPORTED_MODULE_2__foundation__["a" /* default */].strings.ICON_EVENT, {} /* evtData */, true /* shouldBubble */),
+    })));
+  }
+}
+
+
+
+
+/***/ }),
+
+/***/ 161:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__foundation__ = __webpack_require__(84);
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+/**
+ * @template F
+ */
+class MDCComponent {
+  /**
+   * @param {!Element} root
+   * @return {!MDCComponent}
+   */
+  static attachTo(root) {
+    // Subclasses which extend MDCBase should provide an attachTo() method that takes a root element and
+    // returns an instantiated component with its root set to that element. Also note that in the cases of
+    // subclasses, an explicit foundation class will not have to be passed in; it will simply be initialized
+    // from getDefaultFoundation().
+    return new MDCComponent(root, new __WEBPACK_IMPORTED_MODULE_0__foundation__["a" /* default */]());
+  }
+
+  /**
+   * @param {!Element} root
+   * @param {F=} foundation
+   * @param {...?} args
+   */
+  constructor(root, foundation = undefined, ...args) {
+    /** @protected {!Element} */
+    this.root_ = root;
+    this.initialize(...args);
+    // Note that we initialize foundation here and not within the constructor's default param so that
+    // this.root_ is defined and can be used within the foundation class.
+    /** @protected {!F} */
+    this.foundation_ = foundation === undefined ? this.getDefaultFoundation() : foundation;
+    this.foundation_.init();
+    this.initialSyncWithDOM();
+  }
+
+  initialize(/* ...args */) {
+    // Subclasses can override this to do any additional setup work that would be considered part of a
+    // "constructor". Essentially, it is a hook into the parent constructor before the foundation is
+    // initialized. Any additional arguments besides root and foundation will be passed in here.
+  }
+
+  /**
+   * @return {!F} foundation
+   */
+  getDefaultFoundation() {
+    // Subclasses must override this method to return a properly configured foundation class for the
+    // component.
+    throw new Error('Subclasses must override getDefaultFoundation to return a properly configured ' +
+      'foundation class');
+  }
+
+  initialSyncWithDOM() {
+    // Subclasses should override this method if they need to perform work to synchronize with a host DOM
+    // object. An example of this would be a form control wrapper that needs to synchronize its internal state
+    // to some property or attribute of the host DOM. Please note: this is *not* the place to perform DOM
+    // reads/writes that would cause layout / paint, as this is called synchronously from within the constructor.
+  }
+
+  destroy() {
+    // Subclasses may implement this method to release any resources / deregister any listeners they have
+    // attached. An example of this might be deregistering a resize event from the window object.
+    this.foundation_.destroy();
+  }
+
+  /**
+   * Wrapper method to add an event listener to the component's root element. This is most useful when
+   * listening for custom events.
+   * @param {string} evtType
+   * @param {!Function} handler
+   */
+  listen(evtType, handler) {
+    this.root_.addEventListener(evtType, handler);
+  }
+
+  /**
+   * Wrapper method to remove an event listener to the component's root element. This is most useful when
+   * unlistening for custom events.
+   * @param {string} evtType
+   * @param {!Function} handler
+   */
+  unlisten(evtType, handler) {
+    this.root_.removeEventListener(evtType, handler);
+  }
+
+  /**
+   * Fires a cross-browser-compatible custom event from the component root of the given type,
+   * with the given data.
+   * @param {string} evtType
+   * @param {!Object} evtData
+   * @param {boolean=} shouldBubble
+   */
+  emit(evtType, evtData, shouldBubble = false) {
+    let evt;
+    if (typeof CustomEvent === 'function') {
+      evt = new CustomEvent(evtType, {
+        detail: evtData,
+        bubbles: shouldBubble,
+      });
+    } else {
+      evt = document.createEvent('CustomEvent');
+      evt.initCustomEvent(evtType, shouldBubble, false, evtData);
+    }
+
+    this.root_.dispatchEvent(evt);
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (MDCComponent);
+
+
+/***/ }),
+
+/***/ 162:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_base_foundation__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adapter__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constants__ = __webpack_require__(163);
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+
+/**
+ * @extends {MDCFoundation<!MDCTextFieldIconAdapter>}
+ * @final
+ */
+class MDCTextFieldIconFoundation extends __WEBPACK_IMPORTED_MODULE_0__material_base_foundation__["a" /* default */] {
+  /** @return enum {string} */
+  static get strings() {
+    return __WEBPACK_IMPORTED_MODULE_2__constants__["a" /* strings */];
+  }
+
+  /**
+   * {@see MDCTextFieldIconAdapter} for typing information on parameters and return
+   * types.
+   * @return {!MDCTextFieldIconAdapter}
+   */
+  static get defaultAdapter() {
+    return /** @type {!MDCTextFieldIconAdapter} */ ({
+      getAttr: () => {},
+      setAttr: () => {},
+      removeAttr: () => {},
+      setContent: () => {},
+      registerInteractionHandler: () => {},
+      deregisterInteractionHandler: () => {},
+      notifyIconAction: () => {},
+    });
+  }
+
+  /**
+   * @param {!MDCTextFieldIconAdapter} adapter
+   */
+  constructor(adapter) {
+    super(Object.assign(MDCTextFieldIconFoundation.defaultAdapter, adapter));
+
+    /** @private {string?} */
+    this.savedTabIndex_ = null;
+
+    /** @private {function(!Event): undefined} */
+    this.interactionHandler_ = (evt) => this.handleInteraction(evt);
+  }
+
+  init() {
+    this.savedTabIndex_ = this.adapter_.getAttr('tabindex');
+
+    ['click', 'keydown'].forEach((evtType) => {
+      this.adapter_.registerInteractionHandler(evtType, this.interactionHandler_);
+    });
+  }
+
+  destroy() {
+    ['click', 'keydown'].forEach((evtType) => {
+      this.adapter_.deregisterInteractionHandler(evtType, this.interactionHandler_);
+    });
+  }
+
+  /** @param {boolean} disabled */
+  setDisabled(disabled) {
+    if (!this.savedTabIndex_) {
+      return;
+    }
+
+    if (disabled) {
+      this.adapter_.setAttr('tabindex', '-1');
+      this.adapter_.removeAttr('role');
+    } else {
+      this.adapter_.setAttr('tabindex', this.savedTabIndex_);
+      this.adapter_.setAttr('role', __WEBPACK_IMPORTED_MODULE_2__constants__["a" /* strings */].ICON_ROLE);
+    }
+  }
+
+  /** @param {string} label */
+  setAriaLabel(label) {
+    this.adapter_.setAttr('aria-label', label);
+  }
+
+  /** @param {string} content */
+  setContent(content) {
+    this.adapter_.setContent(content);
+  }
+
+  /**
+   * Handles an interaction event
+   * @param {!Event} evt
+   */
+  handleInteraction(evt) {
+    if (evt.type === 'click' || evt.key === 'Enter' || evt.keyCode === 13) {
+      this.adapter_.notifyIconAction();
+    }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (MDCTextFieldIconFoundation);
+
+
+/***/ }),
+
+/***/ 163:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return strings; });
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+/** @enum {string} */
+const strings = {
+  ICON_EVENT: 'MDCTextField:icon',
+  ICON_ROLE: 'button',
+};
+
+
+
+
+/***/ }),
+
+/***/ 164:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ 84:
+/***/ 165:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 83:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24921,6 +25533,179 @@ var win = (typeof window === 'undefined') ? {
 } : window; // eslint-disable-line
 
 
+
+
+/***/ }),
+
+/***/ 84:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+/**
+ * @template A
+ */
+class MDCFoundation {
+  /** @return enum{cssClasses} */
+  static get cssClasses() {
+    // Classes extending MDCFoundation should implement this method to return an object which exports every
+    // CSS class the foundation class needs as a property. e.g. {ACTIVE: 'mdc-component--active'}
+    return {};
+  }
+
+  /** @return enum{strings} */
+  static get strings() {
+    // Classes extending MDCFoundation should implement this method to return an object which exports all
+    // semantic strings as constants. e.g. {ARIA_ROLE: 'tablist'}
+    return {};
+  }
+
+  /** @return enum{numbers} */
+  static get numbers() {
+    // Classes extending MDCFoundation should implement this method to return an object which exports all
+    // of its semantic numbers as constants. e.g. {ANIMATION_DELAY_MS: 350}
+    return {};
+  }
+
+  /** @return {!Object} */
+  static get defaultAdapter() {
+    // Classes extending MDCFoundation may choose to implement this getter in order to provide a convenient
+    // way of viewing the necessary methods of an adapter. In the future, this could also be used for adapter
+    // validation.
+    return {};
+  }
+
+  /**
+   * @param {A=} adapter
+   */
+  constructor(adapter = {}) {
+    /** @protected {!A} */
+    this.adapter_ = adapter;
+  }
+
+  init() {
+    // Subclasses should override this method to perform initialization routines (registering events, etc.)
+  }
+
+  destroy() {
+    // Subclasses should override this method to perform de-initialization routines (de-registering events, etc.)
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (MDCFoundation);
+
+
+/***/ }),
+
+/***/ 85:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+/* eslint no-unused-vars: [2, {"args": "none"}] */
+
+/**
+ * Adapter for MDC Text Field Icon.
+ *
+ * Defines the shape of the adapter expected by the foundation. Implement this
+ * adapter to integrate the text field icon into your framework. See
+ * https://github.com/material-components/material-components-web/blob/master/docs/authoring-components.md
+ * for more information.
+ *
+ * @record
+ */
+class MDCTextFieldIconAdapter {
+  /**
+   * Gets the value of an attribute on the icon element.
+   * @param {string} attr
+   * @return {string}
+   */
+  getAttr(attr) {}
+
+  /**
+   * Sets an attribute on the icon element.
+   * @param {string} attr
+   * @param {string} value
+   */
+  setAttr(attr, value) {}
+
+  /**
+   * Removes an attribute from the icon element.
+   * @param {string} attr
+   */
+  removeAttr(attr) {}
+
+  /**
+   * Sets the text content of the icon element.
+   * @param {string} content
+   */
+  setContent(content) {}
+
+  /**
+   * Registers an event listener on the icon element for a given event.
+   * @param {string} evtType
+   * @param {function(!Event): undefined} handler
+   */
+  registerInteractionHandler(evtType, handler) {}
+
+  /**
+   * Deregisters an event listener on the icon element for a given event.
+   * @param {string} evtType
+   * @param {function(!Event): undefined} handler
+   */
+  deregisterInteractionHandler(evtType, handler) {}
+
+  /**
+   * Emits a custom event "MDCTextField:icon" denoting a user has clicked the icon.
+   */
+  notifyIconAction() {}
+}
+
+/* unused harmony default export */ var _unused_webpack_default_export = (MDCTextFieldIconAdapter);
 
 
 /***/ })

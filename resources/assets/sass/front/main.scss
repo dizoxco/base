@@ -3,10 +3,36 @@
 @tailwind utilities;
 @import "~swiper/dist/css/swiper.min";
 @import "@material/textfield/mdc-text-field";
-@import "@material/rtl/mixins";
+@import "@material/textfield/icon/mdc-text-field-icon";
+@import "@material/button/mdc-button";
+@import "@material/ripple/mdc-ripple";
+// @import "@material/rtl/mixins";
 // mdc-rtl('.rtl');
 body{
     direction: rtl;
     text-align: right;
     background-color: #f5f5f5;
 }
+.mdc-notched-outline__notch{
+    border-right: none;
+    border-left: none;
+}
+.mdc-text-field--outlined.shaped{
+    .mdc-text-field__input{
+        padding-right: 32px;
+        padding-left: 0;
+    }
+    .mdc-notched-outline{
+        .mdc-notched-outline__notch{ 
+            max-width: calc(100% - 28px * 2);
+        }
+        .mdc-notched-outline__leading{
+            border-radius: 0 28px 28px 0;
+            width: 28px;
+        }
+        .mdc-notched-outline__trailing{
+            border-radius: 28px 0 0 28px;
+        }
+    }
+}
+
