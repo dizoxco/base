@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 @import "~swiper/dist/css/swiper.min";
+@import "@material/textfield/mdc-text-field";
+@import "@material/rtl/mixins";
+// mdc-rtl('.rtl');
 body{
     direction: rtl;
     text-align: right;
