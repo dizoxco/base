@@ -1,13 +1,12 @@
 @extends('layout')
 @section('content')
-    @forelse($posts as $post)
-        <h1><a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a></h1>
-        @forelse($post->tags as $tag)
-            <h3><a href="{{ route('posts.tag', $tag->slug) }}">{{ $tag->label }}</a></h3>
+    <div class="flex flex-wrap -mx-2">
+        @forelse($posts as $post)
+        <div class="w-1/3 px-2 py-2">
+            @component('posts.card', ['post' => $post])@endcomponent
+        </div>
         @empty
+            <div>No content</div>
         @endforelse
-        <hr>
-        <p>{{ $post->abstract }}</p>
-    @empty
-    @endforelse
+    </div>
 @endsection
