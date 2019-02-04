@@ -13,10 +13,6 @@ class Posts extends Component{
         if(this.props.users.length == 0) this.props.getUsers();
     }
 
-    tdClick = (rowInfo) => {        
-        this.props.history.push('/admin/posts/' + rowInfo.original.id);
-    }
-
     render(){
         return(
             <Page                
@@ -28,6 +24,7 @@ class Posts extends Component{
             >   
                 <Table
                     data={this.props.posts}
+                    tdClick={(r) => this.props.history.push('/admin/posts/' + r.original.id)}
                     columns={[
                         {
                             Header: 'id',
@@ -54,7 +51,6 @@ class Posts extends Component{
                             }
                         }
                     ]}
-                    tdClick={this.tdClick}
                 />
             </Page>
         );
@@ -63,8 +59,8 @@ class Posts extends Component{
 
 const mapStateToProps = state => {
     return {
-        posts: state.posts.posts,
-        users: state.users.users
+        posts: state.posts.index,
+        users: state.users.index
     };
 };
 

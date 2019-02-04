@@ -17,8 +17,8 @@ class PostResource extends Resource
                 'slug'          =>  $this->slug,
                 'abstract'      =>  $this->abstract,
                 'body'          =>  $this->body,
-                'banner'        =>  $this->banner,
-                'attachments'   =>  $this->attachments,
+                // 'banner'        =>  $this->banner,
+                // 'attachments'   =>  $this->attachments,
                 $this->mergeWhen($this->dates(), $this->dates()),
             ],
             'relations' =>  [
@@ -30,6 +30,9 @@ class PostResource extends Resource
                 }),
                 $this->whenLoaded('tags', function () {
                     return ['tags'  =>  $this->tags->pluck('id')];
+                }),
+                $this->whenLoaded('banner', function () {
+                    return ['banner'  =>  $this->banner[0]->id];
                 }),
             ],
         ];

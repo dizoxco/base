@@ -1,33 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getBusinesses, getProducts, getComments } from "../actions"
+import { getMediaGroups, getPosts, getUsers } from "../actions"
 import { Page, Icon, Table } from "../components";
 
-class Businesses extends Component{
+class MediaGroups extends Component{
 
     state = {}
 
     componentDidMount = () => {
-        if(this.props.comments.length == 0) this.props.getComments();
-    }
-
-    tdClick = (rowInfo) => {
-        this.props.history.push('/admin/comments/' + rowInfo.original.id);
+        if(this.props.mediagroups.length == 0) this.props.getMediaGroups();
     }
 
     render(){
         return(
             <Page                
-                title='نظرات'
+                title='رسانه'
                 button={{
                     label: 'save'
                 }}
-                redirect={this.state.redirect}
                 onChange={(value) => this.setState({tab: value})}
             >   
                 <Table
-                    data={this.props.comments}
+                    data={this.props.mediagroups}
+                    tdClick={(r) => this.props.history.push('/admin/posts/' + r.original.id)}
                     columns={[
                         {
                             Header: 'id',
@@ -41,10 +37,9 @@ class Businesses extends Component{
                         },
                         {
                             Header: 'عنوان',
-                            accessor: 'attributes.body',
-                        }
+                            accessor: 'attributes.name',
+                        },
                     ]}
-                    tdClick={this.tdClick}
                 />
             </Page>
         );
@@ -53,8 +48,8 @@ class Businesses extends Component{
 
 const mapStateToProps = state => {
     return {
-        comments: state.comments.index
+        mediagroups: state.media.mediagroups,
     };
 };
 
-export default connect(mapStateToProps, { getBusinesses, getProducts, getComments })(Businesses);
+export default connect(mapStateToProps, { getMediaGroups, getPosts, getUsers })(MediaGroups);

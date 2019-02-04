@@ -11,6 +11,8 @@
     },
     "devDependencies": {
         "@material-ui/core": "^3.7.1",
+        "@material/rtl": "^0.42.0",
+        "@material/textfield": "^0.43.1",
         "axios": "^0.17",
         "babel-plugin-transform-class-properties": "^6.24.1",
         "babel-preset-es2016": "^6.24.1",

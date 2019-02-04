@@ -1,6 +1,7 @@
 <?php
 
 Route::any('lab', function () {
+    return auth_user()->permissions;
 });
 
 // ==================================== Admin Section =========================

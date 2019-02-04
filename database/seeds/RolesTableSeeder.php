@@ -15,6 +15,7 @@ class RolesTableSeeder extends Seeder
                 'manage_search_panels',
                 'manage_businesses',
                 'manage_products',
+                'manage_comments',
             ],
             'editor' => [
                 'manage_posts',

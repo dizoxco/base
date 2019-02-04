@@ -1,12 +1,13 @@
 const initialState = {
     index: [],
+    mediagroups: []
 }
-export const CommentReducer = (state = initialState, action) => {
+export const MediaReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'GET-COMMENTS':
+        case 'GET-MEDIAGROUPS':
             return {
                 ...state,
-                index: action.payload.data
+                mediagroups: action.payload.data
             }
         default:
             return state;

@@ -1,12 +1,12 @@
 const initialState = {
-    businesses: [],
+    index: [],
 }
 export const BusinessReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'GET-BUSINESSES':
             return {
                 ...state,
-                businesses: action.payload.data
+                index: action.payload.data
             }
         default:
             return state;

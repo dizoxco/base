@@ -10,3 +10,7 @@ $('.swiper.simple').each(function(){
         loop: true
     });
 });
+
+import {MDCTextField} from '@material/textfield';
+
+const textField = new MDCTextField(document.querySelector('.mdc-text-field'));
