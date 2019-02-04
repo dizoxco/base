@@ -24,7 +24,7 @@ class Post extends Model implements HasMedia
     protected $perPage = 10;
 
     protected $fillable = [
-        'user_id', 'title', 'slug', 'image', 'abstract', 'body',
+        'user_id', 'title', 'slug', 'abstract', 'body',
     ];
 
     protected $casts = [
@@ -115,31 +115,3 @@ class Post extends Model implements HasMedia
         }
     }
 }
-
-//    public function banner(): HasManyThrough
-//    {
-//        return $this->hasManyThrough(
-//            Media::class,
-//            MediaRelation::class,
-//            'model_id',
-//            'id',
-//            'id',
-//            'media_id'
-//        )
-//            ->where('media_relations.model_type', self::class)
-//            ->where('media_relations.collection_name', enum('media.post.banner'));
-//    }
-//
-//    public function attaches(): HasManyThrough
-//    {
-//        return $this->hasManyThrough(
-//            Media::class,
-//            MediaRelation::class,
-//            'model_id',
-//            'id',
-//            'id',
-//            'media_id'
-//        )
-//            ->where('media_relations.model_type', self::class)
-//            ->where('media_relations.collection_name', enum('media.post.attach'));
-//    }

@@ -21,6 +21,7 @@ class Users extends Component{
             >   
                 <Table
                     data={this.props.users}
+                    tdClick={ (rowInfo) => this.props.history.push('/admin/users/' + rowInfo.original.id)}
                     columns={[
                         {
                             Header: 'id',

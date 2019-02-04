@@ -1,6 +1,7 @@
 <?php
 
 Route::any('lab', function () {
+    return auth_user()->permissions;
 });
 
 // ==================================== Admin Section =========================
@@ -10,7 +11,7 @@ Route::view('admin/{any}', 'admin')->where('any', '.*');
 // ==================================== User Section ==========================
 Route::get('/', 'PageController@home')->name('home');
 Route::get('/search/{searchPanel}', 'SearchPanelController@search')->name('search');
-Route::get('/businesses/{business}', 'BusinessController@show')->name('businesses');
+Route::get('/businesses/{business}', 'BusinessController@show')->name('businesses.show');
 Route::get('/products/{product}', 'ProductController@show')->name('products.show');
 Route::get('/posts', 'PostController@index')->name('posts.index');
 Route::get('/posts/{post}', 'PostController@show')->name('posts.show');

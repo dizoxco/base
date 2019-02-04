@@ -13,12 +13,6 @@ class Products extends Component{
         if(this.props.businesses.length == 0) this.props.getBusinesses();
     }
 
-    tdClick = (rowInfo) => {
-        this.setState({
-            redirect: '/admin/posts/' + rowInfo.original.id
-        })
-    }
-
     render(){
         return(
             <Page                
@@ -31,6 +25,7 @@ class Products extends Component{
             >   
                 <Table
                     data={this.props.products}
+                    tdClick={(r) => this.props.history.push('/admin/products/' + r.original.id)}
                     columns={[
                         {
                             Header: 'id',
@@ -47,7 +42,6 @@ class Products extends Component{
                             accessor: 'attributes.title',
                         }
                     ]}
-                    tdClick={this.tdClick}
                 />
             </Page>
         );
@@ -56,8 +50,8 @@ class Products extends Component{
 
 const mapStateToProps = state => {
     return {
-        products: state.products.products,
-        businesses: state.business.businesses
+        products: state.products.index,
+        businesses: state.businesses.index
     };
 };
 

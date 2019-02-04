@@ -15,6 +15,10 @@ class SearchPanel extends Model
         'title', 'slug', 'description', 'model', 'options', 'filters',
     ];
 
+    protected $casts = [
+        'options' => 'array',
+        'filters' => 'array',
+    ];
     /** @var array $tags */
     protected $tags = [];
 
@@ -24,7 +28,7 @@ class SearchPanel extends Model
     /** @var array $operators */
     public static $operators = ['=', '<>', '!=', '>', '>=', '<', '<='];
 
-    public function result(Request $request) : LengthAwarePaginator
+    public function result(Request $request, $with = []) : LengthAwarePaginator
     {
         $this->builder = $this->getAttribute('model')::query();
 
@@ -42,7 +46,8 @@ class SearchPanel extends Model
             $this->optTags();
         }
 
-        return $this->builder->paginate(request('per_page'));
+//        dd($this->builder->toSql());
+        return $this->builder->with($with)->paginate(request('per_page', 10));
     }
 
     private function optTags()
@@ -52,6 +57,7 @@ class SearchPanel extends Model
                 $builder->select('taggable_id')
                     ->distinct()
                     ->from('taggables')
+                    ->where('taggable_type', $this->getAttribute('model'))
                     ->whereIn('tag_id', $tag);
             });
         }
@@ -59,7 +65,7 @@ class SearchPanel extends Model
 
     private function filters() : void
     {
-        $filters = json_decode($this->getAttribute('filters'), true);
+        $filters = $this->getAttribute('filters');
         foreach ($filters as $filter) {
             // is between , range or tag
             if (method_exists($this, $filter['query'])) {
@@ -78,7 +84,7 @@ class SearchPanel extends Model
     private function options(Request $request) : void
     {
         $url_params = $request->all();
-        $options = json_decode($this->getAttribute('options'), true);
+        $options = $this->getAttribute('options');
 
         foreach ($url_params as $key => $value) {
             if (array_key_exists($key, $options)) {
@@ -137,6 +143,26 @@ class SearchPanel extends Model
             $tags_id = $ids;
         }
         $this->tags[] = $tags_id;
+    }
+
+    private function like($filter, $needle)
+    {
+        if (is_string($needle)) {
+            $columns = explode(',', trim($filter['like'], ','));
+            foreach ($columns as $column) {
+                $this->builder->where(function ($q) use ($column, $needle) {
+                    return $q->orWhere($column, 'like', "%$needle%");
+                });
+            }
+        }
+    }
+
+    private function order($orders, $index)
+    {
+        if (isset($orders['order'][$index])) {
+            $query = $orders['order'][$index];
+            $this->builder->orderBy($query['column'], $query['dir']);
+        }
     }
 
     public function resolveRouteBinding($slug)

@@ -3,20 +3,27 @@
 namespace App\Models;
 
 use Spatie\Sluggable\HasSlug;
+use Spatie\Image\Manipulations;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\Facades\BusinessRepo;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Business extends Model
+class Business extends Model implements HasMedia
 {
-    use SoftDeletes, HasSlug;
+    use SoftDeletes, HasSlug, HasMediaTrait;
 
     protected $fillable = [
         'brand', 'province', 'city', 'tell', 'phone_code', 'address', 'postal_code', 'mobile', 'storage_address',
+    ];
+
+    protected $casts = [
+        'contact' => 'array',
     ];
 
     //  =============================== Relationships =========================
@@ -38,6 +45,11 @@ class Business extends Model
     private function mediagroups(): MorphToMany
     {
         return $this->morphToMany(Media::class, 'model', 'media_relations');
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     //  =============================== End Relationships =====================
@@ -64,4 +76,16 @@ class Business extends Model
     }
 
     //  =============================== End Complementary Methods =============
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('business-logo')
+             ->singleFile()
+             ->registerMediaConversions(function (Media $media) {
+                 $this->addMediaConversion('thumb')
+                      ->crop(Manipulations::CROP_CENTER, 150, 150);
+             });
+
+        $this->addMediaCollection('business-gallery');
+    }
 }

@@ -1,12 +1,12 @@
 const initialState = {
-    products: [],
+    index: [],
 }
 export const ProductReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'GET-PRODUCTS':
             return {
                 ...state,
-                products: action.payload.data
+                index: action.payload.data
             }
         default:
             return state;

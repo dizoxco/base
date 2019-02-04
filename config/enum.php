@@ -11,6 +11,7 @@ return [
         ],
         'product'  =>  [
             'banner'    =>  'products_banner',
+            'gallery'   =>  'products_gallery',
         ],
         'business'  =>  [
             'logo'    =>  'business_logos',

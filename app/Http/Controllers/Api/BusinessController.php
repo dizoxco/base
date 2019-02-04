@@ -21,7 +21,6 @@ class BusinessController extends Controller
 
     public function store(StoreBusinessRequest $request)
     {
-        // todo:how to save legal or private businesses?
         $business = BusinessRepo::create($request->all());
         if ($business === null) {
             return (new EffectedRows($business))->response()->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -37,7 +36,6 @@ class BusinessController extends Controller
 
     public function update(UpdateBusinessRequest $request, Business $business)
     {
-        // todo:if nothing changes, do not perform a query
         $business = BusinessRepo::update($business, $request->all());
         $status = $business === null ? Response::HTTP_INTERNAL_SERVER_ERROR : Response::HTTP_OK;
 

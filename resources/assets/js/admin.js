@@ -13,7 +13,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { List, RTL } from "./admin/components"
 import { Dashboard, Login, Posts, Setting, Users } from './admin/pages'
-import { BusinessReducer, CommentReducer, ProductReducer, PostReducer, SnackReducer, TicketReducer, UserReducer } from './admin/reducers';
+import { BusinessReducer, CommentReducer, MediaReducer, ProductReducer, PostReducer, SnackReducer, TicketReducer, UserReducer } from './admin/reducers';
 
 import App from './admin/App';
 
@@ -22,9 +22,10 @@ import { SnackbarProvider } from 'notistack';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
                 combineReducers({
-                    business: BusinessReducer,
+                    businesses: BusinessReducer,
                     comments: CommentReducer,
                     posts: PostReducer,
+                    media: MediaReducer,
                     products: ProductReducer,
                     snacks: SnackReducer,
                     tickets: TicketReducer,

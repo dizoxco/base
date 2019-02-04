@@ -49,7 +49,7 @@ class BusinessRepository extends BaseRepository
         return $businesses->get();
     }
 
-    public function getRecents($number = 10): Collection
+    public function getRecent($number = 10): Collection
     {
         return Business::take($number)->latest()->get();
     }
@@ -87,7 +87,7 @@ class BusinessRepository extends BaseRepository
     public function update($business, array $data) : ?int
     {
         if (empty($data)) {
-            return 0;
+            return null;
         }
 
         try {

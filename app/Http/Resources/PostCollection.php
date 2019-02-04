@@ -39,6 +39,9 @@ class PostCollection extends BaseCollection
             case 'comments':
                 return CommentResource::class;
                 break;
+            case 'banner':
+                return MediaResource::class;
+                break;
         }
     }
 }

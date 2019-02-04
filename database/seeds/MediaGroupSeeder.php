@@ -11,11 +11,5 @@ class MediaGroupSeeder extends Seeder
         foreach (range(1, 20) as $key) {
             $mgp->addMediaFromUrl(resource_path('seed/blog-images/'.$key.'.jpg'))->toMediaCollection($mgp->name);
         }
-
-        $logos = Storage::disk('local')->files('logos');
-        $mgp = MediaGroup::create(['name' => 'logos', 'collection_name' => 'logos', 'description' => 'logos']);
-        foreach (range(1, 20) as $key) {
-            $mgp->addMediaFromUrl(storage_path('app/'.array_random($logos)))->toMediaCollection('logos');
-        }
     }
 }

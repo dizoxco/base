@@ -36,9 +36,10 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        $recent = PostRepo::getRecents();
+        $recent = PostRepo::getRecent();
+        $related = PostRepo::getRelated($post);
 
-        return view('posts.show', compact('post', 'recent'));
+        return view('posts.show', compact('post', 'recent', 'related'));
     }
 
     public function edit($id)

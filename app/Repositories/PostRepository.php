@@ -38,16 +38,32 @@ class PostRepository extends BaseRepository
     {
         $posts = QueryBuilder::for(Post::query())
             ->allowedFilters(['title', 'slug'])
-            ->allowedIncludes(['post', 'comments'])
+            ->allowedIncludes(['post', 'comments', 'banner'])
             ->allowedSorts(['created_at', 'updated_at', 'deleted_at', 'published_at']);
         $this->applyParams($posts, $params);
 
         return $posts->get();
     }
 
-    public function getRecents($number = 10): Collection
+    public function getRecent($number = 10): Collection
     {
         return Post::take($number)->latest()->get();
+    }
+
+    public function getRelated(Post $post, int $number = 5): Collection
+    {
+        return $post
+            ->select(['id', 'user_id', 'title', 'slug', 'abstract', 'body', 'published_at', 'created_at', 'updated_at', 'deleted_at'])
+            ->selectRaw('COUNT(DISTINCT(tag_id)) AS counter')
+            ->from($post->getTable())
+            ->join('taggables', 'taggable_id', '=', $post->getKeyName())
+            ->whereIn('tag_id', $post->tags->pluck('id')->toArray())
+            ->where('id', '!=', $post->getKey())
+            ->groupBy($post->getKeyName())
+            ->orderByDesc('counter')
+            ->orderByDesc('published_at')
+            ->take($number)
+            ->get();
     }
 
     public function getBy(string $column, string $value): ?Collection
