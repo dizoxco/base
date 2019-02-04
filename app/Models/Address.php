@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     protected $fillable = [
-      'user_id', 'receiver', 'mobile', 'province', 'city', 'address', 'postal_code',
+      'user_id', 'receiver', 'mobile', 'city', 'address', 'postal_code',
     ];
 
     //  =============================== Relationships =========================

@@ -10,7 +10,7 @@ class BusinessController extends Controller
 {
     public function show(Business $business)
     {
-        $recent = BusinessRepo::getRecents();
+        $recent = BusinessRepo::getRecent();
 
         return view('businesses.show', compact('business', 'recent'));
     }

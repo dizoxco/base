@@ -8,7 +8,7 @@ $factory->define(Post::class, function () use ($faker) {
     return [
         'title'     =>  $title = omidFaker(),
         'slug'      =>  str_slug($title.str_random()),
-        'abstract'  =>  omidFaker('sentence', 3),
-        'body'      =>  omidFaker('sentence', 20) ,
+        'abstract'  =>  \faker('paragraph')->first(),
+        'body'      =>  implode(PHP_EOL, \faker('paragraph', 4)->toArray()),
     ];
 });
