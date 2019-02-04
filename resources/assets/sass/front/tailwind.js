@@ -203,7 +203,7 @@ module.exports = {
 
   fonts: {
     'sans': [
-      'system-ui',
+      'IRANSans',
       'BlinkMacSystemFont',
       '-apple-system',
       'Segoe UI',
