@@ -3141,7 +3141,7 @@ table {
 }
 
 .font-sans {
-  font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
+  font-family: IRANSans, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
 }
 
 .font-serif {
@@ -9724,7 +9724,7 @@ span[class^="MuiPrivateTabIndicator"]:before {
   }
 
   .sm\:font-sans {
-    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
+    font-family: IRANSans, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
   }
 
   .sm\:font-serif {
@@ -15630,7 +15630,7 @@ span[class^="MuiPrivateTabIndicator"]:before {
   }
 
   .md\:font-sans {
-    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
+    font-family: IRANSans, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
   }
 
   .md\:font-serif {
@@ -21536,7 +21536,7 @@ span[class^="MuiPrivateTabIndicator"]:before {
   }
 
   .lg\:font-sans {
-    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
+    font-family: IRANSans, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
   }
 
   .lg\:font-serif {
@@ -27442,7 +27442,7 @@ span[class^="MuiPrivateTabIndicator"]:before {
   }
 
   .xl\:font-sans {
-    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
+    font-family: IRANSans, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
   }
 
   .xl\:font-serif {

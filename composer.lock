@@ -1374,7 +1374,7 @@
                 {
                     "name": "Luís Otávio Cobucci Oblonczyk",
                     "email": "lcobucci@gmail.com",
-                    "role": "Developer"
+                    "role": "developer"
                 }
             ],
             "description": "A simple library to work with JSON Web Token and JSON Web Signature",
@@ -2877,7 +2877,7 @@
                 "security",
                 "spatie"
             ],
-            "time": "2019-02-04 03:56:54"
+            "time": "2019-02-04T03:56:54+00:00"
         },
         {
             "name": "spatie/laravel-query-builder",
@@ -3033,7 +3033,7 @@
                 "pdf-to-image",
                 "spatie"
             ],
-            "time": "2016-12-14 15:37:00"
+            "time": "2016-12-14T15:37:00+00:00"
         },
         {
             "name": "spatie/temporary-directory",
@@ -3690,7 +3690,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",

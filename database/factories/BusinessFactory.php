@@ -20,10 +20,10 @@ $factory->define(App\Models\Business::class, function () use ($faker) {
             ],
             'address' => [
                 ['label' => 'کارخانه', 'value' => $faker->address, 'extra' => [
-                    'label' => 'کد پستی', 'value' => rand(1111111111, 9999999999),
+                    'label' => 'کد پستی', 'value' => rand(111111, 999999),
                 ]],
                 ['label' => 'دفتر', 'value' => $faker->address, 'extra' => [
-                    'label' => 'کد پستی', 'value' => rand(1111111111, 9999999999),
+                    'label' => 'کد پستی', 'value' => rand(111111, 999999),
                 ]],
             ],
         ]),
