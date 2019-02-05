@@ -9,7 +9,7 @@
     @isset($icon)
         <i class="material-icons mdc-text-field__icon" role="button" data-mdc-auto-init="mdc-text-field-icon">{{$icon}}</i>
     @endisset
-    <input type="text" id="tf-outlined" class="mdc-text-field__input">
+<input type="text" id="tf-outlined" class="mdc-text-field__input" name="{{$name ?? ''}}" value="{{$value ?? ''}}">
     @isset($outlined)
         <div class="mdc-notched-outline">
             <div class="mdc-notched-outline__leading"></div>
