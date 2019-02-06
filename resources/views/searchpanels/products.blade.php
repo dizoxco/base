@@ -38,17 +38,16 @@
                 @empty
                     <p>انتخابی وجود ندارد.</p>
                 @endforelse
-                {{-- @component('components.form.button', [
+                @component('components.form.button', [
                     'label' => 'جستجو',
                     'outlined' => true,
                     'shaped' => true
-                ])@endcomponent                 --}}
-                <button type="submit" class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">search</button>
+                ])@endcomponent                
             </form>
         </div>
         <div class="w-3/4 pr-4">
             <div class="relative rounded-lg bg-white shadow-lg py-4 mb-2">
-                <span class="absoulute text-grey-light pin-r mx-4"><i class="material-icons">sort</i></span>
+                <span class="absoulute text-grey-light pin-r mx-4"><i class="material-icons" style="transform:scaleX(-1)">sort</i></span>
                 @foreach ($options as $option)
                     @if ($option['query'] == 'order')
                         @foreach ($option['order'] as $index => $order)
@@ -57,27 +56,14 @@
                     @endif
                 @endforeach
                 <span class="absolute text-grey-light pin-l mx-4">
-                    <i class="material-icons ">toc</i>
-                    <i class="material-icons">view_list</i>
+                    <i class="material-icons ">view_module</i>
+                    <i class="material-icons">toc</i>
                 </span>
             </div>
             <div class="flex flex-wrap">
                 @forelse($products as $product)
                     <div class="w-1/3 px-2 py-2">
-                        <div class="relative rounded-lg bg-white shadow-lg h-full px-8 py-6" >
-                            @if($product->getMedia(enum('media.product.banner'))->isNotEmpty())
-                                <img src="{{$product->getFirstMedia(enum('media.product.banner'))->getFullUrl()}}" class="">
-                            @else
-                                <img src="https://dkstatics-public.digikala.com/digikala-products/4855241.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80" alt="">
-                            @endisset
-                            <div class="text-center">
-                                <a class="no-underline" href="{{route('products.show', $product->slug)}}">
-                                    <h3 class=" subheading"> {{ $product->title }}</h3>
-                                </a>
-                                {{-- <p>{{ $product->created_at->diffForHumans() }}</p> --}}
-                                <p class="text-center body-1 my-4">@toman($product->price)</p>
-                            </div>
-                        </div>
+                        @component('components.product.card', ['product' => $product])@endcomponent
                     </div>
                 @empty
                     <p> هیچ محصولی برای این پنل تعریف نشده است. </p>
