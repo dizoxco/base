@@ -19,7 +19,7 @@ class CreateOrdersProductsTable extends Migration
             $table->unsignedInteger('variation_id');
             $table->unsignedInteger('count');
             $table->unsignedInteger('price');
-            $table->json('options');
+            $table->json('options')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

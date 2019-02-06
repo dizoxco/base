@@ -115,7 +115,7 @@ class User extends Authenticatable implements HasMedia
         })->whereType(enum('chat.type.chat'))->first();
     }
 
-    public function order()
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class, 'user_id', 'id');
     }

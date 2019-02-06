@@ -27,7 +27,7 @@ class Variation extends Model
     {
         return $this->belongsToMany(
             Order::class, 'orders_products', 'variation_id', 'order_id', 'id', 'id'
-        );
+        )->withPivot(['count', 'price']);
     }
 
     public function buyers() : Collection

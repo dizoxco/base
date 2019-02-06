@@ -8,6 +8,10 @@ Route::view('admin', 'admin');
 Route::view('admin/{any}', 'admin')->where('any', '.*');
 // ==================================== End Admin Section =====================
 // ==================================== User Section ==========================
+Route::name('profile.')->prefix('profile')->middleware('auth:web')->group(function () {
+    Route::get('orders', 'ProfileController@orders')->name('orders');
+});
+// ==================================== End Users profile Section  ============
 Route::get('/', 'PageController@home')->name('home');
 Route::get('/search/{searchPanel}', 'SearchPanelController@search')->name('search');
 Route::get('/businesses/{business}', 'BusinessController@show')->name('businesses.show');
