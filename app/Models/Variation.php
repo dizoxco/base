@@ -23,6 +23,16 @@ class Variation extends Model
         );
     }
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
+
+    public function business()
+    {
+        return $this->belongsTo(Business::class, 'business_id', 'id');
+    }
+
     public function orders() : BelongsToMany
     {
         return $this->belongsToMany(
@@ -41,6 +51,10 @@ class Variation extends Model
     {
         $product = request()->route()->parameter('product');
 
-        return $this->whereId($variation)->whereProductId($product->id)->first();
+        if ($product instanceof Product) {
+            $product = $product->id;
+        }
+
+        return $this->whereId($variation)->whereProductId($product)->first();
     }
 }

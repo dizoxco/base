@@ -44,7 +44,7 @@ class User extends Authenticatable implements HasMedia
     //  =============================== End Accessor ==========================
 
     //  =============================== Relationships =========================
-    public function address(): HasMany
+    public function addresses(): HasMany
     {
         return $this->hasMany(Address::class, 'user_id', 'id');
     }
@@ -53,11 +53,6 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(Post::class, 'user_id', 'id');
     }
-
-    // public function avatar() : MorphOne
-    // {
-    //     return $this->morphOne(Media::class, 'model');
-    // }
 
     public function chats() : BelongsToMany
     {
@@ -84,7 +79,7 @@ class User extends Authenticatable implements HasMedia
 
     public function wishlist()
     {
-        return $this->hasMany(Wishlist::class, 'user_id', 'id');
+        return $this->belongsToMany(Product::class, 'wishlists', 'user_id', 'product_id');
     }
 
     public function cart()

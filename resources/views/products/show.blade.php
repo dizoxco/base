@@ -14,6 +14,9 @@
         </div>
         <div class="w-full">
             <h1>{{$product->title}}</h1>
+            <a href="{{ route('wishlist.store', $product->slug) }}">
+                افزودن به علاقه مندی ها
+            </a>
         </div>
         <div class="w-full">
             <table class="table-auto">
@@ -31,6 +34,29 @@
                     <td><a href="{{ route('businesses.show', $business->slug) }}">{{ $business->brand }}</a></td>
                     <td>{{ $business->address }}</td>
                 </tr>
+                @empty
+                    این محصول هیچ فروشنده ای ندارد.
+                @endforelse
+            </table>
+        </div>
+        <div class="w-full">
+            <table class="table-auto">
+                <h2 class="bg-green-dark">انواع مختلف محصول</h2>
+                <th>
+                <td>ردیف</td>
+                <td>قیمت</td>
+                <td>افزودن به کارت</td>
+                </th>
+                @forelse($product->relatedVariations as $variation)
+                    <tr class="table-row">
+                        <td>{{ $loop->index+1 }}</td>
+                        <td>@toman($variation->price)</td>
+                        <td>
+                            <a href="{{ route('cart.store', [$product->slug, $variation]) }}">
+                                افزودن به سبد خرید
+                            </a>
+                        </td>
+                    </tr>
                 @empty
                     این محصول هیچ فروشنده ای ندارد.
                 @endforelse

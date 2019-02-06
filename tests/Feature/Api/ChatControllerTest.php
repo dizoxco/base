@@ -16,7 +16,7 @@ class ChatControllerTest extends TestCase
 
     protected $providedData = [];
 
-    protected function login()
+    protected function signInFromWeb()
     {
         return $this->clearConfigurationCache()->installPassport()->signInFromApi();
     }
@@ -87,7 +87,7 @@ class ChatControllerTest extends TestCase
     public function it_should_not_returned_anything_when_the_user_does_not_have_a_chat()
     {
         //  When the database is completely empty.
-        $this->login()->assertAuthHasNoChat();
+        $this->signInFromWeb()->assertAuthHasNoChat();
 
         //  When the database contains the chat.
         $users = factory(User::class, 5)->create();
@@ -109,7 +109,7 @@ class ChatControllerTest extends TestCase
      */
     public function it_must_not_return_conversations_owned_by_another_user()
     {
-        $this->login();
+        $this->signInFromWeb();
         $user = auth_user();
         $chat = $user->chats()->create(['type'  =>  enum('chat.type.chat')]);
 
@@ -181,7 +181,7 @@ class ChatControllerTest extends TestCase
     {
         $garbage = 'user_id';
         $data = $this->dataProvider()->without($garbage);
-        $response = $this->login()->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb()->postJson($this->routeStore(), $data);
         $this->assertValidationFails($response, $garbage);
     }
 
@@ -191,7 +191,7 @@ class ChatControllerTest extends TestCase
      */
     public function the_user_can_not_store_a_chat_with_userId_type_other_than_integer()
     {
-        $this->login();
+        $this->signInFromWeb();
 
         $garbage = 'user_id';
         $data = $this->dataProvider()->without($garbage);
@@ -218,7 +218,7 @@ class ChatControllerTest extends TestCase
         $data = $this->dataProvider()->without($garbage);
         $data['user_id'] = $nonExistsUserId;
 
-        $response = $this->login()->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb()->postJson($this->routeStore(), $data);
         $this->assertValidationFails($response, $garbage);
     }
 
@@ -228,7 +228,7 @@ class ChatControllerTest extends TestCase
      */
     public function the_user_can_not_store_a_chat_with_userId_of_himself()
     {
-        $this->login();
+        $this->signInFromWeb();
         $garbage = 'user_id';
         $data = $this->dataProvider()->without($garbage);
         $data['user_id'] = auth_user()->id;
@@ -245,11 +245,11 @@ class ChatControllerTest extends TestCase
         $anotherUser = factory(User::class)->create();
         $data = $this->dataProvider()->without('user_id', 'file');
         $data['user_id'] = $anotherUser->id;
-        $response = $this->login()->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb()->postJson($this->routeStore(), $data);
         $response->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonStructure([
-                'data' => ['id', 'type', 'attributes', 'relations', 'included'],
+                'data' => ['id', 'type', 'attributes', 'relations'],
             ]);
     }
 
@@ -259,7 +259,7 @@ class ChatControllerTest extends TestCase
      */
     public function the_user_can_not_store_a_chat_with_body_type_other_than_string()
     {
-        $this->login();
+        $this->signInFromWeb();
 
         $garbage = 'body';
         $data = $this->dataProvider()->without($garbage);
@@ -281,11 +281,11 @@ class ChatControllerTest extends TestCase
         $anotherUser = factory(User::class)->create();
         $data = $this->dataProvider()->without('user_id', 'body');
         $data['user_id'] = $anotherUser->id;
-        $response = $this->login()->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb()->postJson($this->routeStore(), $data);
         $response->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonStructure([
-                'data' => ['id', 'type', 'attributes', 'relations', 'included'],
+                'data' => ['id', 'type', 'attributes', 'relations'],
             ]);
     }
 
@@ -295,7 +295,7 @@ class ChatControllerTest extends TestCase
      */
     public function the_user_can_not_store_a_chat_with_file_type_other_than_uploadedFile()
     {
-        $this->login();
+        $this->signInFromWeb();
 
         $garbage = 'file';
         $data = $this->dataProvider()->without($garbage);
@@ -314,7 +314,7 @@ class ChatControllerTest extends TestCase
      */
     public function the_user_can_not_store_a_chat_without_body_and_file()
     {
-        $this->login();
+        $this->signInFromWeb();
         $data['user_id'] = auth_user()->id;
         $response = $this->postJson($this->routeStore(), $data);
         $this->assertValidationFails($response, ['body', 'file']);
@@ -329,11 +329,11 @@ class ChatControllerTest extends TestCase
         $anotherUser = factory(User::class)->create();
         $data = $this->dataProvider()->without('user_id');
         $data['user_id'] = $anotherUser->id;
-        $response = $this->login()->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb()->postJson($this->routeStore(), $data);
         $response->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonStructure([
-                'data' => ['id', 'type', 'attributes', 'relations', 'included'],
+                'data' => ['id', 'type', 'attributes', 'relations'],
             ]);
     }
 
@@ -343,11 +343,11 @@ class ChatControllerTest extends TestCase
      */
     public function it_should_be_returned_http_not_found_when_there_is_no_chat_on_store()
     {
-        $this->login();
+        $this->signInFromWeb();
         $chat = random_int(1, mt_getrandmax());
         $response = $this->getJson($this->routeShow($chat));
         $response->assertStatus(Response::HTTP_NOT_FOUND)
-            ->assertJson(['errors' => ['not_found' => trans('http.not_found')]]);
+            ->assertJsonStructure(['errors','message']);
     }
 
     /**
@@ -356,13 +356,12 @@ class ChatControllerTest extends TestCase
      */
     public function it_should_be_returned_chat_resource_when_there_is_chats_exists()
     {
-        $this->login();
+        $this->signInFromWeb();
         $chats = factory(Chat::class, 5)->create()->each(
             function (Chat $chat) {
                 $chat->users()->attach(auth_user()->id);
                 $chat->users()->attach(factory(User::class)->create()->id);
                 $comment = factory(Comment::class)->make(['user_id' => auth_user()->id])->toArray();
-                /** @var Comment $comment */
                 $comment = $chat->comments()->create($comment);
                 $media = UploadedFile::fake()->create($this->faker->name, 1024 * 10);
                 $comment->addMedia($media);
@@ -374,25 +373,7 @@ class ChatControllerTest extends TestCase
             $response->assertSuccessful()
                 ->assertJsonStructure([
                     'data'   =>  [
-                        'id',
-                        'type',
-                        'attributes',
-                        'relations' =>  ['*'    =>  ['comments']],
-                        'included'  =>  ['*'    =>  [
-                            'comments'  =>  ['*'    =>  [
-                                'id',
-                                'type',
-                                'attributes',
-                                'relations' =>  ['*'    =>  ['media']],
-                                'included'  =>  ['*'    =>  [
-                                    'media' =>  ['*'    =>  [
-                                        'id',
-                                        'type',
-                                        'attributes',
-                                    ]],
-                                ]],
-                            ]],
-                        ]],
+                        'id', 'type', 'attributes', 'relations'
                     ],
                 ]);
         }
@@ -404,12 +385,12 @@ class ChatControllerTest extends TestCase
      */
     public function it_should_be_returned_http_not_found_when_there_is_no_chat_on_update()
     {
-        $this->login();
+        $this->signInFromWeb();
         $chat = random_int(1, mt_getrandmax());
         $data = $this->dataProvider()->withPutMethod()->getData();
         $response = $this->postJson($this->routeUpdate($chat), $data);
         $response->assertStatus(Response::HTTP_NOT_FOUND)
-            ->assertJson(['errors' => ['not_found' => trans('http.not_found')]]);
+            ->assertJsonStructure(['message','errors']);
     }
 
     /**
@@ -420,11 +401,11 @@ class ChatControllerTest extends TestCase
     {
         $data = $this->dataProvider()->withPutMethod()->without('user_id', 'file');
         $chat = factory(Chat::class)->create();
-        $response = $this->login()->postJson($this->routeUpdate($chat), $data);
+        $response = $this->signInFromWeb()->postJson($this->routeUpdate($chat), $data);
         $response->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonStructure([
-                'data' => ['id', 'type', 'attributes', 'relations', 'included'],
+                'data' => ['id', 'type', 'attributes', 'relations'],
             ]);
         $this->assertDatabaseHas('comments', [
             'user_id'   =>  auth_user()->id,
@@ -438,7 +419,7 @@ class ChatControllerTest extends TestCase
      */
     public function the_user_can_not_update_a_chat_with_body_type_other_than_string()
     {
-        $this->login();
+        $this->signInFromWeb();
 
         $garbage = 'body';
         $data = $this->dataProvider()->withPutMethod()->without($garbage);
@@ -460,11 +441,11 @@ class ChatControllerTest extends TestCase
     {
         $data = $this->dataProvider()->withPutMethod()->without('user_id', 'body');
         $chat = factory(Chat::class)->create();
-        $response = $this->login()->postJson($this->routeUpdate($chat), $data);
+        $response = $this->signInFromWeb()->postJson($this->routeUpdate($chat), $data);
         $response->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonStructure([
-                'data' => ['id', 'type', 'attributes', 'relations', 'included'],
+                'data' => ['id', 'type', 'attributes', 'relations'],
             ]);
         $this->assertDatabaseHas('comments', [
             'user_id'   =>  auth_user()->id,
@@ -478,7 +459,7 @@ class ChatControllerTest extends TestCase
      */
     public function the_user_can_not_update_a_chat_with_file_type_other_than_uploadedFile()
     {
-        $this->login();
+        $this->signInFromWeb();
 
         $garbage = 'file';
         $data = $this->dataProvider()->withPutMethod()->without($garbage);
@@ -498,7 +479,7 @@ class ChatControllerTest extends TestCase
      */
     public function the_user_can_not_update_a_chat_without_body_and_file()
     {
-        $this->login();
+        $this->signInFromWeb();
 
         $chat = factory(Chat::class)->create();
         $response = $this->postJson(
@@ -515,14 +496,14 @@ class ChatControllerTest extends TestCase
      */
     public function the_user_can_update_a_chat_with_both_file_and_body()
     {
-        $this->login();
+        $this->signInFromWeb();
         $data = $this->dataProvider()->withPutMethod()->getData();
         $chat = factory(Chat::class)->create();
         $response = $this->postJson($this->routeUpdate($chat), $data);
         $response->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonStructure([
-                'data' => ['id', 'type', 'attributes', 'relations', 'included'],
+                'data' => ['id', 'type', 'attributes', 'relations'],
             ]);
         $this->assertDatabaseHas('comments', [
             'user_id'   =>  auth_user()->id,
@@ -547,13 +528,9 @@ class ChatControllerTest extends TestCase
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonStructure([
                 'data' => [
-                    [
-                        'id', 'type', 'attributes', 'relations', 'included',
-                    ],
+                    ['id', 'type', 'attributes', 'relations'],
                 ],
             ]);
-        $dataKeys = array_keys($response->decodeResponseJson());
-        $this->assertCount(1, $dataKeys);
     }
 
     public function assertValidationFails($response, $without): void

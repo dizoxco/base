@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Business;
 use App\Models\MediaGroup;
+use App\Models\Variation;
 use Illuminate\Database\Seeder;
 
 class BusinessesTableSeeder extends Seeder
@@ -17,7 +18,6 @@ class BusinessesTableSeeder extends Seeder
         $businesses = Business::all();
         $faker = Faker\Factory::create();
         $mobile_tag = Tag::whereSlug('mobiles')->first()->id;
-        $banners = MediaGroup::find(1)->media;
 
         foreach ($businesses as $business) {
             $business->users()->attach($users->random(3));
@@ -31,14 +31,28 @@ class BusinessesTableSeeder extends Seeder
 
             foreach ($products as $product) {
                 $product->tags()->sync(Tag::inRandomOrder()->take(3)->pluck('id')->toArray());
+
                 $product->addMediaFromUrl(resource_path('seed/product-images/'.rand(1, 20).'.jpg'))
                     ->toMediaCollection(enum('media.product.banner'));
+
+                $variations = $product->variations()->createMany(factory(Variation::class, 10)->make(
+                    [
+                        'business_id' => $business->id,
+                        'product_id' => $product->id,
+                    ]
+                )->toArray());
+
+                $product->update([
+                    'variations' => $variations->pluck('id')->toJson()
+                ]);
+
                 foreach (range(1, 3) as $item) {
                     $product->addMediaFromUrl(resource_path('seed/product-images/'.rand(1, 20).'.jpg'))
                         ->toMediaCollection(enum('media.product.gallery'));
                 }
                 if ($faker->boolean()) {
                     $product->tags()->sync($mobile_tag, false);
+                    $product->users()->sync($users->random(10)->pluck('id')->toArray(), false);
                 }
             }
         }

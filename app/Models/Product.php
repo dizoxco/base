@@ -2,18 +2,19 @@
 
 namespace App\Models;
 
-use Spatie\Sluggable\HasSlug;
-use Spatie\Image\Manipulations;
-use Spatie\Sluggable\SlugOptions;
-use Spatie\MediaLibrary\Models\Media;
-use Illuminate\Database\Eloquent\Model;
 use App\Repositories\Facades\ProductRepo;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Product extends Model implements HasMedia
 {
@@ -26,27 +27,33 @@ class Product extends Model implements HasMedia
 
     protected $casts = [
         'single' => 'boolean',
+        'variations' => 'array',
     ];
 
     //  =============================== Relationships =========================
-    public function tags() : MorphToMany
+    public function tags(): MorphToMany
     {
         return $this->morphToMany(Tag::class, 'taggable');
     }
 
-    public function businesses()
+    public function users(): BelongsToMany
     {
-        return $this->belongsToMany(Business::class, 'businesses_products', 'product_id', 'business_id', 'id', 'id');
-    }
-
-    public function relatedVariations() : HasMany
-    {
-        return $this->hasMany(Variation::class, 'product_id', 'id');
+        return $this->belongsToMany(User::class, 'wishlists', 'product_id', 'user_id');
     }
 
     public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function businesses(): BelongsToMany
+    {
+        return $this->belongsToMany(Business::class, 'businesses_products', 'product_id', 'business_id', 'id', 'id');
+    }
+
+    public function relatedVariations(): HasMany
+    {
+        return $this->hasMany(Variation::class, 'product_id', 'id');
     }
 
     //  =============================== End Relationships =====================
