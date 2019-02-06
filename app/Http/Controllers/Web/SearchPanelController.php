@@ -17,7 +17,7 @@ class SearchPanelController extends Controller
         if ($searchPanel->model === Product::class) {
             $products = $searchPanel->result($request, ['tags', 'media']);
 
-            return view('searchpanels.products', compact('options', 'products'));
+            return view('web.products.search', compact('options', 'products'));
         }
 
         if ($searchPanel->model === Business::class) {

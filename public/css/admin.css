@@ -501,34 +501,6 @@ table {
   border-collapse: collapse;
 }
 
-.container {
-  width: 100%;
-}
-
-@media (min-width: 576px) {
-  .container {
-    max-width: 576px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
-}
-
-@media (min-width: 992px) {
-  .container {
-    max-width: 992px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1200px;
-  }
-}
-
 .list-reset {
   list-style: none;
   padding: 0;
@@ -6577,6 +6549,10 @@ table {
 .ReactTable .rt-thead .rt-th:last-child,
 .ReactTable .rt-thead .rt-td:last-child {
   border-right: 0;
+}
+
+.ReactTable .rt-thead .rt-th:focus {
+  outline: none;
 }
 
 .ReactTable .rt-thead .rt-resizable-header {

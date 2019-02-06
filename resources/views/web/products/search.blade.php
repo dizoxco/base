@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-    <div class="flex flex-wrap">
+    <div class="flex flex-wrap container">
         <div class="w-1/4 pl-4">
             <form target="_self">
                 @forelse($options as $name => $option)
@@ -63,7 +63,7 @@
             <div class="flex flex-wrap">
                 @forelse($products as $product)
                     <div class="w-1/3 px-2 py-2">
-                        @component('components.product.card', ['product' => $product])@endcomponent
+                        @component('web.products.card', ['product' => $product])@endcomponent
                     </div>
                 @empty
                     <p> هیچ محصولی برای این پنل تعریف نشده است. </p>

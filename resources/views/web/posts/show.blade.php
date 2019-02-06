@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-    <div class="flex flex-wrap">
+    <div class="flex flex-wrap container medium">
         <div class="mb-10">
             {{-- @php print_r($post) @endphp --}}
             <article class="mb-10">
@@ -15,9 +15,16 @@
                 <h3 class="title-2">مطالب مرتبط</h3>
                 <div class="flex flex-row flex-wrap" column="2">
                     @foreach (range(1,4) as $id)
-                    <div class="w-full md:w-1/2 p-2">
-                        @component('components.post.card-horizontal', ['post' => $recent[$id]]) @endcomponent
-                    </div>
+                        <div class="w-full md:w-1/2 p-2">
+                            <div class="bg-grey-light">
+                                <a class="no-underline" href="{{route('posts.show', $post->slug)}}">
+                                    <div class="flex items-center ">
+                                        <div class="w-1/5 m-2"><img class="rounded-full" src="{{$post->banner[0]->getUrl('teaser')}}" alt=""></div>
+                                        <p class="w-4/5 subheading">{{$post->title}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                     @endforeach
                 </div>
             </div>

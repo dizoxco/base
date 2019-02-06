@@ -14,6 +14,6 @@ class ProductController extends Controller
         $recent = ProductRepo::getRecent();
         $related = ProductRepo::getRelated($product);
 
-        return view('products.show', compact('product', 'recent', 'related'));
+        return view('web.products.show', compact('product', 'recent', 'related'));
     }
 }

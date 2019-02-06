@@ -38,3 +38,23 @@ body{
     }
 }
 
+
+.container{ 
+    width: 95%;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1600px;
+    &.large{
+        max-width: 980px;
+    }
+    &.medium{ 
+        max-width: 800px; 
+    }
+    &.small{
+        max-width: 600px;
+    }
+} 
+@media screen and (min-width: 1700px){ 
+    .container.medium{ max-width: 900px; } 
+}
+
