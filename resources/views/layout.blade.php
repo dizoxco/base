@@ -25,7 +25,11 @@
 					@component('components.form.text', ['label' => 'dd', 'outlined' => true ])@endcomponent
 					@component('components.form.text', ['label' => 'dd', 'outlined' => true, 'shaped' => true])@endcomponent
 					@component('components.form.button', ['label' => 'dd', 'shaped' => true])@endcomponent
-					@component('components.form.button', ['label' => 'dd', 'outlined' => true, 'shaped' => true])@endcomponent
+					@component('components.form.button', [
+						'label' => 'dd',
+						'outlined' => true,
+						'shaped' => true
+					])@endcomponent
 					@component('components.form.button', ['label' => 'dd', 'raised' => true, 'icon' => 'favorite'])@endcomponent
 				</div>
 				<div class="w-1/2"> col 2</div>

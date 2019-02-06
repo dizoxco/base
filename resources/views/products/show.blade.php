@@ -1,8 +1,21 @@
 @extends('layout')
 @section('content')
-    <div class="flex flex-wrap">
-        <div class="w-full p-4">
-            <div class="swiper simple -mx-6 px-10 overflow-hidden" column="3" >
+    <div class="flex flex-wrap bg-white">
+        <div class="w-3/5 p-4 flex flex-wrap">
+            <div class="w-full p-2 product-main-image">
+                {{$product->getMedia(enum('media.product.gallery'))[0]}}
+            </div>
+            {{-- product-thumbnails-vertical --}}
+            <div class="w-full swiper simple  -mx-4 overflow-hidden swiper-container-horizontal swiper-container-rtl">
+                <div class="thumbnails swiper-wrapper">
+                    @forelse($product->getMedia(enum('media.product.gallery')) as $picture)
+                    <div class="thumbs-slide py-2"><a href="{{$picture->getFullUrl()}}"><img src="{{$picture->getFullUrl()}}" class=""></a></div>
+                    @empty
+                    <div class="thumbs-slide py-2"><img src="https://dkstatics-public.digikala.com/digikala-products/4855241.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80" alt=""></div>
+                    @endforelse
+                </div>
+            </div>
+            {{-- <div class="swiper simple -mx-6 px-10 overflow-hidden" column="3" >
                 <div class="swiper-wrapper">
                     @forelse($product->getMedia(enum('media.product.gallery')) as $picture)
                         <img src="{{$picture->getFullUrl()}}" class="">
@@ -10,10 +23,29 @@
                         <img src="https://dkstatics-public.digikala.com/digikala-products/4855241.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80" alt="">
                     @endforelse
                 </div>
-            </div>
+            </div> --}}
         </div>
-        <div class="w-full">
-            <h1>{{$product->title}}</h1>
+        <div class="w-2/5 p-4">
+            <h1 class="headline">{{$product->title}}</h1>
+        </div>
+        <div class="w-full thumbnails-gallery ">
+            <div class="w-4/5 canvas relative">
+                <div class="">
+                    <img class="canvas-image" src=""> 
+                </div>
+            </div>
+            <div class="w-1/5 thumbs-container product-thumbnails-gallery  relative overflow-hidden" style="height: 94%; top: 3%;">
+                <div class="absolute pin-t pin-l h-full bg-white rounded-sm" style=" width: 7px;">
+                        <div class="scrollbar w-full absolute rounded-sm" style="height: 50%; background-color: rgba(0, 0, 0, .5);  transition: all .3s ease-out;"></div>
+                </div>
+                <div class="thumbs-wrapper" style="height: 100%; transition: all .3s ease-out;">
+                        @forelse($product->getMedia(enum('media.product.gallery')) as $picture)
+                        <div class="thumbs-slide swiper-slide center-align waves-effect waves-light py-2"><a href="{{$picture->getFullUrl()}}"><img src="{{$picture->getFullUrl()}}" class=""></a></div>
+                        @empty
+                        <div class="thumbs-slide py-2"><img src="https://dkstatics-public.digikala.com/digikala-products/4855241.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80" alt=""></div>
+                        @endforelse
+                </div>
+            </div>
         </div>
         <div class="w-full">
             <table class="table-auto">
