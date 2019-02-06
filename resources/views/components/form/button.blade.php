@@ -3,7 +3,7 @@
     $class = 'mdc-button';
     if(isset($outlined)) $class .= ' mdc-button--outlined';
     if(isset($raised)) $class .= ' mdc-button--raised';
-    if(isset($custom_class)) $class .= $custom_class;
+    // if(isset($custom_class)) $class .= $custom_class;
 @endphp
 <button class="{{$class}}" @isset($disabled) disabled @endisset>
     @isset($icon)
