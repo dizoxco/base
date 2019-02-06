@@ -22,6 +22,7 @@ class MediaGroupController extends Controller
 
     public function store(Request $request, MediaGroup $medium)
     {
-        $medium->addMediaFromRequest('media')->toMediaCollection('media_group_'.$medium->name);
+//        $medium->addMediaFromRequest('media')->toMediaCollection('media_group_'.$medium->name);
+        $medium->addMediaFromRequest('media')->toMediaCollection($medium->name);
     }
 }
