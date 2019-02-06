@@ -1,7 +1,14 @@
 <?php
 
 Route::any('lab', function () {
-    return auth_user()->permissions;
+    // return auth_user()->permissions;
+    $media = App\Models\MediaGroup::find(1)->getMedia('posts')[0];
+    foreach ($media->custom_properties['generated_conversions'] as $key => $generated) {
+        if ($generated)
+            echo $media->getUrl($key) . ' <br>'; 
+    }
+    // echo 'dd';
+    // dd($res);
 });
 
 // ==================================== Admin Section =========================

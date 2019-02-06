@@ -3,6 +3,7 @@ import Comments from './Comments';
 import Dashboard from './Dashboard';
 import Login from './Login';
 import MediaGroups from './MediaGroups';
+import MediaGroup from './MediaGroup';
 import Post from './Post';
 import Posts from './Posts';
 import Product from './Product';
@@ -21,6 +22,7 @@ export {
     Comments,
     Dashboard,
     Login,
+    MediaGroup,
     MediaGroups,
     Post,
     Posts,

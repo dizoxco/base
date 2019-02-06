@@ -23,7 +23,7 @@ class MediaGroups extends Component{
             >   
                 <Table
                     data={this.props.mediagroups}
-                    tdClick={(r) => this.props.history.push('/admin/posts/' + r.original.id)}
+                    tdClick={(r) => this.props.history.push('/admin/mediagroups/' + r.original.id)}
                     columns={[
                         {
                             Header: 'id',

@@ -18,7 +18,7 @@ export const PostReducer = (state = initialState, action) => {
         case 'SET-POST':
             let i = state.index.findIndex((e) => e.id == action.id );
             if(state.index[i].oldAttributes == undefined){
-                state.index[i].oldAttributes = state.index[i].attributes;                
+                state.index[i].oldAttributes = state.index[i].attributes;
             }
             state.index[i].attributes = { ...state.index[i].attributes, ...action.attributes };
             return state;
