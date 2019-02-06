@@ -2,14 +2,18 @@
 
 Route::any('lab', function () {
 });
-
 // ==================================== Admin Section =========================
 Route::view('admin', 'admin');
 Route::view('admin/{any}', 'admin')->where('any', '.*');
 // ==================================== End Admin Section =====================
 // ==================================== User Section ==========================
+Route::name('cart.')->prefix('cart')->group( function () {
+    Route::get('/{variation}', 'CartController@store')->name('store');
+    Route::delete('/', 'CartController@destroy')->name('destroy');
+});
 Route::name('profile.')->prefix('profile')->middleware('auth:web')->group(function () {
     Route::get('orders', 'ProfileController@orders')->name('orders');
+    Route::get('cart', 'CartController@index')->name('cart');
 });
 // ==================================== End Users profile Section  ============
 Route::get('/', 'PageController@home')->name('home');

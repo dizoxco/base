@@ -3,20 +3,50 @@
 namespace App\Listeners;
 
 use App\Events\User\UserStoreEvent;
+use App\Models\User;
 use App\Notifications\User\UserStoreNotification;
+use Illuminate\Auth\Events\Authenticated;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Registered;
 
 class UserEventSubscribers
 {
+    public function subscribe($event)
+    {
+        $event->listen(UserStoreEvent::class, self::class.'@onUserStore');
+        $event->listen(Authenticated::class, self::class.'@onUserLoggedIn');
+        $event->listen(Login::class, self::class.'@onUserLoggedIn');
+        $event->listen(Registered::class, self::class.'@onUserLoggedIn');
+    }
+
     public function onUserStore(UserStoreEvent $event)
     {
         $event->user->notify(new UserStoreNotification($event->user));
     }
 
-    public function subscribe($event)
+    public function onUserLoggedIn($event)
     {
-        $event->listen(
-            UserStoreEvent::class,
-            self::class.'@onUserStore'
-        );
+        $this->moveCartFromCookieToDatabase($event->user);
+
+	    $this->moveWishlistFromCookieToDatabase($event->user);
     }
+
+    private function moveCartFromCookieToDatabase($user)
+    {
+        if ($cart = json_decode(\Cookie::get('cart'), true)) {
+            foreach ($cart as $variation => $quantity) {
+                $user->cart()->updateOrCreate(
+                    [
+                        'user_id' => Auth::id(),
+                        'variation_id' => $variation,
+                    ],
+                    [
+                        'variation_id' => $variation,
+                        'quantity' => \DB::raw('quantity + 1')
+                    ]
+                );
+            }
+        }
+    }
+
 }
