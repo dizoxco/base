@@ -4,7 +4,6 @@ use App\Models\Tag;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Business;
-use App\Models\MediaGroup;
 use App\Models\Variation;
 use Illuminate\Database\Seeder;
 
@@ -43,7 +42,7 @@ class BusinessesTableSeeder extends Seeder
                 )->toArray());
 
                 $product->update([
-                    'variations' => $variations->pluck('id')->toJson()
+                    'variations' => $variations->pluck('id')->toJson(),
                 ]);
 
                 foreach (range(1, 3) as $item) {

@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Web;
 
+use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
 {
@@ -24,7 +24,7 @@ class LoginControllerTest extends TestCase
 
         $response = $this->post(route('web.authlogin'), [
             'email' => $user['email'],
-            'password' => '123456'
+            'password' => '123456',
         ]);
 
         $response->assertSessionMissing('errors');
@@ -37,13 +37,13 @@ class LoginControllerTest extends TestCase
     {
         $names = [
             '',
-            str_random(256)
+            str_random(256),
         ];
 
         $emails = [
             '',
             str_random(256),
-            factory(User::class)->create()->email
+            factory(User::class)->create()->email,
         ];
 
         $passwords = [

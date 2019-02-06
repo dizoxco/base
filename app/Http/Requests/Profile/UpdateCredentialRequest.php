@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Profile;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCredentialRequest extends FormRequest
 {
@@ -30,7 +30,7 @@ class UpdateCredentialRequest extends FormRequest
                 'string',
                 'email',
                 'max:255',
-                Rule::unique('users', 'email')->ignore(auth()->user()->id)
+                Rule::unique('users', 'email')->ignore(auth()->user()->id),
             ],
             'password' => 'string|min:6|confirmed',
         ];

@@ -2,10 +2,9 @@
 
 namespace Tests\Feature\Web;
 
-use App\Models\User;
 use Tests\TestCase;
+use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegisterControllerTest extends TestCase
 {
@@ -25,7 +24,7 @@ class RegisterControllerTest extends TestCase
             factory(User::class)->make()->toArray(),
             [
                 'password' => '123456789',
-                'password_confirmation' => '123456789'
+                'password_confirmation' => '123456789',
             ]
         );
 
@@ -46,13 +45,13 @@ class RegisterControllerTest extends TestCase
     {
         $names = [
             '',
-            str_random(256)
+            str_random(256),
         ];
 
         $emails = [
             '',
             str_random(256),
-            factory(User::class)->create()->email
+            factory(User::class)->create()->email,
         ];
 
         $passwords = [

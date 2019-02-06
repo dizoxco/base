@@ -11,7 +11,7 @@ class Chat extends Model
     protected $fillable = ['type', 'attribute'];
 
     protected $casts = [
-        'attribute' => 'array'
+        'attribute' => 'array',
     ];
 
     public function users() : BelongsToMany
@@ -30,6 +30,7 @@ class Chat extends Model
         if (array_key_exists($key, $attr)) {
             return $attr[$key];
         }
+
         return parent::__get($key);
     }
 

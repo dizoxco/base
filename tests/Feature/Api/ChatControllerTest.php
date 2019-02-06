@@ -347,7 +347,7 @@ class ChatControllerTest extends TestCase
         $chat = random_int(1, mt_getrandmax());
         $response = $this->getJson($this->routeShow($chat));
         $response->assertStatus(Response::HTTP_NOT_FOUND)
-            ->assertJsonStructure(['errors','message']);
+            ->assertJsonStructure(['errors', 'message']);
     }
 
     /**
@@ -373,7 +373,7 @@ class ChatControllerTest extends TestCase
             $response->assertSuccessful()
                 ->assertJsonStructure([
                     'data'   =>  [
-                        'id', 'type', 'attributes', 'relations'
+                        'id', 'type', 'attributes', 'relations',
                     ],
                 ]);
         }
@@ -390,7 +390,7 @@ class ChatControllerTest extends TestCase
         $data = $this->dataProvider()->withPutMethod()->getData();
         $response = $this->postJson($this->routeUpdate($chat), $data);
         $response->assertStatus(Response::HTTP_NOT_FOUND)
-            ->assertJsonStructure(['message','errors']);
+            ->assertJsonStructure(['message', 'errors']);
     }
 
     /**

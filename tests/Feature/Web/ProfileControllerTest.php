@@ -6,7 +6,6 @@ use Tests\TestCase;
 
 class ProfileControllerTest extends TestCase
 {
-
     public function testOrders()
     {
         $response = $this->signInFromWeb()->get(route('profile.orders'));
@@ -54,5 +53,4 @@ class ProfileControllerTest extends TestCase
         $response = $this->signInFromWeb()->get(route('profile.info'));
         $response->assertSuccessful()->assertViewIs('profile.info');
     }
-
 }

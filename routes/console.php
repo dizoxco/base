@@ -24,7 +24,7 @@ Artisan::command('purge', function () {
 })->describe('Clears the framework from temporary files');
 
 Artisan::command('session:flush', function () {
-   Session::flush();
-   Storage::disk('root')->deleteDirectory('framework/sessions');
-   Storage::disk('root')->makeDirectory('framework/sessions');
+    Session::flush();
+    Storage::disk('root')->deleteDirectory('framework/sessions');
+    Storage::disk('root')->makeDirectory('framework/sessions');
 });

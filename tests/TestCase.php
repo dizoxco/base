@@ -56,6 +56,7 @@ class TestCase extends BaseTestCase
             'Content-Type'      =>  enum('system.response.json'),
             'X-Requested-With'  =>  enum('system.request.xhr'),
         ];
+
         return $this->withHeaders($headers);
     }
 

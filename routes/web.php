@@ -12,12 +12,12 @@ Route::name('web.auth')->prefix('auth')->group(function () {
     Auth::routes();
 });
 // ==================================== Users profile Section =================
-Route::name('cart.')->prefix('cart')->group( function () {
+Route::name('cart.')->prefix('cart')->group(function () {
     Route::get('/{variation}', 'CartController@store')->name('store');
     Route::delete('/', 'CartController@destroy')->name('destroy');
 });
 
-Route::name('wishlist.')->prefix('wishlist')->group( function () {
+Route::name('wishlist.')->prefix('wishlist')->group(function () {
     Route::get('/{product}', 'WishlistController@store')->name('store');
     Route::delete('/', 'WishlistController@destroy')->name('destroy');
 });

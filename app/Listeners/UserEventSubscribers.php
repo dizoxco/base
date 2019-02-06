@@ -2,12 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\User\UserStoreEvent;
-use App\Models\User;
-use App\Notifications\User\UserStoreNotification;
-use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Auth\Events\Login;
+use App\Events\User\UserStoreEvent;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Events\Authenticated;
+use App\Notifications\User\UserStoreNotification;
 
 class UserEventSubscribers
 {
@@ -28,7 +27,7 @@ class UserEventSubscribers
     {
         $this->moveCartFromCookieToDatabase($event->user);
 
-	    $this->moveWishlistFromCookieToDatabase($event->user);
+        $this->moveWishlistFromCookieToDatabase($event->user);
     }
 
     private function moveCartFromCookieToDatabase($user)
@@ -42,17 +41,17 @@ class UserEventSubscribers
                     ],
                     [
                         'variation_id' => $variation,
-                        'quantity' => \DB::raw('quantity + 1')
+                        'quantity' => \DB::raw('quantity + 1'),
                     ]
                 );
             }
         }
     }
 
-	private function moveWishlistFromCookieToDatabase($user)
-	{
-		if ($wishlist = json_decode(\Cookie::get('wishlist'), true)) {
-			$user->cart()->sync(array_keys($wishlist));
-		}
-	}
+    private function moveWishlistFromCookieToDatabase($user)
+    {
+        if ($wishlist = json_decode(\Cookie::get('wishlist'), true)) {
+            $user->cart()->sync(array_keys($wishlist));
+        }
+    }
 }

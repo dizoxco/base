@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Order;
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Variation;
 use Illuminate\Database\Seeder;
 
@@ -27,7 +27,7 @@ class OrdersTableSeeder extends Seeder
                 foreach ($variations as $variation) {
                     $sql[$order->id] = $variation;
                 }
-                /** @var Order $order */
+                /* @var Order $order */
                 $order->variations()->sync($sql, false);
                 $sql = null;
             }
