@@ -47,7 +47,7 @@ class SearchPanel extends Model
         }
 
 //        dd($this->builder->toSql());
-        return $this->builder->with($with)->paginate(request('per_page', 10));
+        return $this->builder->with($with)->paginate(request('per_page', 12));
     }
 
     private function optTags()

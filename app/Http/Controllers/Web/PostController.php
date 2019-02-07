@@ -12,7 +12,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = PostRepo::getAll(['per_page' => 10]);
+        $posts = Post::paginate(12);
 
         return view('web.posts.index', compact('posts'));
     }
