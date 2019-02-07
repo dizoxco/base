@@ -3300,12 +3300,16 @@ table {
   height: 100%;
 }
 
-.h-screen {
-  height: 100vh;
+.h-screen\/15 {
+  height: 15vh;
 }
 
 .h-screen\/7 {
   height: 70vh;
+}
+
+.h-screen {
+  height: 100vh;
 }
 
 .leading-none {
@@ -6391,6 +6395,14 @@ table {
 
 .w-1\/6 {
   width: 16.66667%;
+}
+
+.w-1\/7 {
+  width: 14.2857%;
+}
+
+.w-1\/8 {
+  width: 12.5%;
 }
 
 .w-5\/6 {
@@ -9887,12 +9899,16 @@ span[class^="MuiPrivateTabIndicator"]:before {
     height: 100%;
   }
 
-  .sm\:h-screen {
-    height: 100vh;
+  .sm\:h-screen\/15 {
+    height: 15vh;
   }
 
   .sm\:h-screen\/7 {
     height: 70vh;
+  }
+
+  .sm\:h-screen {
+    height: 100vh;
   }
 
   .sm\:leading-none {
@@ -12964,6 +12980,14 @@ span[class^="MuiPrivateTabIndicator"]:before {
     width: 16.66667%;
   }
 
+  .sm\:w-1\/7 {
+    width: 14.2857%;
+  }
+
+  .sm\:w-1\/8 {
+    width: 12.5%;
+  }
+
   .sm\:w-5\/6 {
     width: 83.33333%;
   }
@@ -15797,12 +15821,16 @@ span[class^="MuiPrivateTabIndicator"]:before {
     height: 100%;
   }
 
-  .md\:h-screen {
-    height: 100vh;
+  .md\:h-screen\/15 {
+    height: 15vh;
   }
 
   .md\:h-screen\/7 {
     height: 70vh;
+  }
+
+  .md\:h-screen {
+    height: 100vh;
   }
 
   .md\:leading-none {
@@ -18874,6 +18902,14 @@ span[class^="MuiPrivateTabIndicator"]:before {
     width: 16.66667%;
   }
 
+  .md\:w-1\/7 {
+    width: 14.2857%;
+  }
+
+  .md\:w-1\/8 {
+    width: 12.5%;
+  }
+
   .md\:w-5\/6 {
     width: 83.33333%;
   }
@@ -21707,12 +21743,16 @@ span[class^="MuiPrivateTabIndicator"]:before {
     height: 100%;
   }
 
-  .lg\:h-screen {
-    height: 100vh;
+  .lg\:h-screen\/15 {
+    height: 15vh;
   }
 
   .lg\:h-screen\/7 {
     height: 70vh;
+  }
+
+  .lg\:h-screen {
+    height: 100vh;
   }
 
   .lg\:leading-none {
@@ -24784,6 +24824,14 @@ span[class^="MuiPrivateTabIndicator"]:before {
     width: 16.66667%;
   }
 
+  .lg\:w-1\/7 {
+    width: 14.2857%;
+  }
+
+  .lg\:w-1\/8 {
+    width: 12.5%;
+  }
+
   .lg\:w-5\/6 {
     width: 83.33333%;
   }
@@ -27617,12 +27665,16 @@ span[class^="MuiPrivateTabIndicator"]:before {
     height: 100%;
   }
 
-  .xl\:h-screen {
-    height: 100vh;
+  .xl\:h-screen\/15 {
+    height: 15vh;
   }
 
   .xl\:h-screen\/7 {
     height: 70vh;
+  }
+
+  .xl\:h-screen {
+    height: 100vh;
   }
 
   .xl\:leading-none {
@@ -30692,6 +30744,14 @@ span[class^="MuiPrivateTabIndicator"]:before {
 
   .xl\:w-1\/6 {
     width: 16.66667%;
+  }
+
+  .xl\:w-1\/7 {
+    width: 14.2857%;
+  }
+
+  .xl\:w-1\/8 {
+    width: 12.5%;
   }
 
   .xl\:w-5\/6 {

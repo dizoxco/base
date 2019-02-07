@@ -80,25 +80,69 @@ module.exports = __webpack_require__(169);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_swiper__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_auto_init__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_auto_init___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_auto_init__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_textfield__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_textfield___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_textfield__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_textfield_icon__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_swiper__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_auto_init__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_auto_init___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_auto_init__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_textfield__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_textfield___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_textfield__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_textfield_icon__ = __webpack_require__(164);
+// import $ from 'jquery';
 
+window.$ = window.jQuery = __webpack_require__(159);
 
+if ($('.product-gallery').length) {
+    var productGalleryUpdate = function productGalleryUpdate() {
+        $('.product-gallery .banner').html($('.product-gallery .swiper img').clone()[productGalleryIndex]);
+    };
 
-__WEBPACK_IMPORTED_MODULE_0_jquery___default()('.swiper.simple').each(function () {
-    new __WEBPACK_IMPORTED_MODULE_1_swiper__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this), {
+    var productGalleryIndex = 0;
+    var productGalleryCount = $('.product-gallery .swiper-slide').length;
+    var productGallery = new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]('.product-gallery .swiper', {
         speed: 400,
         spaceBetween: 0,
-        direction: __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).attr('direction') ? __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).attr('direction') : 'horizontal',
-        slidesPerView: __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).attr('column'),
+        direction: 'vertical',
+        slidesPerView: 4,
+        autoplay: false,
+        loop: false
+    });
+
+    $('.product-gallery .prev').click(function () {
+        if (productGalleryIndex > 0) {
+            productGalleryIndex--;
+            productGallery.slidePrev();
+            productGalleryUpdate();
+        }
+    });
+    $('.product-gallery .next').click(function () {
+        if (productGalleryIndex < productGalleryCount - 1) {
+            productGallery.slideNext();
+            productGalleryIndex++;
+            productGalleryUpdate();
+        }
+    });
+    $('.product-gallery .swiper-slide').click(function () {
+        productGalleryIndex = $(this).index();
+        productGalleryUpdate();
+    });
+    jQuery('.product-gallery .swiper').on('mousewheel DOMMouseScroll', function (e) {
+        if (e.originalEvent.wheelDelta > 0 || e.originalEvent.detail < 0) {
+            // if (topThumb > 0) thumbsMoveUp(1);
+            productGallery.slidePrev();
+        } else {
+            productGallery.slideNext();
+            // if (topThumb < (thumbsCount - 5)) thumbsMoveDown(1);
+        }
+    });
+}
+
+$('.swiper.simple').each(function () {
+    new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($(this), {
+        speed: 400,
+        spaceBetween: 0,
+        direction: $(this).attr('direction') ? $(this).attr('direction') : 'horizontal',
+        slidesPerView: $(this).attr('column'),
         autoplay: true,
-        loop: true
+        loop: false
     });
 });
 
@@ -107,8 +151,8 @@ __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.swiper.simple').each(function (
 
 // import {MDCRipple} from '@material/ripple';
 
-__WEBPACK_IMPORTED_MODULE_2__material_auto_init___default.a.register('mdc-text-field', __WEBPACK_IMPORTED_MODULE_3__material_textfield__["MDCTextField"]);
-__WEBPACK_IMPORTED_MODULE_2__material_auto_init___default.a.register('mdc-text-field-icon', __WEBPACK_IMPORTED_MODULE_4__material_textfield_icon__["a" /* MDCTextFieldIcon */]);
+__WEBPACK_IMPORTED_MODULE_1__material_auto_init___default.a.register('mdc-text-field', __WEBPACK_IMPORTED_MODULE_2__material_textfield__["MDCTextField"]);
+__WEBPACK_IMPORTED_MODULE_1__material_auto_init___default.a.register('mdc-text-field-icon', __WEBPACK_IMPORTED_MODULE_3__material_textfield_icon__["a" /* MDCTextFieldIcon */]);
 
 // const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));
 
@@ -120,7 +164,13 @@ __WEBPACK_IMPORTED_MODULE_2__material_auto_init___default.a.register('mdc-text-f
 // const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));
 // mdcAutoInit.register('mdc-ripple', MDCRipple);
 // MDCRipple.attachTo(document.querySelector('.mdc-button'));
-__WEBPACK_IMPORTED_MODULE_2__material_auto_init___default()();
+__WEBPACK_IMPORTED_MODULE_1__material_auto_init___default()();
+
+$('.toggler').click(function () {
+    console.log('dd');
+
+    $($(this).attr('toggle-target')).toggleClass($(this).attr('toggle-class'));
+});
 
 /***/ }),
 

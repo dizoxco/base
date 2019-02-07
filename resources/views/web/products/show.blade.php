@@ -19,19 +19,19 @@
                 @endforeach
             </div>
         </div>
-        <div class="w-1/6">
+        <div class="w-1/6 product-images">
             <div class="swiper simple overflow-hidden h-screen/7" column="3" direction="vertical" >
                 <div class="swiper-wrapper">
-                    @foreach ($gallery as $media)
+                    @foreach ($gallery as $i => $media)
                         <div class="swiper-slide w-full">
-                            <img class="w-full absolute pin-y m-auto" src="{{$media->getFullUrl()}}" alt="">
+                            <img class="w-full absolute pin-y m-auto" media-gallery="{{1+$i}}" src="{{$media->getFullUrl()}}" alt="">
                         </div>
                     @endforeach
                 </div>
             </div>
         </div>
-        <div class="w-1/2 p-4 flex flex-wrap items-center">
-            <img class="hidden md:block" src="{{$product->getMedia(enum('media.product.banner'))[0]->getFullUrl()}}" alt="">
+        <div class="w-1/2 p-4 flex flex-wrap items-center product-image">
+            <img class="hidden md:block" media-gallery="0" src="{{$banner->getFullUrl()}}" alt="">
         </div>
         <div class="md:w-1/3 p-4">
             <h1 class="headline">{{$product->title}}</h1>
@@ -39,7 +39,46 @@
                 افزودن به علاقه مندی ها
             </a>
         </div>
-            
+        
+
+        <div class="product-gallery bg-white hidden pin-y pin-x w-full h-full z-50 ">
+                <div class="w-full flex">
+                    <div class="w-1/8 bg-yellow flex flex-col">
+                        <div class="close bg-blue h-screen/15 flex items-center justify-center toggler" toggle-target=".product-gallery" toggle-class="hidden fixed flex">
+                            <i class="material-icons">close</i>
+                        </div>
+                        <div class="prev bg-red w-full flex items-center justify-center h-screen/7">
+                            <i class="material-icons">chevron_right</i>
+                        </div>
+                    </div>
+                    <div class="banner w-full flex items-center justify-center">
+                        <img src="{{$banner->getFullUrl()}}" >
+                    </div>
+                    <div class="w-1/8 bg-yellow flex items-center justify-center">
+                        <div class="next bg-red w-full flex items-center justify-center h-screen/7">
+                            <i class="material-icons">chevron_left</i>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-1/7 b-r">
+                    <div class="swiper  overflow-hidden h-full" column="5" direction="vertical" >
+                        <div class="swiper-wrapper">
+                            @foreach ($gallery as $media)
+                                <div class="swiper-slide flex items-center">
+                                    <img src="{{$media->getFullUrl()}}" >
+                                </div>
+                            @endforeach
+                            @foreach ($gallery as $media)
+                                <div class="swiper-slide flex items-center">
+                                    <img src="{{$media->getFullUrl()}}" >
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+
         <div class="w-full">
             <table class="table-auto">
                 <h2 class="bg-green-dark">فروشندگان</h2>
