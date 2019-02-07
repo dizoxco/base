@@ -1,29 +1,34 @@
 @extends('layout')
+@php
+    $banner = $product->getMedia(enum('media.product.banner'))[0];
+    $gallery = $product->getMedia(enum('media.product.gallery'));
+@endphp
 @section('content')
-    <div class="flex flex-wrap bg-white">
-        <div class="w-3/5 p-4 flex flex-wrap">
-            <div class="w-full p-2 product-main-image">
-                {{$product->getMedia(enum('media.product.gallery'))[0]}}
-            </div>
-            {{-- product-thumbnails-vertical --}}
-            <div class="w-full swiper simple  -mx-4 overflow-hidden swiper-container-horizontal swiper-container-rtl">
-                <div class="thumbnails swiper-wrapper">
-                    @forelse($product->getMedia(enum('media.product.gallery')) as $picture)
-                    <div class="thumbs-slide py-2"><a href="{{$picture->getFullUrl()}}"><img src="{{$picture->getFullUrl()}}" class=""></a></div>
-                    @empty
-                    <div class="thumbs-slide py-2"><img src="https://dkstatics-public.digikala.com/digikala-products/4855241.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80" alt=""></div>
-                    @endforelse
+    <div class="flex flex-wrap bg-white container">
+        <div class="swiper simple -mx-4 overflow-hidden md:hidden" column="1" >
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="{{$banner->getFullUrl()}}" alt="">
                 </div>
+                @foreach ($gallery as $media)
+                    <div class="swiper-slide">
+                        <div class="p-4">
+                            <img src="{{$media->getFullUrl()}}" alt="">
+                        </div>
+                    </div>
+                @endforeach
             </div>
-            {{-- <div class="swiper simple -mx-6 px-10 overflow-hidden" column="3" >
+        </div>
+        <div class="w-1/6">
+            <div class="swiper simple overflow-hidden h-screen/7" column="3" direction="vertical" >
                 <div class="swiper-wrapper">
-                    @forelse($product->getMedia(enum('media.product.gallery')) as $picture)
-                        <img src="{{$picture->getFullUrl()}}" class="">
-                    @empty
-                        <img src="https://dkstatics-public.digikala.com/digikala-products/4855241.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80" alt="">
-                    @endforelse
+                    @foreach ($gallery as $media)
+                        <div class="swiper-slide w-full">
+                            <img class="w-full absolute pin-y m-auto" src="{{$media->getFullUrl()}}" alt="">
+                        </div>
+                    @endforeach
                 </div>
-            </div> --}}
+            </div>
         </div>
         <div class="w-2/5 p-4">
             <h1 class="headline">{{$product->title}}</h1>
@@ -34,30 +39,13 @@
                 ])@endcomponent
             </div>
         </div>
-        <div class="w-full thumbnails-gallery ">
-            <div class="w-4/5 canvas relative">
-                <div class="">
-                    <img class="canvas-image" src=""> 
-                </div>
-            </div>
-            <div class="w-1/5 thumbs-container product-thumbnails-gallery  relative overflow-hidden" style="height: 94%; top: 3%;">
-                <div class="absolute pin-t pin-l h-full bg-white rounded-sm" style=" width: 7px;">
-                        <div class="scrollbar w-full absolute rounded-sm" style="height: 50%; background-color: rgba(0, 0, 0, .5);  transition: all .3s ease-out;"></div>
-                </div>
-                <div class="thumbs-wrapper" style="height: 100%; transition: all .3s ease-out;">
-                        @forelse($product->getMedia(enum('media.product.gallery')) as $picture)
-                        <div class="thumbs-slide swiper-slide center-align waves-effect waves-light py-2"><a href="{{$picture->getFullUrl()}}"><img src="{{$picture->getFullUrl()}}" class=""></a></div>
-                        @empty
-                        <div class="thumbs-slide py-2"><img src="https://dkstatics-public.digikala.com/digikala-products/4855241.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80" alt=""></div>
-                        @endforelse
-                </div>
-            </div>
-        <div class="w-full">
-            <h1>{{$product->title}}</h1>
+        <div class="md:w-1/3 p-4">
+            <h1 class="headline">{{$product->title}}</h1>
             <a href="{{ route('wishlist.store', $product->slug) }}">
                 افزودن به علاقه مندی ها
             </a>
         </div>
+            
         <div class="w-full">
             <table class="table-auto">
                 <h2 class="bg-green-dark">فروشندگان</h2>

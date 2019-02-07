@@ -151,5 +151,3 @@ Route::middleware('auth:api')->group(function () {
 Route::name('search.')->prefix('searchs')->group(function () {
     Route::get('/{search_panel}', 'SearchController@show')->name('show');
 });
-
-

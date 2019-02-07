@@ -28,9 +28,11 @@ class MediaResource extends Resource
                 $this->mergeWhen($this->dates(), $this->dates()),
             ],
         ];
-        foreach ($this->custom_properties['generated_conversions'] as $key => $generated) {
-            if ($generated){
-                $resource['attributes']['conversions'][$key]['url'] = $this->getUrl($key);
+        if(isset($this->custom_properties['generated_conversions'])){
+            foreach ($this->custom_properties['generated_conversions'] as $key => $generated) {
+                if ($generated){
+                    $resource['attributes']['conversions'][$key]['url'] = $this->getUrl($key);
+                }
             }
         }
 

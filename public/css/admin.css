@@ -3304,6 +3304,10 @@ table {
   height: 100vh;
 }
 
+.h-screen\/7 {
+  height: 70vh;
+}
+
 .leading-none {
   line-height: 1;
 }
@@ -9895,6 +9899,10 @@ span[class^="MuiPrivateTabIndicator"]:before {
     height: 100vh;
   }
 
+  .sm\:h-screen\/7 {
+    height: 70vh;
+  }
+
   .sm\:leading-none {
     line-height: 1;
   }
@@ -15811,6 +15819,10 @@ span[class^="MuiPrivateTabIndicator"]:before {
 
   .md\:h-screen {
     height: 100vh;
+  }
+
+  .md\:h-screen\/7 {
+    height: 70vh;
   }
 
   .md\:leading-none {
@@ -21731,6 +21743,10 @@ span[class^="MuiPrivateTabIndicator"]:before {
     height: 100vh;
   }
 
+  .lg\:h-screen\/7 {
+    height: 70vh;
+  }
+
   .lg\:leading-none {
     line-height: 1;
   }
@@ -27647,6 +27663,10 @@ span[class^="MuiPrivateTabIndicator"]:before {
 
   .xl\:h-screen {
     height: 100vh;
+  }
+
+  .xl\:h-screen\/7 {
+    height: 70vh;
   }
 
   .xl\:leading-none {
