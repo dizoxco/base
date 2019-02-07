@@ -23,7 +23,7 @@ class SearchPanelController extends Controller
         if ($searchPanel->model === Business::class) {
             $businesses = $searchPanel->result($request);
 
-            return view('searchpanels.businesses', compact('options', 'businesses'));
+            return view('web.businesses.search', compact('options', 'businesses'));
         }
     }
 }

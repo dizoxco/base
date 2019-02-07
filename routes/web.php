@@ -2,14 +2,65 @@
 
 Auth::routes();
 Route::any('lab', function () {
-    // return auth_user()->permissions;
-    $media = App\Models\MediaGroup::find(1)->getMedia('posts')[0];
-    foreach ($media->custom_properties['generated_conversions'] as $key => $generated) {
-        if ($generated)
-            echo $media->getUrl($key) . ' <br>'; 
-    }
-    // echo 'dd';
-    // dd($res);
+    \App\Models\SearchPanel::find(3)->update([
+        'title' => 'کسب و کارها',
+        'slug' => 'businesses',
+        'description' => 'businesses',
+        'model' => \App\Models\Business::class,
+        'options' => [
+            'order' => [
+                'label' => 'مرتب سازی',
+                'query' => 'order',
+                'order' => [
+                    ['label' => 'برحسب عنوان', 'column' => 'brand', 'dir' => 'asc'],
+                    ['label' => 'جدیدترین', 'column' => 'created_at', 'dir' => 'desc'],
+                    ['label' => 'قدیمی ترین', 'column' => 'created_at', 'dir' => 'asc'],
+                ],
+            ],
+            'brand' => [
+                'label' => 'نام',
+                'query' => 'like',
+                'like' => 'brand,',
+            ],
+            'types' => [
+                'label' => 'نوع کسب و کار',
+                'query' => 'tag',
+                'tag' => \App\Models\Taxonomy::whereSlug('types')
+                    ->first()
+                    ->tags()
+                    ->select(['id', 'label'])
+                    ->get()
+                    ->toArray(),
+            ],
+            'fields' => [
+                'label' => 'زمینه کسب و کار',
+                'query' => 'tag',
+                'tag' => \App\Models\Taxonomy::whereSlug('fields')
+                    ->first()
+                    ->tags()
+                    ->select(['id', 'label'])
+                    ->get()
+                    ->toArray(),
+            ],
+            'contract' => [
+                'label' => 'نوع قرارداد',
+                'query' => 'tag',
+                'tag' => \App\Models\Taxonomy::whereSlug('contracts')
+                    ->first()
+                    ->tags()
+                    ->select(['id', 'label'])
+                    ->get()
+                    ->toArray(),
+            ],
+        ],
+        'filters' => [
+            'forms' => [
+                'query' => '>',
+                'field' => 'id',
+                'items' => '0',
+            ],
+        ],
+    ]);
 });
 // ==================================== Admin Section =========================
 Route::view('admin', 'admin');

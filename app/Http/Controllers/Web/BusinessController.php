@@ -12,6 +12,6 @@ class BusinessController extends Controller
     {
         $recent = BusinessRepo::getRecent();
 
-        return view('businesses.show', compact('business', 'recent'));
+        return view('web.businesses.show', compact('business', 'recent'));
     }
 }
