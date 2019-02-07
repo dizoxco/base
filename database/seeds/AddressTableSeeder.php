@@ -10,9 +10,9 @@ class AddressTableSeeder extends Seeder
     {
         $addresses = factory(Address::class, 1000)->make()->toArray();
         $users = User::inRandomOrder()->pluck('id')->toArray();
-        array_walk($addresses, function (&$address) use ($users) {
-            $address['user_id'] = array_shift($users);
-        });
+        foreach ($addresses as $index => $address) {
+            $addresses[$index]['user_id'] = array_shift($users);
+        }
         Address::insert($addresses);
     }
 }

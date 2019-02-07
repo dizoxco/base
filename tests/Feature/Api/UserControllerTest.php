@@ -43,7 +43,7 @@ class UserControllerTest extends TestCase
         $this->app->make(PermissionRegistrar::class)->registerPermissions();
     }
 
-    protected function login(User $user = null)
+    protected function signInFromWeb(User $user = null)
     {
         return $this->clearConfigurationCache()->installPassport()->signInFromApi($user);
     }
@@ -162,7 +162,7 @@ class UserControllerTest extends TestCase
     public function it_must_authorized_user_without_manage_users_permission_have_not_access_to_user_list()
     {
         factory(User::class, 5)->create();
-        $response = $this->login()->withMiddleware()->getJson($this->routeIndex());
+        $response = $this->signInFromWeb()->withMiddleware()->getJson($this->routeIndex());
         $response
             ->assertStatus(Response::HTTP_UNAUTHORIZED)
             ->assertHeader('Content-Type', enum('system.response.json'))
@@ -184,7 +184,7 @@ class UserControllerTest extends TestCase
         $this->assertTrue($user->hasRole('admin'));
         $this->assertTrue($user->hasPermissionTo('manage_users', 'api'));
 
-        $response = $this->login($user)->getJson($this->routeIndex());
+        $response = $this->signInFromWeb($user)->getJson($this->routeIndex());
         $response
             ->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
@@ -203,7 +203,7 @@ class UserControllerTest extends TestCase
     public function it_must_always_return_user_resource()
     {
         $user = $this->userWithManageUsersPermission();
-        $response = $this->login($user)->getJson($this->routeIndex());
+        $response = $this->signInFromWeb($user)->getJson($this->routeIndex());
         $response
             ->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
@@ -223,7 +223,7 @@ class UserControllerTest extends TestCase
     {
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->without('name');
-        $response = $this->login($user)->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
@@ -244,7 +244,7 @@ class UserControllerTest extends TestCase
     {
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->without('email');
-        $response = $this->login($user)->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
@@ -266,7 +266,7 @@ class UserControllerTest extends TestCase
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->without('email');
         $data['email'] = str_random();
-        $response = $this->login($user)->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
@@ -289,7 +289,7 @@ class UserControllerTest extends TestCase
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->without('email');
         $data['email'] = $user->email;
-        $response = $this->login($user)->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
@@ -311,7 +311,7 @@ class UserControllerTest extends TestCase
     {
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->without('password');
-        $response = $this->login($user)->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
@@ -331,7 +331,7 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_store_request_that_does_not_contain_string_password()
     {
-        $this->login($this->userWithManageUsersPermission());
+        $this->signInFromWeb($this->userWithManageUsersPermission());
         $data = $this->dataProvider()->without('password');
 
         $invalidPasswords = [null, false, true, [], ''];
@@ -358,7 +358,7 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_store_request_that_does_not_contain_a_least_six_char_password()
     {
-        $this->login($this->userWithManageUsersPermission());
+        $this->signInFromWeb($this->userWithManageUsersPermission());
         $data = $this->dataProvider()->without('password');
 
         for ($i = 0; $i < 6; $i++) {
@@ -384,7 +384,7 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_store_request_that_contain_more_than_thirty_char_password()
     {
-        $this->login($this->userWithManageUsersPermission());
+        $this->signInFromWeb($this->userWithManageUsersPermission());
         $data = $this->dataProvider()->without('password');
 
         $prime_number = [31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
@@ -414,7 +414,7 @@ class UserControllerTest extends TestCase
     {
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->without('password_confirmation');
-        $response = $this->login($user)->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
@@ -434,7 +434,7 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_store_request_that_contain_none_image_avatar()
     {
-        $this->login($this->userWithManageUsersPermission());
+        $this->signInFromWeb($this->userWithManageUsersPermission());
         $data = $this->dataProvider()->without('avatar');
 
         $invalidImages = [
@@ -467,7 +467,7 @@ class UserControllerTest extends TestCase
     {
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->getData();
-        $response = $this->login($user)->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeStore(), $data);
         $response
             ->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
@@ -496,7 +496,7 @@ class UserControllerTest extends TestCase
     {
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->getData();
-        $response = $this->login($user)->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertSuccessful()
@@ -525,7 +525,7 @@ class UserControllerTest extends TestCase
     {
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->getData();
-        $response = $this->login($user)->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertSuccessful()
@@ -555,7 +555,7 @@ class UserControllerTest extends TestCase
         Event::fake();
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->getData();
-        $response = $this->login($user)->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeStore(), $data);
 
         $response
             ->assertSuccessful()
@@ -586,7 +586,7 @@ class UserControllerTest extends TestCase
     {
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->withPutMethod()->without('name');
-        $response = $this->login($user)->postJson($this->routeUpdate($user), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeUpdate($user), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
@@ -611,7 +611,7 @@ class UserControllerTest extends TestCase
     {
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->withPutMethod()->without('email');
-        $response = $this->login($user)->postJson($this->routeUpdate($user), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeUpdate($user), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
@@ -638,7 +638,7 @@ class UserControllerTest extends TestCase
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->withPutMethod()->without('email');
         $data['email'] = str_random();
-        $response = $this->login($user)->postJson($this->routeUpdate($user), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeUpdate($user), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
@@ -669,7 +669,7 @@ class UserControllerTest extends TestCase
         $data = $this->dataProvider()->withPutMethod()->without('email');
         $data['email'] = $another_user->email;
 
-        $response = $this->login($user)->postJson($this->routeUpdate($user), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeUpdate($user), $data);
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
@@ -700,7 +700,7 @@ class UserControllerTest extends TestCase
     {
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->withPutMethod()->without('password');
-        $response = $this->login($user)->postJson($this->routeUpdate($user), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeUpdate($user), $data);
 
         $response
             ->assertStatus(Response::HTTP_OK)
@@ -719,7 +719,7 @@ class UserControllerTest extends TestCase
      */
     public function it_should_accept_user_update_request_that_does_not_contain_string_password()
     {
-        $this->login($user = $this->userWithManageUsersPermission());
+        $this->signInFromWeb($user = $this->userWithManageUsersPermission());
         $data = $this->dataProvider()->withPutMethod()->without('password');
 
         $data['password'] = null;
@@ -736,7 +736,7 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_update_request_that_does_not_contain_a_least_six_char_password()
     {
-        $this->login($user = $this->userWithManageUsersPermission());
+        $this->signInFromWeb($user = $this->userWithManageUsersPermission());
         $data = $this->dataProvider()->withPutMethod()->without('password');
 
         for ($i = 1; $i < 6; $i++) {
@@ -766,7 +766,7 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_update_request_that_contain_more_than_thirty_char_password()
     {
-        $this->login($user = $this->userWithManageUsersPermission());
+        $this->signInFromWeb($user = $this->userWithManageUsersPermission());
         $data = $this->dataProvider()->withPutMethod()->without('password');
 
         $prime_number = [31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
@@ -801,7 +801,7 @@ class UserControllerTest extends TestCase
     {
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->withPutMethod()->without('password_confirmation');
-        $response = $this->login($user)->postJson($this->routeUpdate($user), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeUpdate($user), $data);
 
         $response
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
@@ -826,7 +826,7 @@ class UserControllerTest extends TestCase
      */
     public function it_must_reject_user_update_request_that_contain_none_image_avatar()
     {
-        $this->login($user = $this->userWithManageUsersPermission());
+        $this->signInFromWeb($user = $this->userWithManageUsersPermission());
         $data = $this->dataProvider()->withPutMethod()->without('avatar');
 
         $invalidImages = [
@@ -864,7 +864,7 @@ class UserControllerTest extends TestCase
     {
         $user = $this->userWithManageUsersPermission();
         $data = $this->dataProvider()->withPutMethod()->getData();
-        $response = $this->login($user)->postJson($this->routeUpdate($user), $data);
+        $response = $this->signInFromWeb($user)->postJson($this->routeUpdate($user), $data);
         $response
             ->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))

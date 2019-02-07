@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PostsTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
         $this->call(BusinessesTableSeeder::class);
+        $this->call(CartsTableSeeder::class);
+        $this->call(OrdersTableSeeder::class);
         $this->call(SearchPanelTableSeeder::class);
         Storage::deleteDirectory('tmp');
     }

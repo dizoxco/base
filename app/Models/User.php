@@ -12,7 +12,6 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -44,7 +43,7 @@ class User extends Authenticatable implements HasMedia
     //  =============================== End Accessor ==========================
 
     //  =============================== Relationships =========================
-    public function address(): HasMany
+    public function addresses(): HasMany
     {
         return $this->hasMany(Address::class, 'user_id', 'id');
     }
@@ -53,11 +52,6 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(Post::class, 'user_id', 'id');
     }
-
-    // public function avatar() : MorphOne
-    // {
-    //     return $this->morphOne(Media::class, 'model');
-    // }
 
     public function chats() : BelongsToMany
     {
@@ -84,7 +78,7 @@ class User extends Authenticatable implements HasMedia
 
     public function wishlist()
     {
-        return $this->hasMany(Wishlist::class, 'user_id', 'id');
+        return $this->belongsToMany(Product::class, 'wishlists', 'user_id', 'product_id');
     }
 
     public function cart()
@@ -115,7 +109,7 @@ class User extends Authenticatable implements HasMedia
         })->whereType(enum('chat.type.chat'))->first();
     }
 
-    public function order()
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class, 'user_id', 'id');
     }

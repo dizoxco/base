@@ -18,7 +18,6 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('user_id');
             $table->text('receiver');
             $table->char('mobile');
-            $table->char('province');
             $table->unsignedInteger('city_id');
             $table->text('address');
             $table->char('postal_code');

@@ -23,7 +23,7 @@ class AuthControllerTest extends TestCase
         Event::fake();
     }
 
-    protected function login()
+    protected function signInFromWeb()
     {
         return $this->clearConfigurationCache()->installPassport()->signInFromApi();
     }
@@ -119,7 +119,7 @@ class AuthControllerTest extends TestCase
     public function it_should_the_logged_in_user_can_exit()
     {
         // fixme: the logout in real world works but in the tests not work
-        $response = $this->login()->getJson($this->routeLogOut());
+        $response = $this->signInFromWeb()->getJson($this->routeLogOut());
         $response->assertJsonStructure(['errors']);
         $this->assertGuest('api');
         $response = $this->withMiddleware()->getJson(route('api.users.index'));
@@ -346,7 +346,7 @@ class AuthControllerTest extends TestCase
      */
     public function it_should_not_active_a_user_with_null_or_invalid_token()
     {
-        $auth = $this->login();
+        $auth = $this->signInFromWeb();
         $user_id = Auth::id();
         $tokens = [null, true, false, str_random(32)];
         foreach ($tokens as $token) {

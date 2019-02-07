@@ -8,14 +8,12 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
-    use DatabaseMigrations;
+    use CreatesApplication,DatabaseMigrations;
 
     public function clearConfigurationCache()
     {
         $this->artisan('config:clear');
 
-        //  return $this because we want to method chain a series of action
         return $this;
     }
 
@@ -23,7 +21,6 @@ class TestCase extends BaseTestCase
     {
         $this->artisan('passport:install', ['--force' =>  true]);
 
-        //  return $this because we want to method chain a series of action
         return $this;
     }
 
@@ -59,7 +56,14 @@ class TestCase extends BaseTestCase
             'Content-Type'      =>  enum('system.response.json'),
             'X-Requested-With'  =>  enum('system.request.xhr'),
         ];
-        //  return $this because we want to method chain a series of action
+
         return $this->withHeaders($headers);
+    }
+
+    public function signInFromWeb()
+    {
+        $this->actingAs(factory(User::class)->create());
+
+        return $this;
     }
 }

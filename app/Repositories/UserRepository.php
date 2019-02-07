@@ -10,17 +10,17 @@ use Illuminate\Database\QueryException;
 
 class UserRepository extends BaseRepository
 {
-    public function find(int $id)   :   ?User
+    public function find(int $id): ?User
     {
         return User::find($id);
     }
 
-    public function findByEmail(string $email)  :   ?User
+    public function findByEmail(string $email): ?User
     {
         return User::whereEmail($email)->first();
     }
 
-    public function searchBy(array $columns, string $value) :   Collection
+    public function searchBy(array $columns, string $value): Collection
     {
         $builder = User::query();
         foreach ($columns as $column) {
@@ -34,7 +34,7 @@ class UserRepository extends BaseRepository
         return $builder->get();
     }
 
-    public function getAll($params = [])    :   Collection
+    public function getAll($params = []): Collection
     {
         $users = QueryBuilder::for(User::query())
             ->allowedFilters(['name', 'email'])
@@ -45,7 +45,7 @@ class UserRepository extends BaseRepository
         return $users->get();
     }
 
-    public function getBy(string $column, string $value)  :   Collection
+    public function getBy(string $column, string $value): Collection
     {
         return QueryBuilder::for(User::query())
             ->allowedFilters(['name', 'email'])
@@ -55,7 +55,7 @@ class UserRepository extends BaseRepository
             ->get();
     }
 
-    public function getTrashed()    :   Collection
+    public function getTrashed(): Collection
     {
         return QueryBuilder::for(User::query())
             ->allowedFilters(['name', 'email'])
@@ -65,10 +65,6 @@ class UserRepository extends BaseRepository
             ->get();
     }
 
-    /**
-     * @param array $data
-     * @return User|\Illuminate\Database\Eloquent\Model|int
-     */
     public function create(array $data)
     {
         try {
@@ -79,10 +75,6 @@ class UserRepository extends BaseRepository
         }
     }
 
-    /**
-     * @param User|array $user
-     * @return bool|int|null
-     */
     public function delete($user)
     {
         try {
@@ -98,10 +90,6 @@ class UserRepository extends BaseRepository
         }
     }
 
-    /**
-     * @param User|array $user
-     * @return bool|int
-     */
     public function restore($user)
     {
         try {
@@ -117,10 +105,6 @@ class UserRepository extends BaseRepository
         }
     }
 
-    /**
-     * @param User|array $user
-     * @return bool|int
-     */
     public function destroy($user)
     {
         try {
@@ -136,7 +120,7 @@ class UserRepository extends BaseRepository
         }
     }
 
-    public function activate(string $token)   :   int
+    public function activate(string $token): int
     {
         return User::where('activation_token', '=', $token)->update([
             'active'            =>  true,
@@ -159,7 +143,7 @@ class UserRepository extends BaseRepository
         }
     }
 
-    public function update($user, array $data)  :   int
+    public function update($user, array $data): int
     {
         if (empty($data)) {
             return 0;
@@ -178,7 +162,7 @@ class UserRepository extends BaseRepository
         }
     }
 
-    public function posts($user)    :   Collection
+    public function posts($user): Collection
     {
         return $user->posts;
     }
