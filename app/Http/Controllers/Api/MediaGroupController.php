@@ -6,6 +6,7 @@ use App\Models\MediaGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MediaCollection;
+use App\Http\Resources\MediaResource;
 use App\Http\Resources\MediaGroupCollection;
 
 class MediaGroupController extends Controller
@@ -22,7 +23,6 @@ class MediaGroupController extends Controller
 
     public function store(Request $request, MediaGroup $medium)
     {
-//        $medium->addMediaFromRequest('media')->toMediaCollection('media_group_'.$medium->name);
-        $medium->addMediaFromRequest('media')->toMediaCollection($medium->name);
+        return new MediaResource($medium->addMediaFromRequest('media')->toMediaCollection($medium->name));
     }
 }
