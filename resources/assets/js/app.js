@@ -5,6 +5,7 @@ $('.swiper.simple').each(function(){
     new Swiper($(this), {
         speed: 400,
         spaceBetween: 0,
+        direction: $(this).attr('direction')? $(this).attr('direction'): 'horizontal',
         slidesPerView: $(this).attr('column'),
         autoplay: true,
         loop: true

@@ -22,6 +22,10 @@ export const PostReducer = (state = initialState, action) => {
             }
             state.index[i].attributes = { ...state.index[i].attributes, ...action.attributes };
             return state;
+        case 'UPDATE-POST':
+            let updatedIndex = state.index.findIndex((e) => e.id == action.payload.data.id );
+            state.index[updatedIndex].attributes = action.payload.data.attributes;
+            delete state.index[updatedIndex].oldAttributes;
         default:
             return state;
     }

@@ -67568,6 +67568,12 @@ var PostReducer = function PostReducer() {
             }
             state.index[i].attributes = _extends({}, state.index[i].attributes, action.attributes);
             return state;
+        case 'UPDATE-POST':
+            var updatedIndex = state.index.findIndex(function (e) {
+                return e.id == action.payload.data.id;
+            });
+            state.index[updatedIndex].attributes = action.payload.data.attributes;
+            delete state.index[updatedIndex].oldAttributes;
         default:
             return state;
     }

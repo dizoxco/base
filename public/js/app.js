@@ -95,6 +95,7 @@ __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.swiper.simple').each(function (
     new __WEBPACK_IMPORTED_MODULE_1_swiper__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this), {
         speed: 400,
         spaceBetween: 0,
+        direction: __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).attr('direction') ? __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).attr('direction') : 'horizontal',
         slidesPerView: __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).attr('column'),
         autoplay: true,
         loop: true
