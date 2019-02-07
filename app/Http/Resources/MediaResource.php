@@ -29,7 +29,7 @@ class MediaResource extends Resource
             ],
         ];
         foreach ($this->custom_properties['generated_conversions'] as $key => $generated) {
-            if ($generated){
+            if ($generated) {
                 $resource['attributes']['conversions'][$key]['url'] = $this->getUrl($key);
             }
         }

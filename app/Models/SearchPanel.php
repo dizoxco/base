@@ -107,10 +107,10 @@ class SearchPanel extends Model
 
     private function compare($filter, $index = null): void
     {
-	    if ($index !== null && is_array($filter['items'])) {
-		    $value = $filter['items'][$index]['value'];
-	    } else {
-		    $value = $filter['items'];
+        if ($index !== null && is_array($filter['items'])) {
+            $value = $filter['items'][$index]['value'];
+        } else {
+            $value = $filter['items'];
         }
         $this->builder->where($filter['field'], $filter['query'], $value);
     }
