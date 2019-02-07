@@ -34,7 +34,7 @@ class BusinessesTableSeeder extends Seeder
                 $product->addMediaFromUrl(resource_path('seed/product-images/'.rand(1, 20).'.jpg'))
                     ->toMediaCollection(enum('media.product.banner'));
 
-                $variations = $product->variations()->createMany(factory(Variation::class, 10)->make(
+                $variations = $product->relatedVariations()->createMany(factory(Variation::class, 10)->make(
                     [
                         'business_id' => $business->id,
                         'product_id' => $product->id,

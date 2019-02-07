@@ -6393,6 +6393,18 @@ table {
   width: 83.33333%;
 }
 
+.w-1\/10 {
+  width: 10%;
+}
+
+.w-1\/12 {
+  width: 8.33%;
+}
+
+.w-11\/12 {
+  width: 91.77%;
+}
+
 .w-full {
   width: 100%;
 }
@@ -6549,10 +6561,6 @@ table {
 .ReactTable .rt-thead .rt-th:last-child,
 .ReactTable .rt-thead .rt-td:last-child {
   border-right: 0;
-}
-
-.ReactTable .rt-thead .rt-th:focus {
-  outline: none;
 }
 
 .ReactTable .rt-thead .rt-resizable-header {
@@ -12960,6 +12968,18 @@ span[class^="MuiPrivateTabIndicator"]:before {
     width: 83.33333%;
   }
 
+  .sm\:w-1\/10 {
+    width: 10%;
+  }
+
+  .sm\:w-1\/12 {
+    width: 8.33%;
+  }
+
+  .sm\:w-11\/12 {
+    width: 91.77%;
+  }
+
   .sm\:w-full {
     width: 100%;
   }
@@ -18864,6 +18884,18 @@ span[class^="MuiPrivateTabIndicator"]:before {
 
   .md\:w-5\/6 {
     width: 83.33333%;
+  }
+
+  .md\:w-1\/10 {
+    width: 10%;
+  }
+
+  .md\:w-1\/12 {
+    width: 8.33%;
+  }
+
+  .md\:w-11\/12 {
+    width: 91.77%;
   }
 
   .md\:w-full {
@@ -24772,6 +24804,18 @@ span[class^="MuiPrivateTabIndicator"]:before {
     width: 83.33333%;
   }
 
+  .lg\:w-1\/10 {
+    width: 10%;
+  }
+
+  .lg\:w-1\/12 {
+    width: 8.33%;
+  }
+
+  .lg\:w-11\/12 {
+    width: 91.77%;
+  }
+
   .lg\:w-full {
     width: 100%;
   }
@@ -30676,6 +30720,18 @@ span[class^="MuiPrivateTabIndicator"]:before {
 
   .xl\:w-5\/6 {
     width: 83.33333%;
+  }
+
+  .xl\:w-1\/10 {
+    width: 10%;
+  }
+
+  .xl\:w-1\/12 {
+    width: 8.33%;
+  }
+
+  .xl\:w-11\/12 {
+    width: 91.77%;
   }
 
   .xl\:w-full {
