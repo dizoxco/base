@@ -1,4 +1,4 @@
-<div class="relative rounded-lg bg-white shadow-lg h-full px-8 py-6" >
+<div class="relative rounded-lg bg-white h-full px-8 py-6" >
     @if($product->getMedia(enum('media.product.banner'))->isNotEmpty())
         <a class="no-underline" href="{{route('products.show', $product->slug)}}">
             <img src="{{$product->getFirstMedia(enum('media.product.banner'))->getFullUrl()}}" class="">
