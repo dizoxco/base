@@ -18,7 +18,8 @@ const routeslist = {
         mediagroups: {
             prefix: '/mediagroups',
             index: '',
-            show: '/{mediagroup}'
+            show: '/{mediagroup}',
+            store: '/{mediagroup}'
         },
         posts: {
             prefix: '/posts',
