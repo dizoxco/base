@@ -9,6 +9,14 @@
 // @import "@material/rtl/mixins";
 // mdc-rtl('.rtl');
 @import 'typography';
+html{
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: normal;
+}
+@media screen and (min-width: 1200px){ 
+    html{ font-size: 15px; } 
+}
 body{
     font-family: IRANSans;
     direction: rtl;
