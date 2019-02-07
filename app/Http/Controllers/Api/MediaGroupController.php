@@ -17,7 +17,7 @@ class MediaGroupController extends Controller
 
     public function show(MediaGroup $medium)
     {
-        return new MediaCollection($medium->getMedia('media_group_'.$medium->name));
+        return new MediaCollection($medium->getMedia($medium->name));
     }
 
     public function store(Request $request, MediaGroup $medium)

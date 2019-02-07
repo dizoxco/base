@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +11,20 @@ use Illuminate\Foundation\Inspiring;
 | simple approach to interacting with each command's IO methods.
 |
 */
+Artisan::command('purge', function () {
+    $this->call('clear-compiled');
+    $this->call('auth:clear-resets');
+    $this->call('cache:clear');
+    $this->call('config:clear');
+    $this->call('debugbar:clear');
+    $this->call('route:clear');
+    if ($this->confirm('Do you wish to clear media?')) {
+        $this->call('medialibrary:clear');
+    }
+})->describe('Clears the framework from temporary files');
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->describe('Display an inspiring quote');
+Artisan::command('session:flush', function () {
+    Session::flush();
+    Storage::disk('root')->deleteDirectory('framework/sessions');
+    Storage::disk('root')->makeDirectory('framework/sessions');
+});

@@ -18,8 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('user_id');
             $table->text('receiver');
             $table->char('mobile');
-            $table->char('province');
-            $table->char('city');
+            $table->unsignedInteger('city_id');
             $table->text('address');
             $table->char('postal_code');
             $table->boolean('done')->default(false);
@@ -27,6 +26,7 @@ class CreateOrdersTable extends Migration
             $table->timestamp('updated_at')->useCurrent();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('city_id')->references('id')->on('cities');
         });
     }
 

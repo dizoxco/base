@@ -12,12 +12,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 
 import { List, RTL } from "./components"
-import { Businesses, Comments, Dashboard, Login, Post, Posts, Products, Setting, Tickets, User, Users } from './pages'
+import { Business, Businesses, Comment, Comments, Dashboard, Login, MediaGroup, MediaGroups, Post, Posts, Product, Products, Setting, Tickets, User, Users } from './pages'
 
 import { withSnackbar } from 'notistack';
 import { connect } from "react-redux";
 
-import { flushSnacks } from "./actions";
+import { flushSnacks, logOut } from "./actions";
 import { eraseCookie, getCookie } from "../helpers";
 
 class App extends Component{
@@ -29,11 +29,6 @@ class App extends Component{
             });
         });
         if( this.props.snacks.length ) this.props.flushSnacks();
-    }
-
-    logOut = () => {
-        this.setState({ 'update': 'dd' })
-        eraseCookie('token');
     }
     
     render(){
@@ -64,10 +59,15 @@ class App extends Component{
                                     <Switch location={location}>
                                         <Route path="/admin" exact component={Dashboard} />
                                         <Route path="/admin/businesses" exact component={Businesses} />
+                                        <Route path="/admin/businesses/:business" exact component={Business} />
                                         <Route path="/admin/comments" exact component={Comments} />
+                                        <Route path="/admin/comments/:comment" exact component={Comment} />
+                                        <Route path="/admin/mediagroups" exact component={MediaGroups} />
+                                        <Route path="/admin/mediagroups/:mediagroup" exact component={MediaGroup} />
                                         <Route path="/admin/posts" exact component={Posts} />
                                         <Route path="/admin/posts/:post" exact component={Post} />
                                         <Route path="/admin/products" exact component={Products} />
+                                        <Route path="/admin/products/:product" exact component={Product} />
                                         <Route path="/admin/setting" exact component={Setting} />
                                         <Route path="/admin/tickets" exact component={Tickets} />
                                         <Route path="/admin/users" exact component={Users} />
@@ -107,7 +107,7 @@ class App extends Component{
                                     icon: 'add'
                                 },{
                                     text: 'رسانه',
-                                    link: '/admin/posts',
+                                    link: '/admin/mediagroups',
                                     icon: 'add'
                                 },{
                                     text: 'تگ ها',
@@ -120,7 +120,7 @@ class App extends Component{
                                 },{
                                     text: 'خروج',
                                     // link: '/admin/login',
-                                    onClick: this.logOut,
+                                    onClick: this.props.logOut,
                                     icon: 'add'
                                 }
                             ]}
@@ -139,4 +139,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, { flushSnacks })(withSnackbar(App));
+export default connect(mapStateToProps, { flushSnacks, logOut })(withSnackbar(App));

@@ -8,6 +8,7 @@ class DatabaseSeeder extends Seeder
     {
         Storage::deleteDirectory('public/media');
         Storage::makeDirectory('tmp', 0777);
+        $this->call(CitiesTableSeeder::class);
         $this->call(PermissionTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(PassportTableSeeder::class);
@@ -20,6 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PostsTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
         $this->call(BusinessesTableSeeder::class);
+        $this->call(CartsTableSeeder::class);
+        $this->call(OrdersTableSeeder::class);
         $this->call(SearchPanelTableSeeder::class);
         Storage::deleteDirectory('tmp');
     }

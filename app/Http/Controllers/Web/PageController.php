@@ -11,9 +11,9 @@ class PageController extends Controller
 {
     public function home()
     {
-        $posts = PostRepo::getRecents(10);
-        $products = ProductRepo::getRecents(10);
-        $businesses = BusinessRepo::getRecents(10);
+        $posts = PostRepo::getRecent(10);
+        $products = ProductRepo::getRecent(10);
+        $businesses = BusinessRepo::getRecent(10);
 
         return view('home', compact('posts', 'products', 'businesses'));
     }

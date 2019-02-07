@@ -13,10 +13,11 @@ if (! function_exists('omidFaker')) {
             'هیچ منطقه ای در مغز انسان پیدا نشده که کاملا غیر فعال باشد.',
         ];
 
-        $result = '';       
-        for ($i=0; $i < $number ; $i++) { 
-            $result .= $$type[array_rand($$type)] . ' ';
+        $result = '';
+        for ($i = 0; $i < $number; $i++) {
+            $result .= $$type[array_rand($$type)].' ';
         }
+
         return trim($result);
     }
 }

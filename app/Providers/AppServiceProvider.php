@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Blade;
 use Response;
 use Throwable;
 use App\Models\Variation;
@@ -12,9 +13,18 @@ class AppServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        // \Schema::defaultStringLength(255);
         $this->customResponse();
 
         Variation::observe(VariationObserver::class);
+
+        Blade::directive('rial', function ($expr = 0) {
+            return "<?php echo number_format($expr).' ریال'; ?>";
+        });
+
+        Blade::directive('toman', function ($expr = 0) {
+            return "<?php echo number_format($expr).' تومان'; ?>";
+        });
     }
 
     public function customResponse()

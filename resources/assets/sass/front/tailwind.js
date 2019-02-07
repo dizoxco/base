@@ -203,7 +203,7 @@ module.exports = {
 
   fonts: {
     'sans': [
-      'system-ui',
+      'IRANSans',
       'BlinkMacSystemFont',
       '-apple-system',
       'Segoe UI',
@@ -962,10 +962,10 @@ module.exports = {
   */
 
   plugins: [
-    require('tailwindcss/plugins/container')({
-      // center: true,
-      // padding: '1rem',
-    }),
+    // require('tailwindcss/plugins/container')({
+    //   // center: true,
+    //   // padding: '1rem',
+    // }),
   ],
 
 

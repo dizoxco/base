@@ -22,11 +22,17 @@ class MediaResource extends Resource
                 'size'              =>  $this->size,
                 'manipulations'     =>  $this->manipulations,
                 'custom_properties' =>  $this->custom_properties,
-                'responsive_images' =>  $this->responsive_images,
+                // 'responsive_images' =>  $this->responsive_images,
                 'order_column'      =>  $this->order_column,
+                'conversions'       =>  [],
                 $this->mergeWhen($this->dates(), $this->dates()),
             ],
         ];
+        foreach ($this->custom_properties['generated_conversions'] as $key => $generated) {
+            if ($generated){
+                $resource['attributes']['conversions'][$key]['url'] = $this->getUrl($key);
+            }
+        }
 
         return $resource;
     }

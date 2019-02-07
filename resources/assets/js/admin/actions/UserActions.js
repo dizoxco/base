@@ -1,4 +1,4 @@
-import { getting, posting, setCookie } from "../../helpers";
+import { eraseCookie, getting, posting, setCookie } from "../../helpers";
 import routes from '../routes';
 
 export const getUsers = () => {
@@ -17,10 +17,10 @@ export const getToken = (params) => {
         posting(routes('api.auth.login'), params)
             .then(response => {
                 setCookie('token', response.data.access_token, {});
-                // return dispatch({
-                //     type: 'TOKEN',
-                //     payload: response.data
-                // });
+                return dispatch({
+                    type: 'TOKEN',
+                    payload: response.data
+                });
             })
             .catch(error => dispatch({
                     type: 'SNACKS-ERROR',
@@ -30,6 +30,9 @@ export const getToken = (params) => {
     }
 };
 
-export const logOut = () => dispatch => {
-    dispatch({ type: 'LOGOUT' });
+export const logOut = () =>  {
+    eraseCookie('token');
+    return (dispatch) => {
+        dispatch({ type: 'LOGOUT' });
+    }
 };

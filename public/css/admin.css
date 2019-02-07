@@ -501,34 +501,6 @@ table {
   border-collapse: collapse;
 }
 
-.container {
-  width: 100%;
-}
-
-@media (min-width: 576px) {
-  .container {
-    max-width: 576px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
-}
-
-@media (min-width: 992px) {
-  .container {
-    max-width: 992px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1200px;
-  }
-}
-
 .list-reset {
   list-style: none;
   padding: 0;
@@ -3141,7 +3113,7 @@ table {
 }
 
 .font-sans {
-  font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
+  font-family: IRANSans, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
 }
 
 .font-serif {
@@ -6579,6 +6551,10 @@ table {
   border-right: 0;
 }
 
+.ReactTable .rt-thead .rt-th:focus {
+  outline: none;
+}
+
 .ReactTable .rt-thead .rt-resizable-header {
   overflow: visible;
 }
@@ -7035,6 +7011,10 @@ table {
   src: url(https://fonts.gstatic.com/s/materialicons/v41/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format("woff2");
 }
 
+body {
+  line-height: 1.8;
+}
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
@@ -7086,6 +7066,7 @@ span[class^="MuiPrivateTabIndicator"]:before {
 
 #root #main-content #page #page-content {
   margin-top: -50px;
+  width: 100%;
 }
 
 #root #side-nav {
@@ -9715,7 +9696,7 @@ span[class^="MuiPrivateTabIndicator"]:before {
   }
 
   .sm\:font-sans {
-    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
+    font-family: IRANSans, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
   }
 
   .sm\:font-serif {
@@ -15621,7 +15602,7 @@ span[class^="MuiPrivateTabIndicator"]:before {
   }
 
   .md\:font-sans {
-    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
+    font-family: IRANSans, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
   }
 
   .md\:font-serif {
@@ -21527,7 +21508,7 @@ span[class^="MuiPrivateTabIndicator"]:before {
   }
 
   .lg\:font-sans {
-    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
+    font-family: IRANSans, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
   }
 
   .lg\:font-serif {
@@ -27433,7 +27414,7 @@ span[class^="MuiPrivateTabIndicator"]:before {
   }
 
   .xl\:font-sans {
-    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
+    font-family: IRANSans, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, IRANSans;
   }
 
   .xl\:font-serif {

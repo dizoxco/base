@@ -22,7 +22,7 @@ class SearchPanelControllerTest extends TestCase
      */
     public function userWithManageSearchPanelsPermission()
     {
-        $this->artisan('db:seed', ['--class' => 'PermissionsTableSeeder']);
+        $this->artisan('db:seed', ['--class' => 'PermissionTableSeeder']);
         $this->artisan('db:seed', ['--class' => 'RolesTableSeeder']);
         $search_panel = factory(User::class)->create()->assignRole(Role::first());
 
@@ -40,7 +40,7 @@ class SearchPanelControllerTest extends TestCase
         $this->app->make(PermissionRegistrar::class)->registerPermissions();
     }
 
-    protected function login(User $user = null)
+    protected function signInFromWeb(User $user = null)
     {
         return $this->clearConfigurationCache()->installPassport()->signInFromApi($user);
     }
@@ -156,7 +156,7 @@ class SearchPanelControllerTest extends TestCase
             $this->dataProvider()->without('title', 'slug', 'description')
         );
         $search_panel = $this->userWithManageSearchPanelsPermission();
-        $response = $this->login($search_panel)->getJson($this->routeIndex());
+        $response = $this->signInFromWeb($search_panel)->getJson($this->routeIndex());
         $response->assertSuccessful()
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonStructure([
@@ -198,7 +198,7 @@ class SearchPanelControllerTest extends TestCase
         $garbage = 'title';
         $data = $this->dataProvider()->without($garbage);
 
-        $response = $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
@@ -217,7 +217,7 @@ class SearchPanelControllerTest extends TestCase
     {
         $garbage = 'title';
         $data = $this->dataProvider()->without($garbage);
-        $this->login($this->userWithManageSearchPanelsPermission());
+        $this->signInFromWeb($this->userWithManageSearchPanelsPermission());
         foreach ([null, false, true, '', []] as $invalid_title) {
             $data['title'] = $invalid_title;
             $response = $this->postJson($this->routeStore(), $data);
@@ -241,7 +241,7 @@ class SearchPanelControllerTest extends TestCase
         $garbage = 'slug';
         $data = $this->dataProvider()->without($garbage);
 
-        $response = $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
@@ -260,7 +260,7 @@ class SearchPanelControllerTest extends TestCase
     {
         $garbage = 'slug';
         $data = $this->dataProvider()->without($garbage);
-        $this->login($this->userWithManageSearchPanelsPermission());
+        $this->signInFromWeb($this->userWithManageSearchPanelsPermission());
         foreach ([null, false, true, '', []] as $invalid_title) {
             $data['slug'] = $invalid_title;
             $response = $this->postJson($this->routeStore(), $data);
@@ -288,7 +288,7 @@ class SearchPanelControllerTest extends TestCase
         $data = $this->dataProvider()->without($garbage);
         $data['slug'] = $existed_search_panel->slug;
 
-        $response = $this->login(
+        $response = $this->signInFromWeb(
             $this->userWithManageSearchPanelsPermission()
         )->postJson($this->routeStore(), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
@@ -310,7 +310,7 @@ class SearchPanelControllerTest extends TestCase
         $garbage = 'description';
         $data = $this->dataProvider()->without($garbage);
 
-        $response = $this->login(
+        $response = $this->signInFromWeb(
             $this->userWithManageSearchPanelsPermission()
         )->postJson($this->routeStore(), $data);
 
@@ -334,7 +334,7 @@ class SearchPanelControllerTest extends TestCase
     {
         $garbage = 'description';
         $data = $this->dataProvider()->without($garbage);
-        $this->login($this->userWithManageSearchPanelsPermission());
+        $this->signInFromWeb($this->userWithManageSearchPanelsPermission());
         foreach ([[], random_int(0, mt_getrandmax())] as $invalid_description) {
             $data['description'] = $invalid_description;
             $response = $this->postJson($this->routeStore(), $data);
@@ -358,7 +358,7 @@ class SearchPanelControllerTest extends TestCase
         $garbage = 'model';
         $data = $this->dataProvider()->without($garbage);
 
-        $response = $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
@@ -377,7 +377,7 @@ class SearchPanelControllerTest extends TestCase
     {
         $garbage = 'model';
         $data = $this->dataProvider()->without($garbage);
-        $this->login($this->userWithManageSearchPanelsPermission());
+        $this->signInFromWeb($this->userWithManageSearchPanelsPermission());
         foreach ([[], random_int(0, mt_getrandmax())] as $invalid_description) {
             $data['model'] = $invalid_description;
             $response = $this->postJson($this->routeStore(), $data);
@@ -400,7 +400,7 @@ class SearchPanelControllerTest extends TestCase
     {
         $garbage = 'filters';
         $data = $this->dataProvider()->without($garbage);
-        $response = $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
@@ -419,7 +419,7 @@ class SearchPanelControllerTest extends TestCase
     {
         $garbage = 'filters';
         $data = $this->dataProvider()->without($garbage);
-        $this->login($this->userWithManageSearchPanelsPermission());
+        $this->signInFromWeb($this->userWithManageSearchPanelsPermission());
         // todo:if true sent then it will pass
         foreach ([null, false, '', []] as $invalid_title) {
             $data['filters'] = $invalid_title;
@@ -443,7 +443,7 @@ class SearchPanelControllerTest extends TestCase
     {
         $garbage = 'options';
         $data = $this->dataProvider()->without($garbage);
-        $response = $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
@@ -462,7 +462,7 @@ class SearchPanelControllerTest extends TestCase
     {
         $garbage = 'options';
         $data = $this->dataProvider()->without($garbage);
-        $this->login($this->userWithManageSearchPanelsPermission());
+        $this->signInFromWeb($this->userWithManageSearchPanelsPermission());
         // todo:if true sent then it will pass
         foreach ([null, false, '', []] as $invalid_title) {
             $data['filters'] = $invalid_title;
@@ -485,7 +485,7 @@ class SearchPanelControllerTest extends TestCase
     public function it_should_store_new_search_panel()
     {
         $data = $this->dataProvider()->getData();
-        $response = $this->login($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
+        $response = $this->signInFromWeb($this->userWithManageSearchPanelsPermission())->postJson($this->routeStore(), $data);
         $response->assertStatus(Response::HTTP_CREATED)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonStructure([
@@ -515,7 +515,7 @@ class SearchPanelControllerTest extends TestCase
      */
     public function it_must_return_not_found_if_search_panel_not_exists()
     {
-        $response = $this->login(
+        $response = $this->signInFromWeb(
             $this->userWithManageSearchPanelsPermission()
         )->getJson($this->routeShow(random_int(1, mt_getrandmax())));
 
@@ -543,7 +543,7 @@ class SearchPanelControllerTest extends TestCase
             'slug'  =>  $sp->slug,
         ]);
 
-        $response = $this->login(
+        $response = $this->signInFromWeb(
             $this->userWithManageSearchPanelsPermission()
         )->getJson($this->routeShow($sp->slug));
 
@@ -567,7 +567,7 @@ class SearchPanelControllerTest extends TestCase
         $garbage = 'title';
         $data = $this->dataProvider()->without($garbage);
 
-        $response = $this->login(
+        $response = $this->signInFromWeb(
             $this->userWithManageSearchPanelsPermission()
         )->putJson($this->routeUpdate($existed_search_panel->slug), $data);
 
@@ -593,7 +593,7 @@ class SearchPanelControllerTest extends TestCase
 
         $garbage = 'title';
         $data = $this->dataProvider()->without($garbage);
-        $this->login($this->userWithManageSearchPanelsPermission());
+        $this->signInFromWeb($this->userWithManageSearchPanelsPermission());
         foreach ([null, false, true, '', []] as $invalid_title) {
             $data['title'] = $invalid_title;
             $response = $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
@@ -621,7 +621,7 @@ class SearchPanelControllerTest extends TestCase
         $garbage = 'slug';
         $data = $this->dataProvider()->without($garbage);
 
-        $response = $this->login($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+        $response = $this->signInFromWeb($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
@@ -644,7 +644,7 @@ class SearchPanelControllerTest extends TestCase
 
         $garbage = 'slug';
         $data = $this->dataProvider()->without($garbage);
-        $this->login($this->userWithManageSearchPanelsPermission());
+        $this->signInFromWeb($this->userWithManageSearchPanelsPermission());
         foreach ([null, false, true, '', []] as $invalid_title) {
             $data['slug'] = $invalid_title;
             $response = $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
@@ -672,7 +672,7 @@ class SearchPanelControllerTest extends TestCase
         );
         $data['slug'] = $search_panels->first()->slug;
 
-        $response = $this->login(
+        $response = $this->signInFromWeb(
             $this->userWithManageSearchPanelsPermission()
         )->putJson($this->routeUpdate($search_panels->first()->slug), $data);
 
@@ -701,7 +701,7 @@ class SearchPanelControllerTest extends TestCase
         $garbage = 'description';
         $data = $this->dataProvider()->without($garbage);
 
-        $response = $this->login(
+        $response = $this->signInFromWeb(
             $this->userWithManageSearchPanelsPermission()
         )->putJson($this->routeUpdate($existed_search_panel->slug), $data);
 
@@ -727,7 +727,7 @@ class SearchPanelControllerTest extends TestCase
 
         $garbage = 'description';
         $data = $this->dataProvider()->without($garbage);
-        $this->login($this->userWithManageSearchPanelsPermission());
+        $this->signInFromWeb($this->userWithManageSearchPanelsPermission());
         foreach ([[], random_int(0, mt_getrandmax())] as $invalid_description) {
             $data['description'] = $invalid_description;
             $response = $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
@@ -755,7 +755,7 @@ class SearchPanelControllerTest extends TestCase
         $garbage = 'model';
         $data = $this->dataProvider()->without($garbage);
 
-        $response = $this->login($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+        $response = $this->signInFromWeb($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
@@ -778,7 +778,7 @@ class SearchPanelControllerTest extends TestCase
 
         $garbage = 'model';
         $data = $this->dataProvider()->without($garbage);
-        $this->login($this->userWithManageSearchPanelsPermission());
+        $this->signInFromWeb($this->userWithManageSearchPanelsPermission());
         foreach ([[], random_int(0, mt_getrandmax())] as $invalid_description) {
             $data['model'] = $invalid_description;
             $response = $this->putJson($this->routeUpdate($existed_search_panel->slug), $data);
@@ -805,7 +805,7 @@ class SearchPanelControllerTest extends TestCase
 
         $garbage = 'filters';
         $data = $this->dataProvider()->without($garbage);
-        $response = $this->login($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+        $response = $this->signInFromWeb($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
@@ -828,7 +828,7 @@ class SearchPanelControllerTest extends TestCase
 
         $garbage = 'filters';
         $data = $this->dataProvider()->without($garbage);
-        $this->login($this->userWithManageSearchPanelsPermission());
+        $this->signInFromWeb($this->userWithManageSearchPanelsPermission());
         // todo:if true sent then it will pass
         foreach ([null, false, '', []] as $invalid_title) {
             $data['filters'] = $invalid_title;
@@ -856,7 +856,7 @@ class SearchPanelControllerTest extends TestCase
 
         $garbage = 'options';
         $data = $this->dataProvider()->without($garbage);
-        $response = $this->login($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+        $response = $this->signInFromWeb($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJsonValidationErrors($garbage);
@@ -878,7 +878,7 @@ class SearchPanelControllerTest extends TestCase
         );
         $garbage = 'options';
         $data = $this->dataProvider()->without($garbage);
-        $this->login($this->userWithManageSearchPanelsPermission());
+        $this->signInFromWeb($this->userWithManageSearchPanelsPermission());
         // todo:if true sent then it will pass
         foreach ([null, false, '', []] as $invalid_title) {
             $data['filters'] = $invalid_title;
@@ -904,7 +904,7 @@ class SearchPanelControllerTest extends TestCase
             $this->dataProvider()->getData()
         );
         $data = $this->dataProvider()->getData();
-        $response = $this->login($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
+        $response = $this->signInFromWeb($this->userWithManageSearchPanelsPermission())->putJson($this->routeUpdate($existed_search_panel->slug), $data);
         $response->assertStatus(Response::HTTP_OK)
             ->assertHeader('Content-Type', enum('system.response.json'))
             ->assertJson(['data'  =>  ['row-effected' => 1]]);

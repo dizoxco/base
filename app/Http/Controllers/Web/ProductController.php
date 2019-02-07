@@ -10,9 +10,10 @@ class ProductController extends Controller
 {
     public function show(Product $product)
     {
+        $product->load(['tags', 'media', 'comments', 'relatedVariations']);
         $recent = ProductRepo::getRecent();
         $related = ProductRepo::getRelated($product);
 
-        return view('products.show', compact('product', 'recent', 'related'));
+        return view('web.products.show', compact('product', 'recent', 'related'));
     }
 }

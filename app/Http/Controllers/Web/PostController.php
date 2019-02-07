@@ -14,14 +14,14 @@ class PostController extends Controller
     {
         $posts = PostRepo::getAll(['per_page' => 10]);
 
-        return view('posts.index', compact('posts'));
+        return view('web.posts.index', compact('posts'));
     }
 
     public function tags(Tag $tag)
     {
         $posts = $tag->posts()->paginate(10);
 
-        return view('posts.index', compact('posts'));
+        return view('web.posts.index', compact('posts'));
     }
 
     public function create()
@@ -39,7 +39,7 @@ class PostController extends Controller
         $recent = PostRepo::getRecent();
         $related = PostRepo::getRelated($post);
 
-        return view('posts.show', compact('post', 'recent', 'related'));
+        return view('web.posts.show', compact('post', 'recent', 'related'));
     }
 
     public function edit($id)

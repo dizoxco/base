@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->json('attributes');
             $table->json('variations')->nullable();
             $table->boolean('single');
+            $table->unsignedInteger('price');
             $table->timestamp('available_at')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

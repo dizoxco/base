@@ -129,7 +129,7 @@ class SearchControllerTest extends TestCase
         }
     }
 
-    public function test_filter_between()
+    public function it_filter_between()
     {
         $min = '-1';
         $max = mt_rand($min, 1001);
@@ -157,7 +157,7 @@ class SearchControllerTest extends TestCase
         }
     }
 
-    public function test_filter_compare()
+    public function it_filter_compare()
     {
         $id = mt_rand(1, 1000);
         $structure = [
@@ -186,7 +186,7 @@ class SearchControllerTest extends TestCase
         }
     }
 
-    public function test_filter_tag()
+    public function it_filter_tag()
     {
         //  Start seeding database
         $filters = [
@@ -215,7 +215,7 @@ class SearchControllerTest extends TestCase
         }
     }
 
-    public function test_option_between()
+    public function it_option_between()
     {
         $min = '-1';
         $max = mt_rand($min, 1001);
@@ -248,7 +248,7 @@ class SearchControllerTest extends TestCase
         }
     }
 
-    public function test_options_range()
+    public function it_options_range()
     {
         $ranges = [
             ['start' => '-1', 'finish' => '330'],
@@ -284,7 +284,7 @@ class SearchControllerTest extends TestCase
         }
     }
 
-    public function test_option_compare()
+    public function it_option_compare()
     {
         $operator = array_random(SearchPanel::$operators);
         $options = $this->filterCompare('id', $operator, [
@@ -326,7 +326,7 @@ class SearchControllerTest extends TestCase
         }
     }
 
-    public function test_option_tag()
+    public function it_option_tag()
     {
         //  Start seeding database
         $options = [

@@ -61,6 +61,7 @@ class ProductRepository extends BaseRepository
             ->orderByDesc('counter')
             ->orderByDesc('created_at')
             ->take($number)
+            ->with('media')
             ->get();
     }
 

@@ -75,7 +75,7 @@ class VariationRepository extends BaseRepository
             return DB::transaction(function () use ($variation, $product) {
                 $variation = array_merge($variation, ['business_id' => 1]);
 
-                return $product->relatedVariations()->create($variation);
+                return $product->variations()->create($variation);
                 // todo:this variation belongs to which businesses?
             });
         } catch (Throwable $throwable) {
