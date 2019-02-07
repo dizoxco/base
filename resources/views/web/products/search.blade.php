@@ -1,11 +1,11 @@
 @extends('layout')
 @section('content')
     <div class="flex flex-wrap container">
-        <div class="w-1/4 pl-4">
+        <div class="w-full md:w-1/4 px-4">
             <form target="_self">
                 @forelse($options as $name => $option)
                 @if ($option['query'] !== 'order')
-                <div class="relative rounded-lg bg-white shadow-lg pt-2 pb-4 px-4 mb-4">
+                <div class="relative rounded-lg bg-white pt-2 pb-4 px-4 mb-4">
                     <p class="body-2" >{{ $option['label'] }}</p>
                    @forelse(array_wrap($option[$option['query']]) as $index => $filter)
                         @switch($option['query'])
@@ -45,8 +45,8 @@
                 ])@endcomponent                
             </form>
         </div>
-        <div class="w-3/4 pr-4">
-            <div class="relative rounded-lg bg-white shadow-lg py-4 mb-2">
+        <div class="w-full md:w-3/4 px-4">
+            <div class="flex flex-wrap relative rounded-full bg-white p-4 mb-5">
                 <span class="absoulute text-grey-light pin-r mx-4"><i class="material-icons" style="transform:scaleX(-1)">sort</i></span>
                 @foreach ($options as $option)
                     @if ($option['query'] == 'order')
@@ -55,19 +55,22 @@
                         @endforeach
                     @endif
                 @endforeach
-                <span class="absolute text-grey-light pin-l mx-4">
+                <span class="text-grey-light flex flex-wrap md:absolute md:pin-l mx-4">
                     <i class="material-icons ">view_module</i>
                     <i class="material-icons">toc</i>
                 </span>
             </div>
-            <div class="flex flex-wrap">
+            <div class="flex flex-wrap -m-2">
                 @forelse($products as $product)
-                    <div class="w-1/3 px-2 py-2">
+                    <div class="w-full md:w-1/2 lg:w-1/3 p-3">
                         @component('web.products.card', ['product' => $product])@endcomponent
                     </div>
                 @empty
                     <p> هیچ محصولی برای این پنل تعریف نشده است. </p>
                 @endforelse
+            </div>
+            <div class="grid-pager container text-center py-10">
+                {{ $products->links() }}
             </div>
         </div>
     </div>

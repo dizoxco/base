@@ -27,6 +27,12 @@
         </div>
         <div class="w-2/5 p-4">
             <h1 class="headline">{{$product->title}}</h1>
+            <div class="star-rating">
+                @component('components.star-rating', [
+                    'number' => 10,
+                    'rating' => 2.5,
+                ])@endcomponent
+            </div>
         </div>
         <div class="w-full thumbnails-gallery ">
             <div class="w-4/5 canvas relative">
