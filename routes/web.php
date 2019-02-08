@@ -2,65 +2,6 @@
 
 Auth::routes();
 Route::any('lab', function () {
-    \App\Models\SearchPanel::find(3)->update([
-        'title' => 'کسب و کارها',
-        'slug' => 'businesses',
-        'description' => 'businesses',
-        'model' => \App\Models\Business::class,
-        'options' => [
-            'order' => [
-                'label' => 'مرتب سازی',
-                'query' => 'order',
-                'order' => [
-                    ['label' => 'برحسب عنوان', 'column' => 'brand', 'dir' => 'asc'],
-                    ['label' => 'جدیدترین', 'column' => 'created_at', 'dir' => 'desc'],
-                    ['label' => 'قدیمی ترین', 'column' => 'created_at', 'dir' => 'asc'],
-                ],
-            ],
-            'brand' => [
-                'label' => 'نام',
-                'query' => 'like',
-                'like' => 'brand,',
-            ],
-            'types' => [
-                'label' => 'نوع کسب و کار',
-                'query' => 'tag',
-                'tag' => \App\Models\Taxonomy::whereSlug('types')
-                    ->first()
-                    ->tags()
-                    ->select(['id', 'label'])
-                    ->get()
-                    ->toArray(),
-            ],
-            'fields' => [
-                'label' => 'زمینه کسب و کار',
-                'query' => 'tag',
-                'tag' => \App\Models\Taxonomy::whereSlug('fields')
-                    ->first()
-                    ->tags()
-                    ->select(['id', 'label'])
-                    ->get()
-                    ->toArray(),
-            ],
-            'contract' => [
-                'label' => 'نوع قرارداد',
-                'query' => 'tag',
-                'tag' => \App\Models\Taxonomy::whereSlug('contracts')
-                    ->first()
-                    ->tags()
-                    ->select(['id', 'label'])
-                    ->get()
-                    ->toArray(),
-            ],
-        ],
-        'filters' => [
-            'forms' => [
-                'query' => '>',
-                'field' => 'id',
-                'items' => '0',
-            ],
-        ],
-    ]);
 });
 // ==================================== Admin Section =========================
 Route::view('admin', 'admin');
@@ -81,13 +22,18 @@ Route::name('wishlist.')->prefix('wishlist')->group(function () {
     Route::delete('/', 'WishlistController@destroy')->name('destroy');
 });
 
+Route::name('tickets.')->prefix('tickets')->group(function () {
+	Route::get('create', 'TicketController@create')->name('create');
+	Route::get('toggle', 'TicketController@toggle')->name('toggle');
+});
+
 Route::name('profile.')->prefix('profile')->middleware('auth:web')->group(function () {
     Route::get('orders', 'ProfileController@orders')->name('orders');
     Route::get('cart', 'CartController@index')->name('cart');
-    Route::get('addresses', 'ProfileController@addresses')->name('addresses');
-    Route::get('wishlist', 'WishlistController@index')->name('wishlist');
+	Route::resource('addresses', 'AddressController');
+	Route::get('wishlist', 'WishlistController@index')->name('wishlist');
     Route::get('chats', 'ProfileController@chats')->name('chats');
-    Route::get('tickets', 'ProfileController@tickets')->name('tickets');
+    Route::get('tickets', 'TicketController@index')->name('tickets');
     Route::get('credentials', 'ProfileController@credentials')->name('credentials.edit');
     Route::post('credentials', 'ProfileController@updateCredentials')->name('credentials.update');
     Route::get('info', 'ProfileController@info')->name('info.edit');
