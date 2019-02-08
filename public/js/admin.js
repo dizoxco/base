@@ -46289,7 +46289,7 @@ var Form = function (_Component) {
     _createClass(Form, [{
         key: 'render',
         value: function render() {
-            var className = this.props.show == false ? 'flex flex-wrap -mx-2 page-tab' : 'flex flex-wrap -mx-2 page-tab show';
+            var className = this.props.show == false ? 'flex flex-wrap p-4 page-tab' : 'flex flex-wrap p-4 page-tab show';
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: className },
@@ -59804,25 +59804,32 @@ var Show = function (_Component) {
     _createClass(Show, [{
         key: "render",
         value: function render() {
-            var list = this.props.data.map(function (d, i) {
+            var cls = this.props.full ? "mb-5 w-full" : "mb-5 w-1/2";
+            var content = this.props.full ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                null,
+                this.props.children
+            ) : this.props.children;
+            if (this.props.label) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     "div",
-                    { className: "mb-5", key: i },
+                    { className: cls },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         "strong",
                         null,
-                        d.label,
+                        this.props.label,
                         ":"
                     ),
                     " ",
-                    d.value
+                    content
                 );
-            });
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                null,
-                list
-            );
+            } else {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: cls },
+                    content
+                );
+            }
         }
     }]);
 
@@ -66405,29 +66412,29 @@ var Post = function (_Component) {
     _createClass(Post, [{
         key: "componentDidMount",
         value: function componentDidMount() {
-            if (this.props.post === null) {
-                this.props.getPosts();
-            }
+            if (this.props.post === null) this.props.getPosts();
         }
     }, {
         key: "render",
         value: function render() {
             var _this2 = this;
 
+            console.log(this.props.post);
             if (this.props.post === null) return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["g" /* Loading */], null);
             if (this.props.post === undefined) return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["h" /* NotFound */], null);
+            if (this.props.author === null) this.props.getUsers();
+
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_3__components__["i" /* Page */]
-                // title={this.props.post.attributes.title}
-                ,
-                { title: this.props.post.attributes.title,
+                __WEBPACK_IMPORTED_MODULE_3__components__["i" /* Page */],
+                {
+                    title: this.props.post.attributes.title,
                     button: {
                         label: 'save',
                         onClick: function onClick() {
                             return _this2.props.updatePost(_this2.props.post);
                         }
                     },
-                    tabs: ['نمایش', 'ویرایش اطلاعات', 'نظرات'],
+                    tabs: ['نمایش', 'ویرایش اطلاعات'],
                     tab: this.state.tab,
                     redirect: this.state.redirect,
                     loading: this.props.post == null,
@@ -66438,7 +66445,36 @@ var Post = function (_Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_3__components__["d" /* Form */],
                     { show: this.state.tab == 0 },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["m" /* Show */], { data: [{ label: 'عنوان', value: this.props.post.attributes.title }, { label: 'نامک', value: this.props.post.attributes.slug }, { label: 'چکیده', value: this.props.post.attributes.abstract }, { label: 'محتوا', value: this.props.post.attributes.body }] })
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        __WEBPACK_IMPORTED_MODULE_3__components__["m" /* Show */],
+                        { label: "\u0639\u0646\u0648\u0627\u0646" },
+                        this.props.post.attributes.title
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        __WEBPACK_IMPORTED_MODULE_3__components__["m" /* Show */],
+                        { label: "\u0646\u0627\u0645\u06A9" },
+                        this.props.post.attributes.slug
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        __WEBPACK_IMPORTED_MODULE_3__components__["m" /* Show */],
+                        { label: "\u0646\u0648\u06CC\u0633\u0646\u062F\u0647" },
+                        this.props.author ? this.props.author.attributes.name : '...'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        __WEBPACK_IMPORTED_MODULE_3__components__["m" /* Show */],
+                        { label: "\u0645\u0646\u062A\u0634\u0631 \u0634\u062F\u0647 \u062F\u0631" },
+                        this.props.post.attributes.published_at
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        __WEBPACK_IMPORTED_MODULE_3__components__["m" /* Show */],
+                        { label: "\u0686\u06A9\u06CC\u062F\u0647", full: true },
+                        this.props.post.attributes.abstract
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        __WEBPACK_IMPORTED_MODULE_3__components__["m" /* Show */],
+                        { label: "\u0628\u062F\u0646\u0647", full: true },
+                        this.props.post.attributes.body
+                    )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_3__components__["d" /* Form */],
@@ -66474,28 +66510,6 @@ var Post = function (_Component) {
                             return _this2.props.setPost(_this2.props.post.id, { body: e.target.value });
                         }
                     })
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_3__components__["d" /* Form */],
-                    { show: this.state.tab == 2 },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["p" /* Table */], {
-                        data: this.props.comments,
-                        columns: [{
-                            Header: 'id',
-                            accessor: 'id',
-                            width: 70
-                        }, {
-                            Header: 'وضعیت',
-                            width: 50,
-                            Cell: function Cell(row) {
-                                return row.original.oldAttributes ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Icon, { icon: "edit" }) : '';
-                            }
-                        }, {
-                            Header: 'عنوان',
-                            accessor: 'attributes.body'
-                        }],
-                        tdClick: this.tdClick
-                    })
                 )
             );
         }
@@ -66505,15 +66519,19 @@ var Post = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 var mapStateToProps = function mapStateToProps(state, props) {
+    var post = state.posts.index.length ? state.posts.index.find(function (element) {
+        return element.id == props.match.params.post;
+    }) : null;
     return {
-        post: state.posts.index.length ? state.posts.index.find(function (element) {
-            return element.id == props.match.params.post;
+        post: post,
+        author: state.users.index.length && post.id ? state.users.index.find(function (element) {
+            return element.id == post.id;
         }) : null,
         comments: state.comments.index
     };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getPosts: __WEBPACK_IMPORTED_MODULE_2__actions__["f" /* getPosts */], setPost: __WEBPACK_IMPORTED_MODULE_2__actions__["l" /* setPost */], updatePost: __WEBPACK_IMPORTED_MODULE_2__actions__["m" /* updatePost */] })(Post));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getPosts: __WEBPACK_IMPORTED_MODULE_2__actions__["f" /* getPosts */], getUsers: __WEBPACK_IMPORTED_MODULE_2__actions__["j" /* getUsers */], setPost: __WEBPACK_IMPORTED_MODULE_2__actions__["l" /* setPost */], updatePost: __WEBPACK_IMPORTED_MODULE_2__actions__["m" /* updatePost */] })(Post));
 
 /***/ }),
 /* 478 */
