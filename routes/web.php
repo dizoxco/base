@@ -24,7 +24,10 @@ Route::name('wishlist.')->prefix('wishlist')->group(function () {
 
 Route::name('tickets.')->prefix('tickets')->group(function () {
 	Route::get('create', 'TicketController@create')->name('create');
-	Route::get('toggle', 'TicketController@toggle')->name('toggle');
+	Route::post('/', 'TicketController@store')->name('store');
+	Route::get('{ticket}', 'TicketController@show')->name('show');
+	Route::put('{ticket}/reply', 'TicketController@reply')->name('reply');
+	Route::put('{ticket}/toggle', 'TicketController@toggle')->name('toggle');
 });
 
 Route::name('profile.')->prefix('profile')->middleware('auth:web')->group(function () {
