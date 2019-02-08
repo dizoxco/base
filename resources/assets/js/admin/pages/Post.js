@@ -2,19 +2,21 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getPosts, getUsers, setPost, updatePost } from "../actions"
-import { Loading, NotFound, Table, Form, Page, Show, Text } from "../components";
+import { Loading, NotFound, Table, Form, Editor, Page, Show, Text } from "../components";
 
 class Post extends Component{
 
     state = {        
-        tab: 0
+        tab: 1
     }
 
     componentDidMount(){
         if (this.props.post === null) this.props.getPosts();
+        
     }
 
     render(){
+        
         console.log(this.props.post);
         if (this.props.post === null) return <Loading />
         if (this.props.post === undefined) return <NotFound />
@@ -65,6 +67,7 @@ class Post extends Component{
                         value={this.props.post.attributes.body}
                         onChange={ (e) => this.props.setPost(this.props.post.id, {body: e.target.value}) }
                     />
+                    <Editor />
                 </Form>
             </Page>
         );
