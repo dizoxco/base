@@ -23,18 +23,18 @@ Route::name('wishlist.')->prefix('wishlist')->group(function () {
 });
 
 Route::name('tickets.')->prefix('tickets')->group(function () {
-	Route::get('create', 'TicketController@create')->name('create');
-	Route::post('/', 'TicketController@store')->name('store');
-	Route::get('{ticket}', 'TicketController@show')->name('show');
-	Route::put('{ticket}/reply', 'TicketController@reply')->name('reply');
-	Route::put('{ticket}/toggle', 'TicketController@toggle')->name('toggle');
+    Route::get('create', 'TicketController@create')->name('create');
+    Route::post('/', 'TicketController@store')->name('store');
+    Route::get('{ticket}', 'TicketController@show')->name('show');
+    Route::put('{ticket}/reply', 'TicketController@reply')->name('reply');
+    Route::put('{ticket}/toggle', 'TicketController@toggle')->name('toggle');
 });
 
 Route::name('profile.')->prefix('profile')->middleware('auth:web')->group(function () {
     Route::get('orders', 'ProfileController@orders')->name('orders');
     Route::get('cart', 'CartController@index')->name('cart');
-	Route::resource('addresses', 'AddressController');
-	Route::get('wishlist', 'WishlistController@index')->name('wishlist');
+    Route::resource('addresses', 'AddressController');
+    Route::get('wishlist', 'WishlistController@index')->name('wishlist');
     Route::get('chats', 'ProfileController@chats')->name('chats');
     Route::get('tickets', 'TicketController@index')->name('tickets');
     Route::get('credentials', 'ProfileController@credentials')->name('credentials.edit');

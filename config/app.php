@@ -168,8 +168,7 @@ return [
          * Package Service Providers...
          */
         Ipecompany\Smsirlaravel\SmsirlaravelServiceProvider::class,
-	    Anetwork\Validation\PersianValidationServiceProvider::class,
-
+        Anetwork\Validation\PersianValidationServiceProvider::class,
 
         /*
          * Application Service Providers...

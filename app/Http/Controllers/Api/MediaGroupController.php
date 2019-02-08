@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Models\MediaGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\MediaCollection;
 use App\Http\Resources\MediaResource;
+use App\Http\Resources\MediaCollection;
 use App\Http\Resources\MediaGroupCollection;
 
 class MediaGroupController extends Controller
