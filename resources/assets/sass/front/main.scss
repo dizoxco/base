@@ -1,6 +1,11 @@
 @tailwind preflight;
 @tailwind components;
 @tailwind utilities;
+*,
+*::before,
+*::after {
+  border-style: none;
+}
 @import "~swiper/dist/css/swiper.min";
 @import "@material/textfield/mdc-text-field";
 @import "@material/textfield/icon/mdc-text-field-icon";

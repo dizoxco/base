@@ -69,7 +69,7 @@ $('.swiper.simple').each(function(){
 import mdcAutoInit from '@material/auto-init';
 import {MDCTextField} from '@material/textfield';
 import {MDCTextFieldIcon} from '@material/textfield/icon';
-// import {MDCRipple} from '@material/ripple';
+import {MDCRipple} from '@material/ripple';
 
 mdcAutoInit.register('mdc-text-field', MDCTextField);
 mdcAutoInit.register('mdc-text-field-icon', MDCTextFieldIcon);
@@ -83,7 +83,7 @@ mdcAutoInit.register('mdc-text-field-icon', MDCTextFieldIcon);
 
 // const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));
 // mdcAutoInit.register('mdc-ripple', MDCRipple);
-// MDCRipple.attachTo(document.querySelector('.mdc-button'));
+MDCRipple.attachTo(document.querySelector('.mdc-button'));
 mdcAutoInit();
 
 $('.toggler').click(function(){
