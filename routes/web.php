@@ -84,7 +84,9 @@ Route::name('wishlist.')->prefix('wishlist')->group(function () {
 Route::name('profile.')->prefix('profile')->middleware('auth:web')->group(function () {
     Route::get('orders', 'ProfileController@orders')->name('orders');
     Route::get('cart', 'CartController@index')->name('cart');
-    Route::get('addresses', 'ProfileController@addresses')->name('addresses');
+    Route::get('addresses', 'ProfileController@addressesIndex')->name('addresses.index');
+    Route::get('addresses/create', 'ProfileController@addressesCreate')->name('addresses.create');
+    Route::post('addresses/store', 'ProfileController@addressesStore')->name('addresses.store');
     Route::get('wishlist', 'WishlistController@index')->name('wishlist');
     Route::get('chats', 'ProfileController@chats')->name('chats');
     Route::get('tickets', 'ProfileController@tickets')->name('tickets');

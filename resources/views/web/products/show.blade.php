@@ -4,7 +4,8 @@
     $gallery = $product->getMedia(enum('media.product.gallery'));
 @endphp
 @section('content')
-    <div class="bg-white flex flex-wrap container py-32">
+    <div class="bg-white flex flex-wrap container py-2">
+        
         <div class="swiper simple -mx-4 overflow-hidden md:hidden" column="1" >
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
@@ -20,13 +21,28 @@
             </div>
         </div>
 
-
-        <div class="w-1/2 p-4 flex flex-wrap items-center product-image">
-            <img class="hidden md:block" media-gallery="0" src="{{$banner->getFullUrl()}}" alt="">
+        <div class="w-1/7 product-images hidden md:block">
+            <div class="swiper simple overflow-hidden h-screen/7" column="3" direction="vertical" >
+                <div class="swiper-wrapper">
+                    @foreach ($gallery as $i => $media)
+                        <div class="swiper-slide flex items-center justify-center p-1 border-box" style="box-sizing: border-box">
+                            <img class="max-h-full" media-gallery="{{1+$i}}" src="{{$media->getFullUrl()}}" alt="">
+                        </div>
+                    @endforeach
+                    @foreach ($gallery as $i => $media)
+                        <div class="swiper-slide flex items-center justify-center p-1 border-box" style="box-sizing: border-box">
+                            <img class="max-h-full" media-gallery="{{1+$i}}" src="{{$media->getFullUrl()}}" alt="">
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
 
+        <div class="product-image w-1/3 items-center justify-center h-screen/7 hidden md:flex">
+            <img class="max-h-full" media-gallery="0" src="{{$banner->getFullUrl()}}" alt="">
+        </div>
 
-        <div class="md:w-1/3 px-4">
+        <div class="md:w-1/3 pr-8">
             <h1 class="title">{{$product->title}}</h1>
             <div class="flex caption pb-6">
                 @php
@@ -88,43 +104,44 @@
             </div>
         </div> 
 
-        
-
         <div class="product-gallery bg-white hidden pin-y pin-x w-full h-full z-50 ">
-                <div class="w-full flex">
-                    <div class="w-1/8 bg-yellow flex flex-col">
-                        <div class="close bg-blue h-screen/15 flex items-center justify-center toggler" toggle-target=".product-gallery" toggle-class="hidden fixed flex">
-                            <i class="material-icons">close</i>
-                        </div>
-                        <div class="prev bg-red w-full flex items-center justify-center h-screen/7">
-                            <i class="material-icons">chevron_right</i>
-                        </div>
+            <div class="w-full flex">
+                <div class="w-1/8 flex flex-col">
+                    <div class="close hover:bg-grey-lighter h-screen/15 flex items-center justify-center" >
+                        <i class="material-icons">close</i>
                     </div>
-                    <div class="banner w-full flex items-center justify-center">
-                        <img src="{{$banner->getFullUrl()}}" >
-                    </div>
-                    <div class="w-1/8 bg-yellow flex items-center justify-center">
-                        <div class="next bg-red w-full flex items-center justify-center h-screen/7">
-                            <i class="material-icons">chevron_left</i>
-                        </div>
+                    <div class="prev hover:bg-grey-lighter w-full flex items-center justify-center h-screen/7">
+                        <i class="material-icons">chevron_right</i>
                     </div>
                 </div>
-                <div class="w-1/7 b-r">
-                    <div class="swiper  overflow-hidden h-full" column="5" direction="vertical" >
-                        <div class="swiper-wrapper">
-                            @foreach ($gallery as $media)
-                                <div class="swiper-slide flex items-center">
-                                    <img src="{{$media->getFullUrl()}}" >
-                                </div>
-                            @endforeach
-                            @foreach ($gallery as $media)
-                                <div class="swiper-slide flex items-center">
-                                    <img src="{{$media->getFullUrl()}}" >
-                                </div>
-                            @endforeach
-                        </div>
+                <div class="banner w-full flex items-center justify-center p-4">
+                    <img src="{{$banner->getFullUrl()}}" >
+                </div>
+                <div class="w-1/8 flex items-center justify-center">
+                    <div class="next hover:bg-grey-lighter w-full flex items-center justify-center h-screen/7">
+                        <i class="material-icons">chevron_left</i>
                     </div>
                 </div>
+            </div>
+            <div class="w-1/7 b-r">
+                <div class="swiper  overflow-hidden h-full" column="5" direction="vertical" >
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide flex justify-center p-1" style="box-sizing: border-box">
+                            <img class="max-h-full" src="{{$banner->getFullUrl()}}" >
+                        </div>
+                        @foreach ($gallery as $media)
+                            <div class="swiper-slide flex justify-center p-1" style="box-sizing: border-box">
+                                <img class="max-h-full" src="{{$media->getFullUrl()}}" >
+                            </div>
+                        @endforeach
+                        @foreach ($gallery as $media)
+                            <div class="swiper-slide flex justify-center p-1" style="box-sizing: border-box">
+                                <img class="max-h-full" src="{{$media->getFullUrl()}}" >
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
         </div>
 
 

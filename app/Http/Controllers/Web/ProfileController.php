@@ -17,11 +17,15 @@ class ProfileController extends Controller
         return view('profile.orders', compact('orders'));
     }
 
-    public function addresses()
+    public function addressesIndex()
     {
         $addresses = auth()->user()->addresses()->with('city')->get();
+        return view('profile.addresses.index', compact('addresses'));
+    }
 
-        return view('profile.addresses', compact('addresses'));
+    public function addressesCreate()
+    {
+        return view('profile.addresses.create');
     }
 
     public function chats()
