@@ -10,7 +10,7 @@
 	</head>
 	<body class="portal @can('admin menu') admin @endcan" dir="rtl">
 		@component('components.nav.simple') @endcomponent
-		<div>master page</div>
+		<br><br><br><br><br>
 		<div id="content">
 			@yield('content')
 		</div>
