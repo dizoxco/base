@@ -7354,8 +7354,8 @@ class MDCTextFieldIconAdapter {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(203);
-__webpack_require__(216);
-module.exports = __webpack_require__(217);
+__webpack_require__(217);
+module.exports = __webpack_require__(218);
 
 
 /***/ }),
@@ -7371,7 +7371,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 window.$ = window.jQuery = __webpack_require__(205);
 __webpack_require__(206);
 __webpack_require__(207);
-__webpack_require__(215);
+__webpack_require__(216);
 
 $('.swiper.simple').each(function () {
     new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($(this), {
@@ -19274,7 +19274,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_textfield_icon__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ripple__ = __webpack_require__(214);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ripple___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ripple__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_select__ = __webpack_require__(662);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_select__ = __webpack_require__(215);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_select__);
 
 
@@ -28027,134 +28027,6 @@ var numbers = {
 /***/ }),
 
 /***/ 215:
-/***/ (function(module, exports) {
-
-var prevScrollpos = window.pageYOffset;
-window.onscroll = function () {
-  var currentScrollPos = window.pageYOffset;
-  if (prevScrollpos > currentScrollPos) {
-    document.getElementById("nav").style.top = "0";
-  } else {
-    document.getElementById("nav").style.top = "-64px";
-  }
-  prevScrollpos = currentScrollPos;
-};
-// document.querySelector('#menu-btn').addEventListener('click', function () {
-//   document.querySelector('.nav-mobile').style.right = 0;
-//   document.querySelector('.nav-mobile__utility').style.right = 0;
-// });
-
-// document.querySelector('.toggler').addEventListener('click', function () {
-//   var list = document.getElementsByClassName(this.getAttribute('toggle'));
-//   for (let item of list) {
-//     item.classList.toggle('active');
-//   }  
-// });
-
-//  var search = document.querySelectorAll(".search-icon");
-//  for (var i=0; i<search.length; i++){
-//    search[i].addEventListener("click", function () {
-//      document.querySelector(".nav__search-box").classList.toggle("active");
-//      document.querySelector(".nav__search").classList.toggle("active");
-//    });
-//  }
-
-//  document.querySelector(".nav__search").addEventListener("click", function (e) {
-//    console.log(e.target);
-
-//    var searchBox = document.querySelector(".nav__search-box");
-//    if (e.target !== searchBox) {
-//      document.querySelector(".nav__search-box").classList.toggle("active");
-//    document.querySelector(".nav__search").classList.toggle("active");
-//    }
-
-//  });
-
-
-//  document.querySelector(".cart-icon").addEventListener("click", function (e) {
-//    console.log("cart");
-
-//    document.querySelector(".side").classList.toggle("active");
-//    document.querySelector(".side__cart").classList.toggle("active");
-//    document.querySelector(".glass").classList.toggle("active");
-
-//   });
-
-//  document.querySelector(".glass").addEventListener("click", function(e){
-//         document.querySelector(".side").classList.toggle("active");
-//         document.querySelector(".side__cart").classList.toggle("active");
-//         document.querySelector(".glass").classList.toggle("active");
-//         console.log("cart");
-//  });
-
-//  document.querySelector(".close").addEventListener("click", function(e){
-//         document.querySelector(".side").classList.toggle("active");
-//         document.querySelector(".side__cart").classList.toggle("active");
-//         document.querySelector(".glass").classList.toggle("active");
-//         console.log("cart");
-//  });
-$('[glass]').click(function (e) {
-  e.preventDefault();
-  var target = $($(this).attr('glass'));
-  if (target.hasClass('over-glass')) {
-    $('.glass').removeClass('active');
-    $('body').removeClass('overflow-hidden');
-    target.removeClass('over-glass');
-  } else {
-    $('.glass').addClass('active');
-    $('body').addClass('overflow-hidden');
-    target.addClass('over-glass');
-  }
-});
-$('.glass').click(function () {
-  $(this).removeClass('active');
-  $('body').removeClass('overflow-hidden');
-  $('.over-glass').removeClass('over-glass');
-});
-
-$('[side-content]').click(function () {
-  $('.side .side-content.active').removeClass('active');
-  $($(this).attr('side-content')).addClass('active');
-});
-
-document.querySelector(".nav-mobile__bar-menu-btn").addEventListener("click", function () {
-  document.querySelector(".nav-mobile__bar-burger").classList.toggle("active");
-});
-
-document.querySelector(".nav-mobile__bar-menu-btn").addEventListener("click", function () {
-  document.querySelector(".nav-mobile").classList.toggle("active");
-});
-
-var menuItem = document.querySelectorAll(".nav-mobile__list a");
-for (var i = 0; i < menuItem.length; i++) {
-  menuItem[i].addEventListener("click", function (e) {
-    this.parentNode.querySelector("ul").classList.toggle("active");
-    this.parentNode.querySelector("i").classList.toggle("active");
-  });
-}
-
-var menuFlesh = document.querySelectorAll(".nav-mobile__list a");
-for (var i = 0; i < menuFlesh.length; i++) {
-  // console.log(menuFlesh[i]);
-}
-
-/***/ }),
-
-/***/ 216:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 217:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 662:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -37571,6 +37443,134 @@ var cssClasses = {
 /******/ ]);
 });
 //# sourceMappingURL=mdc.select.js.map
+
+/***/ }),
+
+/***/ 216:
+/***/ (function(module, exports) {
+
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function () {
+  var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.getElementById("nav").style.top = "0";
+  } else {
+    document.getElementById("nav").style.top = "-64px";
+  }
+  prevScrollpos = currentScrollPos;
+};
+// document.querySelector('#menu-btn').addEventListener('click', function () {
+//   document.querySelector('.nav-mobile').style.right = 0;
+//   document.querySelector('.nav-mobile__utility').style.right = 0;
+// });
+
+// document.querySelector('.toggler').addEventListener('click', function () {
+//   var list = document.getElementsByClassName(this.getAttribute('toggle'));
+//   for (let item of list) {
+//     item.classList.toggle('active');
+//   }  
+// });
+
+//  var search = document.querySelectorAll(".search-icon");
+//  for (var i=0; i<search.length; i++){
+//    search[i].addEventListener("click", function () {
+//      document.querySelector(".nav__search-box").classList.toggle("active");
+//      document.querySelector(".nav__search").classList.toggle("active");
+//    });
+//  }
+
+//  document.querySelector(".nav__search").addEventListener("click", function (e) {
+//    console.log(e.target);
+
+//    var searchBox = document.querySelector(".nav__search-box");
+//    if (e.target !== searchBox) {
+//      document.querySelector(".nav__search-box").classList.toggle("active");
+//    document.querySelector(".nav__search").classList.toggle("active");
+//    }
+
+//  });
+
+
+//  document.querySelector(".cart-icon").addEventListener("click", function (e) {
+//    console.log("cart");
+
+//    document.querySelector(".side").classList.toggle("active");
+//    document.querySelector(".side__cart").classList.toggle("active");
+//    document.querySelector(".glass").classList.toggle("active");
+
+//   });
+
+//  document.querySelector(".glass").addEventListener("click", function(e){
+//         document.querySelector(".side").classList.toggle("active");
+//         document.querySelector(".side__cart").classList.toggle("active");
+//         document.querySelector(".glass").classList.toggle("active");
+//         console.log("cart");
+//  });
+
+//  document.querySelector(".close").addEventListener("click", function(e){
+//         document.querySelector(".side").classList.toggle("active");
+//         document.querySelector(".side__cart").classList.toggle("active");
+//         document.querySelector(".glass").classList.toggle("active");
+//         console.log("cart");
+//  });
+$('[glass]').click(function (e) {
+  e.preventDefault();
+  var target = $($(this).attr('glass'));
+  if (target.hasClass('over-glass')) {
+    $('.glass').removeClass('active');
+    $('body').removeClass('overflow-hidden');
+    target.removeClass('over-glass');
+  } else {
+    $('.glass').addClass('active');
+    $('body').addClass('overflow-hidden');
+    target.addClass('over-glass');
+  }
+});
+$('.glass').click(function () {
+  $(this).removeClass('active');
+  $('body').removeClass('overflow-hidden');
+  $('.over-glass').removeClass('over-glass');
+});
+
+$('[side-content]').click(function () {
+  $('.side .side-content.active').removeClass('active');
+  $($(this).attr('side-content')).addClass('active');
+});
+
+document.querySelector(".nav-mobile__bar-menu-btn").addEventListener("click", function () {
+  document.querySelector(".nav-mobile__bar-burger").classList.toggle("active");
+});
+
+document.querySelector(".nav-mobile__bar-menu-btn").addEventListener("click", function () {
+  document.querySelector(".nav-mobile").classList.toggle("active");
+});
+
+var menuItem = document.querySelectorAll(".nav-mobile__list a");
+for (var i = 0; i < menuItem.length; i++) {
+  menuItem[i].addEventListener("click", function (e) {
+    this.parentNode.querySelector("ul").classList.toggle("active");
+    this.parentNode.querySelector("i").classList.toggle("active");
+  });
+}
+
+var menuFlesh = document.querySelectorAll(".nav-mobile__list a");
+for (var i = 0; i < menuFlesh.length; i++) {
+  // console.log(menuFlesh[i]);
+}
+
+/***/ }),
+
+/***/ 217:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 218:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 

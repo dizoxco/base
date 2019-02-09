@@ -20,7 +20,7 @@ class AddressController extends Controller
     {
         $cities = City::select(['id', 'name'])->get()->pluck('name', 'id')->toArray();
 
-        return view('profile.address.create', compact('cities'));
+        return view('profile.addresses.form', compact('cities'));
     }
 
     public function store(StoreAddressRequest $request)
@@ -34,7 +34,7 @@ class AddressController extends Controller
     {
         $cities = City::select(['id', 'name'])->get()->pluck('name', 'id')->toArray();
 
-        return view('profile.address.edit', compact('address', 'cities'));
+        return view('profile.addresses.form', compact('address', 'cities'));
     }
 
     public function update(StoreAddressRequest $request, Address $address)
