@@ -10327,50 +10327,6 @@ svg.mdc-button__icon {
   outline: none;
 }
 
-html {
-  font-size: 14px;
-  line-height: 1.5;
-  font-weight: normal;
-}
-
-@media screen and (min-width: 1200px) {
-  html {
-    font-size: 15px;
-  }
-}
-
-body {
-  font-family: IRANSans;
-  direction: rtl;
-  text-align: right;
-  background-color: #f5f5f5;
-}
-
-.container {
-  width: 95%;
-  margin-right: auto;
-  margin-left: auto;
-  max-width: 1600px;
-}
-
-.container.large {
-  max-width: 980px;
-}
-
-.container.medium {
-  max-width: 800px;
-}
-
-.container.small {
-  max-width: 600px;
-}
-
-@media screen and (min-width: 1700px) {
-  .container.medium {
-    max-width: 900px;
-  }
-}
-
 .nav {
   height: 64px;
   border: 1px solid #f1f1f1;
@@ -10478,48 +10434,24 @@ body {
 
 .side {
   max-width: 400px;
+  right: -400px;
+  -webkit-transition: -webkit-transform .3s;
+  transition: -webkit-transform .3s;
+  transition: transform .3s;
+  transition: transform .3s, -webkit-transform .3s;
+}
+
+.side.over-glass {
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+}
+
+.side .side-content {
   display: none;
 }
 
-.side.active {
+.side .side-content.active {
   display: block;
-}
-
-.side__cart {
-  display: none;
-}
-
-.side__cart.active {
-  display: block;
-}
-
-.side__wishlist {
-  background-color: red;
-  display: none;
-}
-
-.side__wishlist.active {
-  display: block;
-}
-
-.side__login {
-  display: none;
-}
-
-.side__login.active {
-  display: block;
-}
-
-.side__register {
-  display: none;
-}
-
-.side__forgot {
-  display: none;
-}
-
-.side__reset-password {
-  display: none;
 }
 
 .close {
@@ -10813,6 +10745,50 @@ body {
 
   .nav-mobile__list ul.active {
     display: block;
+  }
+}
+
+html {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: normal;
+}
+
+@media screen and (min-width: 1200px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+body {
+  font-family: IRANSans;
+  direction: rtl;
+  text-align: right;
+  background-color: #f5f5f5;
+}
+
+.container {
+  width: 95%;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1600px;
+}
+
+.container.large {
+  max-width: 980px;
+}
+
+.container.medium {
+  max-width: 800px;
+}
+
+.container.small {
+  max-width: 600px;
+}
+
+@media screen and (min-width: 1700px) {
+  .container.medium {
+    max-width: 900px;
   }
 }
 
