@@ -52,7 +52,7 @@ class Variation extends Model
         $product = request()->route()->parameter('product');
 
         if ($product instanceof Product) {
-	        return $this->whereId($variation)->whereProductId($product->id)->first();
+            return $this->whereId($variation)->whereProductId($product->id)->first();
         }
 
         return $this->whereId($variation)->first();

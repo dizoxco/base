@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Models\Product;
-use App\Models\Variation;
 use Auth;
 use Cookie;
+use App\Models\Product;
+use App\Models\Variation;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CartController extends Controller
 {
     public function index()
     {
-	    if (Auth::check()) {
-		    $cart = auth()->user()->cart()->with('variation.product')->get()->pluck('variation');
-	    } else {
-		    $cart = array_wrap(json_decode(Cookie::get('cart'), true));
-		    $cart = Variation::whereIn('id', array_keys($cart))->get();
-	    }
+        if (Auth::check()) {
+            $cart = auth()->user()->cart()->with('variation.product')->get()->pluck('variation');
+        } else {
+            $cart = array_wrap(json_decode(Cookie::get('cart'), true));
+            $cart = Variation::whereIn('id', array_keys($cart))->get();
+        }
 
         return view('profile.cart', compact('cart'));
     }
@@ -27,11 +27,11 @@ class CartController extends Controller
     {
         if (Auth::check()) {
             Auth::user()->cart()->updateOrCreate(
-            	[
-            		'user_id' => Auth::id(),
-		            'variation_id' => $variation->id,
+                [
+                    'user_id' => Auth::id(),
+                    'variation_id' => $variation->id,
                 ],
-	            [
+                [
                     'variation_id' => $variation->id,
                     'quantity' => \DB::raw('quantity + 1'),
                 ]
