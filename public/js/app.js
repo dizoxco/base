@@ -418,6 +418,7 @@ $('.swiper.simple').each(function () {
 
 __WEBPACK_IMPORTED_MODULE_1__material_auto_init___default.a.register('mdc-text-field', __WEBPACK_IMPORTED_MODULE_2__material_textfield__["MDCTextField"]);
 __WEBPACK_IMPORTED_MODULE_1__material_auto_init___default.a.register('mdc-text-field-icon', __WEBPACK_IMPORTED_MODULE_3__material_textfield_icon__["a" /* MDCTextFieldIcon */]);
+__WEBPACK_IMPORTED_MODULE_1__material_auto_init___default.a.register('mdc-button', __WEBPACK_IMPORTED_MODULE_4__material_ripple__["MDCRipple"]);
 
 // const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));
 

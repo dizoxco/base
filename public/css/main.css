@@ -10141,6 +10141,11 @@ body {
   border-radius: 28px 0 0 28px;
 }
 
+.mdc-button.shaped,
+.mdc-button--outlined {
+  border-radius: 18px !important;
+}
+
 .container {
   width: 95%;
   margin-right: auto;

@@ -73,6 +73,7 @@ import {MDCRipple} from '@material/ripple';
 
 mdcAutoInit.register('mdc-text-field', MDCTextField);
 mdcAutoInit.register('mdc-text-field-icon', MDCTextFieldIcon);
+mdcAutoInit.register('mdc-button', MDCRipple);
 
 // const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));
 

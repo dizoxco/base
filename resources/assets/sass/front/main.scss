@@ -50,7 +50,9 @@ body{
         }
     }
 }
-
+.mdc-button.shaped, .mdc-button--outlined{
+    border-radius: 18px !important;
+}
 
 .container{ 
     width: 95%;
