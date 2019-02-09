@@ -18,6 +18,7 @@ Artisan::command('purge', function () {
     $this->call('config:clear');
     $this->call('debugbar:clear');
     $this->call('route:clear');
+    $this->call('view:clear');
     if ($this->confirm('Do you wish to clear media?')) {
         $this->call('medialibrary:clear');
     }
