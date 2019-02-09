@@ -12,11 +12,6 @@ Route::name('web.auth')->prefix('auth')->group(function () {
     Auth::routes();
 });
 // ==================================== Users profile Section =================
-Route::name('cart.')->prefix('cart')->group(function () {
-    Route::get('/{variation}', 'CartController@store')->name('store');
-    Route::delete('/', 'CartController@destroy')->name('destroy');
-});
-
 Route::name('tickets.')->prefix('tickets')->group(function () {
     Route::get('create', 'TicketController@create')->name('create');
     Route::post('/', 'TicketController@store')->name('store');

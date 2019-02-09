@@ -2,33 +2,40 @@
 
 namespace App\Http\Controllers\Web;
 
-use Auth;
-use Cookie;
-use App\Models\Cart;
+use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Variation;
+use Auth;
+use Cookie;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class CartController extends Controller
 {
     public function index()
     {
-        $carts = auth()->user()->cart()->with('variation', 'variation.product')->get();
+	    if (Auth::check()) {
+		    $cart = auth()->user()->cart()->with('variation.product')->get()->pluck('variation');
+	    } else {
+		    $cart = array_wrap(json_decode(Cookie::get('cart'), true));
+		    $cart = Variation::whereIn('id', array_keys($cart))->get();
+	    }
 
-        return view('profile.cart', compact('carts'));
+        return view('profile.cart', compact('cart'));
     }
 
     public function store(Request $request, Variation $variation)
     {
         if (Auth::check()) {
-            Auth::user()->cart()->updateOrCreate([
-                'user_id' => Auth::id(),
-                'variation_id' => $variation->id,
-                ], [
+            Auth::user()->cart()->updateOrCreate(
+            	[
+            		'user_id' => Auth::id(),
+		            'variation_id' => $variation->id,
+                ],
+	            [
                     'variation_id' => $variation->id,
                     'quantity' => \DB::raw('quantity + 1'),
-                ]);
+                ]
+            );
             $cookie = Cookie::make('cart', null);
         } else {
             if ($cart = json_decode(Cookie::get('cart'), true)) {
@@ -44,7 +51,7 @@ class CartController extends Controller
             }
         }
 
-        return redirect()->back()->withCookies([$cookie]);
+        return back()->withCookies([$cookie]);
     }
 
     public function destroy(Request $request, Variation $variation)
@@ -52,7 +59,7 @@ class CartController extends Controller
         if (Auth::check()) {
             Auth::user()->cart()->whereUserId(Auth::id())->whereVariationId($variation->id)->delete();
 
-            return redirect()->back();
+            return back();
         } elseif ($cart = json_decode(Cookie::get('cart'), true)) {
             if (array_key_exists($variation->id, $cart)) {
                 $cart[$variation->id] -= 1;
@@ -62,7 +69,7 @@ class CartController extends Controller
                 unset($cart[$variation->id]);
             }
 
-            return redirect()->back()->withCookies([Cookie::make('cart', json_encode($cart))]);
+            return back()->withCookies([Cookie::make('cart', json_encode($cart))]);
         }
     }
 }

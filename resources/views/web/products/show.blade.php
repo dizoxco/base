@@ -217,7 +217,7 @@
                             <td>{{ $loop->index+1 }}</td>
                             <td>@toman($variation->price)</td>
                             <td>
-                                <a href="{{ route('cart.store', [$product->slug, $variation]) }}">
+                                <a href="{{ route('cart.store', $variation) }}">
                                     افزودن به سبد خرید
                                 </a>
                             </td>
