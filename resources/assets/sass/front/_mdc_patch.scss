@@ -4,11 +4,18 @@
 // }
 // @import "@material/rtl/mixins";
 // mdc-rtl('.rtl');
-@import "@material/icon-button/mdc-icon-button";
-@import "@material/textfield/mdc-text-field";
-@import "@material/textfield/icon/mdc-text-field-icon";
-@import "@material/button/mdc-button";
 @import "@material/ripple/mdc-ripple";
+@import "@material/form-field/mdc-form-field";
+@import "@material/icon-button/mdc-icon-button";
+@import "@material/textfield/icon/mdc-text-field-icon";
+@import "@material/textfield/mdc-text-field";
+@import "@material/button/mdc-button";
+@import "@material/checkbox/mdc-checkbox";
+@import "@material/radio/mdc-radio";
+@import "@material/list/mdc-list";
+@import "@material/menu-surface/mdc-menu-surface";
+@import "@material/menu/mdc-menu";
+@import "@material/select/mdc-select";
 .mdc-text-field{
     label{
         font-family: IRANSans;
