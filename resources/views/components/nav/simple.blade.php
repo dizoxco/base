@@ -77,19 +77,25 @@
 
 <div class="side fixed t0 r0 w-full bg-white h-full z-70">
 
-  <div class="close" glass=".side">
+  <div class="close pin-l pin-t " glass=".side">
     <span class="close__cross"></span>
   </div>
 
-  <div class="side-content cart">
-    <div class="side__cart-container">
-      cart
+  <div class="side-content cart flex h-full p-16 pt-32">
+    <div class="side__cart-empty-container w-full text-center">
+      <h6 class="mb-8">سبد خرید شما خالی است</h6>
+      <div class="side__cart-empty-img">
+        <img src="/images/empty-cart.png" alt="">
+      </div>
     </div>
   </div>
 
-  <div class="side-content wishlist">
-    <div class="side__wishlist-container">
-      wishlist
+  <div class="side-content wishlist flex h-full p-16 pt-32">
+    <div class="side__wishlist-container w-full text-center">
+      <h6 class="mb-8">کمد لباس شما خالی است</h6>
+      <div class="side__wishlist-empty-img">
+        <img src="/images/empty-wishlist.png" alt="">
+      </div>
     </div>
   </div>
 
@@ -215,26 +221,34 @@
  
  
 <div class="mega-search fixed flex justify-center t0 r0 w-full z-90 bg-white">
+  
   <div class="close" glass=".side">
     <span class="close__cross"></span>
   </div>
+
   <div class="mega-search__container ">
     <div class="search__box">
-      <input type="text" placeholder="جستجو کنید: دامن، لباس مجلی مزون ژولی و ..." autofocus class="w-full pb-4">
+      <input type="text" placeholder="جستجو کنید: دامن، لباس مجلسی، مزون ژولی و ..." autofocus class="w-full pb-4">
     </div>
-    <div class="mega-search__result">
+    <div class="mega-search__result flex ">
       <div class="search-resulat__tag">
-        <ul></ul>
+        <span class="font-bold">نتایج جستجو</span>
+        <ul>
+          <li><a href="#">دامن کوتاه</a></li>
+          <li><a href="#">دامن سکسی</a></li>
+          <li><a href="#">دامن بلند</a></li>
+          <li><a href="#">دامن ۸ ترک</a></li>
+        </ul>
       </div>
-      
-      <ul>
-        <li class="">
-
-        </li>
-        <li class="search-result__brands">
-
-        </li>
-      </ul>
+      <div class="search-result__brands">
+        <span class="font-bold">فروشندگان</span>
+        <ul>
+          <li><a href="#">ژولی</a></li>
+          <li><a href="#">لیون</a></li>
+          <li><a href="#">تیلور</a></li>
+          <li><a href="#">فیریلی</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

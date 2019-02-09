@@ -142,8 +142,7 @@
     width: 50px;
     height: 50px;
     position: absolute;
-    left: 30px;
-    top: 30px;
+    margin: 20px;
     cursor: pointer;
 
     &__cross {
@@ -191,7 +190,11 @@
 }
 
 .mega-search {
-    display: none;
+    display: block;
+
+    // .close {
+    //     right: 30px;
+    // }
     &__container {
         padding: 100px 20%;
         max-width: 100%;
@@ -200,6 +203,7 @@
 
         & input {
             font-size: 1.7rem;
+            border-bottom: 2px solid #fff;
             &:focus {
                 border-bottom: 2px solid #000;
                 outline: none;
@@ -208,7 +212,25 @@
     }
 
     &__result {
+        padding-top: 40px;
+        & > div {
+            flex-grow: 1;
+        }
+        
+        &__brands {
+            background-color: red;
+        }
 
+        ul {
+            padding: 20px 0 0 20px;
+            list-style: none;
+
+            
+            a {
+                text-decoration: none;
+                line-height: 2rem;
+            }
+        }
     }
 }
 
