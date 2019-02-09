@@ -218,41 +218,7 @@
 
 </div>
 
- 
- 
-<div class="mega-search fixed flex justify-center t0 r0 w-full z-90 bg-white">
-  
-  <div class="close" glass=".side">
-    <span class="close__cross"></span>
-  </div>
 
-  <div class="mega-search__container ">
-    <div class="search__box">
-      <input type="text" placeholder="جستجو کنید: دامن، لباس مجلسی، مزون ژولی و ..." autofocus class="w-full pb-4">
-    </div>
-    <div class="mega-search__result flex ">
-      <div class="search-resulat__tag">
-        <span class="font-bold">نتایج جستجو</span>
-        <ul>
-          <li><a href="#">دامن کوتاه</a></li>
-          <li><a href="#">دامن سکسی</a></li>
-          <li><a href="#">دامن بلند</a></li>
-          <li><a href="#">دامن ۸ ترک</a></li>
-        </ul>
-      </div>
-      <div class="search-result__brands">
-        <span class="font-bold">فروشندگان</span>
-        <ul>
-          <li><a href="#">ژولی</a></li>
-          <li><a href="#">لیون</a></li>
-          <li><a href="#">تیلور</a></li>
-          <li><a href="#">فیریلی</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
- 
  
  <header class="header-mobile">
    <div class="nav-mobile__bar">
