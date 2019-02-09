@@ -19,7 +19,11 @@
                         {{ csrf_field() }}
                     </form>
                 </div>
-            </form>
+            <div class="relative rounded-lg bg-white shadow-lg pt-2 pb-4 px-4 mb-4">
+                <a id="orders_link" href="{{ route('profile.wishlist.index') }}">
+                    لیست عاقه مندی ها
+                </a>
+            </div>
         </div>
         <div class="w-3/4 pr-4">
             <div class="relative rounded-lg bg-white shadow-lg py-4 mb-2">
@@ -31,7 +35,7 @@
             </div>
             <div class="flex flex-wrap">
                     <div class="w-1/3 px-2 py-2">
-                        @component('web.businesses.card', ['business' => $user])@endcomponent
+                        {{--@component('web.businesses.card', ['business' => $user])@endcomponent--}}
                     </div>
             </div>
         </div>

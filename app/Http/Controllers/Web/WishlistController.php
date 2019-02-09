@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use Auth;
+use Cookie;
+use Illuminate\Http\Request;
+use Throwable;
 
 class WishlistController extends Controller
 {
@@ -18,7 +21,11 @@ class WishlistController extends Controller
     public function store(Request $request, Product $product)
     {
         if (Auth::check()) {
-            Auth::user()->wishlist()->toggle($product->id);
+            try {
+	            Auth::user()->wishlist()->attach($product->id);
+            } catch (Throwable $throwable) {
+            	return back();
+            }
             $cookie = Cookie::make('wishlist', null);
         } else {
             if ($wishlist = json_decode(Cookie::get('wishlist'), true)) {
@@ -32,13 +39,17 @@ class WishlistController extends Controller
             }
         }
 
-        return redirect()->back()->withCookies([$cookie]);
+        return back()->withCookies([$cookie]);
     }
 
     public function destroy(Request $request, Product $product)
     {
         if (Auth::check()) {
-            Auth::user()->wishlist()->whereUserId(Auth::id())->whereProductId($product->id)->delete();
+        	try {
+		        Auth::user()->wishlist()->detach($product->id);
+	        } catch(Throwable $throwable) {
+        		return back();
+	        }
         } elseif ($wishlist = json_decode(Cookie::get('wishlist'), true)) {
             if (array_key_exists($product->id, $wishlist)) {
                 $wishlist[$product->id] -= 1;
@@ -48,9 +59,9 @@ class WishlistController extends Controller
                 unset($wishlist[$product->id]);
             }
 
-            return redirect()->back()->withCookies([Cookie::make('wishlist', json_encode($wishlist))]);
+            return back()->withCookies([Cookie::make('wishlist', json_encode($wishlist))]);
         }
 
-        return redirect()->back();
+        return back();
     }
 }
