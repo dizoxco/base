@@ -3,19 +3,48 @@
 namespace Tests\Feature\Web;
 
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class ProfileControllerTest extends TestCase
 {
-    public function testOrders()
+    use WithFaker;
+
+    /** @test */
+    public function it_must_show_the_profile_index()
     {
-        $response = $this->signInFromWeb()->get(route('profile.orders'));
-        $response->assertSuccessful()->assertViewIs('profile.orders');
+        $response = $this->signInFromWeb()->get(route('profile.index'));
+        $response->assertSuccessful()->assertViewIs('profile.index')->assertViewHas('user');
     }
 
-    public function testCredentials()
+    /** @test */
+    public function it_must_show_credential_for_logged_in_user()
     {
-        $response = $this->signInFromWeb()->get(route('profile.credentials.update'));
-        $response->assertSuccessful()->assertViewIs('profile.credentials');
+        $response = $this->signInFromWeb()->get(route('profile.credentials.edit'));
+        $response->assertSuccessful()->assertViewIs('profile.credentials.edit')->assertViewHas('user');
+    }
+
+    /** @test */
+    public function it_must_update_credential_for_logged_in_user()
+    {
+        $this->signInFromWeb();
+        $data = [
+            'email' => $this->faker->email,
+            'old_password' => 123456,
+            'password' => $password = $this->faker->password,
+            'password_confirmation' => $password,
+        ];
+        $response = $this->post(route('profile.credentials.update', $data));
+        $response
+            ->assertSessionMissing('errors')
+            ->assertRedirect(route('profile.credentials.edit'));
+        $this->assertDatabaseHas('users', ['email' => $data['email']]);
+    }
+
+    /** @test */
+    public function it_must_show_orders_for_logged_in_user()
+    {
+        $response = $this->signInFromWeb()->get(route('profile.orders'));
+        $response->assertSuccessful()->assertViewIs('profile.orders')->assertViewHas('orders');
     }
 
     public function testWishlist()

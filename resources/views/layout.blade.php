@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 		<meta name="theme-color" content="#002f6c" />
-		<title>خدمات رفاهی - @yield('title')</title>
+		<title>مدلا - @yield('title')</title>
 		<link href="{{ asset('css/main.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	</head>
@@ -134,9 +134,37 @@
 				<button class="mdc-icon-button material-icons" data-mdc-auto-init="mdc-ripple" data-mdc-ripple-is-unbounded >favorite</button>
 			@endcomponent
 			@component('components.form.field', ['full' => true])
-				<button class="mdc-icon-button material-icons" data-mdc-auto-init="mdc-ripple" data-mdc-ripple-is-unbounded>favorite</button>
-				<button class="mdc-icon-button material-icons" data-mdc-auto-init="mdc-ripple" data-mdc-ripple-is-unbounded >favorite</button>
+				@component('components.form.checkbox',[
+					'name' => 'fsdf'
+				])
+				@endcomponent
+				@component('components.form.checkbox',[
+					'name' => 'if'
+				])
+				@endcomponent
 			@endcomponent
+			@component('components.form.field', ['full' => true])
+				@component('components.form.radio',[
+					'name' => 'sdf',
+					'value' => 1
+				])
+				@endcomponent
+				@component('components.form.radio',[
+					'name' => 'sdf',
+					'value' => 2
+				])
+				@endcomponent
+			@endcomponent
+				@component('components.form.select',[
+					'name' => 'sdf',
+					'value' => 1
+				])
+				@endcomponent
+				@component('components.form.select',[
+					'name' => 'sdf',
+					'value' => 2
+				])
+				@endcomponent
 		</div>
 		<div class="bg-grey-light">
 			<footer class="container mx-auto w-full">
