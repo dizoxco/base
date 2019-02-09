@@ -28,14 +28,8 @@ class UpdateBusinessRequest extends FormRequest
 
         return [
             'brand' => ['required', Rule::unique('businesses', 'id')->ignore($business->id)],
-            'province' => 'required',
-            'city' => 'required',
-            'tell' => 'required|digits:8',
-            'phone_code' => 'required|digits:3',
-            'address' => 'required|string',
-            'postal_code' => 'required|string',
-            'mobile' => 'required|digits:11',
-            'storage_address' => 'required|string',
+            'slug' => ['required',Rule::unique('businesses', 'id')->ignore($business->id)],
+            'city_id' => 'required|exists:cities,id',
         ];
     }
 }

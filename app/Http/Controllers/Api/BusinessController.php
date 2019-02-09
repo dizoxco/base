@@ -8,6 +8,7 @@ use App\Http\Resources\EffectedRows;
 use App\Http\Resources\BusinessResource;
 use App\Http\Resources\BusinessCollection;
 use App\Repositories\Facades\BusinessRepo;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\Businesses\StoreBusinessRequest;
 use App\Http\Requests\Businesses\UpdateBusinessRequest;
@@ -36,10 +37,10 @@ class BusinessController extends Controller
 
     public function update(UpdateBusinessRequest $request, Business $business)
     {
-        $business = BusinessRepo::update($business, $request->all());
-        $status = $business === null ? Response::HTTP_INTERNAL_SERVER_ERROR : Response::HTTP_OK;
+        $rows = BusinessRepo::update($business, $request->all());
+//        $status = $business === null ? Response::HTTP_INTERNAL_SERVER_ERROR : Response::HTTP_OK;
 
-        return (new EffectedRows($business))->response()->setStatusCode($status);
+        return new BusinessResource($business);
     }
 
     public function delete(Business $business)
