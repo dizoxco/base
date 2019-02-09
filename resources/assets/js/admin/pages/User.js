@@ -32,7 +32,7 @@ class User extends Component {
                 title={this.props.user.attributes.name}
                 button={{
                     label: 'save',
-                    onClick: updateUser(this.props.user)
+                    onClick: () => this.props.updateUser(this.props.user)
                 }}
                 tabs={['نمایش', 'ویرایش اطلاعات']}
                 tab={this.state.tab}
@@ -83,4 +83,4 @@ const mapStateToProps = (state, props) => {
     };
 };
 
-export default connect(mapStateToProps, {getUsers, setUser})(User);
+export default connect(mapStateToProps, {getUsers, setUser ,updateUser})(User);
