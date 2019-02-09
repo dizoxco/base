@@ -14,13 +14,18 @@
 		<div id="content">
 			@yield('content')
 		</div>
-		<div class="container medium flex flex-wrap">
+		<div class="container medium flexzz flex-wrap hidden">
 			@component('components.form.text',[
 				'label' => 'نام خانوادگی',
 			])
 			@endcomponent
 			@component('components.form.field')
 				
+			@endcomponent
+			@component('components.form.text',[
+				'label' => 'نام',
+				'icon' => 'add',
+			])
 			@endcomponent
 			@component('components.form.text',[
 				'label' => 'نام',

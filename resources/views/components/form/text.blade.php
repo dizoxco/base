@@ -3,7 +3,7 @@
     if(isset($shaped)) $class .= ' shaped';
     if(isset($icon)) $class .= isset($icon_front)? ' mdc-text-field--with-trailing-icon': ' mdc-text-field--with-leading-icon';
 @endphp
-@component('components.form.field', ['full' => $full ?? false])    
+@component('components.form.field', ['half' => $half ?? false])    
     <div class="{{$class}}"  data-mdc-auto-init="mdc-text-field">
         @isset($icon)
             <i class="material-icons mdc-text-field__icon" role="button" data-mdc-auto-init="mdc-text-field-icon">{{$icon}}</i>

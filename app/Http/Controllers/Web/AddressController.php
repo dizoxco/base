@@ -13,7 +13,7 @@ class AddressController extends Controller
     {
         $addresses = auth()->user()->addresses()->with('city')->get();
 
-        return view('profile.address.index', compact('addresses'));
+        return view('profile.addresses.index', compact('addresses'));
     }
 
     public function create()

@@ -1,5 +1,5 @@
 @php
-    $class = (isset($full) && $full)? 'mb-4 w-full': 'mb-4 w-1/2';
+    $class = (isset($half) && $half)? 'p-2 w-1/2': 'p-2 w-full';
 @endphp
 <div class="{{$class}}">
     {{$slot}}
