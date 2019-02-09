@@ -36,10 +36,9 @@ class ProductController extends Controller
 
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $product = ProductRepo::update($product, $request->all());
-        $status = $product === null ? Response::HTTP_INTERNAL_SERVER_ERROR : Response::HTTP_OK;
+       $rows = ProductRepo::update($product, $request->all());
 
-        return (new EffectedRows($product))->response()->setStatusCode($status);
+        return new ProductResource($product);
     }
 
     public function delete(Product $product)

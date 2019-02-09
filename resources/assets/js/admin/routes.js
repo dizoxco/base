@@ -30,6 +30,7 @@ const routeslist = {
         products: {
             prefix: '/products',
             index: '',
+            update: '/{product}'
         },
         tickets: {
             prefix: '/tickets',
@@ -44,6 +45,7 @@ const routeslist = {
             },
             show: '/{user}',
             edit: '/{user}/edit',
+            update: '/{user}'
         },
     }
 };

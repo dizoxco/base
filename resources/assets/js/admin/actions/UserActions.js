@@ -1,5 +1,12 @@
-import { eraseCookie, getting, posting, setCookie } from "../../helpers";
+import {eraseCookie, getting, posting, putting, setCookie} from "../../helpers";
 import routes from '../routes';
+
+
+export const setUser = (id, attributes) => {
+    return (dispatch) => {
+        dispatch({ type: 'SET-USER', id, attributes })
+    }
+};
 
 export const getUsers = () => {
     return (dispatch) => {
@@ -11,6 +18,16 @@ export const getUsers = () => {
             .catch( error => { console.log(error.response) });
     }
 }
+export const updateUser = (user) => {
+    return (dispatch) => {
+        putting(routes('api.users.update',[user.id]), user.attributes)
+            .then(response => dispatch({
+                type: 'UPDATE-USER',
+                payload: response.data
+            }))
+            .catch( error => { console.log(error) } );
+    }
+};
 
 export const getToken = (params) => {
     return (dispatch) => {

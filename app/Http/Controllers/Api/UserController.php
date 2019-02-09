@@ -60,10 +60,10 @@ class UserController extends Controller
                 'password'  =>  bcrypt($request->input('password')),
             ]);
         }
-
-        $resource = new EffectedRows(UserRepo::update($user, $request->except('avatar')));
-
-        return  $resource->response()->setStatusCode(Response::HTTP_OK);
+        UserRepo::update($user, $request->except('avatar'));
+        return new UserResource($user);
+//        $resource = new EffectedRows();
+//        return  $resource->response()->setStatusCode(Response::HTTP_OK);
     }
 
     public function delete(User $user)

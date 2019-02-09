@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import axios from 'axios';
-import {getMediaGroup, getMediaGroups, getPosts, getUsers} from "../actions"
+import {getMediaGroup, getMediaGroups, addMedia,getPosts, getUsers} from "../actions"
 import {Page} from "../components";
 import LinearProgress from "@material-ui/core/es/LinearProgress/LinearProgress";
 import routes from '../routes';
@@ -29,28 +29,30 @@ class MediaGroup extends Component {
 
     uploading = (file, key) => {
 
-        axios.post(routes('api.mediagroups.store' , [this.props.match.params.mediagroup]), file, {
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'multipart/form-data',
-                'Authorization': 'Bearer ' + getCookie('token')
+        const mediagroup = this.props.match.params.mediagroup;
 
-            },
-            onUploadProgress: ProgressEvent => {
-                const uploaded = {...this.state.uploaded};
-                uploaded[key] = (ProgressEvent.loaded / ProgressEvent.total * 100);
-                this.setState({
-                    uploaded: uploaded
-                })
-            },
+            axios.post(routes('api.mediagroups.store', [mediagroup]), file, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': 'Bearer ' + getCookie('token')
+                },
+                onUploadProgress: ProgressEvent => {
+                    const uploaded = {...this.state.uploaded};
+                    uploaded[key] = (ProgressEvent.loaded / ProgressEvent.total * 100);
+                    this.setState({
+                        uploaded: uploaded
+                    })
+                },
 
-        }).then(response => {
-            console.log(response);
-        }).catch(errors => {
-            console.log(errors);
-        }).finally(() => {
-            console.log(this.state.selectedFiles[key].name, 'uploaded');
-        });
+            }).then(response => {
+                this.props.addMedia(response.data.data ,mediagroup);
+            }).catch(errors => {
+                console.log(errors);
+            }).finally(() => {
+                console.log(this.state.selectedFiles[key].name, 'uploaded');
+            });
+
     };
 
     handleSelectedFile = event => {
@@ -62,14 +64,14 @@ class MediaGroup extends Component {
     };
 
 
-
     render() {
         if (this.props.media.length == 0) this.props.getMediaGroup(1);
 
         let media = this.props.media.map((medium) => {
             // console.log(medium);
 
-            return <div className="w-1/12 p-1" key={medium.id}><img src={medium.attributes.conversions.thumb.url}/>
+            return <div className="w-1/12 p-1" key={medium.id}><p>{medium.attributes.name}</p>
+                {/*<img src={medium.attributes.conversions.thumb.url}/>*/}
             </div>;
         });
 
@@ -117,4 +119,4 @@ const mapStateToProps = (state, props) => {
     };
 };
 
-export default connect(mapStateToProps, {getMediaGroup, getMediaGroups, getPosts, getUsers})(MediaGroup);
+export default connect(mapStateToProps, {getMediaGroup, getMediaGroups, getPosts, getUsers , addMedia})(MediaGroup);
