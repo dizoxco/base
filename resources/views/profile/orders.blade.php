@@ -38,7 +38,7 @@
                                 <td>{{ $variation->pivot->price }}</td>
                                 <td>{{ $variation->pivot->count }}</td>
                                 <td>
-                                        <a href="{{ route('products.show', $variation->product->slug ) }}">
+                                        <a id="show_product" href="{{ route('products.show', $variation->product->slug ) }}">
                                                 مشاهده محصول
                                         </a>
                                 </td>

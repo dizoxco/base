@@ -2,8 +2,7 @@
 @section('content')
     <div class="flex flex-wrap container">
         <div class="w-1/4 pl-4">
-            <form target="_self">
-                <div class="relative rounded-lg bg-white shadow-lg pt-2 pb-4 px-4 mb-4">
+            <div class="relative rounded-lg bg-white shadow-lg pt-2 pb-4 px-4 mb-4">
                     <p>
                         <a href="{{ route('profile.credentials.edit') }}">
                             تغییر رمز عبور
@@ -19,6 +18,11 @@
                         {{ csrf_field() }}
                     </form>
                 </div>
+            <div class="relative rounded-lg bg-white shadow-lg pt-2 pb-4 px-4 mb-4">
+                <a id="orders_link" href="{{ route('profile.orders') }}">
+                    همه سفارش ها
+                </a>
+            </div>
             <div class="relative rounded-lg bg-white shadow-lg pt-2 pb-4 px-4 mb-4">
                 <a id="orders_link" href="{{ route('profile.wishlist.index') }}">
                     لیست عاقه مندی ها
