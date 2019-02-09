@@ -1,0 +1,56 @@
+// .mdc-notched-outline__notch{
+//     border-right: none;
+//     border-left: none;
+// }
+// @import "@material/rtl/mixins";
+// mdc-rtl('.rtl');
+@import "@material/icon-button/mdc-icon-button";
+@import "@material/textfield/mdc-text-field";
+@import "@material/textfield/icon/mdc-text-field-icon";
+@import "@material/button/mdc-button";
+@import "@material/ripple/mdc-ripple";
+.mdc-text-field{
+    label{
+        font-family: IRANSans;
+    }
+    &.mdc-text-field--outlined.shaped{
+        .mdc-text-field__input{
+            padding-right: 32px;
+            padding-left: 0;
+        }
+        .mdc-notched-outline{
+            .mdc-notched-outline__notch{ 
+                max-width: calc(100% - 28px * 2);
+            }
+            .mdc-notched-outline__leading{
+                border-radius: 0 28px 28px 0;
+                width: 28px;
+            }
+            .mdc-notched-outline__trailing{
+                border-radius: 28px 0 0 28px;
+            }
+        }
+    }
+}
+.mdc-button{
+    font-family: IRANSans;
+    letter-spacing: normal;
+    font-weight: 300;
+    height: 40px;
+    font-size: 1.1rem;
+    padding: 0 30px 0 30px;
+    border-radius: 40px !important;
+    &.mdc-button--dense{
+        height: 30px;
+        font-size: .9rem;
+        padding: 0 25px 0 25px;
+    }
+    &:focus{
+        outline: none;
+    }
+}
+.mdc-icon-button{
+    &:focus{
+        outline: none;
+    }
+}

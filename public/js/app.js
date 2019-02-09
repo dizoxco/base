@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 201);
+/******/ 	return __webpack_require__(__webpack_require__.s = 202);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -69,383 +69,8 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return win; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return doc; });
-/**
- * SSR Window 1.0.1
- * Better handling for window object in SSR environment
- * https://github.com/nolimits4web/ssr-window
- *
- * Copyright 2018, Vladimir Kharlampidi
- *
- * Licensed under MIT
- *
- * Released on: July 18, 2018
- */
-var doc = (typeof document === 'undefined') ? {
-  body: {},
-  addEventListener: function addEventListener() {},
-  removeEventListener: function removeEventListener() {},
-  activeElement: {
-    blur: function blur() {},
-    nodeName: '',
-  },
-  querySelector: function querySelector() {
-    return null;
-  },
-  querySelectorAll: function querySelectorAll() {
-    return [];
-  },
-  getElementById: function getElementById() {
-    return null;
-  },
-  createEvent: function createEvent() {
-    return {
-      initEvent: function initEvent() {},
-    };
-  },
-  createElement: function createElement() {
-    return {
-      children: [],
-      childNodes: [],
-      style: {},
-      setAttribute: function setAttribute() {},
-      getElementsByTagName: function getElementsByTagName() {
-        return [];
-      },
-    };
-  },
-  location: { hash: '' },
-} : document; // eslint-disable-line
-
-var win = (typeof window === 'undefined') ? {
-  document: doc,
-  navigator: {
-    userAgent: '',
-  },
-  location: {},
-  history: {},
-  CustomEvent: function CustomEvent() {
-    return this;
-  },
-  addEventListener: function addEventListener() {},
-  removeEventListener: function removeEventListener() {},
-  getComputedStyle: function getComputedStyle() {
-    return {
-      getPropertyValue: function getPropertyValue() {
-        return '';
-      },
-    };
-  },
-  Image: function Image() {},
-  Date: function Date() {},
-  screen: {},
-  setTimeout: function setTimeout() {},
-  clearTimeout: function clearTimeout() {},
-} : window; // eslint-disable-line
-
-
-
-
-/***/ }),
-
-/***/ 114:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-/**
- * @template A
- */
-class MDCFoundation {
-  /** @return enum{cssClasses} */
-  static get cssClasses() {
-    // Classes extending MDCFoundation should implement this method to return an object which exports every
-    // CSS class the foundation class needs as a property. e.g. {ACTIVE: 'mdc-component--active'}
-    return {};
-  }
-
-  /** @return enum{strings} */
-  static get strings() {
-    // Classes extending MDCFoundation should implement this method to return an object which exports all
-    // semantic strings as constants. e.g. {ARIA_ROLE: 'tablist'}
-    return {};
-  }
-
-  /** @return enum{numbers} */
-  static get numbers() {
-    // Classes extending MDCFoundation should implement this method to return an object which exports all
-    // of its semantic numbers as constants. e.g. {ANIMATION_DELAY_MS: 350}
-    return {};
-  }
-
-  /** @return {!Object} */
-  static get defaultAdapter() {
-    // Classes extending MDCFoundation may choose to implement this getter in order to provide a convenient
-    // way of viewing the necessary methods of an adapter. In the future, this could also be used for adapter
-    // validation.
-    return {};
-  }
-
-  /**
-   * @param {A=} adapter
-   */
-  constructor(adapter = {}) {
-    /** @protected {!A} */
-    this.adapter_ = adapter;
-  }
-
-  init() {
-    // Subclasses should override this method to perform initialization routines (registering events, etc.)
-  }
-
-  destroy() {
-    // Subclasses should override this method to perform de-initialization routines (de-registering events, etc.)
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (MDCFoundation);
-
-
-/***/ }),
-
-/***/ 115:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * @license
- * Copyright 2017 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-/* eslint no-unused-vars: [2, {"args": "none"}] */
-
-/**
- * Adapter for MDC Text Field Icon.
- *
- * Defines the shape of the adapter expected by the foundation. Implement this
- * adapter to integrate the text field icon into your framework. See
- * https://github.com/material-components/material-components-web/blob/master/docs/authoring-components.md
- * for more information.
- *
- * @record
- */
-class MDCTextFieldIconAdapter {
-  /**
-   * Gets the value of an attribute on the icon element.
-   * @param {string} attr
-   * @return {string}
-   */
-  getAttr(attr) {}
-
-  /**
-   * Sets an attribute on the icon element.
-   * @param {string} attr
-   * @param {string} value
-   */
-  setAttr(attr, value) {}
-
-  /**
-   * Removes an attribute from the icon element.
-   * @param {string} attr
-   */
-  removeAttr(attr) {}
-
-  /**
-   * Sets the text content of the icon element.
-   * @param {string} content
-   */
-  setContent(content) {}
-
-  /**
-   * Registers an event listener on the icon element for a given event.
-   * @param {string} evtType
-   * @param {function(!Event): undefined} handler
-   */
-  registerInteractionHandler(evtType, handler) {}
-
-  /**
-   * Deregisters an event listener on the icon element for a given event.
-   * @param {string} evtType
-   * @param {function(!Event): undefined} handler
-   */
-  deregisterInteractionHandler(evtType, handler) {}
-
-  /**
-   * Emits a custom event "MDCTextField:icon" denoting a user has clicked the icon.
-   */
-  notifyIconAction() {}
-}
-
-/* unused harmony default export */ var _unused_webpack_default_export = (MDCTextFieldIconAdapter);
-
-
-/***/ }),
-
-/***/ 201:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(202);
-__webpack_require__(213);
-module.exports = __webpack_require__(214);
-
-
-/***/ }),
-
-/***/ 202:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_swiper__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_auto_init__ = __webpack_require__(206);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_auto_init___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_auto_init__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_textfield__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_textfield___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_textfield__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_textfield_icon__ = __webpack_require__(208);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ripple__ = __webpack_require__(212);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ripple___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ripple__);
-// import $ from 'jquery';
-
-window.$ = window.jQuery = __webpack_require__(205);
-
-if ($('.product-gallery').length) {
-    var productGalleryShow = function productGalleryShow(index) {
-        productGalleryIndex = index;
-        productGallery.slideTo(index);
-        $('.product-gallery .banner').html($('.product-gallery .swiper img').clone()[index]);
-    };
-
-    var productGalleryIndex = 0;
-    var productGallery = new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]('.product-gallery .swiper', {
-        speed: 400,
-        spaceBetween: 0,
-        direction: 'vertical',
-        slidesPerView: 4,
-        releaseOnEdges: true,
-        autoplay: false,
-        loop: false,
-        mousewheel: true
-    });
-
-    $('.product-image').click(function () {
-        $('body').addClass('overflow-hidden');
-        $('.product-gallery').toggleClass('fixed hidden flex');
-        productGallery.update();
-        productGalleryShow(0);
-    });
-    $('.product-images .swiper-slide').click(function () {
-        $('body').addClass('overflow-hidden');
-        $('.product-gallery').toggleClass('fixed hidden flex');
-        productGallery.update();
-        productGalleryShow(1 + $(this).index());
-    });
-    $('.product-gallery .close').click(function () {
-        $('body').removeClass('overflow-hidden');
-        $('.product-gallery').toggleClass('fixed hidden flex');
-    });
-    $('.product-gallery .prev').click(function () {
-        if (productGalleryIndex > 0) {
-            productGalleryShow(productGalleryIndex - 1);
-        }
-    });
-    $('.product-gallery .next').click(function () {
-        if (productGalleryIndex < productGallery.slides.length - 1) {
-            productGalleryShow(productGalleryIndex + 1);
-        }
-    });
-    $('.product-gallery .swiper-slide').click(function () {
-        productGalleryShow($(this).index());
-    });
-}
-
-$('.swiper.simple').each(function () {
-    new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($(this), {
-        speed: 400,
-        spaceBetween: 0,
-        direction: $(this).attr('direction') ? $(this).attr('direction') : 'horizontal',
-        mousewheel: $(this).attr('direction') == 'vertical',
-        slidesPerView: $(this).attr('column'),
-        autoplay: true,
-        loop: false
-    });
-});
-
-
-
-
-
-
-__WEBPACK_IMPORTED_MODULE_1__material_auto_init___default.a.register('mdc-text-field', __WEBPACK_IMPORTED_MODULE_2__material_textfield__["MDCTextField"]);
-__WEBPACK_IMPORTED_MODULE_1__material_auto_init___default.a.register('mdc-text-field-icon', __WEBPACK_IMPORTED_MODULE_3__material_textfield_icon__["a" /* MDCTextFieldIcon */]);
-__WEBPACK_IMPORTED_MODULE_1__material_auto_init___default.a.register('mdc-button', __WEBPACK_IMPORTED_MODULE_4__material_ripple__["MDCRipple"]);
-
-// const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));
-
-
-// const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));
-// rrr.handleFocus();
-// MDCRipple.attachTo(document.querySelector('.omid'));
-
-// const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));
-// mdcAutoInit.register('mdc-ripple', MDCRipple);
-__WEBPACK_IMPORTED_MODULE_4__material_ripple__["MDCRipple"].attachTo(document.querySelector('.mdc-button'));
-__WEBPACK_IMPORTED_MODULE_1__material_auto_init___default()();
-
-$('.toggler').click(function () {
-    console.log('dd');
-
-    $($(this).attr('toggle-target')).toggleClass($(this).attr('toggle-class'));
-});
-
-/***/ }),
-
-/***/ 203:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_dom7_dist_dom7_modular__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ssr_window__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ssr_window__ = __webpack_require__(114);
 /**
  * Swiper 4.4.6
  * Most modern mobile touch slider and framework with hardware accelerated transitions
@@ -7468,6 +7093,305 @@ Swiper.use(components);
 
 /***/ }),
 
+/***/ 114:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return win; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return doc; });
+/**
+ * SSR Window 1.0.1
+ * Better handling for window object in SSR environment
+ * https://github.com/nolimits4web/ssr-window
+ *
+ * Copyright 2018, Vladimir Kharlampidi
+ *
+ * Licensed under MIT
+ *
+ * Released on: July 18, 2018
+ */
+var doc = (typeof document === 'undefined') ? {
+  body: {},
+  addEventListener: function addEventListener() {},
+  removeEventListener: function removeEventListener() {},
+  activeElement: {
+    blur: function blur() {},
+    nodeName: '',
+  },
+  querySelector: function querySelector() {
+    return null;
+  },
+  querySelectorAll: function querySelectorAll() {
+    return [];
+  },
+  getElementById: function getElementById() {
+    return null;
+  },
+  createEvent: function createEvent() {
+    return {
+      initEvent: function initEvent() {},
+    };
+  },
+  createElement: function createElement() {
+    return {
+      children: [],
+      childNodes: [],
+      style: {},
+      setAttribute: function setAttribute() {},
+      getElementsByTagName: function getElementsByTagName() {
+        return [];
+      },
+    };
+  },
+  location: { hash: '' },
+} : document; // eslint-disable-line
+
+var win = (typeof window === 'undefined') ? {
+  document: doc,
+  navigator: {
+    userAgent: '',
+  },
+  location: {},
+  history: {},
+  CustomEvent: function CustomEvent() {
+    return this;
+  },
+  addEventListener: function addEventListener() {},
+  removeEventListener: function removeEventListener() {},
+  getComputedStyle: function getComputedStyle() {
+    return {
+      getPropertyValue: function getPropertyValue() {
+        return '';
+      },
+    };
+  },
+  Image: function Image() {},
+  Date: function Date() {},
+  screen: {},
+  setTimeout: function setTimeout() {},
+  clearTimeout: function clearTimeout() {},
+} : window; // eslint-disable-line
+
+
+
+
+/***/ }),
+
+/***/ 115:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+/**
+ * @template A
+ */
+class MDCFoundation {
+  /** @return enum{cssClasses} */
+  static get cssClasses() {
+    // Classes extending MDCFoundation should implement this method to return an object which exports every
+    // CSS class the foundation class needs as a property. e.g. {ACTIVE: 'mdc-component--active'}
+    return {};
+  }
+
+  /** @return enum{strings} */
+  static get strings() {
+    // Classes extending MDCFoundation should implement this method to return an object which exports all
+    // semantic strings as constants. e.g. {ARIA_ROLE: 'tablist'}
+    return {};
+  }
+
+  /** @return enum{numbers} */
+  static get numbers() {
+    // Classes extending MDCFoundation should implement this method to return an object which exports all
+    // of its semantic numbers as constants. e.g. {ANIMATION_DELAY_MS: 350}
+    return {};
+  }
+
+  /** @return {!Object} */
+  static get defaultAdapter() {
+    // Classes extending MDCFoundation may choose to implement this getter in order to provide a convenient
+    // way of viewing the necessary methods of an adapter. In the future, this could also be used for adapter
+    // validation.
+    return {};
+  }
+
+  /**
+   * @param {A=} adapter
+   */
+  constructor(adapter = {}) {
+    /** @protected {!A} */
+    this.adapter_ = adapter;
+  }
+
+  init() {
+    // Subclasses should override this method to perform initialization routines (registering events, etc.)
+  }
+
+  destroy() {
+    // Subclasses should override this method to perform de-initialization routines (de-registering events, etc.)
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (MDCFoundation);
+
+
+/***/ }),
+
+/***/ 116:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+/* eslint no-unused-vars: [2, {"args": "none"}] */
+
+/**
+ * Adapter for MDC Text Field Icon.
+ *
+ * Defines the shape of the adapter expected by the foundation. Implement this
+ * adapter to integrate the text field icon into your framework. See
+ * https://github.com/material-components/material-components-web/blob/master/docs/authoring-components.md
+ * for more information.
+ *
+ * @record
+ */
+class MDCTextFieldIconAdapter {
+  /**
+   * Gets the value of an attribute on the icon element.
+   * @param {string} attr
+   * @return {string}
+   */
+  getAttr(attr) {}
+
+  /**
+   * Sets an attribute on the icon element.
+   * @param {string} attr
+   * @param {string} value
+   */
+  setAttr(attr, value) {}
+
+  /**
+   * Removes an attribute from the icon element.
+   * @param {string} attr
+   */
+  removeAttr(attr) {}
+
+  /**
+   * Sets the text content of the icon element.
+   * @param {string} content
+   */
+  setContent(content) {}
+
+  /**
+   * Registers an event listener on the icon element for a given event.
+   * @param {string} evtType
+   * @param {function(!Event): undefined} handler
+   */
+  registerInteractionHandler(evtType, handler) {}
+
+  /**
+   * Deregisters an event listener on the icon element for a given event.
+   * @param {string} evtType
+   * @param {function(!Event): undefined} handler
+   */
+  deregisterInteractionHandler(evtType, handler) {}
+
+  /**
+   * Emits a custom event "MDCTextField:icon" denoting a user has clicked the icon.
+   */
+  notifyIconAction() {}
+}
+
+/* unused harmony default export */ var _unused_webpack_default_export = (MDCTextFieldIconAdapter);
+
+
+/***/ }),
+
+/***/ 202:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(203);
+__webpack_require__(215);
+module.exports = __webpack_require__(216);
+
+
+/***/ }),
+
+/***/ 203:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_swiper__ = __webpack_require__(113);
+// import $ from 'jquery';
+
+window.$ = window.jQuery = __webpack_require__(205);
+__webpack_require__(206);
+__webpack_require__(207);
+
+$('.swiper.simple').each(function () {
+    new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($(this), {
+        speed: 400,
+        spaceBetween: 0,
+        direction: $(this).attr('direction') ? $(this).attr('direction') : 'horizontal',
+        mousewheel: $(this).attr('direction') == 'vertical',
+        slidesPerView: $(this).attr('column'),
+        autoplay: true,
+        loop: false
+    });
+});
+
+$('.toggler').click(function () {
+    console.log('dd');
+
+    $($(this).attr('toggle-target')).toggleClass($(this).attr('toggle-class'));
+});
+
+/***/ }),
+
 /***/ 204:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -7559,7 +7483,7 @@ Swiper.use(components);
 /* unused harmony export touchmove */
 /* unused harmony export resize */
 /* unused harmony export scroll */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ssr_window__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ssr_window__ = __webpack_require__(114);
 /**
  * Dom7 2.1.2
  * Minimalistic JavaScript library for DOM manipulation, with a jQuery-compatible API
@@ -19278,6 +19202,101 @@ return jQuery;
 /***/ }),
 
 /***/ 206:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_swiper__ = __webpack_require__(113);
+
+
+if ($('.product-gallery').length) {
+    var productGalleryShow = function productGalleryShow(index) {
+        productGalleryIndex = index;
+        productGallery.slideTo(index);
+        $('.product-gallery .banner').html($('.product-gallery .swiper img').clone()[index]);
+    };
+
+    var productGalleryIndex = 0;
+    var productGallery = new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]('.product-gallery .swiper', {
+        speed: 400,
+        spaceBetween: 0,
+        direction: 'vertical',
+        slidesPerView: 4,
+        releaseOnEdges: true,
+        autoplay: false,
+        loop: false,
+        mousewheel: true
+    });
+
+    $('.product-image').click(function () {
+        $('body').addClass('overflow-hidden');
+        $('.product-gallery').toggleClass('fixed hidden flex');
+        productGallery.update();
+        productGalleryShow(0);
+    });
+    $('.product-images .swiper-slide').click(function () {
+        $('body').addClass('overflow-hidden');
+        $('.product-gallery').toggleClass('fixed hidden flex');
+        productGallery.update();
+        productGalleryShow(1 + $(this).index());
+    });
+    $('.product-gallery .close').click(function () {
+        $('body').removeClass('overflow-hidden');
+        $('.product-gallery').toggleClass('fixed hidden flex');
+    });
+    $('.product-gallery .prev').click(function () {
+        if (productGalleryIndex > 0) {
+            productGalleryShow(productGalleryIndex - 1);
+        }
+    });
+    $('.product-gallery .next').click(function () {
+        if (productGalleryIndex < productGallery.slides.length - 1) {
+            productGalleryShow(productGalleryIndex + 1);
+        }
+    });
+    $('.product-gallery .swiper-slide').click(function () {
+        productGalleryShow($(this).index());
+    });
+}
+
+/***/ }),
+
+/***/ 207:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_auto_init__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_auto_init___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__material_auto_init__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_textfield__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_textfield___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_textfield__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_textfield_icon__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ripple__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ripple___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ripple__);
+
+
+
+
+
+// const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));
+
+
+// const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));
+// rrr.handleFocus();
+// MDCRipple.attachTo(document.querySelector('.omid'));
+
+// const buttonRipple = new MDCRipple(document.querySelector('.mdc-button'));
+// mdcAutoInit.register('mdc-ripple', MDCRipple);
+// MDCRipple.attachTo(document.querySelector('.mdc-button'));
+
+__WEBPACK_IMPORTED_MODULE_0__material_auto_init___default.a.register('mdc-text-field', __WEBPACK_IMPORTED_MODULE_1__material_textfield__["MDCTextField"]);
+__WEBPACK_IMPORTED_MODULE_0__material_auto_init___default.a.register('mdc-text-field-icon', __WEBPACK_IMPORTED_MODULE_2__material_textfield_icon__["a" /* MDCTextFieldIcon */]);
+__WEBPACK_IMPORTED_MODULE_0__material_auto_init___default.a.register('mdc-ripple', __WEBPACK_IMPORTED_MODULE_3__material_ripple__["MDCRipple"]);
+__WEBPACK_IMPORTED_MODULE_0__material_auto_init___default()();
+
+/***/ }),
+
+/***/ 208:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -19480,7 +19499,7 @@ mdcAutoInit.deregisterAll = function () {
 
 /***/ }),
 
-/***/ 207:
+/***/ 209:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -25366,14 +25385,14 @@ var MDCTextFieldIconAdapter = function () {
 
 /***/ }),
 
-/***/ 208:
+/***/ 210:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MDCTextFieldIcon; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_base_component__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adapter__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__foundation__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_base_component__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adapter__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__foundation__ = __webpack_require__(212);
 /* unused harmony reexport MDCTextFieldIconFoundation */
 /**
  * @license
@@ -25447,11 +25466,11 @@ class MDCTextFieldIcon extends __WEBPACK_IMPORTED_MODULE_0__material_base_compon
 
 /***/ }),
 
-/***/ 209:
+/***/ 211:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__foundation__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__foundation__ = __webpack_require__(115);
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -25587,13 +25606,13 @@ class MDCComponent {
 
 /***/ }),
 
-/***/ 210:
+/***/ 212:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_base_foundation__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adapter__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constants__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_base_foundation__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adapter__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constants__ = __webpack_require__(213);
 /**
  * @license
  * Copyright 2017 Google Inc.
@@ -25717,7 +25736,7 @@ class MDCTextFieldIconFoundation extends __WEBPACK_IMPORTED_MODULE_0__material_b
 
 /***/ }),
 
-/***/ 211:
+/***/ 213:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25756,7 +25775,7 @@ const strings = {
 
 /***/ }),
 
-/***/ 212:
+/***/ 214:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -27603,14 +27622,14 @@ var numbers = {
 
 /***/ }),
 
-/***/ 213:
+/***/ 215:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ 214:
+/***/ 216:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

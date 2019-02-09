@@ -83,32 +83,6 @@
 			@component('components.form.field', ['full' => true])
 				@component('components.form.button',[
 					'label' => 'ذخیره',
-					'type' => 'raised'
-				])
-				@endcomponent
-				@component('components.form.button',[
-					'label' => 'ذخیره',
-					'type' => 'raised',
-					'icon' => 'favorite'
-				])
-				@endcomponent
-				@component('components.form.button',[
-					'label' => 'ذخیره',
-					'type' => 'raised',
-					'dense' => true,
-				])
-				@endcomponent
-				@component('components.form.button',[
-					'label' => 'ذخیره',
-					'type' => 'raised',
-					'icon' => 'favorite',
-					'dense' => true,
-				])
-				@endcomponent
-			@endcomponent
-			@component('components.form.field', ['full' => true])
-				@component('components.form.button',[
-					'label' => 'ذخیره',
 					'type' => 'outlined'
 				])
 				@endcomponent
@@ -153,6 +127,15 @@
 					'dense' => true
 				])
 				@endcomponent
+
+			@endcomponent
+			@component('components.form.field', ['full' => true])
+				<button class="mdc-icon-button material-icons" data-mdc-auto-init="mdc-ripple" data-mdc-ripple-is-unbounded>favorite</button>
+				<button class="mdc-icon-button material-icons" data-mdc-auto-init="mdc-ripple" data-mdc-ripple-is-unbounded >favorite</button>
+			@endcomponent
+			@component('components.form.field', ['full' => true])
+				<button class="mdc-icon-button material-icons" data-mdc-auto-init="mdc-ripple" data-mdc-ripple-is-unbounded>favorite</button>
+				<button class="mdc-icon-button material-icons" data-mdc-auto-init="mdc-ripple" data-mdc-ripple-is-unbounded >favorite</button>
 			@endcomponent
 		</div>
 		<div class="bg-grey-light">
