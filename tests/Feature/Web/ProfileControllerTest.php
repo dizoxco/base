@@ -17,10 +17,10 @@ class ProfileControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_must_show_credential_for_logged_in_user()
-    {
-        $response = $this->signInFromWeb()->get(route('profile.credentials.edit'));
-        $response->assertSuccessful()->assertViewIs('profile.credentials')->assertViewHas('user');
+	public function it_must_show_credential_for_logged_in_user()
+	{
+		$response = $this->signInFromWeb()->get(route('profile.credentials.edit'));
+		$response->assertSuccessful()->assertViewIs('profile.credentials.edit')->assertViewHas('user');
     }
 
     /** @test */
