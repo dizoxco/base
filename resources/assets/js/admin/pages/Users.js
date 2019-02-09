@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getUsers } from "../actions";
-import { Page, Table } from "../components";
+import { Page, Table ,Icon} from "../components";
 
 class Users extends Component{
 
     componentDidMount = () => {
-        this.props.getUsers();
+        if(this.props.users.length === 0)
+            this.props.getUsers();
     }
 
     render(){
@@ -27,6 +28,11 @@ class Users extends Component{
                             Header: 'id',
                             accessor: 'id',
                             width: 70
+                        },
+                        {
+                            Header: 'وضعیت',
+                            width: 50,
+                            Cell: row => row.original.oldAttributes? (<Icon icon="edit" />): '',
                         },
                         {
                             Header: 'name',
