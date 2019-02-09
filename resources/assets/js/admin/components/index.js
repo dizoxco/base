@@ -1,4 +1,4 @@
-export { Button, Form, Checkbox, Radio, Select, Switch, Text } from './form'
+export { Button, Editor, Form, Checkbox, Radio, Select, Switch, Text } from './form'
 
 export { Changer } from './Changer';
 export { Icon } from './Icon';

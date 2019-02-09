@@ -2,17 +2,17 @@ import React, { Component } from "react";
 
 export class Show extends Component{
     render(){
-        const list = this.props.data.map((d, i) => {
+        let cls = this.props.full? "mb-5 w-full": "mb-5 w-1/2";
+        let content = this.props.full? <div>{this.props.children}</div>: this.props.children;
+        if (this.props.label){
             return (
-                <div className="mb-5" key={i}>
-                    <strong>{d.label}:</strong> {d.value}
+                <div className={cls}>
+                    <strong>{this.props.label}:</strong> {content}
                 </div>
-            );
-        });
-        return (
-            <div>
-                {list}
-            </div>
-        );
+            )
+        }else{
+            return <div className={cls}>{content}</div>
+        }
+
     }
 }

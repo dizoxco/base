@@ -14,6 +14,130 @@
 		<div id="content">
 			@yield('content')
 		</div>
+		<div class="container medium flex flex-wrap">
+			@component('components.form.text',[
+				'label' => 'نام خانوادگی',
+			])
+			@endcomponent
+			@component('components.form.field')
+				
+			@endcomponent
+			@component('components.form.text',[
+				'label' => 'نام',
+				'icon' => 'add',
+			])
+			@endcomponent
+			@component('components.form.text',[
+				'label' => 'نام',
+				'icon' => 'add',
+				'icon_front' => 'sd'
+			])
+			@endcomponent
+			
+			@component('components.form.text',[
+				'label' => 'dfsd',
+				'shaped' => true
+			])				
+			@endcomponent
+			<div class="w-1/2"></div>
+			@component('components.form.text',[
+				'label' => 'dfsd',
+				'icon' => 'add',
+				'shaped' => true
+			])				
+			@endcomponent
+			@component('components.form.text',[
+				'label' => 'dfsd',
+				'icon' => 'add',
+				'shaped' => true,
+				'icon_front' => 'sd'
+			])				
+			@endcomponent
+			
+			@component('components.form.field', ['full' => true])
+				@component('components.form.button',[
+					'label' => 'ذخیره',
+					'type' => 'text'
+				])
+				@endcomponent
+				@component('components.form.button',[
+					'label' => 'ذخیره',
+					'type' => 'text',
+					'icon' => 'favorite'
+				])
+				@endcomponent
+				@component('components.form.button',[
+					'label' => 'ذخیره',
+					'type' => 'text',
+					'dense' => true
+				])
+				@endcomponent
+				@component('components.form.button',[
+					'label' => 'ذخیره',
+					'type' => 'text',
+					'icon' => 'favorite',
+					'dense' => true
+				])
+				@endcomponent
+			@endcomponent
+			@component('components.form.field', ['full' => true])
+				@component('components.form.button',[
+					'label' => 'ذخیره',
+					'type' => 'outlined'
+				])
+				@endcomponent
+				@component('components.form.button',[
+					'label' => 'ذخیره',
+					'type' => 'outlined',
+					'icon' => 'favorite'
+				])
+				@endcomponent
+				@component('components.form.button',[
+					'label' => 'ذخیره',
+					'type' => 'outlined',
+					'dense' => true,
+				])
+				@endcomponent
+				@component('components.form.button',[
+					'label' => 'ذخیره',
+					'type' => 'outlined',
+					'icon' => 'favorite',
+					'dense' => true,
+				])
+				@endcomponent
+			@endcomponent
+			@component('components.form.field', ['full' => true])
+				@component('components.form.button',[
+					'label' => 'ذخیره'
+				])
+				@endcomponent
+				@component('components.form.button',[
+					'label' => 'ذخیره',
+					'icon' => 'favorite'
+				])
+				@endcomponent
+				@component('components.form.button',[
+					'label' => 'ذخیره',
+					'dense' => true
+				])
+				@endcomponent
+				@component('components.form.button',[
+					'label' => 'ذخیره',
+					'icon' => 'favorite',
+					'dense' => true
+				])
+				@endcomponent
+
+			@endcomponent
+			@component('components.form.field', ['full' => true])
+				<button class="mdc-icon-button material-icons" data-mdc-auto-init="mdc-ripple" data-mdc-ripple-is-unbounded>favorite</button>
+				<button class="mdc-icon-button material-icons" data-mdc-auto-init="mdc-ripple" data-mdc-ripple-is-unbounded >favorite</button>
+			@endcomponent
+			@component('components.form.field', ['full' => true])
+				<button class="mdc-icon-button material-icons" data-mdc-auto-init="mdc-ripple" data-mdc-ripple-is-unbounded>favorite</button>
+				<button class="mdc-icon-button material-icons" data-mdc-auto-init="mdc-ripple" data-mdc-ripple-is-unbounded >favorite</button>
+			@endcomponent
+		</div>
 		<div class="bg-grey-light">
 			<footer class="container mx-auto w-full">
 				<div class="flex flex-row items-start -mx-2">

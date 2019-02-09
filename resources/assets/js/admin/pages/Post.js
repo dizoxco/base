@@ -1,46 +1,47 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getPosts, setPost, updatePost } from "../actions"
-import { Loading, NotFound, Table, Form, Page, Show, Text } from "../components";
+import { getPosts, getUsers, setPost, updatePost } from "../actions"
+import { Loading, NotFound, Table, Form, Editor, Page, Show, Text } from "../components";
 
 class Post extends Component{
 
     state = {        
-        tab: 0
+        tab: 1
     }
 
     componentDidMount(){
-        if (this.props.post === null) {
-            this.props.getPosts();
-        }
+        if (this.props.post === null) this.props.getPosts();
+        
     }
 
-
     render(){
+        
+        console.log(this.props.post);
         if (this.props.post === null) return <Loading />
         if (this.props.post === undefined) return <NotFound />
+        if (this.props.author === null) this.props.getUsers();
+        
         return(
             <Page                
-                // title={this.props.post.attributes.title}
                 title={this.props.post.attributes.title}
                 button={{
                     label: 'save',
                     onClick: () => this.props.updatePost(this.props.post)
                 }}
-                tabs={['نمایش', 'ویرایش اطلاعات', 'نظرات']}
+                tabs={['نمایش', 'ویرایش اطلاعات']}
                 tab={this.state.tab}
                 redirect={this.state.redirect}
                 loading={this.props.post == null}
                 onChange={(tab) => this.setState({tab})}
             >
                 <Form show={this.state.tab == 0}>
-                    <Show data={[
-                        { label: 'عنوان',       value: this.props.post.attributes.title},
-                        { label: 'نامک',        value: this.props.post.attributes.slug},
-                        { label: 'چکیده',       value: this.props.post.attributes.abstract},
-                        { label: 'محتوا',       value: this.props.post.attributes.body},
-                    ]} />
+                    <Show label="عنوان">{this.props.post.attributes.title}</Show>
+                    <Show label="نامک">{this.props.post.attributes.slug}</Show>
+                    <Show label="نویسنده">{this.props.author? this.props.author.attributes.name: '...'}</Show>
+                    <Show label="منتشر شده در">{this.props.post.attributes.published_at}</Show>
+                    <Show label="چکیده" full>{this.props.post.attributes.abstract}</Show>
+                    <Show label="بدنه" full>{this.props.post.attributes.body}</Show>
                 </Form>
                 <Form show={this.state.tab == 1}>
                     <Text
@@ -66,28 +67,7 @@ class Post extends Component{
                         value={this.props.post.attributes.body}
                         onChange={ (e) => this.props.setPost(this.props.post.id, {body: e.target.value}) }
                     />
-                </Form>
-                <Form show={this.state.tab == 2}>
-                    <Table
-                        data={this.props.comments}
-                        columns={[
-                            {
-                                Header: 'id',
-                                accessor: 'id',
-                                width: 70
-                            },
-                            {
-                                Header: 'وضعیت',
-                                width: 50,
-                                Cell: row => row.original.oldAttributes? (<Icon icon="edit" />): '',
-                            },
-                            {
-                                Header: 'عنوان',
-                                accessor: 'attributes.body',
-                            }
-                        ]}
-                        tdClick={this.tdClick}
-                    />
+                    <Editor />
                 </Form>
             </Page>
         );
@@ -95,12 +75,16 @@ class Post extends Component{
 }
 
 const mapStateToProps = (state, props) => {
+    let post = (state.posts.index.length)?
+                state.posts.index.find( element => element.id == props.match.params.post ):
+                null;
     return { 
-        post: (state.posts.index.length)?
-            state.posts.index.find( element => element.id == props.match.params.post ):
+        post,
+        author: (state.users.index.length && post.id)?
+            state.users.index.find( element => element.id == post.id ):
             null,
         comments: state.comments.index
     };
 };
 
-export default connect(mapStateToProps, { getPosts, setPost, updatePost })(Post);
+export default connect(mapStateToProps, { getPosts, getUsers, setPost, updatePost })(Post);
