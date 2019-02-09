@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use Auth;
 use Hash;
 use App\Http\Controllers\Controller;
 use App\Repositories\Facades\UserRepo;
@@ -10,6 +11,10 @@ use App\Http\Requests\Profile\UpdateCredentialRequest;
 
 class ProfileController extends Controller
 {
+	public function index()
+	{
+		return view('profile.index')->withUser(Auth::user());
+	}
     public function orders()
     {
         $orders = auth()->user()->orders()->with('city', 'variations', 'variations.product')->get();
@@ -26,29 +31,27 @@ class ProfileController extends Controller
 
     public function credentials()
     {
-        $user = auth()->user();
-
-        return view('profile.credentials', compact('user'));
+        return view('profile.credentials')->withUser(Auth::user());
     }
 
     public function updateCredentials(UpdateCredentialRequest $request)
     {
-        if ($request->has('password')) {
+        if ($request->filled('password')) {
             if (Hash::check($request->input('old_password'), auth()->user()->password)) {
                 $request->merge([
                     'password' => Hash::make($request->input('password')),
                 ]);
             } else {
-                return redirect()->route('profile.credentials.update')->withErrors([
-                        'error' => 'old password is wrong',
+                return redirect()->route('profile.credentials.edit')->withErrors([
+                        'old_password' => 'old password is wrong',
                     ]);
             }
         }
 
-        if (UserRepo::update(auth()->user(), $request->all())) {
-            return redirect()->route('profile.credentials.update');
+	    if (UserRepo::update(Auth::user(), array_filter($request->all()))) {
+		    return redirect()->route('profile.credentials.edit');
         } else {
-            return redirect()->route('profile.credentials.update')
+            return redirect()->route('profile.credentials.edit')
                 ->withInput()->withErrors([
                     'error' => 'Something went wrong',
                 ]);

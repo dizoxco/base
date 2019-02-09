@@ -1,30 +1,58 @@
-<form action="{{ route('profile.credentials.update') }}" method="post">
-    {{ csrf_field() }}
-    <div>
-        <label for="email">
-            ایمیل
-        </label>
-        <input id="email" type="text" name="email" value="{{ $user->email }}">
-    </div>
-    <div>
-        <label for="old_password">
-            رمز عبور قبلی
-        </label>
-        <input id="old_password" type="password" name="old_password" >
-    </div>
-    <div>
-        <label for="password">
-            رمز عبور
-        </label>
-        <input id="password" type="password" name="password" >
-    </div>
-    <div>
-        <label for="password_confirmation">
-            رمز عبور
-        </label>
-        <input  id="password_confirmation" type="password" name="password_confirmation" >
-    </div>
-    <div>
-        <button type="submit"> به روز رسانی </button>
-    </div>
-</form>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <meta name="theme-color" content="#002f6c" />
+    <title>مدلا - @yield('title')</title>
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+    <body class="portal" dir="rtl">
+        @forelse($errors->all() as $error)
+            <p>{{ $error }}</p>
+        @empty
+            there is no errors
+        @endforelse
+        <form action="{{ route('profile.credentials.update') }}" method="post">
+            {{ csrf_field() }}
+        @component('components.form.text',[
+            'label' => 'ایمیل',
+            'id' => 'email',
+            'name' => 'email',
+            'value' => $user->email,
+        ])
+        @endcomponent
+
+        @component('components.form.text',[
+            'label' => 'رمز عبور قبلی',
+            'id' => 'old_password',
+            'name' => 'old_password',
+            'type' => 'password',
+        ])
+        @endcomponent
+
+        @component('components.form.text',[
+            'label' => 'رمز عبور',
+            'id' => 'password',
+            'name' => 'password',
+            'type' => 'password',
+        ])
+        @endcomponent
+
+        @component('components.form.text',[
+            'label' => 'رمز عبور',
+            'id' => 'password_confirmation',
+            'name' => 'password_confirmation',
+            'type' => 'password',
+        ])
+        @endcomponent
+
+        @component('components.form.button',[
+            'label' => 'به روزرسانی',
+            'type' => 'raised',
+            'name' => 'submit',
+        ])
+        @endcomponent
+    </form>
+    </body>
+</html>
