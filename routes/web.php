@@ -26,27 +26,27 @@ Route::name('tickets.')->prefix('tickets')->group(function () {
 });
 
 Route::name('profile.')->prefix('profile')->group(function () {
-	Route::middleware('auth:web')->group(function () {
-		Route::name('wishlist.')->prefix('wishlist')->group(function () {
-			Route::get('/', 'WishlistController@index')->name('index')->middleware('auth:web');
-		});
-		Route::get('/', 'ProfileController@index')->name('index');
-		Route::get('orders', 'ProfileController@orders')->name('orders');
-		Route::get('cart', 'CartController@index')->name('cart');
-		Route::resource('addresses', 'AddressController');
-		Route::get('chats', 'ProfileController@chats')->name('chats');
-		Route::get('tickets', 'TicketController@index')->name('tickets');
-		Route::name('credentials.')->prefix('credentials')->group(function () {
-			Route::get('/edit', 'ProfileController@credentials')->name('edit');
-			Route::post('/update', 'ProfileController@updateCredentials')->name('update');
-		});
-		Route::get('info', 'ProfileController@info')->name('info.edit');
-		Route::post('info', 'ProfileController@updateInfo')->name('info.update');
-	});
-	Route::name('wishlist.')->prefix('wishlist/{product}')->group(function () {
-		Route::get('/', 'WishlistController@store')->name('store');
-		Route::delete('/', 'WishlistController@destroy')->name('destroy');
-	});
+    Route::middleware('auth:web')->group(function () {
+        Route::name('wishlist.')->prefix('wishlist')->group(function () {
+            Route::get('/', 'WishlistController@index')->name('index')->middleware('auth:web');
+        });
+        Route::get('/', 'ProfileController@index')->name('index');
+        Route::get('orders', 'ProfileController@orders')->name('orders');
+        Route::get('cart', 'CartController@index')->name('cart');
+        Route::resource('addresses', 'AddressController');
+        Route::get('chats', 'ProfileController@chats')->name('chats');
+        Route::get('tickets', 'TicketController@index')->name('tickets');
+        Route::name('credentials.')->prefix('credentials')->group(function () {
+            Route::get('/edit', 'ProfileController@credentials')->name('edit');
+            Route::post('/update', 'ProfileController@updateCredentials')->name('update');
+        });
+        Route::get('info', 'ProfileController@info')->name('info.edit');
+        Route::post('info', 'ProfileController@updateInfo')->name('info.update');
+    });
+    Route::name('wishlist.')->prefix('wishlist/{product}')->group(function () {
+        Route::get('/', 'WishlistController@store')->name('store');
+        Route::delete('/', 'WishlistController@destroy')->name('destroy');
+    });
 });
 // ==================================== End Users profile Section  ============
 Route::get('/', 'PageController@home')->name('home');

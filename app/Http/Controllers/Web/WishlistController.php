@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Models\Product;
 use Auth;
 use Cookie;
-use Illuminate\Http\Request;
 use Throwable;
+use App\Models\Product;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class WishlistController extends Controller
 {
@@ -22,9 +22,9 @@ class WishlistController extends Controller
     {
         if (Auth::check()) {
             try {
-	            Auth::user()->wishlist()->attach($product->id);
+                Auth::user()->wishlist()->attach($product->id);
             } catch (Throwable $throwable) {
-            	return back();
+                return back();
             }
             $cookie = Cookie::make('wishlist', null);
         } else {
@@ -45,11 +45,11 @@ class WishlistController extends Controller
     public function destroy(Request $request, Product $product)
     {
         if (Auth::check()) {
-        	try {
-		        Auth::user()->wishlist()->detach($product->id);
-	        } catch(Throwable $throwable) {
-        		return back();
-	        }
+            try {
+                Auth::user()->wishlist()->detach($product->id);
+            } catch (Throwable $throwable) {
+                return back();
+            }
         } elseif ($wishlist = json_decode(Cookie::get('wishlist'), true)) {
             if (array_key_exists($product->id, $wishlist)) {
                 $wishlist[$product->id] -= 1;

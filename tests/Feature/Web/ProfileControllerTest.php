@@ -17,10 +17,10 @@ class ProfileControllerTest extends TestCase
     }
 
     /** @test */
-	public function it_must_show_credential_for_logged_in_user()
-	{
-		$response = $this->signInFromWeb()->get(route('profile.credentials.edit'));
-		$response->assertSuccessful()->assertViewIs('profile.credentials.edit')->assertViewHas('user');
+    public function it_must_show_credential_for_logged_in_user()
+    {
+        $response = $this->signInFromWeb()->get(route('profile.credentials.edit'));
+        $response->assertSuccessful()->assertViewIs('profile.credentials.edit')->assertViewHas('user');
     }
 
     /** @test */
@@ -33,19 +33,19 @@ class ProfileControllerTest extends TestCase
             'password' => $password = $this->faker->password,
             'password_confirmation' => $password,
         ];
-		$response = $this->post(route('profile.credentials.update', $data));
-		$response
-			->assertSessionMissing('errors')
-			->assertRedirect(route('profile.credentials.edit'));
-		$this->assertDatabaseHas('users', ['email' => $data['email']]);
-	}
+        $response = $this->post(route('profile.credentials.update', $data));
+        $response
+            ->assertSessionMissing('errors')
+            ->assertRedirect(route('profile.credentials.edit'));
+        $this->assertDatabaseHas('users', ['email' => $data['email']]);
+    }
 
-	/** @test */
-	public function it_must_show_orders_for_logged_in_user()
-	{
-		$response = $this->signInFromWeb()->get(route('profile.orders'));
-		$response->assertSuccessful()->assertViewIs('profile.orders')->assertViewHas('orders');
-	}
+    /** @test */
+    public function it_must_show_orders_for_logged_in_user()
+    {
+        $response = $this->signInFromWeb()->get(route('profile.orders'));
+        $response->assertSuccessful()->assertViewIs('profile.orders')->assertViewHas('orders');
+    }
 
     public function testWishlist()
     {

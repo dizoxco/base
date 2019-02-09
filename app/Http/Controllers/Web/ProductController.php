@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
+use Auth;
+use Cookie;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use App\Repositories\Facades\ProductRepo;
-use Auth;
-use Cookie;
 
 class ProductController extends Controller
 {
@@ -16,13 +16,13 @@ class ProductController extends Controller
         $recent = ProductRepo::getRecent();
         $related = ProductRepo::getRelated($product);
         if (Auth::check()) {
-	        $is_favorite = $product->users->pluck('id')->contains(Auth::id());
+            $is_favorite = $product->users->pluck('id')->contains(Auth::id());
         } else {
-	        $is_favorite = array_key_exists(
-	        	$product->id, array_wrap(
-	        		json_decode(Cookie::get('wishlist'), true)
-		        )
-	        );
+            $is_favorite = array_key_exists(
+                $product->id, array_wrap(
+                    json_decode(Cookie::get('wishlist'), true)
+                )
+            );
         }
 
         return view('web.products.show', compact('product', 'recent', 'related', 'is_favorite'));

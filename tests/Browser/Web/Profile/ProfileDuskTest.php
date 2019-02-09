@@ -13,7 +13,7 @@ class ProfileDuskTest extends DuskTestCase
 {
     use WithFaker, CreatesApplication, DatabaseMigrations;
 
-	/** @test */
+    /** @test */
     public function it_must_update_the_user_credentials()
     {
         $this->browse(function (Browser $browser) {
@@ -28,15 +28,15 @@ class ProfileDuskTest extends DuskTestCase
         });
     }
 
-	/** @test */
-	public function it_must_show_the_user_orders()
-	{
-		$this->browse(function (Browser $browser) {
-			$browser->loginAs($user = factory(User::class)->create())
-				->visit(route('profile.index'))
-				->assertSee('همه سفارش ها')
-				->click('#orders_link')
-				->assertPathIs(route('profile.orders', [], false));
-		});
+    /** @test */
+    public function it_must_show_the_user_orders()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs($user = factory(User::class)->create())
+                ->visit(route('profile.index'))
+                ->assertSee('همه سفارش ها')
+                ->click('#orders_link')
+                ->assertPathIs(route('profile.orders', [], false));
+        });
     }
 }
