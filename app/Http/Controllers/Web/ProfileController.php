@@ -32,7 +32,7 @@ class ProfileController extends Controller
 
     public function credentials()
     {
-        return view('profile.credentials')->withUser(Auth::user());
+        return view('profile.credentials.edit')->withUser(Auth::user());
     }
 
     public function updateCredentials(UpdateCredentialRequest $request)

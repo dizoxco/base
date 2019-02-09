@@ -77,9 +77,27 @@
                     <span>زمان تحویل ۲۲ دی ماه</span>  
                 </div> 
             </div>
-            <a href="{{ route('wishlist.store', $product->slug) }}">
+            @if($is_favorite)
+                <a
+                        style="text-decoration: none"
+                        href="{{ route('profile.wishlist.destroy', $product->slug) }}"
+                        onclick="event.preventDefault();
+                                                     document.getElementById('remove_product_from_wishlist').submit();"
+                >
+                    حذف از علاقه مندی ها
+                </a>
+                <form id="remove_product_from_wishlist" action="{{ route('profile.wishlist.destroy', $product->slug) }}" method="post" style="display: none;">
+                    {{ csrf_field() }}
+                    {{ method_field('delete') }}}
+                </form>
+            @else
+                <a
+                        style="text-decoration: none"
+                        href="{{ route('profile.wishlist.store', $product->slug) }}"
+                >
                     افزودن به علاقه مندی ها
-            </a>
+                </a>
+            @endif
             <div class="size">
             </div>    
             <div class="py-6">

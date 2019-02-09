@@ -51,7 +51,7 @@ class UserEventSubscribers
     private function moveWishlistFromCookieToDatabase($user)
     {
         if ($wishlist = json_decode(\Cookie::get('wishlist'), true)) {
-            $user->cart()->sync(array_keys($wishlist));
+            $user->wishlist()->sync(array_keys($wishlist));
         }
     }
 }
