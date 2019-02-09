@@ -20,14 +20,24 @@ Route::name('tickets.')->prefix('tickets')->group(function () {
     Route::put('{ticket}/toggle', 'TicketController@toggle')->name('toggle');
 });
 
+Route::name('wishlist.')->prefix('wishlist')->group(function () {
+	Route::get('/', 'WishlistController@index')->name('index');
+	Route::get('{product}', 'WishlistController@store')->name('store');
+	Route::delete('{product}', 'WishlistController@destroy')->name('destroy');
+});
+
+Route::name('cart.')->prefix('cart')->group(function () {
+	Route::get('/', 'CartController@index')->name('index');
+	Route::get('{variation}', 'CartController@store')->name('store');
+	Route::delete('{variation}', 'CartController@destroy')->name('destroy');
+});
+
 Route::name('profile.')->prefix('profile')->group(function () {
     Route::middleware('auth:web')->group(function () {
         Route::name('wishlist.')->prefix('wishlist')->group(function () {
-            Route::get('/', 'WishlistController@index')->name('index')->middleware('auth:web');
         });
         Route::get('/', 'ProfileController@index')->name('index');
         Route::get('orders', 'ProfileController@orders')->name('orders');
-        Route::get('cart', 'CartController@index')->name('cart');
         Route::resource('addresses', 'AddressController');
         Route::get('chats', 'ProfileController@chats')->name('chats');
         Route::get('tickets', 'TicketController@index')->name('tickets');
@@ -37,10 +47,6 @@ Route::name('profile.')->prefix('profile')->group(function () {
         });
         Route::get('info', 'ProfileController@info')->name('info.edit');
         Route::post('info', 'ProfileController@updateInfo')->name('info.update');
-    });
-    Route::name('wishlist.')->prefix('wishlist/{product}')->group(function () {
-        Route::get('/', 'WishlistController@store')->name('store');
-        Route::delete('/', 'WishlistController@destroy')->name('destroy');
     });
 });
 // ==================================== End Users profile Section  ============
