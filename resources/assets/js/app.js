@@ -3,6 +3,7 @@ import Swiper from 'swiper';
 window.$ = window.jQuery = require("jquery");
 require("./front/productGallery");
 require("./front/mdc");
+require("./front/navigation");
 
 $('.swiper.simple').each(function(){
     new Swiper($(this), {
