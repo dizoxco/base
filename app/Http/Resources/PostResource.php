@@ -17,25 +17,25 @@ class PostResource extends Resource
                 'slug'          =>  $this->slug,
                 'abstract'      =>  $this->abstract,
                 'body'          =>  $this->body,
-                'created_at'    =>  $this->created_at? $this->created_at->toDateTimeString(): $this->created_at,
-                'published_at'  =>  $this->published_at? $this->published_at->toDateTimeString(): $this->published_at,
-                'updated_at'    =>  $this->updated_at? $this->updated_at->toDateTimeString(): $this->updated_at,
-                'deleted_at'    =>  $this->deleted_at? $this->deleted_at->toDateTimeString(): $this->deleted_at,
+                'created_at'    =>  $this->created_at ? $this->created_at->toDateTimeString() : $this->created_at,
+                'published_at'  =>  $this->published_at ? $this->published_at->toDateTimeString() : $this->published_at,
+                'updated_at'    =>  $this->updated_at ? $this->updated_at->toDateTimeString() : $this->updated_at,
+                'deleted_at'    =>  $this->deleted_at ? $this->deleted_at->toDateTimeString() : $this->deleted_at,
                 // 'banner'        =>  $this->banner,
                 // 'attachments'   =>  $this->attachments,
             ],
             'relations' =>  [
-                $this->mergeWhen($this->whenLoaded('user'),[
-                    'user' => $this->user->id
+                $this->mergeWhen($this->whenLoaded('user'), [
+                    'user' => $this->user->id,
                 ]),
-                $this->mergeWhen($this->whenLoaded('banner'),[
-                    'banner' => $this->banner[0]->id
+                $this->mergeWhen($this->whenLoaded('banner'), [
+                    'banner' => $this->banner[0]->id,
                 ]),
-                $this->mergeWhen($this->whenLoaded('tags'),[
-                    'tags' => $this->tags->pluck('id')
+                $this->mergeWhen($this->whenLoaded('tags'), [
+                    'tags' => $this->tags->pluck('id'),
                 ]),
-                $this->mergeWhen($this->whenLoaded('comments'),[
-                    'comments' => $this->comments->pluck('id')
+                $this->mergeWhen($this->whenLoaded('comments'), [
+                    'comments' => $this->comments->pluck('id'),
                 ]),
                 // $this->whenLoaded('user', function () {
                 //     return ['user'  =>  $this->user->id];
