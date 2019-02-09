@@ -13,6 +13,16 @@ export const getMediaGroup = (mediagroup) => {
     }
 }
 
+export const addMedia = (media, mediagroup) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'ADD-MEDIAGROUP',
+            payload: {media},
+            mediagroup
+        });
+    }
+};
+
 export const getMediaGroups = () => {
     return (dispatch) => {
         getting(routes('api.mediagroups.index'))

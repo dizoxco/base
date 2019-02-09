@@ -13,6 +13,14 @@ export const MediaReducer = (state = initialState, action) => {
                 ...state,
                 mediagroups: action.payload.data
             };
+        case 'ADD-MEDIAGROUP':
+
+            const j = state.mediagroups.findIndex((e) => e.id == action.mediagroup );
+            const oldMedias =  [...state.mediagroups[j].media];
+            oldMedias.push(action.payload.media);
+            state.mediagroups[j].media = [...oldMedias];
+            console.log( state.mediagroups[j].media);
+            return state;
         default:
             return state;
     }
