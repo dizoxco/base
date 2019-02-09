@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use Auth;
 use Illuminate\Auth\Events\Login;
 use App\Events\User\UserStoreEvent;
 use Illuminate\Auth\Events\Registered;

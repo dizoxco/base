@@ -71,23 +71,31 @@
   </div>
  </nav>
  
+
+
 <div class="glass fixed t-0 r-0 w-full h-full z-60 "></div>
 
 <div class="side fixed t0 r0 w-full bg-white h-full z-70">
 
-  <div class="close" glass=".side">
+  <div class="close pin-l pin-t " glass=".side">
     <span class="close__cross"></span>
   </div>
 
-  <div class="side-content cart">
-    <div class="side__cart-container">
-      cart
+  <div class="side-content cart flex h-full p-16 pt-32">
+    <div class="side__cart-empty-container w-full text-center">
+      <h6 class="mb-8">سبد خرید شما خالی است</h6>
+      <div class="side__cart-empty-img">
+        <img src="/images/empty-cart.png" alt="">
+      </div>
     </div>
   </div>
 
-  <div class="side-content wishlist">
-    <div class="side__wishlist-container">
-      wishlist
+  <div class="side-content wishlist flex h-full p-16 pt-32">
+    <div class="side__wishlist-container w-full text-center">
+      <h6 class="mb-8">کمد لباس شما خالی است</h6>
+      <div class="side__wishlist-empty-img">
+        <img src="/images/empty-wishlist.png" alt="">
+      </div>
     </div>
   </div>
 
@@ -95,16 +103,41 @@
     <div class="side__login-container w-full text-center">
       <h6 class="mb-8">به حساب کاربری خود وارد شوید</h6>
       <form action="">
-        <div><input type="text" placeholder="ایمیل"></div>
-        <div><input type="text" placeholder="رمز عبور"></div>
+        @component('components.form.text',[
+          'label' => 'ایمیل',
+          'full' => true
+        ])
+        @endcomponent
+        @component('components.form.text',[
+          'label' => 'رمز عبور',
+          'full' => true
+        ])
+        @endcomponent
         <div class="flex justify-between">
             <div><input type="checkbox">مرا به خاطربسپار<br></div>
             <a href="#" side-content=".side-content.forgot">فراموشی رمز عبور</a>
         </div>
-        <button>وارد شوید</button>
+        @component('components.form.button',[
+          'label' => 'وارد شوید',
+          'full' => true
+        ])
+        @endcomponent
       </form>
-      <div><button>با گوگل وارد شوید</button></div>
-      <div><button>ثبت نام</button></div>
+      @component('components.form.button',[
+        'label' => 'ورود با گوگل',
+        'full' => true,
+        'dense' => true,
+      ])
+      @endcomponent
+      <br>
+      <span side-content=".side-content.register">
+        @component('components.form.button',[
+          'label' => 'ثبت نام',
+          'full' => true,
+          'type' => 'text',
+        ])
+        @endcomponent
+      </span>
     </div>
   </div>
 
@@ -112,14 +145,33 @@
     <div class="side__register-container w-full text-center">
         <h6 class="mb-8">ثبت نام</h6>
         <form action="">
-            <div><input type="text" placeholder="ایمیل"></div>
-            <div><input type="text" placeholder="رمز عبور"></div>
+            @component('components.form.text',[
+              'label' => 'ایمیل',
+              'full' => true
+            ])
+            @endcomponent
+            @component('components.form.text',[
+              'label' => 'رمز عبور',
+              'full' => true
+            ])
+            @endcomponent
             <div class="flex">
                 <div><input type="checkbox"><span><a href="#">شرایط و قوانین</a>  را قبول دارم</span><br></div>
             </div>
-            <button>ثبت نام</button>
+            @component('components.form.button',[
+              'label' => 'ثبت نام',
+              'full' => true,
+            ])
+            @endcomponent
           </form>
-          <div><button>وارد شوید</button></div>
+          <span side-content=".side-content.login">
+              @component('components.form.button',[
+                'label' => 'وارد شوید',
+                'full' => true,
+                'type' => 'text',
+              ])
+              @endcomponent
+            </span>
     </div>
   </div>
 
@@ -127,10 +179,25 @@
     <div class="side__forgot-container w-full text-center">
         <h6 class="mb-8">بازیابی رمز عبور</h6>
         <form action="">
-            <div><input type="text" placeholder="ایمیل"></div>
-            <button>ارسال لینک بازیابی</button>
+            @component('components.form.text',[
+              'label' => 'ایمیل',
+              'full' => true
+            ])
+            @endcomponent
+            @component('components.form.button',[
+              'label' => 'ارسال لینک بازیابی',
+              'full' => true
+            ])
+            @endcomponent
           </form>
-          <div><button>بازگشت</button></div>
+          <span side-content=".side-content.login">
+              @component('components.form.button',[
+                'label' => 'بازگشت',
+                'full' => true,
+                'type' => 'text',
+              ])
+              @endcomponent
+            </span>
     </div>
   </div>
 
@@ -144,7 +211,7 @@
         <button>تغییر رمز عبور</button>
       </form>
       <div>
-        <button>بازگشت به ورود</button>
+        <button side-content=".side-content.login">بازگشت به ورود</button>
       </div>
     </div>
   </div>
@@ -153,39 +220,38 @@
 
  
  
- {{-- <div class="nav__search">
-   <div class="nav__search-div">
-       <input type="text" placeholder="جستجو" class="nav__search-box">
-       <div class="nav__search-result">
-         <ul class="nav__search-result-list">
-           <li class="nav__search-result-item">
-             <img src="/images/product.jpg" alt="">
-             <a href="#"> display product number one </a>
-           </li>
-           <li class="nav__search-result-item">
-             <img src="/images/product.jpg" alt="">
-             <a href="#"> display product number one </a>
-           </li>
-           <li class="nav__search-result-item">
-             <img src="/images/product.jpg" alt="">
-             <a href="#"> display product number one </a>
-           </li>
-           <li class="nav__search-result-item">
-             <img src="/images/product.jpg" alt="">
-             <a href="#"> display product number one </a>
-           </li>
-           <li class="nav__search-result-item">
-             <img src="/images/product.jpg" alt="">
-             <a href="#"> display product number one </a>
-           </li>
-           <li class="nav__search-result-item">
-             <img src="/images/product.jpg" alt="">
-             <a href="#"> display product number one </a>
-           </li>
-         </ul>
-       </div>
-   </div>
- </div> --}}
+<div class="mega-search fixed flex justify-center t0 r0 w-full z-90 bg-white">
+  
+  <div class="close" glass=".side">
+    <span class="close__cross"></span>
+  </div>
+
+  <div class="mega-search__container ">
+    <div class="search__box">
+      <input type="text" placeholder="جستجو کنید: دامن، لباس مجلسی، مزون ژولی و ..." autofocus class="w-full pb-4">
+    </div>
+    <div class="mega-search__result flex ">
+      <div class="search-resulat__tag">
+        <span class="font-bold">نتایج جستجو</span>
+        <ul>
+          <li><a href="#">دامن کوتاه</a></li>
+          <li><a href="#">دامن سکسی</a></li>
+          <li><a href="#">دامن بلند</a></li>
+          <li><a href="#">دامن ۸ ترک</a></li>
+        </ul>
+      </div>
+      <div class="search-result__brands">
+        <span class="font-bold">فروشندگان</span>
+        <ul>
+          <li><a href="#">ژولی</a></li>
+          <li><a href="#">لیون</a></li>
+          <li><a href="#">تیلور</a></li>
+          <li><a href="#">فیریلی</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
  
  
  <header class="header-mobile">

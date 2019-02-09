@@ -1,20 +1,17 @@
-<html>
-    <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
-    <meta name="theme-color" content="#002f6c" />
-    <title>مدلا - @yield('title')</title>
-    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-</head>
-    <body class="portal" dir="rtl">
-        @forelse($errors->all() as $error)
-            <p>{{ $error }}</p>
-        @empty
-            there is no errors
-        @endforelse
-        <form action="{{ route('profile.credentials.update') }}" method="post">
-            {{ csrf_field() }}
+@extends('profile.layout')
+@section('profile-content')
+    @component('components.form',[
+        'methos' => 'PUT',
+        'action' => route('profile.credentials.update'),
+    ])
+        @component('components.form.text',[
+            'label' => 'نام',
+            'id' => 'email',
+            'name' => 'email',
+            'value' => $user->name,
+        ])
+        @endcomponent
+
         @component('components.form.text',[
             'label' => 'ایمیل',
             'id' => 'email',
@@ -36,23 +33,30 @@
             'id' => 'password',
             'name' => 'password',
             'type' => 'password',
+            'half' => true,
         ])
         @endcomponent
 
         @component('components.form.text',[
-            'label' => 'رمز عبور',
+            'label' => 'تکرار رمز عبور',
             'id' => 'password_confirmation',
             'name' => 'password_confirmation',
             'type' => 'password',
+            'half' =>true
         ])
         @endcomponent
 
-        @component('components.form.button',[
-            'label' => 'به روزرسانی',
-            'type' => 'raised',
-            'name' => 'submit',
-        ])
+        @component('components.form.field')
+            @component('components.form.button',[
+                'label' => 'به روزرسانی',
+                'type' => 'raised',
+                'name' => 'submit',
+            ])
+            @endcomponent
         @endcomponent
-    </form>
-    </body>
-</html>
+    @endcomponent
+@endsection
+        
+        
+
+        

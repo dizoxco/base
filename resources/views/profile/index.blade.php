@@ -24,7 +24,7 @@
                 </a>
             </div>
             <div class="relative rounded-lg bg-white shadow-lg pt-2 pb-4 px-4 mb-4">
-                <a id="orders_link" href="{{ route('profile.wishlist.index') }}">
+                <a id="orders_link" href="{{ route('wishlist.index') }}">
                     لیست عاقه مندی ها
                 </a>
             </div>

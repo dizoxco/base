@@ -12,9 +12,11 @@
     }
     if(isset($dense)) $class .= ' mdc-button--dense';
 @endphp
+@isset($link)<a href="{{$link}}">@endisset
 <button class="{{$class}}" @isset($disabled) disabled @endisset data-mdc-auto-init="mdc-ripple">
     @isset($icon)
         <i class="material-icons mdc-button__icon" aria-hidden="true">{{$icon}}</i>
     @endisset
 <span class="mdc-button__label">{{$label}}</span>
 </button>
+@isset($link)</a>@endisset

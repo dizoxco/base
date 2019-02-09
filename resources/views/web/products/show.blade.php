@@ -80,20 +80,20 @@
             @if($is_favorite)
                 <a
                         style="text-decoration: none"
-                        href="{{ route('profile.wishlist.destroy', $product->slug) }}"
+                        href="{{ route('wishlist.destroy', $product->slug) }}"
                         onclick="event.preventDefault();
                                                      document.getElementById('remove_product_from_wishlist').submit();"
                 >
                     حذف از علاقه مندی ها
                 </a>
-                <form id="remove_product_from_wishlist" action="{{ route('profile.wishlist.destroy', $product->slug) }}" method="post" style="display: none;">
+                <form id="remove_product_from_wishlist" action="{{ route('wishlist.destroy', $product->slug) }}" method="post" style="display: none;">
                     {{ csrf_field() }}
                     {{ method_field('delete') }}}
                 </form>
             @else
                 <a
                         style="text-decoration: none"
-                        href="{{ route('profile.wishlist.store', $product->slug) }}"
+                        href="{{ route('wishlist.store', $product->slug) }}"
                 >
                     افزودن به علاقه مندی ها
                 </a>
@@ -197,7 +197,6 @@
                         <td>{{ $loop->index+1 }}</td>
                         <td><img class="w-1/4" src="{{ $business->getFirstMediaUrl(enum('media.business.logo')) }}" alt=""></td>
                         <td><a href="{{ route('businesses.show', $business->slug) }}">{{ $business->brand }}</a></td>
-                        <td>{{ $business->address }}</td>
                     </tr>
                     @empty
                         این محصول هیچ فروشنده ای ندارد.
@@ -217,7 +216,7 @@
                             <td>{{ $loop->index+1 }}</td>
                             <td>@toman($variation->price)</td>
                             <td>
-                                <a href="{{ route('cart.store', [$product->slug, $variation]) }}">
+                                <a href="{{ route('cart.store', $variation) }}">
                                     افزودن به سبد خرید
                                 </a>
                             </td>
