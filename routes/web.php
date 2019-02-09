@@ -31,7 +31,7 @@ Route::name('tickets.')->prefix('tickets')->group(function () {
 });
 
 Route::name('profile.')->prefix('profile')->middleware('auth:web')->group(function () {
-	Route::get('/', 'ProfileController@index')->name('index');
+    Route::get('/', 'ProfileController@index')->name('index');
     Route::get('orders', 'ProfileController@orders')->name('orders');
     Route::get('cart', 'CartController@index')->name('cart');
     Route::resource('addresses', 'AddressController');
@@ -39,8 +39,8 @@ Route::name('profile.')->prefix('profile')->middleware('auth:web')->group(functi
     Route::get('chats', 'ProfileController@chats')->name('chats');
     Route::get('tickets', 'TicketController@index')->name('tickets');
     Route::name('credentials.')->prefix('credentials')->group(function () {
-    	Route::get('/edit', 'ProfileController@credentials')->name('edit');
-    	Route::post('/update', 'ProfileController@updateCredentials')->name('update');
+        Route::get('/edit', 'ProfileController@credentials')->name('edit');
+        Route::post('/update', 'ProfileController@updateCredentials')->name('update');
     });
     Route::get('info', 'ProfileController@info')->name('info.edit');
     Route::post('info', 'ProfileController@updateInfo')->name('info.update');

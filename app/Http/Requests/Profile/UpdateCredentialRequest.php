@@ -25,16 +25,16 @@ class UpdateCredentialRequest extends FormRequest
     public function rules()
     {
         $rule = [
-        	'email' => [
-        		'required', 'string', 'email', 'max:255',
+            'email' => [
+                'required', 'string', 'email', 'max:255',
                 Rule::unique('users', 'email')->ignore(auth()->user()->id),
             ],
         ];
 
         if ($this->has('password')) {
-        	return array_merge($rule, [
-		        'password' => 'nullable|string|min:6|confirmed'
-	        ]);
+            return array_merge($rule, [
+                'password' => 'nullable|string|min:6|confirmed',
+            ]);
         }
 
         return $rule;

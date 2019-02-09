@@ -11,10 +11,11 @@ use App\Http\Requests\Profile\UpdateCredentialRequest;
 
 class ProfileController extends Controller
 {
-	public function index()
-	{
-		return view('profile.index')->withUser(Auth::user());
-	}
+    public function index()
+    {
+        return view('profile.index')->withUser(Auth::user());
+    }
+
     public function orders()
     {
         $orders = auth()->user()->orders()->with('city', 'variations', 'variations.product')->get();
@@ -48,8 +49,8 @@ class ProfileController extends Controller
             }
         }
 
-	    if (UserRepo::update(Auth::user(), array_filter($request->all()))) {
-		    return redirect()->route('profile.credentials.edit');
+        if (UserRepo::update(Auth::user(), array_filter($request->all()))) {
+            return redirect()->route('profile.credentials.edit');
         } else {
             return redirect()->route('profile.credentials.edit')
                 ->withInput()->withErrors([
