@@ -8,7 +8,6 @@ use App\Http\Resources\EffectedRows;
 use App\Http\Resources\BusinessResource;
 use App\Http\Resources\BusinessCollection;
 use App\Repositories\Facades\BusinessRepo;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\Businesses\StoreBusinessRequest;
 use App\Http\Requests\Businesses\UpdateBusinessRequest;

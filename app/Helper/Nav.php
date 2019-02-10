@@ -4,7 +4,7 @@ use JsonSchema\Exception\JsonDecodingException;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 
 if (! function_exists('nav')) {
-    function nav($filename, $class=null)
+    function nav($filename, $class = null)
     {
         $file = base_path('resources/nav/'.$filename.'.json');
         if (! file_exists($file)) {
@@ -21,14 +21,18 @@ if (! function_exists('nav')) {
 }
 
 if (! function_exists('nav_render')) {
-    function nav_render($menu, $class=null)
+    function nav_render($menu, $class = null)
     {
         ?>
-            <ul <?php if($class) echo 'class="'.$class.'"' ?>>
-            <?php foreach($menu as $m): ?>
+            <ul <?php if ($class) {
+            echo 'class="'.$class.'"';
+        } ?>>
+            <?php foreach ($menu as $m): ?>
                 <li>
                     <a href="<?= $m['link'] ?>"><?= $m['label'] ?></a>
-                    <?php if(isset($m['links'])) nav_render($m['links']) ?>
+                    <?php if (isset($m['links'])) {
+            nav_render($m['links']);
+        } ?>
                 </li>
             <?php endforeach; ?>
             </ul>
