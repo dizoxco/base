@@ -36,7 +36,7 @@ class ProductController extends Controller
 
     public function update(UpdateProductRequest $request, Product $product)
     {
-       $rows = ProductRepo::update($product, $request->all());
+        $rows = ProductRepo::update($product, $request->all());
 
         return new ProductResource($product);
     }

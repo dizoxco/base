@@ -61,6 +61,7 @@ class UserController extends Controller
             ]);
         }
         UserRepo::update($user, $request->except('avatar'));
+
         return new UserResource($user);
 //        $resource = new EffectedRows();
 //        return  $resource->response()->setStatusCode(Response::HTTP_OK);
