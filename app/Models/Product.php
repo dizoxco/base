@@ -69,7 +69,7 @@ class Product extends Model implements HasMedia
     public function resolveRouteBinding($product)
     {
         if (request()->isXmlHttpRequest()) {
-           return parent::resolveRouteBinding($product);
+            return parent::resolveRouteBinding($product);
         } else {
             $product = ProductRepo::findBySlug($product);
             abort_if($product === null, 404);
