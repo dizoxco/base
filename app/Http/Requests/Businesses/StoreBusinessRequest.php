@@ -25,14 +25,8 @@ class StoreBusinessRequest extends FormRequest
     {
         return $business = [
             'brand' => 'required|unique:businesses,brand',
-            'province' => 'required',
-            'city' => 'required',
-            'tell' => 'required|digits:8',
-            'phone_code' => 'required|digits:3',
-            'address' => 'required|string',
-            'postal_code' => 'required|string',
-            'mobile' => 'required|digits:11',
-            'storage_address' => 'required|string',
+            'slug' => 'required|unique:businesses,slug',
+            'city_id' => 'required|exists:cities,id',
         ];
 
         /*        $legal_business = [

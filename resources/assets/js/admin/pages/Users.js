@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { getUsers } from "../actions";
 import { Page, Table ,Icon} from "../components";
+import {Button} from "../components/form";
 
 class Users extends Component{
 
@@ -19,7 +20,8 @@ class Users extends Component{
                 button={{
                     label: 'save'
                 }}
-            >   
+            >
+                <Button label={'Add user'} onClick={(e) => this.props.history.push('/admin/users/0')}  />
                 <Table
                     data={this.props.users}
                     tdClick={ (rowInfo) => this.props.history.push('/admin/users/' + rowInfo.original.id)}

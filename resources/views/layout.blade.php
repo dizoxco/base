@@ -172,8 +172,7 @@
 				@endcomponent
 		</div>
 		{{-- @component('components.links', ['nav' => 'main'])@endcomponent --}}
-		{{nav('main')}}
-		@if (isset($mode) && $mode != 'profile')
+		@if (!isset($mode) || $mode != 'profile')
 			<div class="bg-grey-light">
 				<footer class="container mx-auto w-full">
 					<div class="flex flex-row items-start -mx-2">

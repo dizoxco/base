@@ -1,76 +1,18 @@
 <nav class="nav fixed w-full flex items-center z-50" id="nav">
-    <div class="container flex items-center">
-        <ul class="nav__icons w-1/5">
-            <li><a href="#"><i class="material-icons cart-icon" glass=".side" side-content=".side-content.cart">shopping_basket</i></a></li>
-            <li><a href="#"><i class="material-icons wishlist-icon" glass=".side" side-content=".side-content.wishlist">favorite_border</i></a></li>
-            <li><a href="#"><i class="material-icons login-icon" glass=".side" side-content=".side-content.login">person_outline</i></a></li>
-            <li><a href="#"><i class="material-icons search-icon" glass=".mega-search">search</i></a></li>
-        </ul>
-        <ul class="nav__menu w-full text-center">
-            <li class="nav__item">
-                <a href="#">Home</a>
-                <ul class="nav__sheet-col">
-                    <li class="nav__list">
-                        <a href="#">کتگوری ۱</a>
-                        <ul>
-                            <li><a href="#">آیتم اول</a></li>
-                            <li><a href="#">آیتم دوم</a></li>
-                            <li><a href="#">آیتم سوم</a></li>
-                            <li><a href="#">fourth item</a></li>
-                            <li><a href="#">fifth item</a></li>
-                            <li><a href="#">sixth item</a></li>
-                            <li><a href="#">seventh item</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav__list">
-                        <a href="#">کتگوری ۲</a>
-                        <ul>
-                            <li><a href="#">آیتم اول</a></li>
-                            <li><a href="#">آیتم دوم</a></li>
-                            <li><a href="#">آیتم سوم</a></li>
-                            <li><a href="#">fourth item</a></li>
-                            <li><a href="#">fifth item</a></li>
-                            <li><a href="#">sixth item</a></li>
-                            <li><a href="#">seventh item</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav__list">
-                        <a href="#">کتگوری ۳</a>
-                        <ul>
-                            <li><a href="#">آیتم اول</a></li>
-                            <li><a href="#">آیتم دوم</a></li>
-                            <li><a href="#">آیتم سوم</a></li>
-                            <li><a href="#">fourth item</a></li>
-                            <li><a href="#">fifth item</a></li>
-                            <li><a href="#">sixth item</a></li>
-                            <li><a href="#">seventh item</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav__list">
-                        <a href="#">کتگوری ۴</a>
-                        <ul>
-                            <li><a href="#">آیتم اول</a></li>
-                            <li><a href="#">آیتم دوم</a></li>
-                            <li><a href="#">آیتم سوم</a></li>
-                            <li><a href="#">fourth item</a></li>
-                            <li><a href="#">fifth item</a></li>
-                            <li><a href="#">sixth item</a></li>
-                            <li><a href="#">seventh item</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav__item"><a href="#">Woman</a></li>
-            <li class="nav__item"><a href="#">Men</a></li>
-            <li class="nav__item"><a href="#">Children</a></li>
-            <li class="nav__item"><a href="#">Contact</a></li>
-        </ul>
-        <div class="nav__logo-box w-1/3 text-left">
-            <a href="#"><img src="/images/menu-logo.png" alt="" class="nav__logo"></a>
-        </div>
-    </div>
-</nav>
-
+  <div class="container flex items-center">
+   <ul class="nav__icons w-1/5">
+     <li><a href="#"><i class="material-icons cart-icon" glass=".side" side-content=".side-content.cart">shopping_basket</i></a></li>
+     <li><a href="#"><i class="material-icons wishlist-icon" glass=".side" side-content=".side-content.wishlist">favorite_border</i></a></li>
+     <li><a href="#"><i class="material-icons login-icon" glass=".side" side-content=".side-content.login">person_outline</i></a></li>
+     <li><a href="#"><i class="material-icons search-icon" glass=".mega-search">search</i></a></li>
+   </ul>
+   {{nav('main', 'nav__menu w-full text-center')}}
+   <div class="nav__logo-box w-1/3 text-left">
+     <a href="#"><img src="/images/menu-logo.png" alt="" class="nav__logo"></a>
+   </div>
+  </div>
+ </nav>
+ 
 
 
 <div class="glass fixed t-0 r-0 w-full h-full z-60 "></div>

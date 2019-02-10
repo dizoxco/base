@@ -18,9 +18,8 @@ class BusinessResource extends BaseResource
             'attributes'   =>  [
                 'user_id'      =>  $this->user_id,
                 'brand'        =>  $this->brand,
-                'province'     =>  $this->province,
-                'city'         =>  $this->city,
-                'tell'         =>  $this->tell,
+                'slug'         =>  $this->slug,
+                'city_id'      =>  $this->city_id,
             ],
             'relations' =>  [
                 $this->whenLoaded('user', function () {
