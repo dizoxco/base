@@ -8,15 +8,21 @@ Route::any('lab', function () {
 Route::view('admin', 'admin');
 Route::view('admin/{any}', 'admin')->where('any', '.*');
 // ==================================== End Admin Section =====================
+Route::name('businesses.')->prefix('businesses')->group(function () {
+    Route::prefix('{business}')->group(function () {
+        Route::get('/', 'BusinessController@show')->name('show');
+        Route::get('/chat', 'ChatController@show')->name('chat.show')->middleware('auth:web');
+        Route::post('/chat', 'ChatController@store')->name('chat.store')->middleware('auth:web');
+    });
+});
 // ==================================== User Section ==========================
 Route::name('web.auth')->prefix('auth')->group(function () {
     Auth::routes();
 });
-// ==================================== Users profile Section =================
+
 Route::name('tickets.')->prefix('tickets')->group(function () {
     Route::get('create', 'TicketController@create')->name('create');
     Route::post('/', 'TicketController@store')->name('store');
-    Route::get('{ticket}', 'TicketController@show')->name('show');
     Route::put('{ticket}/reply', 'TicketController@reply')->name('reply');
     Route::put('{ticket}/toggle', 'TicketController@toggle')->name('toggle');
 });
@@ -55,7 +61,6 @@ Route::name('profile.')->prefix('profile')->group(function () {
 // ==================================== End Users profile Section  ============
 Route::get('/', 'PageController@home')->name('home');
 Route::get('/search/{searchPanel}', 'SearchPanelController@search')->name('search');
-Route::get('/businesses/{business}', 'BusinessController@show')->name('businesses.show');
 Route::get('/products/{product}', 'ProductController@show')->name('products.show');
 Route::get('/posts', 'PostController@index')->name('posts.index');
 Route::get('/posts/{post}', 'PostController@show')->name('posts.show');

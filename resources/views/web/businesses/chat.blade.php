@@ -41,13 +41,6 @@
                     @endforelse
                 </ol>
             </div>
-            @component('components.form.button', [
-                'label' => 'ارسال پیام',
-                'raised' => true,
-                'shaped' => true,
-                'custom_class' => 'p-10',
-                'link' => route('businesses.chat.show', $business->slug)
-            ])@endcomponent
 
         </div>
         <div class="w-3/4 pr-4">
@@ -57,21 +50,31 @@
                 </ul>
             </div>
             <div class="relative rounded-lg bg-white shadow-lg px-8 py-6 mb-4 ">
-                    There is no comment submitted for this business
-                    There is no comment submitted for this business
-                    There is no comment submitted for this business
-                    There is no comment submitted for this business
-                    There is no comment submitted for this business
+                @isset($chat->comments)
+                    @foreach($chat->comments as $comment)
+                        @component('components.form.field')
+                            {{ $comment->body }}
+                        @endcomponent
+                    @endforeach
+                @else
+                    پیامی که میخواهید برای {{ $business->brand }} بفرستید را بنویسید.
+                @endisset
 
-            </div>
-            <div class="flex flex-wrap">
-                @forelse($business->products as $product)
-                    <div class="w-1/3 p-2">
-                        @component('web.products.card', ['product' => $product])@endcomponent
-                    </div>
-                @empty
-                    <p> There is no product submitted for this business </p>
-                @endforelse
+                @component('components.form', [
+                    'action' => route('businesses.chat.store', $business->slug),
+                    'method' => 'post'
+                    ])
+                    @component('components.form.text',[
+                        'name' => 'body',
+                        'label' => 'Message',
+                    ])
+                    @endcomponent
+                    @component('components.form.button',[
+                        'type' => 'submit',
+                        'label'=> 'Send'
+                    ])
+                    @endcomponent
+                @endcomponent
             </div>
         </div>
 
