@@ -25,7 +25,7 @@ class ProfileController extends Controller
 
     public function chats()
     {
-        $chats = auth()->user()->chats()->with('comments','user','business')->get();
+        $chats = auth()->user()->chats()->with('comments', 'user', 'business')->get();
 
         return view('profile.chats', compact('chats'));
     }

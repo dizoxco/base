@@ -1,8 +1,5 @@
 <?php
 
-use App\Models\Chat;
-use App\Models\User;
-use App\Models\Comment;
 use Illuminate\Database\Seeder;
 
 class TicketTableSeeder extends Seeder

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Web;
 
+use Auth;
+use App\Models\Business;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\StoreBusinessChatRequest;
-use App\Models\Business;
-use App\Models\Ticket;
-use Auth;
 
 class ChatController extends Controller
 {

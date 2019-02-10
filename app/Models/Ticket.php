@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     protected $fillable = [
-        'user_id', 'business_id', 'attributes'
+        'user_id', 'business_id', 'attributes',
     ];
 
     protected $casts = [
-        'attributes' => 'array'
+        'attributes' => 'array',
     ];
 
     protected $table = 'tickets';

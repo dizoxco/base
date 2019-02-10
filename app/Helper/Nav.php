@@ -25,9 +25,11 @@ if (! function_exists('nav_render')) {
     {
         ?>
             <u>
-            <?php foreach($menu as $m): ?>
+            <?php foreach ($menu as $m): ?>
                 <li><a href="<?= $m['link'] ?>"><?= $m['label'] ?></a></li>
-                <?php if(isset($m['links'])) nav_render($m['links']) ?>
+                <?php if (isset($m['links'])) {
+            nav_render($m['links']);
+        } ?>
             <?php endforeach; ?>
             </u>
         <?php
