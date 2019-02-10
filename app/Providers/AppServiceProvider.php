@@ -2,15 +2,15 @@
 
 namespace App\Providers;
 
-use App\Models\Variation;
-use App\Observers\VariationObserver;
 use Auth;
+use View;
 use Blade;
 use Cookie;
-use Illuminate\Support\ServiceProvider;
 use Response;
 use Throwable;
-use View;
+use App\Models\Variation;
+use App\Observers\VariationObserver;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,7 +29,6 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo number_format($expr).' تومان'; ?>";
         });
 
-
         View::composer([
             'components.nav.simple',
         ], function ($view) {
@@ -42,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
                     $cart = Variation::whereIn('id', array_keys($cart))->get();
                 }
             }
+
             return $view->with('cart', $cart);
         });
     }
