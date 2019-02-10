@@ -1,7 +1,7 @@
 @extends('profile.layout')
 @section('profile-content')
     @component('components.form',[
-        'methos' => 'PUT',
+        'method' => 'PUT',
         'action' => route('profile.credentials.update'),
     ])
         @component('components.form.text',[

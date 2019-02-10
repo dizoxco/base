@@ -33,7 +33,7 @@ class ProfileControllerTest extends TestCase
             'password' => $password = $this->faker->password,
             'password_confirmation' => $password,
         ];
-        $response = $this->post(route('profile.credentials.update', $data));
+        $response = $this->put(route('profile.credentials.update', $data));
         $response
             ->assertSessionMissing('errors')
             ->assertRedirect(route('profile.credentials.edit'));
