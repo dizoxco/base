@@ -4,7 +4,7 @@
      <li><a href="#"><i class="material-icons cart-icon" glass=".side" side-content=".side-content.cart">shopping_basket</i></a></li>
      <li><a href="#"><i class="material-icons wishlist-icon" glass=".side" side-content=".side-content.wishlist">favorite_border</i></a></li>
      <li><a href="#"><i class="material-icons login-icon" glass=".side" side-content=".side-content.login">person_outline</i></a></li>
-     <li><a href="#"><i class="material-icons search-icon">search</i></a></li>
+     <li><a href="#"><i class="material-icons search-icon" glass=".mega-search">search</i></a></li>
    </ul>
    <ul class="nav__menu w-full text-center">
      <li class="nav__item">
@@ -77,15 +77,35 @@
 
 <div class="side fixed t0 r0 w-full bg-white h-full z-70">
 
-  <div class="close pin-l pin-t " glass=".side">
+  <div class="close" glass=".side">
     <span class="close__cross"></span>
   </div>
 
-  <div class="side-content cart flex h-full p-16 pt-32">
+  <div class="side-content empty-cart flex h-full p-16 pt-32 hidden">
     <div class="side__cart-empty-container w-full text-center">
       <h6 class="mb-8">سبد خرید شما خالی است</h6>
       <div class="side__cart-empty-img">
         <img src="/images/empty-cart.png" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="side-content cart flex h-full p-8 pt-32 hidden overflow-auto">
+    <div class="side__cart-container w-full text-center ">
+      <div>
+        <div class="flex justify-around bg-black h-12 items-center rounded-full">
+          <span class="text-white">مبلغ کل خرید:</span><span class="font-bold text-white">۲٫۴۹۵٫۰۰۰<span>&ThickSpace;</span><span>تومان</span></span>
+        </div>
+      </div>
+      <div class="side__cart-product mt-2 flex py-5 px-5">
+        <div class="side__cart-product-img w-1/3">
+          <img src="/images/3.jpg" alt="">
+        </div>
+        <div class="side__cart-product-detail caption pr-2">
+          <div class="side__cart-product-name">
+            دامن کوتاه خال خالی
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -99,7 +119,7 @@
     </div>
   </div>
 
-  <div class="side-content login flex h-full p-16 pt-32">
+  <div class="side-content login flex h-full p-10 pt-32">
     <div class="side__login-container w-full text-center">
       <h6 class="mb-8">به حساب کاربری خود وارد شوید</h6>
       <form action="">
@@ -122,6 +142,12 @@
           'full' => true
         ])
         @endcomponent
+        @component('components.form.button',[
+          'label' => 'وارد شوید',
+          'full' => true,
+          'checkbox' => true,
+        ])
+        @endcomponent
       </form>
       @component('components.form.button',[
         'label' => 'ورود با گوگل',
@@ -141,7 +167,7 @@
     </div>
   </div>
 
-  <div class="side-content register flex h-full p-16 pt-32">
+  <div class="side-content register flex h-full p-10 pt-32">
     <div class="side__register-container w-full text-center">
         <h6 class="mb-8">ثبت نام</h6>
         <form action="">
@@ -175,7 +201,7 @@
     </div>
   </div>
 
-  <div class="side-content forgot flex h-full p-16 pt-32">
+  <div class="side-content forgot flex h-full p-10 pt-32">
     <div class="side__forgot-container w-full text-center">
         <h6 class="mb-8">بازیابی رمز عبور</h6>
         <form action="">
@@ -201,7 +227,7 @@
     </div>
   </div>
 
-  <div class="side-content reset-password flex h-full p-16 pt-32">
+  <div class="side-content reset-password flex h-full p-10 pt-32">
     <div class="side__reset-password-container w-full text-center">
       <h6 class="mb-8">تغییر رمز عبور</h6>
       <form action="">
@@ -218,7 +244,24 @@
 
 </div>
 
+ 
+ 
+<div class="mega-search  fixed flex justify-center t0 r0 w-full z-90 bg-white">
+  
+  <div class="close" glass=".mega-search">
+    <span class="close__cross"></span>
+  </div>
 
+  <div class="mega-search__container ">
+    <div class="search__box">
+      <input id="srch" type="text" placeholder="جستجو کنید: دامن، لباس مجلسی، مزون ژولی و ..." class="w-full pb-4">
+    </div>
+    <div class="mega-search__result flex ">
+
+    </div>
+  </div>
+</div>
+ 
  
  <header class="header-mobile">
    <div class="nav-mobile__bar">

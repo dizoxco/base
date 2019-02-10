@@ -115,6 +115,7 @@
 .glass{
     background-color: rgba(#22292f, .3);
     display: none;
+
     &.active{
         display: block;
     }
@@ -127,15 +128,15 @@
 
     &.over-glass{
         transform: translateX(-100%);
-    }
+    }    
 
-   .side-content{
-       display: none;
-       &.active{
-           display: block;
-       }
-   }
-    
+    .side-content {
+        display: none;
+
+        &.active {
+            display: block;
+        }
+    }
 }
 
 .close {
@@ -175,7 +176,8 @@
         &::after {
             transform: rotate(135deg);
             transition: transform .2s;
-        }      
+        }
+        
     }
 
     &:hover &__cross {
@@ -191,15 +193,18 @@
 
 .mega-search {
     display: block;
+    top: -500px;
+    transition: transform .3s;
+    
+    &.over-glass{
+        transform: translatey(100%);
+    }
 
-    // .close {
-    //     right: 30px;
-    // }
     &__container {
         padding: 100px 20%;
         max-width: 100%;
         width: 100%;
-        height:550px;
+        height:500px;
 
         & input {
             font-size: 1.7rem;
