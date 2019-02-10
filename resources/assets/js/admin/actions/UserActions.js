@@ -18,7 +18,7 @@ export const getUsers = () => {
             .catch( error => { console.log(error.response) });
     }
 }
-export const updateUser = (user) => {
+export const updateUser = (user , push) => {
     return (dispatch) => {
         putting(routes('api.users.update',[user.id]), user.attributes)
             .then(response => dispatch({
@@ -29,13 +29,20 @@ export const updateUser = (user) => {
     }
 };
 
-export const storeUser = (user) => {
+export const storeUser = (user , history = null) => {
     return (dispatch) => {
         posting(routes('api.users.store'), user.attributes)
-            .then(response => dispatch({
-                type: 'STORE-USER',
-                payload: response.data
-            }))
+            .then(response => {
+                dispatch({
+                    type: 'STORE-USER',
+                    payload: response.data
+                });
+                if (history !== null){
+                    history.push('/admin/users/'+response.data.data.id);
+                }
+
+
+            })
             .catch( error => { console.log(error.response) } );
     }
 };

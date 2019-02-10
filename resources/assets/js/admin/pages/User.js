@@ -18,7 +18,7 @@ class User extends Component {
 
     handleClick = () => {
         if (this.props.user.id == 0) {
-            this.props.storeUser(this.props.user)
+            this.props.storeUser(this.props.user , this.props.history)
         } else {
             this.props.updateUser(this.props.user)
         }
@@ -92,10 +92,6 @@ const mapStateToProps = (state, props) => {
     if (state.users.index.length) {
         user = state.users.index.find(e => e.id == props.match.params.user);
     }
-    if (props.match.params.user == 0) {
-        user = state.users.init;
-    }
-
     return {
         user: user
     };
