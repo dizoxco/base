@@ -1059,27 +1059,32 @@ if (false) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PostActions__ = __webpack_require__(552);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_0__PostActions__["b"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_0__PostActions__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_0__PostActions__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_0__PostActions__["a"]; });
 /* unused harmony reexport increment */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_0__PostActions__["c"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return __WEBPACK_IMPORTED_MODULE_0__PostActions__["c"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CommentActions__ = __webpack_require__(575);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__CommentActions__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__CommentActions__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__MediaActions__ = __webpack_require__(576);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_2__MediaActions__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_2__MediaActions__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_2__MediaActions__["c"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__MediaActions__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ProductActions__ = __webpack_require__(577);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_3__ProductActions__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_3__ProductActions__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return __WEBPACK_IMPORTED_MODULE_3__ProductActions__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return __WEBPACK_IMPORTED_MODULE_3__ProductActions__["c"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__BusinessActions__ = __webpack_require__(578);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_4__BusinessActions__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_4__BusinessActions__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__UserActions__ = __webpack_require__(579);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_5__UserActions__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_5__UserActions__["c"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_5__UserActions__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return __WEBPACK_IMPORTED_MODULE_5__UserActions__["d"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return __WEBPACK_IMPORTED_MODULE_5__UserActions__["e"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_5__UserActions__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_5__UserActions__["c"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_5__UserActions__["b"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__SnackActions__ = __webpack_require__(580);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_6__SnackActions__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_6__SnackActions__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__TicketActions__ = __webpack_require__(581);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_7__TicketActions__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_7__TicketActions__["a"]; });
 
 
 
@@ -1767,7 +1772,8 @@ var routeslist = {
         },
         products: {
             prefix: '/products',
-            index: ''
+            index: '',
+            update: '/{product}'
         },
         tickets: {
             prefix: '/tickets',
@@ -1781,7 +1787,8 @@ var routeslist = {
                 index: '/index'
             },
             show: '/{user}',
-            edit: '/{user}/edit'
+            edit: '/{user}/edit',
+            update: '/{user}'
         }
     }
 };
@@ -67105,7 +67112,7 @@ var Comment = function (_Component) {
                 { title: '#' + this.props.comment.id,
                     button: {
                         label: 'save',
-                        onClick: Object(__WEBPACK_IMPORTED_MODULE_2__actions__["m" /* updatePost */])(this.props.post)
+                        onClick: Object(__WEBPACK_IMPORTED_MODULE_2__actions__["p" /* updatePost */])(this.props.post)
                     },
                     tabs: ['نمایش', 'ویرایش اطلاعات'],
                     tab: this.state.tab,
@@ -67139,7 +67146,7 @@ var mapStateToProps = function mapStateToProps(state, props) {
     return { comment: comment };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getComments: __WEBPACK_IMPORTED_MODULE_2__actions__["c" /* getComments */], getPosts: __WEBPACK_IMPORTED_MODULE_2__actions__["f" /* getPosts */], setPost: __WEBPACK_IMPORTED_MODULE_2__actions__["l" /* setPost */], updatePost: __WEBPACK_IMPORTED_MODULE_2__actions__["m" /* updatePost */] })(Comment));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getComments: __WEBPACK_IMPORTED_MODULE_2__actions__["d" /* getComments */], getPosts: __WEBPACK_IMPORTED_MODULE_2__actions__["g" /* getPosts */], setPost: __WEBPACK_IMPORTED_MODULE_2__actions__["m" /* setPost */], updatePost: __WEBPACK_IMPORTED_MODULE_2__actions__["p" /* updatePost */] })(Comment));
 
 /***/ }),
 /* 552 */
@@ -68433,8 +68440,9 @@ var getComments = function getComments() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getMediaGroup; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getMediaGroups; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getMediaGroup; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addMedia; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getMediaGroups; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routes__ = __webpack_require__(30);
 
@@ -68450,6 +68458,16 @@ var getMediaGroup = function getMediaGroup(mediagroup) {
             });
         }).catch(function (error) {
             console.log(error.response);
+        });
+    };
+};
+
+var addMedia = function addMedia(media, mediagroup) {
+    return function (dispatch) {
+        dispatch({
+            type: 'ADD-MEDIAGROUP',
+            payload: { media: media },
+            mediagroup: mediagroup
         });
     };
 };
@@ -68472,12 +68490,32 @@ var getMediaGroups = function getMediaGroups() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return setProduct; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return updateProduct; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getProducts; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routes__ = __webpack_require__(30);
 
 
 
+var setProduct = function setProduct(id, attributes) {
+    return function (dispatch) {
+        dispatch({ type: 'SET-PRODUCT', id: id, attributes: attributes });
+    };
+};
+
+var updateProduct = function updateProduct(product) {
+    return function (dispatch) {
+        Object(__WEBPACK_IMPORTED_MODULE_0__helpers__["e" /* putting */])(Object(__WEBPACK_IMPORTED_MODULE_1__routes__["a" /* default */])('api.products.update', [product.id]), product.attributes).then(function (response) {
+            return dispatch({
+                type: 'UPDATE-PRODUCT',
+                payload: response.data
+            });
+        }).catch(function (error) {
+            console.log(error);
+        });
+    };
+};
 var getProducts = function getProducts() {
     return function (dispatch) {
         Object(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* getting */])(Object(__WEBPACK_IMPORTED_MODULE_1__routes__["a" /* default */])('api.products.index')).then(function (response) {
@@ -68520,13 +68558,21 @@ var getBusinesses = function getBusinesses() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return setUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return updateUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getToken; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return logOut; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routes__ = __webpack_require__(30);
 
 
+
+var setUser = function setUser(id, attributes) {
+    return function (dispatch) {
+        dispatch({ type: 'SET-USER', id: id, attributes: attributes });
+    };
+};
 
 var getUsers = function getUsers() {
     return function (dispatch) {
@@ -68537,6 +68583,18 @@ var getUsers = function getUsers() {
             });
         }).catch(function (error) {
             console.log(error.response);
+        });
+    };
+};
+var updateUser = function updateUser(user) {
+    return function (dispatch) {
+        Object(__WEBPACK_IMPORTED_MODULE_0__helpers__["e" /* putting */])(Object(__WEBPACK_IMPORTED_MODULE_1__routes__["a" /* default */])('api.users.update', [user.id]), user.attributes).then(function (response) {
+            return dispatch({
+                type: 'UPDATE-USER',
+                payload: response.data
+            });
+        }).catch(function (error) {
+            console.log(error);
         });
     };
 };
@@ -68694,7 +68752,7 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getBusinesses: __WEBPACK_IMPORTED_MODULE_2__actions__["b" /* getBusinesses */], getProducts: __WEBPACK_IMPORTED_MODULE_2__actions__["g" /* getProducts */], getComments: __WEBPACK_IMPORTED_MODULE_2__actions__["c" /* getComments */] })(Businesses));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getBusinesses: __WEBPACK_IMPORTED_MODULE_2__actions__["c" /* getBusinesses */], getProducts: __WEBPACK_IMPORTED_MODULE_2__actions__["h" /* getProducts */], getComments: __WEBPACK_IMPORTED_MODULE_2__actions__["d" /* getComments */] })(Businesses));
 
 /***/ }),
 /* 583 */
@@ -68850,7 +68908,7 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getToken: __WEBPACK_IMPORTED_MODULE_2__actions__["i" /* getToken */] })(Login));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getToken: __WEBPACK_IMPORTED_MODULE_2__actions__["j" /* getToken */] })(Login));
 
 /***/ }),
 /* 585 */
@@ -68944,7 +69002,7 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getMediaGroups: __WEBPACK_IMPORTED_MODULE_2__actions__["e" /* getMediaGroups */], getPosts: __WEBPACK_IMPORTED_MODULE_2__actions__["f" /* getPosts */], getUsers: __WEBPACK_IMPORTED_MODULE_2__actions__["j" /* getUsers */] })(MediaGroups));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getMediaGroups: __WEBPACK_IMPORTED_MODULE_2__actions__["f" /* getMediaGroups */], getPosts: __WEBPACK_IMPORTED_MODULE_2__actions__["g" /* getPosts */], getUsers: __WEBPACK_IMPORTED_MODULE_2__actions__["k" /* getUsers */] })(MediaGroups));
 
 /***/ }),
 /* 586 */
@@ -69034,12 +69092,13 @@ var MediaGroup = function (_Component) {
             }());
         }, _this.uploading = function (file, key) {
 
-            __WEBPACK_IMPORTED_MODULE_3_axios___default.a.post(Object(__WEBPACK_IMPORTED_MODULE_7__routes__["a" /* default */])('api.mediagroups.store', [_this.props.match.params.mediagroup]), file, {
+            var mediagroup = _this.props.match.params.mediagroup;
+
+            __WEBPACK_IMPORTED_MODULE_3_axios___default.a.post(Object(__WEBPACK_IMPORTED_MODULE_7__routes__["a" /* default */])('api.mediagroups.store', [mediagroup]), file, {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
                     'Content-Type': 'multipart/form-data',
                     'Authorization': 'Bearer ' + Object(__WEBPACK_IMPORTED_MODULE_8__helpers__["b" /* getCookie */])('token')
-
                 },
                 onUploadProgress: function onUploadProgress(ProgressEvent) {
                     var uploaded = _extends({}, _this.state.uploaded);
@@ -69050,7 +69109,7 @@ var MediaGroup = function (_Component) {
                 }
 
             }).then(function (response) {
-                console.log(response);
+                _this.props.addMedia(response.data.data, mediagroup);
             }).catch(function (errors) {
                 console.log(errors);
             }).finally(function () {
@@ -69078,7 +69137,11 @@ var MediaGroup = function (_Component) {
                 return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
                     "div",
                     { className: "w-1/12 p-1", key: medium.id },
-                    __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("img", { src: medium.attributes.conversions.thumb.url })
+                    __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                        "p",
+                        null,
+                        medium.attributes.name
+                    )
                 );
             });
 
@@ -69143,7 +69206,7 @@ var mapStateToProps = function mapStateToProps(state, props) {
     };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, { getMediaGroup: __WEBPACK_IMPORTED_MODULE_4__actions__["d" /* getMediaGroup */], getMediaGroups: __WEBPACK_IMPORTED_MODULE_4__actions__["e" /* getMediaGroups */], getPosts: __WEBPACK_IMPORTED_MODULE_4__actions__["f" /* getPosts */], getUsers: __WEBPACK_IMPORTED_MODULE_4__actions__["j" /* getUsers */] })(MediaGroup));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, { getMediaGroup: __WEBPACK_IMPORTED_MODULE_4__actions__["e" /* getMediaGroup */], getMediaGroups: __WEBPACK_IMPORTED_MODULE_4__actions__["f" /* getMediaGroups */], getPosts: __WEBPACK_IMPORTED_MODULE_4__actions__["g" /* getPosts */], getUsers: __WEBPACK_IMPORTED_MODULE_4__actions__["k" /* getUsers */], addMedia: __WEBPACK_IMPORTED_MODULE_4__actions__["a" /* addMedia */] })(MediaGroup));
 
 /***/ }),
 /* 587 */
@@ -71932,7 +71995,7 @@ var mapStateToProps = function mapStateToProps(state, props) {
     };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getPosts: __WEBPACK_IMPORTED_MODULE_2__actions__["f" /* getPosts */], getUsers: __WEBPACK_IMPORTED_MODULE_2__actions__["j" /* getUsers */], setPost: __WEBPACK_IMPORTED_MODULE_2__actions__["l" /* setPost */], updatePost: __WEBPACK_IMPORTED_MODULE_2__actions__["m" /* updatePost */] })(Post));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getPosts: __WEBPACK_IMPORTED_MODULE_2__actions__["g" /* getPosts */], getUsers: __WEBPACK_IMPORTED_MODULE_2__actions__["k" /* getUsers */], setPost: __WEBPACK_IMPORTED_MODULE_2__actions__["m" /* setPost */], updatePost: __WEBPACK_IMPORTED_MODULE_2__actions__["p" /* updatePost */] })(Post));
 
 /***/ }),
 /* 616 */
@@ -72041,7 +72104,7 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getPosts: __WEBPACK_IMPORTED_MODULE_2__actions__["f" /* getPosts */], getUsers: __WEBPACK_IMPORTED_MODULE_2__actions__["j" /* getUsers */] })(Posts));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getPosts: __WEBPACK_IMPORTED_MODULE_2__actions__["g" /* getPosts */], getUsers: __WEBPACK_IMPORTED_MODULE_2__actions__["k" /* getUsers */] })(Posts));
 
 /***/ }),
 /* 617 */
@@ -72106,7 +72169,9 @@ var Product = function (_Component) {
                     title: this.props.product.attributes.title,
                     button: {
                         label: 'save',
-                        onClick: Object(__WEBPACK_IMPORTED_MODULE_2__actions__["m" /* updatePost */])(this.props.product)
+                        onClick: function onClick() {
+                            return _this2.props.updateProduct(_this2.props.product);
+                        }
                     },
                     tabs: ['نمایش', 'ویرایش اطلاعات', 'نظرات'],
                     tab: this.state.tab,
@@ -72118,24 +72183,48 @@ var Product = function (_Component) {
                 },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_3__components__["e" /* Form */],
-                    { show: this.state.tab == 0 },
+                    { show: this.state.tab === 0 },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["n" /* Show */], { data: [{ label: 'نامک', value: this.props.product.attributes.slug }] })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_3__components__["e" /* Form */],
-                    { show: this.state.tab == 1 },
+                    { show: this.state.tab === 1 },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["r" /* Text */], {
+                        label: "\u0646\u0627\u0645",
+                        value: this.props.product.attributes.title,
+                        half: true,
+                        onChange: function onChange(e) {
+                            return _this2.props.setProduct(_this2.props.product.id, { title: e.target.value });
+                        }
+                    }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["r" /* Text */], {
                         label: "\u0646\u0627\u0645\u06A9",
                         value: this.props.product.attributes.slug,
                         half: true,
                         onChange: function onChange(e) {
-                            return _this2.props.setPost(_this2.props.product.id, { slug: e.target.value });
+                            return _this2.props.setProduct(_this2.props.product.id, { slug: e.target.value });
+                        }
+                    }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["r" /* Text */], {
+                        label: "\u062E\u0644\u0627\u0635\u0647",
+                        value: this.props.product.attributes.abstract,
+                        half: true,
+                        onChange: function onChange(e) {
+                            return _this2.props.setProduct(_this2.props.product.id, { abstract: e.target.value });
+                        }
+                    }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["r" /* Text */], {
+                        label: "\u062A\u0648\u0636\u06CC\u062D\u0627\u062A",
+                        value: this.props.product.attributes.body,
+                        half: true,
+                        onChange: function onChange(e) {
+                            return _this2.props.setProduct(_this2.props.product.id, { body: e.target.value });
                         }
                     })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_3__components__["e" /* Form */],
-                    { show: this.state.tab == 2 },
+                    { show: this.state.tab === 2 },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["q" /* Table */], {
                         data: this.props.comments,
                         columns: [{
@@ -72146,7 +72235,7 @@ var Product = function (_Component) {
                             Header: 'وضعیت',
                             width: 50,
                             Cell: function Cell(row) {
-                                return row.original.oldAttributes ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Icon, { icon: "edit" }) : '';
+                                return row.original.oldAttributes ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["f" /* Icon */], { icon: "edit" }) : '';
                             }
                         }, {
                             Header: 'عنوان',
@@ -72165,13 +72254,13 @@ var Product = function (_Component) {
 var mapStateToProps = function mapStateToProps(state, props) {
     return {
         product: state.products.index.length ? state.products.index.find(function (element) {
-            return element.id == props.match.params.product;
+            return element.id === props.match.params.product;
         }) : null,
         comments: state.comments.index
     };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getProducts: __WEBPACK_IMPORTED_MODULE_2__actions__["g" /* getProducts */] })(Product));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getProducts: __WEBPACK_IMPORTED_MODULE_2__actions__["h" /* getProducts */], setProduct: __WEBPACK_IMPORTED_MODULE_2__actions__["n" /* setProduct */], updateProduct: __WEBPACK_IMPORTED_MODULE_2__actions__["q" /* updateProduct */] })(Product));
 
 /***/ }),
 /* 618 */
@@ -72268,7 +72357,7 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getBusinesses: __WEBPACK_IMPORTED_MODULE_2__actions__["b" /* getBusinesses */], getProducts: __WEBPACK_IMPORTED_MODULE_2__actions__["g" /* getProducts */] })(Products));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getBusinesses: __WEBPACK_IMPORTED_MODULE_2__actions__["c" /* getBusinesses */], getProducts: __WEBPACK_IMPORTED_MODULE_2__actions__["h" /* getProducts */] })(Products));
 
 /***/ }),
 /* 619 */
@@ -72411,7 +72500,7 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getBusinesses: __WEBPACK_IMPORTED_MODULE_2__actions__["b" /* getBusinesses */], getProducts: __WEBPACK_IMPORTED_MODULE_2__actions__["g" /* getProducts */], getTickets: __WEBPACK_IMPORTED_MODULE_2__actions__["h" /* getTickets */] })(Tickets));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getBusinesses: __WEBPACK_IMPORTED_MODULE_2__actions__["c" /* getBusinesses */], getProducts: __WEBPACK_IMPORTED_MODULE_2__actions__["h" /* getProducts */], getTickets: __WEBPACK_IMPORTED_MODULE_2__actions__["i" /* getTickets */] })(Tickets));
 
 /***/ }),
 /* 621 */
@@ -72491,7 +72580,9 @@ var User = function (_Component) {
                 { title: this.props.user.attributes.name,
                     button: {
                         label: 'save',
-                        onClick: Object(__WEBPACK_IMPORTED_MODULE_2__actions__["m" /* updatePost */])(this.props.post)
+                        onClick: function onClick() {
+                            return _this2.props.updateUser(_this2.props.user);
+                        }
                     },
                     tabs: ['نمایش', 'ویرایش اطلاعات'],
                     tab: this.state.tab,
@@ -72513,7 +72604,7 @@ var User = function (_Component) {
                         value: this.props.user.attributes.name,
                         half: true,
                         onChange: function onChange(e) {
-                            return _this2.props.setPost(_this2.props.user.id, { title: e.target.value });
+                            return _this2.props.setUser(_this2.props.user.id, { name: e.target.value });
                         }
                     }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["r" /* Text */], {
@@ -72521,7 +72612,7 @@ var User = function (_Component) {
                         value: this.props.user.attributes.email,
                         half: true,
                         onChange: function onChange(e) {
-                            return _this2.props.setPost(_this2.props.user.id, { slug: e.target.value });
+                            return _this2.props.setUser(_this2.props.user.id, { email: e.target.value });
                         }
                     })
                 )
@@ -72533,12 +72624,12 @@ var User = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 var mapStateToProps = function mapStateToProps(state, props) {
+    var user = null;
+
     if (state.users.index.length) {
-        var user = state.users.index.find(function (e) {
+        user = state.users.index.find(function (e) {
             return e.id == props.match.params.user;
         });
-    } else {
-        var user = null;
     }
 
     return {
@@ -72546,7 +72637,7 @@ var mapStateToProps = function mapStateToProps(state, props) {
     };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getPosts: __WEBPACK_IMPORTED_MODULE_2__actions__["f" /* getPosts */], setPost: __WEBPACK_IMPORTED_MODULE_2__actions__["l" /* setPost */], updatePost: __WEBPACK_IMPORTED_MODULE_2__actions__["m" /* updatePost */], getUsers: __WEBPACK_IMPORTED_MODULE_2__actions__["j" /* getUsers */] })(User));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getUsers: __WEBPACK_IMPORTED_MODULE_2__actions__["k" /* getUsers */], setUser: __WEBPACK_IMPORTED_MODULE_2__actions__["o" /* setUser */], updateUser: __WEBPACK_IMPORTED_MODULE_2__actions__["r" /* updateUser */] })(User));
 
 /***/ }),
 /* 622 */
@@ -72587,7 +72678,7 @@ var Users = function (_Component) {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Users.__proto__ || Object.getPrototypeOf(Users)).call.apply(_ref, [this].concat(args))), _this), _this.componentDidMount = function () {
-            _this.props.getUsers();
+            if (_this.props.users.length === 0) _this.props.getUsers();
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
@@ -72614,6 +72705,12 @@ var Users = function (_Component) {
                         accessor: 'id',
                         width: 70
                     }, {
+                        Header: 'وضعیت',
+                        width: 50,
+                        Cell: function Cell(row) {
+                            return row.original.oldAttributes ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components__["f" /* Icon */], { icon: "edit" }) : '';
+                        }
+                    }, {
                         Header: 'name',
                         accessor: 'attributes.name'
                     }, {
@@ -72633,7 +72730,7 @@ var mapStateToProps = function mapStateToProps(state) {
         users: state.users.index
     };
 };
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getUsers: __WEBPACK_IMPORTED_MODULE_2__actions__["j" /* getUsers */] })(Users));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getUsers: __WEBPACK_IMPORTED_MODULE_2__actions__["k" /* getUsers */] })(Users));
 
 /***/ }),
 /* 623 */
@@ -72713,7 +72810,7 @@ var Business = function (_Component) {
                 { title: this.props.business.attributes.title,
                     button: {
                         label: 'save',
-                        onClick: Object(__WEBPACK_IMPORTED_MODULE_2__actions__["m" /* updatePost */])(this.props.business)
+                        onClick: Object(__WEBPACK_IMPORTED_MODULE_2__actions__["p" /* updatePost */])(this.props.business)
                     },
                     tabs: ['نمایش', 'ویرایش اطلاعات'],
                     tab: this.state.tab,
@@ -72743,7 +72840,7 @@ var mapStateToProps = function mapStateToProps(state, props) {
     return { business: business };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getBusinesses: __WEBPACK_IMPORTED_MODULE_2__actions__["b" /* getBusinesses */], getPosts: __WEBPACK_IMPORTED_MODULE_2__actions__["f" /* getPosts */], setPost: __WEBPACK_IMPORTED_MODULE_2__actions__["l" /* setPost */], updatePost: __WEBPACK_IMPORTED_MODULE_2__actions__["m" /* updatePost */] })(Business));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getBusinesses: __WEBPACK_IMPORTED_MODULE_2__actions__["c" /* getBusinesses */], getPosts: __WEBPACK_IMPORTED_MODULE_2__actions__["g" /* getPosts */], setPost: __WEBPACK_IMPORTED_MODULE_2__actions__["m" /* setPost */], updatePost: __WEBPACK_IMPORTED_MODULE_2__actions__["p" /* updatePost */] })(Business));
 
 /***/ }),
 /* 624 */
@@ -72838,7 +72935,7 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getBusinesses: __WEBPACK_IMPORTED_MODULE_2__actions__["b" /* getBusinesses */] })(Businesses));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, { getBusinesses: __WEBPACK_IMPORTED_MODULE_2__actions__["c" /* getBusinesses */] })(Businesses));
 
 /***/ }),
 /* 625 */
@@ -72928,6 +73025,8 @@ var CommentReducer = function CommentReducer() {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MediaReducer; });
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var initialState = {
     index: [],
     mediagroups: []
@@ -72947,6 +73046,16 @@ var MediaReducer = function MediaReducer() {
             return _extends({}, state, {
                 mediagroups: action.payload.data
             });
+        case 'ADD-MEDIAGROUP':
+
+            var j = state.mediagroups.findIndex(function (e) {
+                return e.id == action.mediagroup;
+            });
+            var oldMedias = [].concat(_toConsumableArray(state.mediagroups[j].media));
+            oldMedias.push(action.payload.media);
+            state.mediagroups[j].media = [].concat(_toConsumableArray(oldMedias));
+            console.log(state.mediagroups[j].media);
+            return state;
         default:
             return state;
     }
@@ -73018,6 +73127,21 @@ var ProductReducer = function ProductReducer() {
             return _extends({}, state, {
                 index: action.payload.data
             });
+        case 'SET-PRODUCT':
+            var i = state.index.findIndex(function (e) {
+                return e.id === action.id;
+            });
+            if (state.index[i].oldAttributes === undefined) {
+                state.index[i].oldAttributes = state.index[i].attributes;
+            }
+            state.index[i].attributes = _extends({}, state.index[i].attributes, action.attributes);
+            return state;
+        case 'UPDATE-PRODUCT':
+            var updatedIndex = state.index.findIndex(function (e) {
+                return e.id === action.payload.data.id;
+            });
+            state.index[updatedIndex].attributes = action.payload.data.attributes;
+            delete state.index[updatedIndex].oldAttributes;
         default:
             return state;
     }
@@ -73045,6 +73169,16 @@ var UserReducer = function UserReducer() {
             return _extends({}, state, {
                 index: action.payload.data
             });
+        case 'SET-USER':
+            var i = state.index.findIndex(function (e) {
+                return e.id === action.id;
+            });
+            if (state.index[i].oldAttributes === undefined) {
+                state.index[i].oldAttributes = state.index[i].attributes;
+            }
+            state.index[i].attributes = _extends({}, state.index[i].attributes, action.attributes);
+            console.log(state.index[i]);
+            return state;
         case 'TOKEN':
             return _extends({}, state, {
                 token: action.payload.access_token
@@ -73053,6 +73187,12 @@ var UserReducer = function UserReducer() {
             return _extends({}, state, {
                 token: null
             });
+        case 'UPDATE-USER':
+            var updatedIndex = state.index.findIndex(function (e) {
+                return e.id === action.payload.data.id;
+            });
+            state.index[updatedIndex].attributes = action.payload.data.attributes;
+            delete state.index[updatedIndex].oldAttributes;
         default:
             return state;
     }
@@ -73315,7 +73455,7 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_9_react_redux__["b" /* connect */])(mapStateToProps, { flushSnacks: __WEBPACK_IMPORTED_MODULE_10__actions__["a" /* flushSnacks */], logOut: __WEBPACK_IMPORTED_MODULE_10__actions__["k" /* logOut */] })(Object(__WEBPACK_IMPORTED_MODULE_8_notistack__["withSnackbar"])(App)));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_9_react_redux__["b" /* connect */])(mapStateToProps, { flushSnacks: __WEBPACK_IMPORTED_MODULE_10__actions__["b" /* flushSnacks */], logOut: __WEBPACK_IMPORTED_MODULE_10__actions__["l" /* logOut */] })(Object(__WEBPACK_IMPORTED_MODULE_8_notistack__["withSnackbar"])(App)));
 
 /***/ }),
 /* 635 */

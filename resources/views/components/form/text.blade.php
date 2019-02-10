@@ -8,7 +8,7 @@
         @isset($icon)
             <i class="material-icons mdc-text-field__icon" role="button" data-mdc-auto-init="mdc-text-field-icon">{{$icon}}</i>
         @endisset
-        <input type="text" id="tf-outlined" class="mdc-text-field__input" name="{{$name ?? ''}}" value="{{$value ?? ''}}">
+        <input type="{{$type ?? 'text'}}" id="tf-outlined" class="mdc-text-field__input" name="{{$name ?? ''}}" value="{{$value ?? ''}}">
         <div class="mdc-notched-outline">
             <div class="mdc-notched-outline__leading"></div>
             <div class="mdc-notched-outline__notch">
@@ -18,10 +18,6 @@
         </div>
     </div>
     @if ( isset($name) && $errors->first($name) )
-        <span class="helper-text" data-error="{{ $errors->first($name) }}" ></span>
-    @else
-        @isset($helper)
-            <span class="helper-text" data-error="wrong" data-success="right">{{ $helper }}</span>
-        @endisset
+        {{ $errors->first($name) }}"
     @endif
 @endcomponent

@@ -47,6 +47,8 @@ Route::name('profile.')->prefix('profile')->group(function () {
         });
         Route::get('info', 'ProfileController@info')->name('info.edit');
         Route::post('info', 'ProfileController@updateInfo')->name('info.update');
+        Route::get('edit', 'ProfileController@edit')->name('edit');
+        Route::put('/', 'ProfileController@update')->name('update');
     });
 });
 // ==================================== End Users profile Section  ============
