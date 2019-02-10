@@ -19,270 +19,270 @@
 
 <div class="side fixed t0 r0 w-full bg-white h-full z-70">
 
-  <div class="close" glass=".side">
-    <span class="close__cross"></span>
-  </div>
-
-  <div class="side-content empty-cart flex h-full p-16 pt-32 hidden">
-    <div class="side__cart-empty-container w-full text-center">
-      <h6 class="mb-8">سبد خرید شما خالی است</h6>
-      <div class="side__cart-empty-img">
-        <img src="/images/empty-cart.png" alt="">
-      </div>
+    <div class="close" glass=".side">
+        <span class="close__cross"></span>
     </div>
-  </div>
 
-  <div class="side-content cart flex h-full p-8 pt-32 hidden overflow-auto">
-    <div class="side__cart-container w-full text-center ">
-      <div>
-        <div class="flex justify-around bg-black h-12 items-center rounded-full">
-          <span class="text-white">مبلغ کل خرید:</span><span class="font-bold text-white">۲٫۴۹۵٫۰۰۰<span>&ThickSpace;</span><span>تومان</span></span>
+    <div class="side-content empty-cart flex h-full p-16 pt-32 hidden">
+        <div class="side__cart-empty-container w-full text-center">
+            <h6 class="mb-8">سبد خرید شما خالی است</h6>
+            <div class="side__cart-empty-img">
+                <img src="/images/empty-cart.png" alt="">
+            </div>
         </div>
-      </div>
-      <div class="side__cart-product mt-2 flex py-5 px-5">
-        <div class="side__cart-product-img w-1/3">
-          <img src="/images/3.jpg" alt="">
-        </div>
-        <div class="side__cart-product-detail caption pr-2">
-          <div class="side__cart-product-name">
-            دامن کوتاه خال خالی
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <div class="side-content wishlist flex h-full p-16 pt-32">
-    <div class="side__wishlist-container w-full text-center">
-      <h6 class="mb-8">کمد لباس شما خالی است</h6>
-      <div class="side__wishlist-empty-img">
-        <img src="/images/empty-wishlist.png" alt="">
-      </div>
-    </div>
-  </div>
-
-  <div class="side-content login flex h-full p-10 pt-32">
-    <div class="side__login-container w-full text-center">
-      <h6 class="mb-8">به حساب کاربری خود وارد شوید</h6>
-      <form action="">
-        @component('components.form.text',[
-          'label' => 'ایمیل',
-          'full' => true
-        ])
-        @endcomponent
-        @component('components.form.text',[
-          'label' => 'رمز عبور',
-          'full' => true
-        ])
-        @endcomponent
-        <div class="flex justify-between">
-            <div><input type="checkbox">مرا به خاطربسپار<br></div>
-            <a href="#" side-content=".side-content.forgot">فراموشی رمز عبور</a>
+    <div class="side-content cart flex h-full p-8 pt-32 hidden overflow-auto">
+        <div class="side__cart-container w-full text-center ">
+            <div>
+                <div class="flex justify-around bg-black h-12 items-center rounded-full">
+                    <span class="text-white">مبلغ کل خرید:</span><span class="font-bold text-white">۲٫۴۹۵٫۰۰۰<span>&ThickSpace;</span><span>تومان</span></span>
+                </div>
+            </div>
+            <div class="side__cart-product mt-2 flex py-5 px-5">
+                <div class="side__cart-product-img w-1/3">
+                    <img src="/images/3.jpg" alt="">
+                </div>
+                <div class="side__cart-product-detail caption pr-2">
+                    <div class="side__cart-product-name">
+                        دامن کوتاه خال خالی
+                    </div>
+                </div>
+            </div>
         </div>
-        @component('components.form.button',[
-          'label' => 'وارد شوید',
-          'full' => true
-        ])
-        @endcomponent
-        @component('components.form.button',[
-          'label' => 'وارد شوید',
-          'full' => true,
-          'checkbox' => true,
-        ])
-        @endcomponent
-      </form>
-      @component('components.form.button',[
-        'label' => 'ورود با گوگل',
-        'full' => true,
-        'dense' => true,
-      ])
-      @endcomponent
-      <br>
-      <span side-content=".side-content.register">
+    </div>
+
+    <div class="side-content wishlist flex h-full p-16 pt-32">
+        <div class="side__wishlist-container w-full text-center">
+            <h6 class="mb-8">کمد لباس شما خالی است</h6>
+            <div class="side__wishlist-empty-img">
+                <img src="/images/empty-wishlist.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="side-content login flex h-full p-10 pt-32">
+        <div class="side__login-container w-full text-center">
+            <h6 class="mb-8">به حساب کاربری خود وارد شوید</h6>
+            <form action="">
+                @component('components.form.text',[
+                  'label' => 'ایمیل',
+                  'full' => true
+                ])
+                @endcomponent
+                @component('components.form.text',[
+                  'label' => 'رمز عبور',
+                  'full' => true
+                ])
+                @endcomponent
+                <div class="flex justify-between">
+                    <div><input type="checkbox">مرا به خاطربسپار<br></div>
+                    <a href="#" side-content=".side-content.forgot">فراموشی رمز عبور</a>
+                </div>
+                @component('components.form.button',[
+                  'label' => 'وارد شوید',
+                  'full' => true
+                ])
+                @endcomponent
+                @component('components.form.button',[
+                  'label' => 'وارد شوید',
+                  'full' => true,
+                  'checkbox' => true,
+                ])
+                @endcomponent
+            </form>
+            @component('components.form.button',[
+              'label' => 'ورود با گوگل',
+              'full' => true,
+              'dense' => true,
+            ])
+            @endcomponent
+            <br>
+            <span side-content=".side-content.register">
         @component('components.form.button',[
           'label' => 'ثبت نام',
           'full' => true,
           'type' => 'text',
         ])
-        @endcomponent
+                @endcomponent
       </span>
+        </div>
     </div>
-  </div>
 
-  <div class="side-content register flex h-full p-10 pt-32">
-    <div class="side__register-container w-full text-center">
-        <h6 class="mb-8">ثبت نام</h6>
-        <form action="">
-            @component('components.form.text',[
-              'label' => 'ایمیل',
-              'full' => true
-            ])
-            @endcomponent
-            @component('components.form.text',[
-              'label' => 'رمز عبور',
-              'full' => true
-            ])
-            @endcomponent
-            <div class="flex">
-                <div><input type="checkbox"><span><a href="#">شرایط و قوانین</a>  را قبول دارم</span><br></div>
-            </div>
-            @component('components.form.button',[
-              'label' => 'ثبت نام',
-              'full' => true,
-            ])
-            @endcomponent
-          </form>
-          <span side-content=".side-content.login">
+    <div class="side-content register flex h-full p-10 pt-32">
+        <div class="side__register-container w-full text-center">
+            <h6 class="mb-8">ثبت نام</h6>
+            <form action="">
+                @component('components.form.text',[
+                  'label' => 'ایمیل',
+                  'full' => true
+                ])
+                @endcomponent
+                @component('components.form.text',[
+                  'label' => 'رمز عبور',
+                  'full' => true
+                ])
+                @endcomponent
+                <div class="flex">
+                    <div><input type="checkbox"><span><a href="#">شرایط و قوانین</a>  را قبول دارم</span><br></div>
+                </div>
+                @component('components.form.button',[
+                  'label' => 'ثبت نام',
+                  'full' => true,
+                ])
+                @endcomponent
+            </form>
+            <span side-content=".side-content.login">
               @component('components.form.button',[
                 'label' => 'وارد شوید',
                 'full' => true,
                 'type' => 'text',
               ])
-              @endcomponent
+                @endcomponent
             </span>
+        </div>
     </div>
-  </div>
 
-  <div class="side-content forgot flex h-full p-10 pt-32">
-    <div class="side__forgot-container w-full text-center">
-        <h6 class="mb-8">بازیابی رمز عبور</h6>
-        <form action="">
-            @component('components.form.text',[
-              'label' => 'ایمیل',
-              'full' => true
-            ])
-            @endcomponent
-            @component('components.form.button',[
-              'label' => 'ارسال لینک بازیابی',
-              'full' => true
-            ])
-            @endcomponent
-          </form>
-          <span side-content=".side-content.login">
+    <div class="side-content forgot flex h-full p-10 pt-32">
+        <div class="side__forgot-container w-full text-center">
+            <h6 class="mb-8">بازیابی رمز عبور</h6>
+            <form action="">
+                @component('components.form.text',[
+                  'label' => 'ایمیل',
+                  'full' => true
+                ])
+                @endcomponent
+                @component('components.form.button',[
+                  'label' => 'ارسال لینک بازیابی',
+                  'full' => true
+                ])
+                @endcomponent
+            </form>
+            <span side-content=".side-content.login">
               @component('components.form.button',[
                 'label' => 'بازگشت',
                 'full' => true,
                 'type' => 'text',
               ])
-              @endcomponent
+                @endcomponent
             </span>
+        </div>
     </div>
-  </div>
 
-  <div class="side-content reset-password flex h-full p-10 pt-32">
-    <div class="side__reset-password-container w-full text-center">
-      <h6 class="mb-8">تغییر رمز عبور</h6>
-      <form action="">
-        <div><input type="text" placeholder="ایمیل"></div>
-        <div><input type="text" placeholder="رمز عبور"></div>
-        <div><input type="text" placeholder="تکرار رمز عبور"></div>
-        <button>تغییر رمز عبور</button>
-      </form>
-      <div>
-        <button side-content=".side-content.login">بازگشت به ورود</button>
-      </div>
+    <div class="side-content reset-password flex h-full p-10 pt-32">
+        <div class="side__reset-password-container w-full text-center">
+            <h6 class="mb-8">تغییر رمز عبور</h6>
+            <form action="">
+                <div><input type="text" placeholder="ایمیل"></div>
+                <div><input type="text" placeholder="رمز عبور"></div>
+                <div><input type="text" placeholder="تکرار رمز عبور"></div>
+                <button>تغییر رمز عبور</button>
+            </form>
+            <div>
+                <button side-content=".side-content.login">بازگشت به ورود</button>
+            </div>
+        </div>
     </div>
-  </div>
 
 </div>
 
- 
- 
+
+
 <div class="mega-search  fixed flex justify-center t0 r0 w-full z-90 bg-white">
-  
-  <div class="close" glass=".mega-search">
-    <span class="close__cross"></span>
-  </div>
 
-  <div class="mega-search__container ">
-    <div class="search__box">
-      <input id="srch" type="text" placeholder="جستجو کنید: دامن، لباس مجلسی، مزون ژولی و ..." class="w-full pb-4">
+    <div class="close" glass=".mega-search">
+        <span class="close__cross"></span>
     </div>
-    <div class="mega-search__result flex ">
 
+    <div class="mega-search__container ">
+        <div class="search__box">
+            <input id="srch" type="text" placeholder="جستجو کنید: دامن، لباس مجلسی، مزون ژولی و ..." class="w-full pb-4">
+        </div>
+        <div class="mega-search__result flex ">
+
+        </div>
     </div>
-  </div>
 </div>
- 
- 
- <header class="header-mobile">
-   <div class="nav-mobile__bar">
-     <div class="nav-mobile__bar-container">
-       <div class="nav-mobile__bar-menu-btn toggler" toggle="menu-toggle" id="menu-btn">
-         <div class="nav-mobile__bar-burger  menu-toggle">
-           <span>&nbsp;</span>
-         </div>
-       </div>
-       <img src="/images/menu-logo.png" alt="">
-       <div class="nav-mobile__bar-search">
-         <ul>
-           <li><a href="#"><i class="material-icons search-icon">search</i></a></li>
-           <li><a href="#"><i class="material-icons">shopping_basket</i></a></li>
-         </ul>
-       </div>
-     </div>
-   </div>
- </header>
- <nav class="nav-mobile menu-toggle">
-   <div class="nav-mobile__utility menu-toggle">
-     <ul>
-       <li><a href="#"><i class="material-icons">favorite_border</i></a></li>
-       <li><a href="#"><i class="material-icons">person_outline</i></a></li>
-     </ul>
-   </div>
-   <div class="nav-mobile__main">
-     <ul class="nav-mobile__list">
-       <li>
-         <a class="js-open" href="#">کتگوری شماره ۱</a>
-         <i class="material-icons">add_circle_outline</i>
-         <i class="material-icons">remove_circle_outline</i>
-         <ul class="nav-mobile__list-sub1">
-           <li>
-             <i class="material-icons">add_circle_outline</i>
-             <i class="material-icons">remove_circle_outline</i>
-             <a  href="#">زیر دسته سطح ۱</a>
-             <ul class="nav-mobile__list-sub2">
-               <li><a href="#">زیر دسته سطح ۲</a></li>
-               <li><a href="#">زیر دسته سطح ۲</a></li>
-               <li><a href="#">زیر دسته سطح ۲</a></li>
-             </ul>
-           </li>
-         </ul>
-       </li>
-       <li>
-         <a class="js-open" href="#">کتگوری شماره ۲</a>
-         <i class="material-icons">add_circle_outline</i>
-         <i class="material-icons">remove_circle_outline</i>
-         <ul class="nav-mobile__list-sub1">
-           <li>
-             <a href="#">زیر دسته سطح ۱</a>
-             <i class="material-icons">add_circle_outline</i>
-             <i class="material-icons">remove_circle_outline</i>
-             <ul class="nav-mobile__list-sub2">
-               <li><a href="#">زیر دسته سطح ۲</a></li>
-               <li><a href="#">زیر دسته سطح ۲</a></li>
-               <li><a href="#">زیر دسته سطح ۲</a></li>
-             </ul>
-           </li>
-         </ul>
-       </li>
-       <li>
-         <a class="js-open" href="#">کتگوری شماره ۳</a>
-           <i class="material-icons">add_circle_outline</i>
-           <i class="material-icons">remove_circle_outline</i>
-         <ul class="nav-mobile__list-sub1">
-           <li>
-             <a href="#">زیر دسته سطح ۱</a>
-             <i class="material-icons">add_circle_outline</i>
-             <i class="material-icons">remove_circle_outline</i>
-             <ul class="nav-mobile__list-sub2">
-               <li><a href="#">زیر دسته سطح ۲</a></li>
-               <li><a href="#">زیر دسته سطح ۲</a></li>
-               <li><a href="#">زیر دسته سطح ۲</a></li>
-             </ul>
-           </li>
-         </ul>
-       </li>
-     </ul>
-   </div>
- </nav>
+
+
+<header class="header-mobile">
+    <div class="nav-mobile__bar">
+        <div class="nav-mobile__bar-container">
+            <div class="nav-mobile__bar-menu-btn toggler" toggle="menu-toggle" id="menu-btn">
+                <div class="nav-mobile__bar-burger  menu-toggle">
+                    <span>&nbsp;</span>
+                </div>
+            </div>
+            <img src="/images/menu-logo.png" alt="">
+            <div class="nav-mobile__bar-search">
+                <ul>
+                    <li><a href="#"><i class="material-icons search-icon">search</i></a></li>
+                    <li><a href="#"><i class="material-icons">shopping_basket</i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+<nav class="nav-mobile menu-toggle">
+    <div class="nav-mobile__utility menu-toggle">
+        <ul>
+            <li><a href="#"><i class="material-icons">favorite_border</i></a></li>
+            <li><a href="#"><i class="material-icons">person_outline</i></a></li>
+        </ul>
+    </div>
+    <div class="nav-mobile__main">
+        <ul class="nav-mobile__list">
+            <li>
+                <a class="js-open" href="#">کتگوری شماره ۱</a>
+                <i class="material-icons">add_circle_outline</i>
+                <i class="material-icons">remove_circle_outline</i>
+                <ul class="nav-mobile__list-sub1">
+                    <li>
+                        <i class="material-icons">add_circle_outline</i>
+                        <i class="material-icons">remove_circle_outline</i>
+                        <a  href="#">زیر دسته سطح ۱</a>
+                        <ul class="nav-mobile__list-sub2">
+                            <li><a href="#">زیر دسته سطح ۲</a></li>
+                            <li><a href="#">زیر دسته سطح ۲</a></li>
+                            <li><a href="#">زیر دسته سطح ۲</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="js-open" href="#">کتگوری شماره ۲</a>
+                <i class="material-icons">add_circle_outline</i>
+                <i class="material-icons">remove_circle_outline</i>
+                <ul class="nav-mobile__list-sub1">
+                    <li>
+                        <a href="#">زیر دسته سطح ۱</a>
+                        <i class="material-icons">add_circle_outline</i>
+                        <i class="material-icons">remove_circle_outline</i>
+                        <ul class="nav-mobile__list-sub2">
+                            <li><a href="#">زیر دسته سطح ۲</a></li>
+                            <li><a href="#">زیر دسته سطح ۲</a></li>
+                            <li><a href="#">زیر دسته سطح ۲</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="js-open" href="#">کتگوری شماره ۳</a>
+                <i class="material-icons">add_circle_outline</i>
+                <i class="material-icons">remove_circle_outline</i>
+                <ul class="nav-mobile__list-sub1">
+                    <li>
+                        <a href="#">زیر دسته سطح ۱</a>
+                        <i class="material-icons">add_circle_outline</i>
+                        <i class="material-icons">remove_circle_outline</i>
+                        <ul class="nav-mobile__list-sub2">
+                            <li><a href="#">زیر دسته سطح ۲</a></li>
+                            <li><a href="#">زیر دسته سطح ۲</a></li>
+                            <li><a href="#">زیر دسته سطح ۲</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

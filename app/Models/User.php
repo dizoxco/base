@@ -53,13 +53,9 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Post::class, 'user_id', 'id');
     }
 
-    public function chats() : BelongsToMany
+    public function chats() : HasMany
     {
-        return $this->belongsToMany(
-            Chat::class,
-            'chat_users',
-            'user_id'
-        )->where('chats.type', '=', enum('chat.type.chat'));
+        return $this->hasMany(Ticket::class, 'user_id', 'id');
     }
 
     public function tickets() : BelongsToMany

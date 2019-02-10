@@ -45,7 +45,8 @@
                 'label' => 'ارسال پیام',
                 'raised' => true,
                 'shaped' => true,
-                'custom_class' => 'p-10'
+                'custom_class' => 'p-10',
+                'link' => route('businesses.chat.show', $business->slug)
             ])@endcomponent
 
         </div>
