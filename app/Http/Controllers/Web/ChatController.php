@@ -12,7 +12,7 @@ class ChatController extends Controller
     public function store(StoreBusinessChatRequest $request, Business $business)
     {
         $request->merge(['user_id' => Auth::id()]);
-        Ticket::firstOrCreate(['user_id' => Auth::id(), 'business_id' => $business->id,])
+        Ticket::firstOrCreate(['user_id' => Auth::id(), 'business_id' => $business->id])
             ->comments()->create($request->all());
 
         return redirect()->route('businesses.chat.show', $business->slug);

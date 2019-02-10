@@ -97,6 +97,7 @@ class ProfileController extends Controller
             }
         }
         auth()->user()->update($request->all());
+
         return back();
     }
 }
