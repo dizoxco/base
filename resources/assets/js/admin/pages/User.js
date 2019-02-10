@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 
-import {getUsers, setUser ,updateUser} from "../actions"
+import {getUsers, setUser, updateUser , storeUser} from "../actions"
 import {Form, Page, Show, Text} from "../components";
 
 class User extends Component {
@@ -16,6 +16,14 @@ class User extends Component {
         }
     }
 
+    handleClick = () => {
+        if (this.props.user.id == 0) {
+            this.props.storeUser(this.props.user)
+        } else {
+            this.props.updateUser(this.props.user)
+        }
+    };
+
 
     render() {
         if (this.props.user === null) {
@@ -28,13 +36,12 @@ class User extends Component {
 
         return (
             <Page
-                // title={this.props.post.attributes.title}
                 title={this.props.user.attributes.name}
                 button={{
                     label: 'save',
-                    onClick: () => this.props.updateUser(this.props.user)
+                    onClick: () => this.handleClick()
                 }}
-                tabs={['نمایش', 'ویرایش اطلاعات']}
+                tabs={this.props.user.id === 0 ? ['نمایش', 'افزودن کاربر'] : ['نمایش', 'ویرایش اطلاعات']}
                 tab={this.state.tab}
                 redirect={this.state.redirect}
                 onChange={(tab) => this.setState({tab})}
@@ -58,12 +65,20 @@ class User extends Component {
                         half
                         onChange={(e) => this.props.setUser(this.props.user.id, {email: e.target.value})}
                     />
-                    {/*<Text*/}
-                        {/*label='رمز عبور'*/}
-                        {/*value={this.props.user.attributes.email}*/}
-                        {/*half*/}
-                        {/*onChange={(e) => this.props.setUser(this.props.user.id, {email: e.target.value})}*/}
-                    {/*/>*/}
+                    <Text
+                        label='رمز عبور'
+                        value={this.props.user.attributes.password}
+                        half
+                        type={'password'}
+                        onChange={(e) => this.props.setUser(this.props.user.id, {password: e.target.value})}
+                    />
+                    <Text
+                        label='تکرار رمز عبور'
+                        value={this.props.user.attributes.password_confirmation}
+                        half
+                        type={'password'}
+                        onChange={(e) => this.props.setUser(this.props.user.id, {password_confirmation: e.target.value})}
+                    />
 
                 </Form>
             </Page>
@@ -77,10 +92,13 @@ const mapStateToProps = (state, props) => {
     if (state.users.index.length) {
         user = state.users.index.find(e => e.id == props.match.params.user);
     }
+    if (props.match.params.user == 0) {
+        user = state.users.init;
+    }
 
     return {
         user: user
     };
 };
 
-export default connect(mapStateToProps, {getUsers, setUser ,updateUser})(User);
+export default connect(mapStateToProps, {getUsers, setUser, updateUser ,storeUser})(User);

@@ -4,7 +4,7 @@ namespace App\Http\Requests\Ticket;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTicketRequest extends FormRequest
+class StoreBusinessChatRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,6 @@ class StoreTicketRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string',
             'body' => 'required|string',
         ];
     }

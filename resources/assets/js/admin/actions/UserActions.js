@@ -29,6 +29,17 @@ export const updateUser = (user) => {
     }
 };
 
+export const storeUser = (user) => {
+    return (dispatch) => {
+        posting(routes('api.users.store'), user.attributes)
+            .then(response => dispatch({
+                type: 'STORE-USER',
+                payload: response.data
+            }))
+            .catch( error => { console.log(error.response) } );
+    }
+};
+
 export const getToken = (params) => {
     return (dispatch) => {
         posting(routes('api.auth.login'), params)
