@@ -6,7 +6,7 @@
      <li><a href="#"><i class="material-icons login-icon" glass=".side" side-content=".side-content.login">person_outline</i></a></li>
      <li><a href="#"><i class="material-icons search-icon" glass=".mega-search">search</i></a></li>
    </ul>
-   {{nav('main', 'nav__menu w-full text-center')}}
+   {{nav('main', 'nav__menu w-full text-center ')}}
    <div class="nav__logo-box w-1/3 text-left">
      <a href="#"><img src="/images/menu-logo.png" alt="" class="nav__logo"></a>
    </div>
@@ -205,7 +205,7 @@
 </div>
  
  
- <header class="header-mobile">
+ {{-- <header class="header-mobile">
    <div class="nav-mobile__bar">
      <div class="nav-mobile__bar-container">
        <div class="nav-mobile__bar-menu-btn toggler" toggle="menu-toggle" id="menu-btn">
@@ -285,4 +285,4 @@
        </li>
      </ul>
    </div>
- </nav>
+ </nav> --}}
