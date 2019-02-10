@@ -44,6 +44,7 @@ const routeslist = {
                 prefix: '/posts',
                 index: '/index',
             },
+            store: '',
             show: '/{user}',
             edit: '/{user}/edit',
             update: '/{user}'
