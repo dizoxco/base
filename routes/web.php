@@ -2,7 +2,6 @@
 
 Auth::routes();
 Route::any('lab', function () {
-    
 });
 // ==================================== Admin Section =========================
 Route::view('admin', 'admin');
@@ -66,8 +65,9 @@ Route::get('/posts', 'PostController@index')->name('posts.index');
 Route::get('/posts/{post}', 'PostController@show')->name('posts.show');
 Route::get('/posts/tags/{tag}', 'PostController@tags')->name('posts.tag');
 // ==================================== End User Section ======================
-Route::get('/srch/{key}', function($key){
-    $bussinesses = App\Models\Business::Where('brand', 'like', '%' . $key . '%')->take(7)->get();
-    $tags = App\Models\Tag::Where('label', 'like', '%' . $key . '%')->take(7)->get();
+Route::get('/srch/{key}', function ($key) {
+    $bussinesses = App\Models\Business::Where('brand', 'like', '%'.$key.'%')->take(7)->get();
+    $tags = App\Models\Tag::Where('label', 'like', '%'.$key.'%')->take(7)->get();
+
     return view('components.srch', compact('bussinesses', 'tags'));
 });

@@ -25,7 +25,7 @@ class ProfileController extends Controller
 
     public function chats()
     {
-        $chats = auth()->user()->chats()->with('comments','user','business')->get();
+        $chats = auth()->user()->chats()->with('comments', 'user', 'business')->get();
 
         return view('profile.chats', compact('chats'));
     }
@@ -86,7 +86,7 @@ class ProfileController extends Controller
     public function update(UpdateCredentialRequest $request)
     {
         if ($request->filled('password')) {
-            if ($request->password != $request->password_repeat){
+            if ($request->password != $request->password_repeat) {
                 return redirect()->route('profile.edit')->withErrors([
                     'password_repeat' => 'password repeat wrong',
                 ]);
@@ -100,10 +100,11 @@ class ProfileController extends Controller
                     'old_password' => 'old password is wrong',
                 ]);
             }
-        }else{
+        } else {
             $request->request->remove('password');
         }
         auth()->user()->update($request->all());
+
         return back();
     }
 }
