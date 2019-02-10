@@ -19,7 +19,7 @@ class Business extends Model implements HasMedia
     use SoftDeletes, HasSlug, HasMediaTrait;
 
     protected $fillable = [
-        'brand', 'province', 'city', 'tell', 'phone_code', 'address', 'postal_code', 'mobile', 'storage_address',
+        'brand', 'slug', 'city_id', 'contact'
     ];
 
     protected $casts = [
@@ -71,7 +71,7 @@ class Business extends Model implements HasMedia
     public function resolveRouteBinding($business)
     {
         if (request()->isXmlHttpRequest()) {
-            parent::resolveRouteBinding($business);
+          return parent::resolveRouteBinding($business);
         } else {
             $business = BusinessRepo::findBySlug($business);
             abort_if($business === null, 404);
