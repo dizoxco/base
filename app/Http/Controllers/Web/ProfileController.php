@@ -86,11 +86,6 @@ class ProfileController extends Controller
     public function update(UpdateCredentialRequest $request)
     {
         if ($request->filled('password')) {
-            if ($request->password != $request->password_repeat){
-                return redirect()->route('profile.edit')->withErrors([
-                    'password_repeat' => 'password repeat wrong',
-                ]);
-            }
             if (Hash::check($request->input('old_password'), auth()->user()->password)) {
                 $request->merge([
                     'password' => Hash::make($request->input('password')),
@@ -100,8 +95,6 @@ class ProfileController extends Controller
                     'old_password' => 'old password is wrong',
                 ]);
             }
-        }else{
-            $request->request->remove('password');
         }
         auth()->user()->update($request->all());
         return back();

@@ -73,10 +73,11 @@ class Business extends Model implements HasMedia
             ->saveSlugsTo('slug');
     }
 
+    //  =============================== End Complementary Methods =============
     public function resolveRouteBinding($business)
     {
         if (request()->isXmlHttpRequest()) {
-            parent::resolveRouteBinding($business);
+            return parent::resolveRouteBinding($business);
         } else {
             $business = BusinessRepo::findBySlug($business);
             abort_if($business === null, 404);
@@ -84,8 +85,6 @@ class Business extends Model implements HasMedia
             return $business;
         }
     }
-
-    //  =============================== End Complementary Methods =============
 
     public function registerMediaCollections()
     {

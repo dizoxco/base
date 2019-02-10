@@ -27,5 +27,7 @@ $factory->define(App\Models\Business::class, function () use ($faker) {
                 ]],
             ],
         ]),
+        'created_at' => $created_at = $faker->dateTimeBetween('-5 years', 'now'),
+        'updated_at' => $faker->dateTimeBetween($created_at, 'now'),
     ];
 });

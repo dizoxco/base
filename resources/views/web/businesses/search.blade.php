@@ -65,6 +65,9 @@
                     <p> هیچ محصولی برای این پنل تعریف نشده است. </p>
                 @endforelse
             </div>
+            <div class="grid-pager container text-center py-10">
+                {{ $businesses->links() }}
+            </div>
         </div>
     </div>
 @endsection

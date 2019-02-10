@@ -50,7 +50,7 @@ Route::name('profile.')->prefix('profile')->group(function () {
         Route::get('tickets', 'TicketController@index')->name('tickets');
         Route::name('credentials.')->prefix('credentials')->group(function () {
             Route::get('/edit', 'ProfileController@credentials')->name('edit');
-            Route::post('/update', 'ProfileController@updateCredentials')->name('update');
+            Route::put('/update', 'ProfileController@updateCredentials')->name('update');
         });
         Route::get('info', 'ProfileController@info')->name('info.edit');
         Route::post('info', 'ProfileController@updateInfo')->name('info.update');
@@ -58,7 +58,6 @@ Route::name('profile.')->prefix('profile')->group(function () {
         Route::put('/', 'ProfileController@update')->name('update');
     });
 });
-// ==================================== End Users profile Section  ============
 Route::get('/', 'PageController@home')->name('home');
 Route::get('/search/{searchPanel}', 'SearchPanelController@search')->name('search');
 Route::get('/products/{product}', 'ProductController@show')->name('products.show');
