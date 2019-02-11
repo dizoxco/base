@@ -1,8 +1,7 @@
 @extends('layout')
 @section('content')
     <div class="flex flex-wrap container">
-        <div class="w-full md:w-1/4 px-4">
-            <form target="_self">
+        <div class="w-full md:w-1/4 px-4 search-panel-options">
                 @forelse($options as $name => $option)
                 @if ($option['query'] !== 'order')
                 <div class="relative rounded-lg bg-white pt-2 pb-4 px-4 mb-4">
@@ -10,10 +9,20 @@
                    @forelse(array_wrap($option[$option['query']]) as $index => $filter)
                         @switch($option['query'])
                             @case('tag')
-                                    @include('searchpanels.inputs.checkbox', compact('name'))
+                            @php
+                                // dd(request()->get($name))
+                            @endphp
+                                    @component('components.form.checkbox', [
+                                        'name' => "{$name}[{$index}]",
+                                        'label' => $filter['label'],
+                                        'value' => $index,
+                                        'checked' => !empty(request()->get($name)) && in_array($index, request()->get($name))
+                                    ])
+                                    @endcomponent
+                                    {{-- @include('searchpanels.inputs.checkbox', compact('name'))
                                     @isset($filter['label'])
                                         <label >{{ $filter['label'] }}</label>
-                                    @endisset
+                                    @endisset --}}
                                     <br>
                                 @break
                             @case('like')
@@ -37,15 +46,9 @@
 
                 @empty
                     <p>انتخابی وجود ندارد.</p>
-                @endforelse
-                @component('components.form.button', [
-                    'label' => 'جستجو',
-                    'outlined' => true,
-                    'shaped' => true
-                ])@endcomponent                
-            </form>
+                @endforelse               
         </div>
-        <div class="w-full md:w-3/4 px-4">
+        <div class="w-full md:w-3/4 px-4 search-panel-result">
             <div class="flex flex-wrap justify-between rounded-full caption leading-none bg-white px-8 mb-5">
                 <div class="flex items-center">
                     <i class="material-icons text-grey-light" style="transform:scaleX(-1)">sort</i></span>
