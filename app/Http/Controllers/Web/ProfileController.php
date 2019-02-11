@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Web;
 
 use Auth;
 use Hash;
+use App\Models\Business;
 use App\Http\Controllers\Controller;
 use App\Repositories\Facades\UserRepo;
 use App\Http\Requests\Profile\UpdateInfoRequest;
 use App\Http\Requests\Profile\UpdateCredentialRequest;
+use App\Models\Order;
 
 class ProfileController extends Controller
 {
@@ -23,11 +25,26 @@ class ProfileController extends Controller
         return view('profile.orders', compact('orders'));
     }
 
-    public function chats()
+    public function orderShow(Order $order)
     {
-        $chats = auth()->user()->chats()->with('comments', 'user', 'business')->get();
+        return view('profile.orders.show', compact('order'));
+    }
 
-        return view('profile.chats', compact('chats'));
+    public function businesses()
+    {
+        return view('profile.businesses.index')->withBusinesses(Auth::user()->businesses);
+    }
+
+    public function showBusiness(Business $business)
+    {
+        return view('profile.businesses.show', compact('business'));
+    }
+
+    public function showBusinessProducts(Business $business)
+    {
+        $business->load('products');
+
+        return view('profile.businesses.products')->withProducts($business->products);
     }
 
     public function credentials()

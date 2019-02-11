@@ -41,8 +41,16 @@ $('.search-panel-options input').change(function(e){
                 break;
         }
     })
+    // ajaxUpdate(url, '.search-panel-result');
+    
     $.get( url, function( data ) {
-        $( ".search-panel-result" ).html( $(data).find('.search-panel-result').html() );
-        window.history.replaceState(null, null, url);
+        $( '.search-panel-result' ).html( $(data).find('.search-panel-result').html() );
+        window.history.pushState({}, '', url);
     }, 'html')
 })
+
+$('td').click(function(){
+    if( $(this).parent().attr('href') ){
+        window.location = $(this).parent().attr('href');
+    }
+});

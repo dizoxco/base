@@ -10,7 +10,6 @@
         <a class="no-underline" href="{{route('businesses.show', $business->slug)}}">
             <h3 class=" subheading"> {{ $business->brand }}</h3>
         </a>
-        {{-- <p>{{ $product->created_at->diffForHumans() }}</p> --}}
-        <p class="text-center body-1 my-4">{{ $business->city }}</p>
+        <p class="text-center body-1 my-4">{{ $business->city->name }}</p>
     </div>
 </div>

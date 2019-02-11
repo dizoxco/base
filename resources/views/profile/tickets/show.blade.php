@@ -7,7 +7,7 @@
         <div class="w-3/4 pr-4">
             <div><label for="">{{ $ticket->title }}</label></div>
             <div class="relative rounded-lg bg-white shadow-lg px-8 py-6 mb-6">
-                <form action="{{ route('tickets.reply', $ticket) }}" method="post">
+                <form action="{{ route('profile.tickets.reply', $ticket) }}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('put') }}
                     <textarea name="body" id="body" cols="30" rows="10" placeholder="متن پیام" required></textarea>

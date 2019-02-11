@@ -11,7 +11,7 @@
         </thead>
         <tbody>
                 @forelse($orders as $order)
-                        <tr>
+                        <tr href="{{route('profile.orders.show', $order)}}">
                                 <td>{{ $order->id }}</td>
                                 <td>{{ $order->receiver }}</td>
                                 <td>{{ $order->mobile }}</td>

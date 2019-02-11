@@ -8,7 +8,7 @@
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
-<body class="portal @can('admin menu') admin @endcan" dir="rtl">
+<body class="@isset($profile_mode) profile @endisset" dir="rtl">
 @component('components.nav.simple') @endcomponent
 
 <div id="content">
@@ -172,7 +172,7 @@
     @endcomponent
 </div>
 {{-- @component('components.links', ['nav' => 'main'])@endcomponent --}}
-@if (!isset($mode) || $mode != 'profile')
+@if(!isset($profile_mode))
     <div class="bg-grey-light">
         <footer class="container mx-auto w-full">
             <div class="flex flex-row items-start -mx-2">
@@ -192,7 +192,7 @@
         </footer>
     </div>
 @endif
-<script src="/js/app.js"></script>
+!isset(<script src="/js/app.js"></script>)
 <script>
     $('#btn_side_login').click(function (event) {
         event.preventDefault();

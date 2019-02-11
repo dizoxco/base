@@ -13603,11 +13603,16 @@ table {
   width: 100%;
 }
 
+table tr {
+  border-bottom: 1px solid #c5c5c5;
+}
+
 table tr:odd {
   background-color: red;
 }
 
 table tr td {
+  padding: 1.5rem 1rem;
   min-height: 7rem;
 }
 

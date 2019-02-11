@@ -15,7 +15,7 @@
                 >
             </td>
             <td>
-                <a href="{{ route('businesses.chat.show', $chat->business->slug) }}">
+                <a href="{{ route('profile.chats.show', $chat->business->slug) }}">
                     {{ $chat->business->brand }}
                 </a>
             </td>
