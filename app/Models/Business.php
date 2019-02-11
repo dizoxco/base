@@ -57,7 +57,7 @@ class Business extends Model implements HasMedia
         return $this->morphToMany(Tag::class, 'taggable');
     }
 
-    public function tickets()
+    public function chats()
     {
         return $this->hasMany(Ticket::class, 'business_id', 'id');
     }

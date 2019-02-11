@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Profile\UpdateCredentialRequest;
+use App\Http\Requests\Profile\UpdateInfoRequest;
+use App\Models\Business;
+use App\Repositories\Facades\UserRepo;
 use Auth;
 use Hash;
-use App\Http\Controllers\Controller;
-use App\Repositories\Facades\UserRepo;
-use App\Http\Requests\Profile\UpdateInfoRequest;
-use App\Http\Requests\Profile\UpdateCredentialRequest;
 
 class ProfileController extends Controller
 {
@@ -23,11 +24,20 @@ class ProfileController extends Controller
         return view('profile.orders', compact('orders'));
     }
 
-    public function chats()
+    public function businesses()
     {
-        $chats = auth()->user()->chats()->with('comments', 'user', 'business')->get();
+        return view('profile.businesses.index')->withBusinesses(Auth::user()->businesses);
+    }
 
-        return view('profile.chats', compact('chats'));
+    public function showBusiness(Business $business)
+    {
+        return view('profile.businesses.show', compact('business'));
+    }
+
+    public function showBusinessProducts(Business $business)
+    {
+        $business->load('products');
+        return view('profile.businesses.products')->withProducts($business->products);
     }
 
     public function credentials()

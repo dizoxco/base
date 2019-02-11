@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\Business;
 use Faker\Factory as Faker;
 
 $faker = Faker::create('fa_IR');
 
-$factory->define(App\Models\Business::class, function () use ($faker) {
+$factory->define(Business::class, function () use ($faker) {
     return [
         'brand' => $faker->company,
         'slug' => str_slug("{$faker->company}_{$faker->numerify('###')}"),
