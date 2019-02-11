@@ -12,7 +12,7 @@
                         <span class="mdc-list-item__text">محصولات</span>
                     </li>
                 </a>
-                <a href="/profile/edit" class="block">
+                <a href="{{ route('profile.businesses.index') }}" class="block">
                     <li class="mdc-list-item mdc-ripple" tabindex="0">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">business</span>
                         <span class="mdc-list-item__text">کسب و کارهای شما</span>

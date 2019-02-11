@@ -8,5 +8,7 @@
     <div>{{ $business->updated_at->diffForHumans() }}</div>
     <div>
         <a href="{{ route('profile.businesses.show.products', $business->slug) }}">products</a>
+        <a href="{{ route('profile.businesses.show.chats.index', $business->slug) }}">chats</a>
+        <a href="{{ route('profile.businesses.show.orders.index', $business->slug) }}">orders</a>
     </div>
 @endsection

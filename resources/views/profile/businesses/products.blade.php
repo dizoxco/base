@@ -1,12 +1,27 @@
-@extends('profile.businesses.layout')
+@extends('profile.businesses.layout', ['title' => "محصولات $business->brand"])
 @section('profile-content')
-    @forelse($products as $product)
-        <div>{{ $product->title }}</div>
-        <div>{{ $product->abstract }}</div>
-        <div>{{ $product->price }}</div>
-        <div>{{ $product->created_at->diffForHumans() }}</div>
-        <div>{{ $product->updated_at->diffForHumans() }}</div>
-        <hr>
-    @empty
-    @endforelse
+    <table>
+        <tr>
+            <th>عنوان</th>
+            <th>توضیح مختصر</th>
+            <th>قیمت</th>
+            <th>ایجاد شده در</th>
+            <th>آخرین به روزرسانی</th>
+        </tr>
+        @forelse($products as $product)
+            <tr>
+                <td>
+                    <a href="{{ route('products.show', $product->slug) }}">
+                        {{ str_limit($product->title, 60) }}
+                    </a>
+                </td>
+                <td>{{ str_limit($product->abstract, 60) }}</td>
+                <td>@toman($product->price)</td>
+                <td>{{ $product->created_at->diffForHumans() }}</td>
+                <td>{{ $product->updated_at->diffForHumans() }}</td>
+            </tr>
+        @empty
+        @endforelse
+        <tr></tr>
+    </table>
 @endsection
