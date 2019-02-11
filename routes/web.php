@@ -42,6 +42,7 @@ Route::name('profile.')->prefix('profile')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/', 'ProfileController@index')->name('index');
         Route::get('orders', 'ProfileController@orders')->name('orders');
+        Route::get('orders/{order}', 'ProfileController@orderShow')->name('orders.show');
         Route::resource('addresses', 'AddressController');
         Route::get('chats', 'ProfileController@chats')->name('chats');
         Route::get('tickets', 'TicketController@index')->name('tickets');

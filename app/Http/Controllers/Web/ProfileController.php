@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Facades\UserRepo;
 use App\Http\Requests\Profile\UpdateInfoRequest;
 use App\Http\Requests\Profile\UpdateCredentialRequest;
+use App\Models\Order;
 
 class ProfileController extends Controller
 {
@@ -21,6 +22,11 @@ class ProfileController extends Controller
         $orders = auth()->user()->orders()->with('city', 'variations', 'variations.product')->get();
 
         return view('profile.orders', compact('orders'));
+    }
+
+    public function orderShow(Order $order)
+    {
+        return view('profile.orders.show', compact('order'));
     }
 
     public function chats()

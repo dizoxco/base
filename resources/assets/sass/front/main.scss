@@ -55,10 +55,12 @@ body{
 table{
     width: 100%;
     tr{
+        border-bottom: 1px solid #c5c5c5;
         &:odd{
             background-color: red;
         }
         td{
+            padding: 1.5rem 1rem;
             min-height: 7rem;
         }
     }
