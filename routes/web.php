@@ -50,9 +50,10 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
     });
 
     Route::name('businesses.')->prefix('businesses')->group(function () {
-        Route::get('/', 'ProfileController@businesses')->name('index');
-        Route::get('/{business}', 'ProfileController@showBusiness')->name('show');
-        Route::get('/{business}/product', 'ProfileController@showBusinessProducts')->name('show.products');
+        Route::get('/', 'BusinessManagerController@index')->name('index');
+        Route::name('show.')->prefix('{business}')->group(function () {
+            Route::get('/', 'BusinessManagerController@show')->name('index');
+            Route::get('products', 'BusinessManagerController@products')->name('products');
     });
 
     Route::name('credentials.')->prefix('credentials')->group(function () {

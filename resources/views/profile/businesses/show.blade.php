@@ -1,4 +1,4 @@
-@extends('profile.businesses.layout')
+@extends('profile.businesses.layout', ['title' => $business->brand])
 @section('profile-content')
     <div>{{ $business->brand }}</div>
     <div>{{ $business->city->name }}</div>

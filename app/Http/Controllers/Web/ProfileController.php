@@ -24,22 +24,6 @@ class ProfileController extends Controller
         return view('profile.orders', compact('orders'));
     }
 
-    public function businesses()
-    {
-        return view('profile.businesses.index')->withBusinesses(Auth::user()->businesses);
-    }
-
-    public function showBusiness(Business $business)
-    {
-        return view('profile.businesses.show', compact('business'));
-    }
-
-    public function showBusinessProducts(Business $business)
-    {
-        $business->load('products');
-        return view('profile.businesses.products')->withProducts($business->products);
-    }
-
     public function credentials()
     {
         return view('profile.credentials.edit')->withUser(Auth::user());

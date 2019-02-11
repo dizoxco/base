@@ -1,8 +1,8 @@
-@extends('profile.businesses.layout')
+@extends('profile.businesses.layout', ['title' => 'کسب و کارها'])
 @section('profile-content')
     @forelse($businesses as $business)
         <div>
-            <a href="{{ route('profile.businesses.show', $business->slug) }}">
+            <a href="{{ route('profile.businesses.show.index', $business->slug) }}">
                 {{ $business->brand }}
             </a>
         </div>
