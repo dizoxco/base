@@ -35,14 +35,22 @@ class AppServiceProvider extends ServiceProvider
             if (Auth::check()) {
                 $cart = auth()->user()->cart()->with('variation.product')->get()->pluck('variation');
                 $cart = $cart->isEmpty() ? null : $cart;
+
+                $wishlist = auth()->user()->wishlist()->with('users')->get();
+                $wishlist = $wishlist->isEmpty() ? null : $wishlist;
             } else {
-                $cart = json_decode(Cookie::get('cart'), true);
-                if ($cart !== null) {
+                if ($cart = json_decode(Cookie::get('cart'), true)) {
                     $cart = Variation::whereIn('id', array_keys($cart))->get();
+                }
+
+                if ($wishlist = json_decode(Cookie::get('wishlist'), true)) {
+                    $wishlist = Product::whereHas('relatedVariations', function ($query) use ($wishlist) {
+                        return $query->whereIn('id', array_keys($wishlist));
+                    })->get();
                 }
             }
 
-            return $view->with('cart', $cart);
+            return $view->with('cart', $cart)->with('wishlist', $wishlist);
         });
     }
 

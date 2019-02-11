@@ -19,7 +19,7 @@ class Business extends Model implements HasMedia
     use SoftDeletes, HasSlug, HasMediaTrait;
 
     protected $fillable = [
-        'brand', 'slug', 'city_id', 'contact'
+        'brand', 'slug', 'city_id', 'contact',
     ];
 
     protected $casts = [

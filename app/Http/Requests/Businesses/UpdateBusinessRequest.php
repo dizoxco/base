@@ -28,7 +28,7 @@ class UpdateBusinessRequest extends FormRequest
 
         return [
             'brand' => ['required', Rule::unique('businesses', 'id')->ignore($business->id)],
-            'slug' => ['required',Rule::unique('businesses', 'id')->ignore($business->id)],
+            'slug' => ['required', Rule::unique('businesses', 'id')->ignore($business->id)],
             'city_id' => 'required|exists:cities,id',
         ];
     }
