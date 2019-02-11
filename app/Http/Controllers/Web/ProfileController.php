@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Web;
 
 use Auth;
 use Hash;
-use App\Models\Business;
 use App\Http\Controllers\Controller;
 use App\Repositories\Facades\UserRepo;
 use App\Http\Requests\Profile\UpdateInfoRequest;

@@ -15,7 +15,7 @@ class Order extends Model implements IsPayable
     ];
 
     protected $casts = [
-        'done' => 'boolean'
+        'done' => 'boolean',
     ];
 
     public function variations()
