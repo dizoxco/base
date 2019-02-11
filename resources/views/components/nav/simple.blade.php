@@ -41,7 +41,7 @@
             </div>
             <div class="side__cart-product mt-2 flex py-5 px-5">
                 <div class="side__cart-product-img w-1/3">
-                    <img src="/images/3.jpg" alt="">
+                    <img src="" alt="">
                 </div>
                 <div class="side__cart-product-detail caption pr-2">
                     <div class="side__cart-product-name">

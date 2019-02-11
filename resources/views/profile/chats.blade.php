@@ -1,3 +1,6 @@
+@extends('profile.layout', ['title' => 'چت ها'])
+@section('profile-content')
+    
 <table>
     <th>
         <td></td>
@@ -23,3 +26,4 @@
         </tr>
     @endforelse
 </table>
+@endsection

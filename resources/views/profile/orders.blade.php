@@ -1,3 +1,27 @@
+@extends('profile.layout', ['title' => 'سفارشات'])
+@section('profile-content')
+<table>
+        <thead>
+                <tr>
+                        <th>شناسه</th>
+                        <th>گیرنده</th>
+                        <th>موبایل</th>
+                        <th>شهر</th>
+                </tr>
+        </thead>
+        <tbody>
+                @forelse($orders as $order)
+                        <tr>
+                                <td>{{ $order->id }}</td>
+                                <td>{{ $order->receiver }}</td>
+                                <td>{{ $order->mobile }}</td>
+                                <td>{{ $order->city->name }}</td>
+                        </tr>
+                @empty
+                        <tr><td>sdfsdfsdf</td></tr>
+                @endforelse
+        </tbody>
+</table>
 <ol>
     @forelse($orders as $order)
         <div>
@@ -51,3 +75,4 @@
         You have no orders yet!
     @endforelse
 </ol>
+@endsection

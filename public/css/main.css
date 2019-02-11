@@ -13207,7 +13207,12 @@ a.mdc-list-item {
   outline: none;
 }
 
+.mdc-list-item {
+  border-radius: 32px 0 0 32px;
+}
+
 .nav {
+  top: 0;
   height: 64px;
   border: 1px solid #f1f1f1;
   background-color: #fff;
@@ -13682,6 +13687,17 @@ a.mdc-list-item {
   }
 }
 
+#profile-layout .profile-nav {
+  width: 300px;
+  right: 0;
+  background-color: #cadef8;
+  top: 0;
+}
+
+#profile-layout .profile-content {
+  margin-right: 300px;
+}
+
 html {
   font-size: 14px;
   line-height: 1.5;
@@ -13699,6 +13715,16 @@ body {
   direction: rtl;
   text-align: right;
   background-color: #f5f5f5;
+  margin-top: 64px;
+}
+
+body.profile {
+  background-color: #fff;
+}
+
+body a {
+  text-decoration: none;
+  outline: none;
 }
 
 .container {
@@ -13724,6 +13750,18 @@ body {
   .container.medium {
     max-width: 900px;
   }
+}
+
+table {
+  width: 100%;
+}
+
+table tr:odd {
+  background-color: red;
+}
+
+table tr td {
+  min-height: 7rem;
 }
 
 @media (min-width: 576px) {

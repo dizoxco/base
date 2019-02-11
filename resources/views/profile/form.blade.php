@@ -1,4 +1,4 @@
-@extends('profile.layout')
+@extends('profile.layout', ['title' => 'ویرایش پروفایل'])
 @section('profile-content')
     @component('components.form',[
         'action' => route('profile.update'),

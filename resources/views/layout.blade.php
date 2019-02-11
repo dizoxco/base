@@ -4,13 +4,12 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 		<meta name="theme-color" content="#002f6c" />
-		<title>مدلا - @yield('title')</title>
+		<title>مدلا - {{$title ?? 'عنوانننننن'}}</title>
 		<link href="{{ asset('css/main.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	</head>
-	<body class="portal @can('admin menu') admin @endcan" dir="rtl">
+	<body class="@isset($profile_mode) profile @endisset" dir="rtl">
 		@component('components.nav.simple') @endcomponent
-		<br><br><br><br><br>
 		<div id="content">
 			@yield('content')
 		</div>
@@ -172,7 +171,7 @@
 				@endcomponent
 		</div>
 		{{-- @component('components.links', ['nav' => 'main'])@endcomponent --}}
-		@if (!isset($mode) || $mode != 'profile')
+		@if (!isset($profile_mode))
 			<div class="bg-grey-light">
 				<footer class="container mx-auto w-full">
 					<div class="flex flex-row items-start -mx-2">

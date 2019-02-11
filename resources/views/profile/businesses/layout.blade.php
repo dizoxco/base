@@ -9,13 +9,7 @@
                 <a href="/profile/edit" class="block">
                     <li class="mdc-list-item mdc-ripple" tabindex="0">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">people</span>
-                        <span class="mdc-list-item__text">پروفایل</span>
-                    </li>
-                </a>
-                <a href="/profile/addresses" class="block">
-                    <li class="mdc-list-item mdc-ripple mdc-list-item--activated">
-                        <span class="mdc-list-item__graphic material-icons" aria-hidden="true">place</span>
-                        <span class="mdc-list-item__text">آدرس ها</span>
+                        <span class="mdc-list-item__text">محصولات</span>
                     </li>
                 </a>
                 <a href="/profile/orders" class="block">
@@ -28,18 +22,6 @@
                     <li class="mdc-list-item mdc-ripple">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">chat</span>
                         <span class="mdc-list-item__text">چت ها</span>
-                    </li>
-                </a>
-                <a href="/profile/tickets">
-                    <li class="mdc-list-item mdc-ripple">
-                        <span class="mdc-list-item__graphic material-icons" aria-hidden="true">chat</span>
-                        <span class="mdc-list-item__text">تیکت ها</span>
-                    </li>
-                </a>
-                <a href="/profile/edit" class="block">
-                    <li class="mdc-list-item mdc-ripple" tabindex="0">
-                        <span class="mdc-list-item__graphic material-icons" aria-hidden="true">people</span>
-                        <span class="mdc-list-item__text">ویرایش پروفایل</span>
                     </li>
                 </a>
                 <a href="/profile/edit" class="block">

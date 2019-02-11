@@ -1,4 +1,4 @@
-@extends('profile.layout')
+@extends('profile.layout', ['title' => 'آدرس ها'])
 @section('profile-content')
     <div class="flex flex-wrap -mx-2">
         <div class="w-1/2">
