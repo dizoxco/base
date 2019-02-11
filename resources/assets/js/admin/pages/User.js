@@ -18,7 +18,7 @@ class User extends Component {
 
     handleClick = () => {
         if (this.props.user.id == 0) {
-            this.props.storeUser(this.props.user , this.props.history)
+            this.props.storeUser(this.props.user)
         } else {
             this.props.updateUser(this.props.user)
         }

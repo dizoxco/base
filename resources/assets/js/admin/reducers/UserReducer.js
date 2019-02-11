@@ -1,4 +1,3 @@
-import {StaticRouter } from 'react-router-dom'
 const initialState = {
     token: null,
     user: null,

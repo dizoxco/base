@@ -18,7 +18,7 @@ export const getUsers = () => {
             .catch( error => { console.log(error.response) });
     }
 }
-export const updateUser = (user , push) => {
+export const updateUser = (user) => {
     return (dispatch) => {
         putting(routes('api.users.update',[user.id]), user.attributes)
             .then(response => dispatch({
@@ -29,7 +29,7 @@ export const updateUser = (user , push) => {
     }
 };
 
-export const storeUser = (user , history = null) => {
+export const storeUser = (user) => {
     return (dispatch) => {
         posting(routes('api.users.store'), user.attributes)
             .then(response => {
@@ -37,9 +37,11 @@ export const storeUser = (user , history = null) => {
                     type: 'STORE-USER',
                     payload: response.data
                 });
-                if (history !== null){
-                    history.push('/admin/users/'+response.data.data.id);
-                }
+
+                dispatch({
+                    type : 'APP-REDIRECT',
+                    payload : '/admin/users/'+response.data.data.id
+                });
 
 
             })
