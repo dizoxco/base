@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Profile\UpdateCredentialRequest;
-use App\Http\Requests\Profile\UpdateInfoRequest;
-use App\Models\Business;
-use App\Repositories\Facades\UserRepo;
 use Auth;
 use Hash;
+use App\Models\Business;
+use App\Http\Controllers\Controller;
+use App\Repositories\Facades\UserRepo;
+use App\Http\Requests\Profile\UpdateInfoRequest;
+use App\Http\Requests\Profile\UpdateCredentialRequest;
 
 class ProfileController extends Controller
 {

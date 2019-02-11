@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
+use Auth;
+use App\Models\Ticket;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\StoreTicketRequest;
-use App\Models\Ticket;
-use Auth;
-use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
@@ -40,7 +40,7 @@ class TicketController extends Controller
 
     public function reply(Request $request, Ticket $ticket)
     {
-        $request->merge(['user_id' => Auth::id(),]);
+        $request->merge(['user_id' => Auth::id()]);
         $ticket->comments()->create($request->all());
 
         return redirect()->route('profile.tickets.show', $ticket);
@@ -50,9 +50,9 @@ class TicketController extends Controller
     {
         $attr = $ticket->attribute;
         if ($ticket->is_open === null) {
-            $attr = array_merge($attr, ['is_open' => false,]);
+            $attr = array_merge($attr, ['is_open' => false]);
         } else {
-            $attr = array_merge($attr, ['is_open' => ! $ticket->is_open,]);
+            $attr = array_merge($attr, ['is_open' => ! $ticket->is_open]);
         }
 
         $ticket->attribute = $attr;
