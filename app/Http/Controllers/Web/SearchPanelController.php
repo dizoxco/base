@@ -21,7 +21,7 @@ class SearchPanelController extends Controller
         }
 
         if ($searchPanel->model === Business::class) {
-            $businesses = $searchPanel->result($request, ['media']);
+            $businesses = $searchPanel->result($request, ['media','city']);
 
             return view('web.businesses.search', compact('options', 'businesses'));
         }
