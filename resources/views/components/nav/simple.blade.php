@@ -1,18 +1,23 @@
 <nav class="nav fixed w-full flex items-center z-50" id="nav">
-  <div class="container flex items-center">
-   <ul class="nav__icons w-1/5">
-     <li><a href="#"><i class="material-icons cart-icon" glass=".side" side-content=".side-content.cart">shopping_basket</i></a></li>
-     <li><a href="#"><i class="material-icons wishlist-icon" glass=".side" side-content=".side-content.wishlist">favorite_border</i></a></li>
-     <li><a href="#"><i class="material-icons login-icon" glass=".side" side-content=".side-content.login">person_outline</i></a></li>
-     <li><a href="#"><i class="material-icons search-icon" glass=".mega-search">search</i></a></li>
+  <div class="container justify-between flex items-center relative">
+   <ul class="nav__icons pin-l absolute md:relative md:pin-r">
+     <li class="cart-icon"><a href="#"><i class="material-icons" glass=".side" side-content=".side-content.cart">shopping_basket</i></a></li>
+     <li class="wishlist-icon hidden"><a href="#"><i class="material-icons" glass=".side" side-content=".side-content.wishlist">favorite_border</i></a></li>
+     <li class="login-icon hidden"><a href="#"><i class="material-icons" glass=".side" side-content=".side-content.login">person_outline</i></a></li>
+     <li class="search-icon"><a href="#"><i class="material-icons" glass=".mega-search">search</i></a></li>
    </ul>
-   {{nav('main', 'nav__menu w-full text-center ')}}
-   <div class="nav__logo-box w-1/3 text-left">
+   {{nav('main', 'nav__menu w-full text-center hidden md:block')}}
+   <div class="nav-mobile__bar-menu-btn toggler md:hidden" id="menu-btn" glass=".side" side-content=".side-content.mobile-menu">
+    <div class="nav-mobile__bar-burger  menu-toggle ">
+      <span>&nbsp;</span>
+    </div>
+    </div>
+    <div class="nav__logo-box  w-24 absolute m-auto pin-x md:w-48 md:relative md:">
      <a href="#"><img src="/images/menu-logo.png" alt="" class="nav__logo"></a>
-   </div>
+    </div>
   </div>
- </nav>
- 
+</nav>
+
 
 
 <div class="glass fixed t-0 r-0 w-full h-full z-60 "></div>
@@ -41,7 +46,7 @@
             </div>
             <div class="side__cart-product mt-2 flex py-5 px-5">
                 <div class="side__cart-product-img w-1/3">
-                    <img src="/images/3.jpg" alt="">
+                    
                 </div>
                 <div class="side__cart-product-detail caption pr-2">
                     <div class="side__cart-product-name">
@@ -182,6 +187,12 @@
                 <button side-content=".side-content.login">بازگشت به ورود</button>
             </div>
         </div>
+    </div>
+
+    <div class="side-content mobile-menu flex h-full pt-32 overflow-auto">
+      <div class="mobile-menu-container w-full">
+          {{nav('main', 'nav-mobile')}}
+      </div>
     </div>
 
 </div>
