@@ -170,10 +170,10 @@
                 'full' => true,
                 'type' => 'text',
               ])
-                @endcomponent
+                    @endcomponent
             </span>
+            </div>
         </div>
-    </div>
 
     <div class="side-content forgot flex h-full p-10 pt-32">
         <div class="side__forgot-container w-full text-center">
