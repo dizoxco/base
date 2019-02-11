@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Models\Ticket;
 use Auth;
+use App\Models\Ticket;
 use App\Models\Business;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\StoreTicketRequest;
@@ -30,6 +30,7 @@ class ChatController extends Controller
         $request->merge(['user_id' => Auth::id()]);
         Ticket::firstOrCreate(['user_id' => Auth::id(), 'business_id' => $business->id])
             ->comments()->create($request->all());
+
         return redirect()->route('profile.chats.show', $business->slug);
     }
 }
