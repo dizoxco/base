@@ -8,7 +8,7 @@ import {Button} from "../components/form";
 class Users extends Component{
 
     componentDidMount = () => {
-        if(this.props.users.length === 0)
+        if(this.props.users.length === 1)
             this.props.getUsers();
     }
 
@@ -23,7 +23,7 @@ class Users extends Component{
             >
                 <Button label={'Add user'} onClick={(e) => this.props.history.push('/admin/users/0')}  />
                 <Table
-                    data={this.props.users}
+                    data={this.props.users.slice(1, this.props.users.length)}
                     tdClick={ (rowInfo) => this.props.history.push('/admin/users/' + rowInfo.original.id)}
                     columns={[
                         {

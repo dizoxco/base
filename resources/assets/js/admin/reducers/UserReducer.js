@@ -1,7 +1,8 @@
+import {StaticRouter } from 'react-router-dom'
 const initialState = {
     token: null,
     user: null,
-    index: [],
+    index: [{id:0,attributes:{}}],
     init:{id:0,attributes:{}}
 };
 export const UserReducer = (state = initialState, action) => {
@@ -9,18 +10,14 @@ export const UserReducer = (state = initialState, action) => {
         case 'GET-USERS':
             return {
                 ...state,
-                index: action.payload.data
+                index: state.index.concat(action.payload.data)
             };
         case 'SET-USER':
-            if (action.id == 0){
-                state.init.attributes = {...state.init.attributes, ...action.attributes}
-            } else {
-                let i = state.index.findIndex((e) => e.id === action.id);
-                if (state.index[i].oldAttributes === undefined) {
-                    state.index[i].oldAttributes = state.index[i].attributes;
-                }
-                state.index[i].attributes = {...state.index[i].attributes, ...action.attributes};
+            let i = state.index.findIndex((e) => e.id === action.id);
+            if (state.index[i].oldAttributes === undefined) {
+                state.index[i].oldAttributes = state.index[i].attributes;
             }
+            state.index[i].attributes = {...state.index[i].attributes, ...action.attributes};
             return state;
         case 'TOKEN':
             return {
@@ -33,8 +30,10 @@ export const UserReducer = (state = initialState, action) => {
                 token: null
             };
         case 'STORE-USER':
-            state.index.unshift(action.payload.data);
-            state.init = {id:0,attributes:{}};
+            state.index.splice(1,0,action.payload.data); // for testing
+            // state.index.push(action.payload.data); //real code
+            state.index[0].attributes = state.index[0].oldAttributes;
+            delete state.index[0].oldAttributes;
             return state;
         case 'UPDATE-USER':
             let updatedIndex = state.index.findIndex((e) => e.id === action.payload.data.id);
