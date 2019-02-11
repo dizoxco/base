@@ -1,18 +1,18 @@
 @extends('profile.layout', ['title' => 'تیکت ها'])
 @section('profile-content')
     
-    <a href="{{ route('tickets.create') }}"> تیکت جدید </a>
+    <a href="{{ route('profile.tickets.create') }}"> تیکت جدید </a>
     <ol>
         @forelse($tickets as $index => $ticket)
             <div>
                 <li> گیرنده : {{ $ticket->title }}</li>
                 <li>
-                    <a href="{{ route('tickets.show', $ticket) }}">
+                    <a href="{{ route('profile.tickets.show', $ticket) }}">
                         نمایش
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('tickets.toggle', $ticket) }}"
+                    <a href="{{ route('profile.tickets.toggle', $ticket) }}"
                     onclick="event.preventDefault();document.getElementById('toggle_{{ $index }}').submit();">
                         @if($ticket->is_open)
                             بستن
@@ -20,7 +20,7 @@
                             باز
                         @endif
                     </a>
-                    <form id="toggle_{{ $index }}" action="{{ route('tickets.toggle', $ticket) }}" method="POST" style="display: none;">
+                    <form id="toggle_{{ $index }}" action="{{ route('profile.tickets.toggle', $ticket) }}" method="POST" style="display: none;">
                         {{ csrf_field() }}
                         {{ method_field('put') }}
                     </form>
