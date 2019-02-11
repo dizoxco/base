@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import { BrowserRouter, Link, Redirect, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Link, Redirect, Switch, Route, withRouter  } from "react-router-dom";
 
 
 import AppBar from '@material-ui/core/AppBar';
@@ -17,18 +17,23 @@ import { Business, Businesses, Comment, Comments, Dashboard, Login, MediaGroup, 
 import { withSnackbar } from 'notistack';
 import { connect } from "react-redux";
 
-import { flushSnacks, logOut } from "./actions";
+import { flushSnacks, logOut , clearRedirect } from "./actions";
 import { eraseCookie, getCookie } from "../helpers";
 
 class App extends Component{
     componentDidUpdate(){
-        const { enqueueSnackbar } = this.props;
+        const { enqueueSnackbar  } = this.props;
         this.props.snacks.map((snack) => {
             enqueueSnackbar( snack.message, {
                 variant: snack.variant,
             });
         });
         if( this.props.snacks.length ) this.props.flushSnacks();
+
+        if (this.props.app.redirect !== null){
+            this.props.history.push(this.props.app.redirect);
+            this.props.clearRedirect();
+        }
     }
     
     render(){
@@ -135,8 +140,9 @@ class App extends Component{
 const mapStateToProps = state => {
     return {
         snacks: state.snacks,
-        user: state.users
+        user: state.users,
+        app: state.app
     };
 };
 
-export default connect(mapStateToProps, { flushSnacks, logOut })(withSnackbar(App));
+export default connect(mapStateToProps, { flushSnacks, logOut , clearRedirect })(withSnackbar(withRouter(App)));

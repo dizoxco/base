@@ -1,19 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Link, Redirect, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
-
-import pink from '@material-ui/core/colors/pink';
-import Toolbar from '@material-ui/core/Toolbar';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { List, RTL } from "./admin/components"
-import { Dashboard, Login, Posts, Setting, Users } from './admin/pages'
-import { BusinessReducer, CommentReducer, MediaReducer, ProductReducer, PostReducer, SnackReducer, TicketReducer, UserReducer } from './admin/reducers';
+
+import {
+    BusinessReducer,
+    CommentReducer,
+    MediaReducer,
+    ProductReducer,
+    PostReducer,
+    SnackReducer,
+    TicketReducer,
+    UserReducer,
+    AppReducer
+} from './admin/reducers';
 
 import App from './admin/App';
 
@@ -29,7 +36,8 @@ const store = createStore(
                     products: ProductReducer,
                     snacks: SnackReducer,
                     tickets: TicketReducer,
-                    users: UserReducer
+                    users: UserReducer,
+                    app: AppReducer
                 }),
                 composeEnhancers( applyMiddleware(thunk))
             );
