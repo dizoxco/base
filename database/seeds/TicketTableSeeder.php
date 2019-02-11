@@ -6,6 +6,9 @@ class TicketTableSeeder extends Seeder
 {
     public function run()
     {
-        \App\Models\Ticket::insert(factory(\App\Models\Ticket::class, 1000)->make()->toArray());
+        $tickets = array_chunk(factory(\App\Models\Ticket::class, 1000)->make()->toArray(), 100);
+        foreach ($tickets as $ticket) {
+            \App\Models\Ticket::insert($ticket);
+        }
     }
 }

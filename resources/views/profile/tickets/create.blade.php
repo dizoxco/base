@@ -5,7 +5,7 @@
         </div>
         <div class="w-3/4 pr-4">
             <div class="relative rounded-lg bg-white shadow-lg px-8 py-6 mb-6">
-                <form action="{{ route('tickets.store') }}" method="post">
+                <form action="{{ route('profile.tickets.store') }}" method="post">
                     {{ csrf_field() }}
                     <input type="text" name="title" placeholder="عنوان" required>
                     <select name="category_id" id="category_id">
