@@ -105,7 +105,7 @@ class AuthController extends Controller
             return response()->json(
                 [
                     'message' =>  trans('auth.register_failed'),
-                    'data' => $user
+                    'data' => $user,
                 ],
                 Response::HTTP_BAD_REQUEST
             );
