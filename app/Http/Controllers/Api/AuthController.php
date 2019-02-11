@@ -85,11 +85,14 @@ class AuthController extends Controller
     {
         $request->merge([
             'activation_token'  =>  str_random(32),
+            'password' => bcrypt($request->input('password')),
         ]);
+
         if ($user = UserRepo::create($request->except('avatar'))) {
             if ($request->hasFile('avatar')) {
                 $user->addMediaFromRequest('avatar')->toMediaCollection(enum('media.user.avatar'));
             }
+            Auth::loginUsingId($user->id);
             event(new UserStoreEvent($user));
 
             return response()->json(
@@ -102,6 +105,7 @@ class AuthController extends Controller
             return response()->json(
                 [
                     'message' =>  trans('auth.register_failed'),
+                    'data' => $user
                 ],
                 Response::HTTP_BAD_REQUEST
             );

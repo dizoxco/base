@@ -15,9 +15,9 @@ Route::name('businesses.')->prefix('businesses')->group(function () {
     });
 });
 // ==================================== User Section ==========================
-Route::name('web.auth')->prefix('auth')->group(function () {
-    Auth::routes();
-});
+//Route::name('web.auth')->prefix('auth')->group(function () {
+//    Auth::routes();
+//});
 
 Route::name('tickets.')->prefix('tickets')->group(function () {
     Route::get('create', 'TicketController@create')->name('create');
@@ -39,9 +39,7 @@ Route::name('cart.')->prefix('cart')->group(function () {
 });
 
 Route::name('profile.')->prefix('profile')->group(function () {
-    Route::middleware('auth:web')->group(function () {
-        Route::name('wishlist.')->prefix('wishlist')->group(function () {
-        });
+    Route::middleware('auth')->group(function () {
         Route::get('/', 'ProfileController@index')->name('index');
         Route::get('orders', 'ProfileController@orders')->name('orders');
         Route::resource('addresses', 'AddressController');

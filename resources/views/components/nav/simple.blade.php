@@ -64,15 +64,19 @@
     <div class="side-content login flex h-full p-10 pt-32">
         <div class="side__login-container w-full text-center">
             <h6 class="mb-8">به حساب کاربری خود وارد شوید</h6>
-            <form action="">
+            <form action="{{ route("login") }}" method="post" id="frm_side_login">
+                {{ csrf_field() }}
                 @component('components.form.text',[
                   'label' => 'ایمیل',
-                  'full' => true
+                  'full' => true,
+                  'name' => 'login_email',
                 ])
                 @endcomponent
                 @component('components.form.text',[
                   'label' => 'رمز عبور',
-                  'full' => true
+                  'full' => true,
+                  'name' => 'login_password',
+                  'type' => 'password'
                 ])
                 @endcomponent
                 <div class="flex justify-between">
@@ -80,8 +84,9 @@
                     <a href="#" side-content=".side-content.forgot">فراموشی رمز عبور</a>
                 </div>
                 @component('components.form.button',[
-                  'label' => 'وارد شوید',
-                  'full' => true
+                  'label' => 'اینجا کلیک کنید',
+                  'full' => true,
+                  'name' => 'btn_side_login'
                 ])
                 @endcomponent
                 @component('components.form.button',[
@@ -112,15 +117,36 @@
     <div class="side-content register flex h-full p-10 pt-32">
         <div class="side__register-container w-full text-center">
             <h6 class="mb-8">ثبت نام</h6>
-            <form action="">
+            <form id="frm_side_register" action="{{ route('register') }}" method="post">
+                {{ csrf_field() }}
+                @component('components.form.text',[
+                  'label' => 'نام',
+                  'full' => true,
+                  'name' => 'register_name',
+                  'value' => 'name',
+                ])
+                @endcomponent
                 @component('components.form.text',[
                   'label' => 'ایمیل',
-                  'full' => true
+                  'full' => true,
+                  'name' => 'register_email',
+                  'value' => 'nonsense@email.com',
                 ])
                 @endcomponent
                 @component('components.form.text',[
                   'label' => 'رمز عبور',
-                  'full' => true
+                  'full' => true,
+                  'name' => 'register_password',
+                  'type' => 'password',
+                  'value' => 'password',
+                ])
+                @endcomponent
+                @component('components.form.text',[
+                  'label' => 'رمز عبور',
+                  'full' => true,
+                  'name' => 'register_password_confirmation',
+                  'type' => 'password',
+                  'value' => 'password',
                 ])
                 @endcomponent
                 <div class="flex">
@@ -129,6 +155,7 @@
                 @component('components.form.button',[
                   'label' => 'ثبت نام',
                   'full' => true,
+                  'name' => 'btn_side_register'
                 ])
                 @endcomponent
             </form>
