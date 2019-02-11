@@ -10,6 +10,7 @@ const routeslist = {
         businesses: {
             prefix: '/businesses',
             index: '',
+            store: '',
             update: '/{business}'
         },
         comments: {

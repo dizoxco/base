@@ -6,7 +6,25 @@ export const setBusiness = (id, attributes) => {
         dispatch({ type: 'SET-BUSINESS', id, attributes })
     }
 };
+export const storeBusiness = (business) => {
+    return (dispatch) => {
+        posting(routes('api.businesses.store'), business.attributes)
+            .then(response => {
+                dispatch({
+                    type: 'STORE-BUSINESS',
+                    payload: response.data
+                });
 
+                dispatch({
+                    type : 'APP-REDIRECT',
+                    payload : '/admin/businesses/'+response.data.data.id
+                });
+
+
+            })
+            .catch( error => { console.log(error.response) } );
+    }
+};
 export const updateBusiness = (Business) => {
     return (dispatch) => {
         putting(routes('api.businesses.update',[Business.id]), Business.attributes)
