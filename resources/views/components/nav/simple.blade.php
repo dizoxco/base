@@ -1,18 +1,23 @@
 <nav class="nav fixed w-full flex items-center z-50" id="nav">
-  <div class="container flex items-center">
-   <ul class="nav__icons w-1/5">
-     <li><a href="#"><i class="material-icons cart-icon" glass=".side" side-content=".side-content.cart">shopping_basket</i></a></li>
-     <li><a href="#"><i class="material-icons wishlist-icon" glass=".side" side-content=".side-content.wishlist">favorite_border</i></a></li>
-     <li><a href="#"><i class="material-icons login-icon" glass=".side" side-content=".side-content.login">person_outline</i></a></li>
-     <li><a href="#"><i class="material-icons search-icon" glass=".mega-search">search</i></a></li>
+  <div class="container justify-between flex items-center relative">
+   <ul class="nav__icons pin-l absolute md:relative md:pin-r">
+     <li class="cart-icon"><a href="#"><i class="material-icons" glass=".side" side-content=".side-content.cart">shopping_basket</i></a></li>
+     <li class="wishlist-icon hidden"><a href="#"><i class="material-icons" glass=".side" side-content=".side-content.wishlist">favorite_border</i></a></li>
+     <li class="login-icon hidden"><a href="#"><i class="material-icons" glass=".side" side-content=".side-content.login">person_outline</i></a></li>
+     <li class="search-icon"><a href="#"><i class="material-icons" glass=".mega-search">search</i></a></li>
    </ul>
-   {{nav('main', 'nav__menu w-full text-center')}}
-   <div class="nav__logo-box w-1/3 text-left">
+   {{nav('main', 'nav__menu w-full text-center hidden md:block')}}
+   <div class="nav-mobile__bar-menu-btn toggler md:hidden" id="menu-btn" glass=".side" side-content=".side-content.mobile-menu">
+    <div class="nav-mobile__bar-burger  menu-toggle ">
+      <span>&nbsp;</span>
+    </div>
+    </div>
+    <div class="nav__logo-box  w-24 absolute m-auto pin-x md:w-48 md:relative md:">
      <a href="#"><img src="/images/menu-logo.png" alt="" class="nav__logo"></a>
-   </div>
+    </div>
   </div>
- </nav>
- 
+</nav>
+
 
 
 <div class="glass fixed t-0 r-0 w-full h-full z-60 "></div>
@@ -41,7 +46,7 @@
             </div>
             <div class="side__cart-product mt-2 flex py-5 px-5">
                 <div class="side__cart-product-img w-1/3">
-                    <img src="" alt="">
+                    
                 </div>
                 <div class="side__cart-product-detail caption pr-2">
                     <div class="side__cart-product-name">
@@ -184,6 +189,12 @@
         </div>
     </div>
 
+    <div class="side-content mobile-menu flex h-full pt-32 overflow-auto">
+      <div class="mobile-menu-container w-full">
+          {{nav('main', 'nav-mobile')}}
+      </div>
+    </div>
+
 </div>
 
 
@@ -203,86 +214,86 @@
         </div>
     </div>
 </div>
-
-
-<header class="header-mobile">
-    <div class="nav-mobile__bar">
-        <div class="nav-mobile__bar-container">
-            <div class="nav-mobile__bar-menu-btn toggler" toggle="menu-toggle" id="menu-btn">
-                <div class="nav-mobile__bar-burger  menu-toggle">
-                    <span>&nbsp;</span>
-                </div>
-            </div>
-            <img src="/images/menu-logo.png" alt="">
-            <div class="nav-mobile__bar-search">
-                <ul>
-                    <li><a href="#"><i class="material-icons search-icon">search</i></a></li>
-                    <li><a href="#"><i class="material-icons">shopping_basket</i></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</header>
-<nav class="nav-mobile menu-toggle">
-    <div class="nav-mobile__utility menu-toggle">
-        <ul>
-            <li><a href="#"><i class="material-icons">favorite_border</i></a></li>
-            <li><a href="#"><i class="material-icons">person_outline</i></a></li>
-        </ul>
-    </div>
-    <div class="nav-mobile__main">
-        <ul class="nav-mobile__list">
-            <li>
-                <a class="js-open" href="#">کتگوری شماره ۱</a>
-                <i class="material-icons">add_circle_outline</i>
-                <i class="material-icons">remove_circle_outline</i>
-                <ul class="nav-mobile__list-sub1">
-                    <li>
-                        <i class="material-icons">add_circle_outline</i>
-                        <i class="material-icons">remove_circle_outline</i>
-                        <a  href="#">زیر دسته سطح ۱</a>
-                        <ul class="nav-mobile__list-sub2">
-                            <li><a href="#">زیر دسته سطح ۲</a></li>
-                            <li><a href="#">زیر دسته سطح ۲</a></li>
-                            <li><a href="#">زیر دسته سطح ۲</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a class="js-open" href="#">کتگوری شماره ۲</a>
-                <i class="material-icons">add_circle_outline</i>
-                <i class="material-icons">remove_circle_outline</i>
-                <ul class="nav-mobile__list-sub1">
-                    <li>
-                        <a href="#">زیر دسته سطح ۱</a>
-                        <i class="material-icons">add_circle_outline</i>
-                        <i class="material-icons">remove_circle_outline</i>
-                        <ul class="nav-mobile__list-sub2">
-                            <li><a href="#">زیر دسته سطح ۲</a></li>
-                            <li><a href="#">زیر دسته سطح ۲</a></li>
-                            <li><a href="#">زیر دسته سطح ۲</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a class="js-open" href="#">کتگوری شماره ۳</a>
-                <i class="material-icons">add_circle_outline</i>
-                <i class="material-icons">remove_circle_outline</i>
-                <ul class="nav-mobile__list-sub1">
-                    <li>
-                        <a href="#">زیر دسته سطح ۱</a>
-                        <i class="material-icons">add_circle_outline</i>
-                        <i class="material-icons">remove_circle_outline</i>
-                        <ul class="nav-mobile__list-sub2">
-                            <li><a href="#">زیر دسته سطح ۲</a></li>
-                            <li><a href="#">زیر دسته سطح ۲</a></li>
-                            <li><a href="#">زیر دسته سطح ۲</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</nav>
+ 
+ 
+ {{-- <header class="header-mobile">
+   <div class="nav-mobile__bar">
+     <div class="nav-mobile__bar-container">
+       <div class="nav-mobile__bar-menu-btn toggler" toggle="menu-toggle" id="menu-btn">
+         <div class="nav-mobile__bar-burger  menu-toggle">
+           <span>&nbsp;</span>
+         </div>
+       </div>
+       <img src="/images/menu-logo.png" alt="">
+       <div class="nav-mobile__bar-search">
+         <ul>
+           <li><a href="#"><i class="material-icons search-icon">search</i></a></li>
+           <li><a href="#"><i class="material-icons">shopping_basket</i></a></li>
+         </ul>
+       </div>
+     </div>
+   </div>
+ </header>
+ <nav class="nav-mobile menu-toggle">
+   <div class="nav-mobile__utility menu-toggle">
+     <ul>
+       <li><a href="#"><i class="material-icons">favorite_border</i></a></li>
+       <li><a href="#"><i class="material-icons">person_outline</i></a></li>
+     </ul>
+   </div>
+   <div class="nav-mobile__main">
+     <ul class="nav-mobile__list">
+       <li>
+         <a class="js-open" href="#">کتگوری شماره ۱</a>
+         <i class="material-icons">add_circle_outline</i>
+         <i class="material-icons">remove_circle_outline</i>
+         <ul class="nav-mobile__list-sub1">
+           <li>
+             <i class="material-icons">add_circle_outline</i>
+             <i class="material-icons">remove_circle_outline</i>
+             <a  href="#">زیر دسته سطح ۱</a>
+             <ul class="nav-mobile__list-sub2">
+               <li><a href="#">زیر دسته سطح ۲</a></li>
+               <li><a href="#">زیر دسته سطح ۲</a></li>
+               <li><a href="#">زیر دسته سطح ۲</a></li>
+             </ul>
+           </li>
+         </ul>
+       </li>
+       <li>
+         <a class="js-open" href="#">کتگوری شماره ۲</a>
+         <i class="material-icons">add_circle_outline</i>
+         <i class="material-icons">remove_circle_outline</i>
+         <ul class="nav-mobile__list-sub1">
+           <li>
+             <a href="#">زیر دسته سطح ۱</a>
+             <i class="material-icons">add_circle_outline</i>
+             <i class="material-icons">remove_circle_outline</i>
+             <ul class="nav-mobile__list-sub2">
+               <li><a href="#">زیر دسته سطح ۲</a></li>
+               <li><a href="#">زیر دسته سطح ۲</a></li>
+               <li><a href="#">زیر دسته سطح ۲</a></li>
+             </ul>
+           </li>
+         </ul>
+       </li>
+       <li>
+         <a class="js-open" href="#">کتگوری شماره ۳</a>
+           <i class="material-icons">add_circle_outline</i>
+           <i class="material-icons">remove_circle_outline</i>
+         <ul class="nav-mobile__list-sub1">
+           <li>
+             <a href="#">زیر دسته سطح ۱</a>
+             <i class="material-icons">add_circle_outline</i>
+             <i class="material-icons">remove_circle_outline</i>
+             <ul class="nav-mobile__list-sub2">
+               <li><a href="#">زیر دسته سطح ۲</a></li>
+               <li><a href="#">زیر دسته سطح ۲</a></li>
+               <li><a href="#">زیر دسته سطح ۲</a></li>
+             </ul>
+           </li>
+         </ul>
+       </li>
+     </ul>
+   </div>
+ </nav> --}}
