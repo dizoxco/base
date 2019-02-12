@@ -33,5 +33,7 @@ class OrdersTableSeeder extends Seeder
             }
         }
         DB::table('orders_products')->update(['options' => json_encode([])]);
+        DB::table('orders_products')->where('count', '<', 2)
+            ->update(['count' => DB::raw('RAND() * 10')]);
     }
 }

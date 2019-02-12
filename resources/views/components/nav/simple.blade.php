@@ -178,6 +178,7 @@
               ])
               @endcomponent
             </span>
+            </div>
         </div>
       @endif   
     </div>

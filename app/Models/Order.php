@@ -14,6 +14,10 @@ class Order extends Model implements IsPayable
         'user_id', 'receiver', 'mobile', 'province', 'city', 'address', 'postal_code',
     ];
 
+    protected $casts = [
+        'done' => 'boolean',
+    ];
+
     public function variations()
     {
         return $this->belongsToMany(

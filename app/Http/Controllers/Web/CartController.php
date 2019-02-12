@@ -51,25 +51,31 @@ class CartController extends Controller
             }
         }
 
-        return back()->withCookies([$cookie]);
+        return back()->withCookies([$cookie])->with('side_content', 'cart');
     }
 
     public function destroy(Request $request, Variation $variation)
     {
         if (Auth::check()) {
-            Auth::user()->cart()->whereUserId(Auth::id())->whereVariationId($variation->id)->delete();
-
-            return back();
+            try {
+                Auth::user()->cart()->whereUserId(Auth::id())->whereVariationId($variation->id)->delete();
+            } catch (\Throwable $throwable) {
+                return back();
+            }
         } elseif ($cart = json_decode(Cookie::get('cart'), true)) {
             if (array_key_exists($variation->id, $cart)) {
                 $cart[$variation->id] -= 1;
+
+                if ($cart[$variation->id] == 0) {
+                    unset($cart[$variation->id]);
+                }
             }
 
-            if ($cart[$variation->id] == 0) {
-                unset($cart[$variation->id]);
-            }
-
-            return back()->withCookies([Cookie::make('cart', json_encode($cart))]);
+            return back()
+                ->withCookies([Cookie::make('cart', json_encode($cart))])
+                ->with('side_content', 'cart');
         }
+
+        return back()->with('side_content', 'cart');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Response;
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Spatie\QueryBuilder\Exceptions\InvalidFilterQuery;
 use Symfony\Component\HttpFoundation\Response as HTTP;
 use Spatie\Permission\Exceptions\UnauthorizedException;
@@ -52,10 +53,18 @@ class Handler extends ExceptionHandler
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response | \Symfony\Component\HttpFoundation\Response
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof AuthenticationException) {
+            if (session()->previousUrl() === null) {
+                return redirect()->route('home')->with('side_content', 'login');
+            }
+
+            return back()->with('side_content', 'login');
+        }
+
         if (
             $exception instanceof ModelNotFoundException
             || $exception instanceof NotFoundHttpException

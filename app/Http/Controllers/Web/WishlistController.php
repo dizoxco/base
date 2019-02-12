@@ -46,7 +46,7 @@ class WishlistController extends Controller
             }
         }
 
-        return back()->withCookies([$cookie]);
+        return back()->withCookies([$cookie])->with('side_content', 'wishlist');
     }
 
     public function destroy(Request $request, Product $product)
@@ -66,9 +66,11 @@ class WishlistController extends Controller
                 }
             }
 
-            return back()->withCookies([Cookie::make('wishlist', json_encode($wishlist))]);
+            return back()
+                ->withCookies([Cookie::make('wishlist', json_encode($wishlist))])
+                ->with('side_content', 'wishlist');
         }
 
-        return back();
+        return back()->with('side_content', 'wishlist');
     }
 }
