@@ -18,13 +18,13 @@ Route::name('businesses.')->prefix('businesses')->group(function () {
 Route::name('wishlist.')->prefix('wishlist')->group(function () {
     Route::get('/', 'WishlistController@index')->name('index');
     Route::get('{product}', 'WishlistController@store')->name('store');
-    Route::delete('{product}', 'WishlistController@destroy')->name('destroy');
+    Route::get('{product}/destroy', 'WishlistController@destroy')->name('destroy');
 });
 
 Route::name('cart.')->prefix('cart')->group(function () {
     Route::get('/', 'CartController@index')->name('index');
     Route::get('{variation}', 'CartController@store')->name('store');
-    Route::delete('{variation}', 'CartController@destroy')->name('destroy');
+    Route::get('{variation}/destroy', 'CartController@destroy')->name('destroy');
 });
 
 Route::name('profile.')->prefix('profile')->middleware('auth')->group(function () {
