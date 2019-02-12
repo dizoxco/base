@@ -13,7 +13,10 @@ class UsersTableSeeder extends Seeder
         array_walk($users, function (&$user) use ($password) {
             $user['password'] = $password;
         });
-        User::insert($users);
+        $users = array_chunk($users, 400);
+        foreach ($users as $user) {
+            User::insert($user);
+        }
 
         $faker = Factory::create();
         User::take(500)->get()->each(function (User $user) use ($faker) {
