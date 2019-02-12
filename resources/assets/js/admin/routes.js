@@ -10,6 +10,7 @@ const routeslist = {
         businesses: {
             prefix: '/businesses',
             index: '',
+            store: '',
             update: '/{business}'
         },
         comments: {
@@ -31,6 +32,7 @@ const routeslist = {
         products: {
             prefix: '/products',
             index: '',
+            store: '',
             update: '/{product}'
         },
         tickets: {

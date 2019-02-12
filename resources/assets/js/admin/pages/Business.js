@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 
-import {getBusinesses, setBusiness, updateBusiness} from "../actions"
+import {getBusinesses, setBusiness, updateBusiness, storeBusiness} from "../actions"
 import {Form, Page, Show, Text} from "../components";
 
 class Business extends Component {
@@ -16,6 +16,13 @@ class Business extends Component {
 
         }
     }
+    handleClick = () => {
+        if (this.props.business.id == 0) {
+            this.props.storeBusiness(this.props.business)
+        } else {
+            this.props.updateBusiness(this.props.business)
+        }
+    };
 
 
     render() {
@@ -29,13 +36,12 @@ class Business extends Component {
 
         return (
             <Page
-                // title={this.props.business.attributes.title}
-                title={this.props.business.attributes.title}
+                title={this.props.business.attributes.brand}
                 button={{
                     label: 'save',
-                    onClick: () => this.props.updateBusiness(this.props.business)
+                    onClick: () => this.handleClick()
                 }}
-                tabs={['نمایش', 'ویرایش اطلاعات']}
+                tabs={this.props.business.id === 0 ? ['نمایش', 'افزودن کسب و کار'] :['نمایش', 'ویرایش اطلاعات']}
                 tab={this.state.tab}
                 redirect={this.state.redirect}
                 loading={this.props.business === undefined}
@@ -69,9 +75,9 @@ const mapStateToProps = (state, props) => {
 
     return {
         business: (state.businesses.index.length) ?
-            state.businesses.index.find(element => element.id === props.match.params.business) :
+            state.businesses.index.find(element => element.id == props.match.params.business) :
             null
     };
 };
 
-export default connect(mapStateToProps, {getBusinesses, setBusiness, updateBusiness})(Business);
+export default connect(mapStateToProps, {getBusinesses, setBusiness, updateBusiness , storeBusiness})(Business);

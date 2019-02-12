@@ -6,7 +6,24 @@ export const setProduct = (id, attributes) => {
         dispatch({ type: 'SET-PRODUCT', id, attributes })
     }
 };
+export const storeProduct = (product) => {
+    return (dispatch) => {
+        posting(routes('api.products.store'), product.attributes)
+            .then(response => {
+                dispatch({
+                    type: 'STORE-PRODUCT',
+                    payload: response.data
+                });
 
+                dispatch({
+                    type : 'APP-REDIRECT',
+                    payload : '/admin/products/'+response.data.data.id
+                });
+                
+            })
+            .catch( error => { console.log(error.response) } );
+    }
+};
 
 export const updateProduct = (product) => {
     return (dispatch) => {

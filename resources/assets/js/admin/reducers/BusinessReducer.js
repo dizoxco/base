@@ -1,5 +1,6 @@
 const initialState = {
-    index: [],
+    index: [{id:0,attributes:{}}],
+    init:{id:0,attributes:{}}
 };
 export const BusinessReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -14,6 +15,11 @@ export const BusinessReducer = (state = initialState, action) => {
                 state.index[i].oldAttributes = state.index[i].attributes;
             }
             state.index[i].attributes = { ...state.index[i].attributes, ...action.attributes };
+            return state;
+        case 'STORE-BUSINESS':
+            state.index.push(action.payload.data); //real code
+            state.index[0].attributes = state.index[0].oldAttributes;
+            delete state.index[0].oldAttributes;
             return state;
         case 'UPDATE-BUSINESS':
             let updatedIndex = state.index.findIndex((e) => e.id === action.payload.data.id );

@@ -1,21 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getProducts, setProduct ,updateProduct } from "../actions"
+import { getProducts, setProduct ,updateProduct, storeProduct } from "../actions"
 import { Loading, NotFound, Table, Form, Page, Show, Text  , Icon} from "../components";
 
 class Product extends Component{
 
     state = {        
         tab: 0
-    }
+    };
 
     componentDidMount(){
         if (this.props.product === null) {
             this.props.getProducts();
         }
     }
-
+    handleClick = () => {
+        if (this.props.product.id == 0) {
+            this.props.storeProduct(this.props.product)
+        } else {
+            this.props.updateProduct(this.props.product)
+        }
+    };
 
     render(){
         if (this.props.product === null) return <Loading />
@@ -25,9 +31,9 @@ class Product extends Component{
                 title={this.props.product.attributes.title}
                 button={{
                     label: 'save',
-                    onClick:() => this.props.updateProduct(this.props.product)
+                    onClick:() => this.handleClick()
                 }}
-                tabs={['نمایش', 'ویرایش اطلاعات', 'نظرات']}
+                tabs={this.props.product.id === 0 ?['نمایش','افزودن محصول'] :['نمایش', 'ویرایش اطلاعات', 'نظرات']}
                 tab={this.state.tab}
                 redirect={this.state.redirect}
                 loading={this.props.product == null}
@@ -63,12 +69,13 @@ class Product extends Component{
                         half
                         onChange={ (e) => this.props.setProduct(this.props.product.id, {body: e.target.value}) }
                     />
-                    {/*<Text*/}
-                        {/*label='قیمت'*/}
-                        {/*value={this.props.product.attributes.price}*/}
-                        {/*half*/}
-                        {/*onChange={ (e) => this.props.setProduct(this.props.product.id, {price: e.target.value}) }*/}
-                    {/*/>*/}
+                    <Text
+                        label='قیمت'
+                        value={this.props.product.attributes.price}
+                        half
+                        type={'number'}
+                        onChange={ (e) => this.props.setProduct(this.props.product.id, {price: e.target.value}) }
+                    />
                 </Form>
                 <Form show={this.state.tab === 2}>
                     <Table
@@ -100,10 +107,10 @@ class Product extends Component{
 const mapStateToProps = (state, props) => {
     return { 
         product: (state.products.index.length)?
-            state.products.index.find( element => element.id === props.match.params.product ):
+            state.products.index.find( element => element.id == props.match.params.product ):
             null,
         comments: state.comments.index
     };
 };
 
-export default connect(mapStateToProps, { getProducts ,setProduct , updateProduct })(Product);
+export default connect(mapStateToProps, { getProducts ,setProduct , updateProduct , storeProduct })(Product);
