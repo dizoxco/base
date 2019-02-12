@@ -34,6 +34,7 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
 
     Route::resource('addresses', 'AddressController');
     Route::get('orders', 'ProfileController@orders')->name('orders');
+    Route::get('orders/{order}', 'ProfileController@orderShow')->name('orders.show');
 
     Route::name('tickets.')->prefix('tickets')->group(function () {
         Route::get('/', 'TicketController@index')->name('index');
@@ -76,3 +77,6 @@ Route::get('/srch/{key}', function ($key) {
 Route::view('admin', 'admin');
 Route::view('admin/{any}', 'admin')->where('any', '.*');
 // ==================================== End Admin Section =====================
+
+
+Route::get('logout', '\App\Http\Controllers\Web\Auth\LoginController@logout');
