@@ -26,7 +26,7 @@ Artisan::command('purge', function () {
 
 Artisan::command('session:flush', function () {
     Session::flush();
-    Storage::disk('root')->deleteDirectory('framework/sessions');
-    Storage::disk('root')->makeDirectory('framework/sessions');
-    Storage::disk('root')->put('framework/sessions/.gitignore', '*'.PHP_EOL.'!.gitignore');
+    Storage::disk('storage')->deleteDirectory('framework/sessions');
+    Storage::disk('storage')->makeDirectory('framework/sessions');
+    Storage::disk('storage')->put('framework/sessions/.gitignore', '*'.PHP_EOL.'!.gitignore');
 });
