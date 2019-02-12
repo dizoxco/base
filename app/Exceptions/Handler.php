@@ -2,9 +2,9 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Auth\AuthenticationException;
 use Response;
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Spatie\QueryBuilder\Exceptions\InvalidFilterQuery;
 use Symfony\Component\HttpFoundation\Response as HTTP;
 use Spatie\Permission\Exceptions\UnauthorizedException;
@@ -61,6 +61,7 @@ class Handler extends ExceptionHandler
             if (session()->previousUrl() === null) {
                 return redirect()->route('home')->with('side_content', 'login');
             }
+
             return back()->with('side_content', 'login');
         }
 

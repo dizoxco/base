@@ -75,6 +75,7 @@ class CartController extends Controller
                 ->withCookies([Cookie::make('cart', json_encode($cart))])
                 ->with('side_content', 'cart');
         }
+
         return back()->with('side_content', 'cart');
     }
 }
