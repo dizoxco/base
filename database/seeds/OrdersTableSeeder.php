@@ -9,7 +9,7 @@ class OrdersTableSeeder extends Seeder
 {
     public function run()
     {
-        $users = User::inRandomOrder()->take(ceil(User::count() / 2))->get();
+        $users = User::all();
         foreach ($users as $user) {
             $user->orders()->createMany(
                 $user->addresses->toArray()
