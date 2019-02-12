@@ -32,6 +32,6 @@ class LoginController extends Controller
 
     public function redirectPath()
     {
-        return session()->previousUrl();
+        return session()->previousUrl() ?? route('home');
     }
 }

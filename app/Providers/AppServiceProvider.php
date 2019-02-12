@@ -2,16 +2,16 @@
 
 namespace App\Providers;
 
-use Auth;
-use View;
-use Blade;
-use Cookie;
-use Response;
-use Throwable;
 use App\Models\Product;
 use App\Models\Variation;
 use App\Observers\VariationObserver;
+use Auth;
+use Blade;
+use Cookie;
 use Illuminate\Support\ServiceProvider;
+use Response;
+use Throwable;
+use View;
 
 class AppServiceProvider extends ServiceProvider
 {
