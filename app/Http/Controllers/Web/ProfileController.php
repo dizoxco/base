@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Facades\UserRepo;
 use App\Http\Requests\Profile\UpdateInfoRequest;
 use App\Http\Requests\Profile\UpdateCredentialRequest;
-use App\Models\Order;
 
 class ProfileController extends Controller
 {

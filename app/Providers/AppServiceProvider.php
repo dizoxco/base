@@ -8,10 +8,11 @@ use Blade;
 use Cookie;
 use Response;
 use Throwable;
+use App\Models\Product;
 use App\Models\Variation;
 use App\Observers\VariationObserver;
 use Illuminate\Support\ServiceProvider;
-use App\Models\Product;
+
 class AppServiceProvider extends ServiceProvider
 {
     public function boot()
