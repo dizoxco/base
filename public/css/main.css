@@ -13352,7 +13352,7 @@ a.mdc-list-item {
 }
 
 .glass {
-  background-color: rgba(34, 41, 47, .3);
+  background-color: rgba(121, 74, 207, .4);
   display: none;
   top: 0;
 }
@@ -13364,10 +13364,10 @@ a.mdc-list-item {
 .side {
   width: 400px;
   right: -400px;
-  -webkit-transition: -webkit-transform .3s;
-  transition: -webkit-transform .3s;
-  transition: transform .3s;
-  transition: transform .3s, -webkit-transform .3s;
+  -webkit-transition: -webkit-transform .3s .1s;
+  transition: -webkit-transform .3s .1s;
+  transition: transform .3s .1s;
+  transition: transform .3s .1s, -webkit-transform .3s .1s;
   top: 0;
 }
 
@@ -13389,6 +13389,25 @@ a.mdc-list-item {
 
 .side .side-content.active {
   display: block;
+  position: absolute;
+  top: 4rem;
+  width: 100%;
+}
+
+.side .side-content i {
+  font-size: 1.2rem;
+  -webkit-transition: -webkit-transform .2s;
+  transition: -webkit-transform .2s;
+  transition: transform .2s;
+  transition: transform .2s, -webkit-transform .2s;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+
+.side .side-content i:hover {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  font-weight: 600;
 }
 
 .side__loged-container-menu {

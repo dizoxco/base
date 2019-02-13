@@ -155,7 +155,7 @@
 }
 
 .glass{
-    background-color: rgba(#22292f, .3);
+    background-color: rgba(#794ACF, .4);
     display: none;
     top: 0;
     
@@ -167,9 +167,9 @@
 .side{
     width: 400px;
     right: -400px;
-    transition: transform .3s;
+    transition: transform .3s .1s;
     top: 0;
-
+    
     @include respond (tab-port) {
         width: 100%;
         right: -100%;
@@ -184,12 +184,23 @@
         
         &.active {
             display: block;
-            // position: absolute;
-            // top: 4rem;
-            // width: 100%;
+            position: absolute;
+            top: 4rem;
+            width: 100%;
 
             &.mobile-menu {
                 // display: flex;
+            }
+        }
+
+        & i{
+            font-size: 1.2rem;
+            transition: transform .2s;
+            backface-visibility: hidden;
+            // color: 
+            &:hover {
+                transform: rotate(90deg);
+                font-weight: 600;
             }
         }
     }

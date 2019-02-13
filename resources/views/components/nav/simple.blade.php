@@ -1,22 +1,22 @@
 <nav class="nav fixed w-full flex items-center z-50" id="nav">
-    <div class="container justify-between flex items-center relative">
-     <ul class="nav__icons pin-l absolute md:relative md:pin-r">
-       <li class="cart-icon hidden"><a href="#"><i class="material-icons" glass=".side" side-content=".side-content.cart">shopping_basket</i></a></li>
-       <li class="wishlist-icon hidden"><a href="#"><i class="material-icons" glass=".side" side-content=".side-content.wishlist">favorite_border</i></a></li>
-       <li class="login-icon hidden"><a href="#"><i class="material-icons" glass=".side" side-content=".side-content.login">person_outline</i></a></li>
-       <li class="search-icon"><a href="#"><i class="material-icons" glass=".mega-search">search</i></a></li>
-     </ul>
-     {{nav('main', 'nav__menu w-full text-center hidden md:block')}}
-     <div class="nav-mobile__bar-menu-btn md:hidden" id="menu-btn" glass=".side" side-content=".side-content.mobile-menu">
-      <div class="nav-mobile__bar-burger menu-toggle ">
-        <span>&nbsp;</span>
-      </div>
-      </div>
-      <div class="nav__logo-box  w-24 absolute m-auto pin-x md:w-48 md:relative md:">
-       <a href="#"><img src="/images/menu-logo.png" alt="" class="nav__logo"></a>
-      </div>
+  <div class="container justify-between flex items-center relative">
+    <ul class="nav__icons pin-l absolute md:relative md:pin-r">
+      <li class="cart-icon hidden"><a href="#"><i class="material-icons" glass=".side" side-content=".side-content.cart">shopping_basket</i></a></li>
+      <li class="wishlist-icon hidden"><a href="#"><i class="material-icons" glass=".side" side-content=".side-content.wishlist">favorite_border</i></a></li>
+      <li class="login-icon hidden"><a href="#"><i class="material-icons" glass=".side" side-content=".side-content.login">person_outline</i></a></li>
+      <li class="search-icon"><a href="#"><i class="material-icons" glass=".mega-search">search</i></a></li>
+    </ul>
+    {{nav('main', 'nav__menu w-full text-center hidden md:block')}}
+    <div class="nav-mobile__bar-menu-btn md:hidden" id="menu-btn" glass=".side" side-content=".side-content.mobile-menu">
+    <div class="nav-mobile__bar-burger menu-toggle ">
+      <span>&nbsp;</span>
     </div>
-  </nav>
+    </div>
+    <div class="nav__logo-box  w-24 absolute m-auto pin-x md:w-48 md:relative md:">
+      <a href="#"><img src="/images/menu-logo.png" alt="" class="nav__logo"></a>
+    </div>
+  </div>
+</nav>
   
   
   
@@ -51,22 +51,21 @@
               </div>
               <a href="#" class="text-white flex justify-around bg-indigo h-12 items-center rounded-full">ثبت سفارش و شیوه ارسال</a>
           </div>
-          <div class="side__cart-container w-full mt-6">
+          <div class="side__cart-container w-full mt-8">
             @foreach ($cart as $cart_item)
               <div class="side__cart-product flex py-3 px-5 relative">
-                <div class="side__cart-product-img w-1/3">
+                <div class="side__cart-product-img w-1/3 ">
                   <img src="{{$cart_item->product->getFirstMedia(enum('media.product.banner'))->getFullUrl()}}" class="w-24">
                 </div>
                 <div class="side__cart-product-detail caption pr-2 w-2/3">
-                  <div class="side__cart-product-name">
+                  <div class="side__cart-product-name text-sm text-black">
                     <div>{{$cart_item->product->title}}</div>
-                    <div class="font-bold text-black text-lg">{{$cart_item->price}} <span class="text-sm font-normal text-black">تومان</span> </div>
-                    <a href="{{route('cart.destroy', $cart_item)}}"><i class="material-icons absolute pin-l pin-t text-black ml-4">close</i></a>
+                    <div class="font-bold text-black text-lg mt-3">{{$cart_item->price}} <span class="text-sm font-normal text-black">تومان</span> </div>
+                    <a href="{{route('cart.destroy', $cart_item)}}"><i class="material-icons absolute pin-l pin-t text-black ml-2 p-1 text-grey-dark">close</i></a>
                   </div>
                 </div>
               </div>
             @endforeach
-            
             <div class="text-center mt-4">
               @component('components.form.field')
                 @component('components.form.button',[
@@ -82,7 +81,7 @@
         @endif
       </div>
   
-      <div class="side-content wishlist flex h-full p-8 pt-20 overflow-auto">
+      <div class="side-content wishlist flex h-full p-8 pt-4 overflow-auto">
         @if (empty($wishlist))
           <div class="side__wishlist-container w-full text-center">
               <h6 class="mb-8">کمد لباس شما خالی است</h6>
@@ -91,16 +90,29 @@
               </div>
           </div>
         @else
-          @foreach ($wishlist as $wish_item)
-            {{$wish_item->price}}
-            <img src="{{$wish_item->getFirstMedia(enum('media.product.banner'))->getFullUrl()}}" class="">
-            <h1>{{$wish_item->title}}</h1>
-            <a href="{{route('wishlist.destroy', $wish_item->slug)}}">remove</a>
-          @endforeach
+          <div class="text-center">
+            <h6 class="mb-4">کمد لباس‌های من</h6>
+          </div>
+          <div class="side__cart-container w-full mt-8">  
+            @foreach ($wishlist as $wish_item)
+              <div class="side__cart-product flex py-3 px-5 relative">
+                <div class="side__cart-product-img w-1/3 ">
+                  <img src="{{$wish_item->getFirstMedia(enum('media.product.banner'))->getFullUrl()}}" class="w-24">
+                </div>
+                <div class="side__cart-product-detail caption pr-2 w-2/3">
+                  <div class="side__cart-product-name text-sm text-black">
+                    <div>{{$wish_item->title}}</div>
+                    <div class="font-bold text-black text-lg mt-3">{{$wish_item->price}} <span class="text-sm font-normal text-black">تومان</span> </div>
+                    <a href="{{route('wishlist.destroy', $wish_item->slug)}}"><i class="material-icons absolute pin-l pin-t text-black ml-2 p-1 text-grey-dark">close</i></a>
+                  </div>
+                </div>
+              </div>
+            @endforeach
+          </div>
         @endif
       </div>
   
-      <div class="side-content login flex h-full p-10 pt-20 overflow-auto">
+      <div class="side-content login flex h-full p-10 pt-4 overflow-auto">
         @if (auth()->check())
           <div class="side__loged-container w-full">
             @foreach (auth()->user()->businesses as $business)
@@ -202,7 +214,7 @@
         @endif   
       </div>
   
-      <div class="side-content register flex h-full p-10 pt-20 overflow-auto">
+      <div class="side-content register flex h-full p-10 pt-4 overflow-auto">
         <div class="side__register-container w-full text-center">
           <h6 class="mb-8">ثبت نام</h6>
             <form id="frm_side_register" action="/register" method="post">
@@ -270,7 +282,7 @@
         </div>
       </div>
   
-      <div class="side-content forgot flex h-full p-10 pt-20 overflow-auto">
+      <div class="side-content forgot flex h-full p-10 pt-4 overflow-auto">
           <div class="side__forgot-container w-full text-center">
               <h6 class="mb-8">بازیابی رمز عبور</h6>
               <form action="">
@@ -317,8 +329,8 @@
           </div>
       </div>
   
-      <div class="side-content mobile-menu flex h-full pt-32 overflow-auto">
-        <div class="mobile-menu-container w-full">
+      <div class="side-content mobile-menu flex h-full overflow-auto">
+        <div class="mobile-menu-container w-full text-black">
             {{nav('main', 'nav-mobile')}}
         </div>
       </div>
