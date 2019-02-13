@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\Post;
-use App\Models\Ticket;
 use App\Models\User;
+use App\Models\Ticket;
 use App\Models\Comment;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
