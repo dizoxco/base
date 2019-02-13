@@ -1,3 +1,4 @@
+@import 'typography';
 @tailwind preflight;
 @tailwind components;
 @tailwind utilities;
@@ -7,7 +8,6 @@
   border-style: none;
 }
 @import "~swiper/dist/css/swiper.min";
-@import 'typography';
 @import 'mdc_patch';
 @import 'navigation';
 @import 'profile_nav';
@@ -80,5 +80,35 @@ table{
     }
     .tome{
         background-color: red;
+    }
+}
+
+
+.nav__footer{
+    display: flex;
+    padding: 40px 0;
+    li{
+        width: 25%;
+        list-style: none;
+        a{
+            font-weight: bolder;
+            color : #000;
+        }
+        ul{ 
+            padding: 0;
+            li{
+                width: 100%;
+                padding-top: 13px;
+                a{
+                    font-weight: 300;
+                    color : #000;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width:600px){
+    .nav__footer{
+        li{width: 50%;}
     }
 }
