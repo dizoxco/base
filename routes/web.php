@@ -55,19 +55,19 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
     });
 
     Route::name('businesses.')->prefix('businesses/{business}')->group(function () {
-            Route::get('/', 'BusinessManagerController@show')->name('show');
-            Route::get('products', 'BusinessManagerController@products')->name('products.index');
+        Route::get('/', 'BusinessManagerController@show')->name('show');
+        Route::get('products', 'BusinessManagerController@products')->name('products');
 
-            Route::name('orders.')->prefix('orders')->group(function () {
-                Route::get('/', 'BusinessManagerController@orders')->name('index');
-                Route::get('{order}', 'BusinessManagerController@showOrder')->name('show');
-            });
+        Route::name('orders.')->prefix('orders')->group(function () {
+            Route::get('/', 'BusinessManagerController@orders')->name('index');
+            Route::get('{order}', 'BusinessManagerController@showOrder')->name('show');
+        });
 
-            Route::name('chats.')->prefix('chats')->group(function () {
-                Route::get('/', 'BusinessManagerController@chats')->name('index');
-                Route::get('{chat}', 'BusinessManagerController@showChat')->name('show');
-                Route::post('{chat}', 'BusinessManagerController@storeChatComment')->name('store');
-            });
+        Route::name('chats.')->prefix('chats')->group(function () {
+            Route::get('/', 'BusinessManagerController@chats')->name('index');
+            Route::get('{chat}', 'BusinessManagerController@showChat')->name('show');
+            Route::post('{chat}', 'BusinessManagerController@storeChatComment')->name('store');
+        });
     });
 
     Route::name('credentials.')->prefix('credentials')->group(function () {
