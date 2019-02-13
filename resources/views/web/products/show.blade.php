@@ -4,7 +4,7 @@
     $gallery = $product->getMedia(enum('media.product.gallery'));
 @endphp
 @section('content')
-    <div class="bg-white flex flex-wrap container py-2">
+    <div class="bg-white flex flex-wrap container py-2 mt-8">
         
         <div class="swiper simple -mx-4 overflow-hidden md:hidden" column="1" >
             <div class="swiper-wrapper">
@@ -42,40 +42,63 @@
             <img class="max-h-full" media-gallery="0" src="{{$banner->getFullUrl()}}" alt="">
         </div>
 
-        <div class="md:w-1/3 pr-8">
+        <div class="mr-16">
             <h1 class="title">{{$product->title}}</h1>
             <div class="flex caption pb-6">
                 @php
                     $number = 10;
                     $rating = 2.7;
                 @endphp
+                <div class="text-xs">
                 @component('components.star-rating', [
-                    'number' => $number,
-                    'rating' => $rating,
-                ])@endcomponent
-                <p class="px-2">( رای {{$number}})</p>
+                        'number' => $number,
+                        'rating' => $rating,
+                    ])@endcomponent
+                </div>
+                <p class="px-2">( {{$number}} رای )</p>
                 <p class="px-2">{{$rating}}</p>
 
             </div>
-            <div class="price flex justify-between items-center py-6">
-                <p class=""><del>1,000,000 تومان</del></p>
-                <p class="title-2">@toman($product->price)</p>
-                <p class="rounded-full bg-grey py-1 pl-2"><span class="rounded-full border-4 border-white bg-grey-dark ml-2 p-1">38%</span><span class=""> 1,500,000 تومان</span></p>
-            </div>
-            <div class="flex justify-between items-center py-6 caption">
+            <div class="price flex items-center py-6">
+                <p class="text-base text-grey-dark font-bold ml-10"><del>1,000,000 تومان</del></p>
+                <p class="text-xl font-bold ml-10">@toman($product->price)</p>
                 <div class="flex items-center">
+                    <div class="text-white rounded-full h-16 w-16 flex items-center justify-center bg-black border-4 border-solid border-white z-10 ">38%</div>
+                    <div class="text-white bg-grey-dark rounded-full py-2 px-4 pr-10 -mr-8 text-sm"> <span>تخفیف:</span><span class=""> 1,500,000 تومان</span></div>
+                </div>
+            </div>
+            <div class="py-6">
+                <div class="flex items-center py-2">
                     <i class="material-icons pl-2">store_mall_directory</i>
                     @forelse($product->businesses as $business)
-                        <p class="">{{$business->brand}}</p>
+                    <a class="text-sm" href="{{ route('businesses.show', $business->slug) }}">{{ $business->brand }}</a>
                     @empty
                         مدلا
                     @endforelse
+                    <p class="rounded-full bg-black text-white px-4 py-2 text-sm mr-16">رضایت خرید : {{$rating*10}} %</p>
                 </div>
-                <p class="rounded-full bg-green text-white px-2">رضایت خرید : {{$rating*10}}%</p>
-                <div class="flex items-center">
+                <div class="flex items-center py-2">
                     <i class="material-icons pl-2">access_time</i>
-                    <span>زمان تحویل ۲۲ دی ماه</span>  
-                </div> 
+                    <span class="text-sm">زمان تحویل</span><span class="delivery-date pr-2 text-sm">۲۲ اسفند ماه</span>  
+                </div>
+            </div>
+            
+            <div class="size">
+            </div>    
+            <div class="py-6">
+                    @component('components.form.text', [
+                        'label' => 'انتخاب پارچه',
+                        'outlined' => true,
+                        'shaped' => true
+                    ])@endcomponent
+            </div> 
+            <div class="flex items-center py-6">
+                    @component('components.form.button', [
+                        'label' => 'افزودن به سبد خرید',
+                        'raised' => true,
+                    ])@endcomponent
+                    <i class="material-icons p-2 rounded-full bg-grey-light mr-6">favorite_border</i>
+                    <i class="material-icons p-2 rounded-full bg-grey-light mr-6">share</i>
             </div>
             @if($is_favorite)
                 <a
@@ -98,28 +121,6 @@
                     افزودن به علاقه مندی ها
                 </a>
             @endif
-            <div class="size">
-            </div>    
-            <div class="py-6">
-                    @component('components.form.text', [
-                        'label' => 'انتخاب پارچه',
-                        'outlined' => true,
-                        'shaped' => true
-                    ])@endcomponent
-            </div> 
-            <div class="flex items-center justify-between py-6">
-                    @component('components.form.button', [
-                        'label' => 'افزودن به سبد خرید',
-                        'raised' => true,
-                    ])@endcomponent
-                    @component('components.form.button', [
-                        'label' => 'خودم طراحی می کنم',
-                        'raised' => true,
-                    ])@endcomponent
-                    <i class="material-icons p-1 rounded-full bg-grey">favorite_border</i>
-                    <i class="material-icons p-1 rounded-full bg-grey">share</i>
-
-            </div>
         </div> 
 
         <div class="product-gallery bg-white hidden pin-y pin-x w-full h-full z-50 ">
@@ -163,7 +164,7 @@
         </div>
 
 
-        <div class="w-full">
+        {{-- <div class="w-full">
             <table class="table-auto">
                 <h2 class="bg-green-dark">فروشندگان</h2>
                 <th>
@@ -225,28 +226,36 @@
                         این محصول هیچ فروشنده ای ندارد.
                     @endforelse
                 </table>
+            </div> --}}
+            <div class="w-1/3 m-12 pin-l">
+                <div class="pb-6 font-bold">توضیحات محصول</div>
+               <div class="text-sm leading-loose">
+                    {{$product->body}}
+               </div>
             </div>
             <div class="w-full">
-                {{$product->body}}
-            </div>
-            <div class="w-full">
-                <h3 class="bg-blue-dark">محصولات مرتبط</h3>
+                <h3 class="text-xl font-normal flex justify-center my-6 text-black">شاید به این محصولات علاقه‌مند باشید</h3>
                 <div class="swiper simple overflow-hidden" column="5" >
-                    <div class="swiper-wrapper">
+                    <div class="swiper-wrapper mb-8 flex items-stretch">
                         @foreach ($product->related() as $product)
-                            <div class="swiper-slide">
-                                <div class="bg-white swiper-slide px-2">
-                                    <a href="{{route('products.show', $product->slug)}}">
-                                        <img src="{{$product->getFirstMedia(enum('media.product.banner'))->getFullUrl()}}" alt="">
-                                        {{$product->title}}
-                                    </a>
+                            <div class="swiper-slide ">
+                                <div class="bg-white swiper-slide px-2 flex">
+                                    <div class="p-3 m-3">
+                                        <a class="flex" href="{{route('products.show', $product->slug)}}">
+                                            <div class="text-center text-black">
+                                                <img src="{{$product->getFirstMedia(enum('media.product.banner'))->getFullUrl()}}" alt="">
+                                                <div class="pt-3">{{$product->title}}</div>
+                                                <div class="pt-3 ">@toman($product->price)</div>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>
                 </div>
             </div>
-            <div class="w-full">
+            {{-- <div class="w-full">
                 <h3 class="bg-red-light">نظرات</h3>
                 <ol>
                     @forelse($product->comments as $comment)
@@ -255,7 +264,7 @@
                         اولین کسی باشید که برای این محضول نظر میدهد.
                     @endforelse
                 </ol>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection
