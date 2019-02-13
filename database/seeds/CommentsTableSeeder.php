@@ -23,6 +23,9 @@ class CommentsTableSeeder extends Seeder
             ])->toArray();
             $amount--;
         }
-        Comment::insert($comments);
+        $comments = array_chunk($comments, 400);
+        foreach ($comments as $comment) {
+            Comment::insert($comment);
+        }
     }
 }

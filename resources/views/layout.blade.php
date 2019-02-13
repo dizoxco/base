@@ -197,30 +197,38 @@
     $('#btn_side_login').click(function (event) {
         event.preventDefault();
         $.post( "{{ route('api.auth.login') }}", {
-            email : $("input[name='login_email']").val(),
-            password : $("input[name='login_password']").val(),
+            email : $("#frm_side_login").find("input[name='email']").val(),
+            password : $("#frm_side_login").find("input[name='password']").val(),
+            remember : $("#frm_side_login").find("input[name='remember']").val()
         }).done(function (data) {
             document.cookie = "token="+data.access_token+";path=/";
             $("#frm_side_login").submit();
         }).fail(function (data) {
-            let response = jQuery.parseJSON(data.responseText);
-            for (x in response.errors) {
-                alert(x);
-            }
-        })
+            alert(data.responseText)
+        });
     });
+
     $('#btn_side_register').click(function (event) {
         event.preventDefault();
         $.post( "{{ route('api.auth.register') }}", {
-            name : $("input[name='register_name']").val(),
-            email : $("input[name='register_email']").val(),
-            password : $("input[name='register_password']").val(),
-            password_confirmation : $("input[name='register_password_confirmation']").val(),
+            name : $("#frm_side_register").find("input[name='name']").val(),
+            email : $("#frm_side_register").find("input[name='email']").val(),
+            password : $("#frm_side_register").find("input[name='password']").val(),
+            password_confirmation : $("#frm_side_register").find("input[name='password_confirmation']").val(),
+            terms : $("#frm_side_register").find("input[name='terms']").val(),
         }).done(function (data) {
-            location.reload(true);
+            $("#frm_side_login").find("input[name='email']").val(
+                $("#frm_side_register").find("input[name='email']").val(),
+            );
+
+            $("#frm_side_login").find("input[name='password']").val(
+                $("#frm_side_register").find("input[name='password']").val(),
+            );
+
+            $("#frm_side_login").submit();
         }).fail(function (data) {
-            alert('fail');
-        })
+            alert(data.responseText)
+        });
     });
 </script>
 </body>

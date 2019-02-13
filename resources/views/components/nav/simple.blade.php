@@ -140,26 +140,28 @@
         @else
           <div class="side__login-container w-full text-center">
               <h6 class="mb-8">به حساب کاربری خود وارد شوید</h6>
-              <form action="{{ route("login") }}" method="post" id="frm_side_login">
+              <form id="frm_side_login" action="/login" method="post">
                   {{ csrf_field() }}
                   @component('components.form.text',[
                     'label' => 'ایمیل',
                     'full' => true,
-                    'name' => 'login_email',
+                    'name' => 'email',
+                    'value' => 'admin@base.com',
                   ])
                   @endcomponent
                   @component('components.form.text',[
                     'label' => 'رمز عبور',
                     'full' => true,
-                    'name' => 'login_password',
-                    'type' => 'password'
+                    'name' => 'password',
+                    'type' => 'password',
+                    'value' => '123456',
                   ])
                   @endcomponent
                   <div class="flex justify-between items-center py-4">
                       <div>
                         @component('components.form.checkbox',[
                           'label' => 'dd',
-                          'name' => 'login_password',
+                          'name' => 'remember',
                         ])
                         @endcomponent<br>
                       </div>
@@ -196,26 +198,26 @@
       <div class="side-content register flex h-full p-10 pt-20 overflow-auto">
         <div class="side__register-container w-full text-center">
           <h6 class="mb-8">ثبت نام</h6>
-          <form id="frm_side_register" action="{{ route('register') }}" method="post">
+            <form id="frm_side_register" action="/register" method="post">
               {{ csrf_field() }}
               @component('components.form.text',[
                 'label' => 'نام',
                 'full' => true,
-                'name' => 'register_name',
+                'name' => 'name',
                 'value' => 'name',
               ])
               @endcomponent
               @component('components.form.text',[
                 'label' => 'ایمیل',
                 'full' => true,
-                'name' => 'register_email',
+                'name' => 'email',
                 'value' => 'nonsense@email.com',
               ])
               @endcomponent
               @component('components.form.text',[
                 'label' => 'رمز عبور',
                 'full' => true,
-                'name' => 'register_password',
+                'name' => 'password',
                 'type' => 'password',
                 'value' => 'password',
               ])
@@ -223,7 +225,7 @@
               @component('components.form.text',[
                 'label' => 'تکرار رمز عبور',
                 'full' => true,
-                'name' => 'register_password_confirmation',
+                'name' => 'password_confirmation',
                 'type' => 'password',
                 'value' => 'password',
               ])
@@ -232,7 +234,7 @@
                   <div class="py-4">
                       @component('components.form.checkbox',[
                         'label' => 'dd',
-                        'name' => 'login_password',
+                        'name' => 'terms',
                       ])
                       @endcomponent
                     <span><a href="#">شرایط و قوانین</a>  را قبول دارم</span><br></div>
@@ -247,7 +249,7 @@
               @endcomponent
               
           </form>
-          <span side-content=".side-content.login">
+            <span side-content=".side-content.login">
             @component('components.form.field')
               @component('components.form.button',[
                 'label' => 'وارد شوید',

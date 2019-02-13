@@ -11,7 +11,7 @@ class PostsTableSeeder extends Seeder
 {
     public function run()
     {
-        $editors = User::take(10)->inRandomOrder()->get();
+        $editors = User::role('editor')->get();
 
         $posts = [];
         $editors->each(function (User $editor) use (&$posts) {

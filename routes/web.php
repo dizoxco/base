@@ -91,5 +91,4 @@ Route::view('admin', 'admin');
 Route::view('admin/{any}', 'admin')->where('any', '.*');
 // ==================================== End Admin Section =====================
 
-
 Route::get('logout', '\App\Http\Controllers\Web\Auth\LoginController@logout');

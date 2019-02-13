@@ -13,7 +13,7 @@ class CartsTableSeeder extends Seeder
      */
     public function run()
     {
-        $users = User::inRandomOrder()->take(ceil(User::count() / 2))->get();
+        $users = User::all();
         foreach ($users as $user) {
             $variations = Variation::inRandomOrder()
                 ->select(['id as variation_id', 'quantity'])

@@ -37,7 +37,7 @@ class BusinessesTableSeeder extends Seeder
 
             // A logo is dedicated to the business.
             $business->addMediaFromUrl(
-                resource_path('seed/logo-images/'.rand(1, 20).'.png')
+                resource_path('seed/logo-images/'.rand(1, 68).'.png')
             )->toMediaCollection(enum('media.business.logo'));
 
             // Between 0 to 10 random items are assigned to the business.
