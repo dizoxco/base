@@ -93,10 +93,12 @@
                     ])@endcomponent
             </div> 
             <div class="flex items-center py-6">
-                    @component('components.form.button', [
-                        'label' => 'افزودن به سبد خرید',
-                        'raised' => true,
-                    ])@endcomponent
+                    <a href="{{ route('cart.store', $product->relatedVariations[0]) }}">
+                        @component('components.form.button', [
+                            'label' => 'افزودن به سبد خرید',
+                            'raised' => true,
+                        ])@endcomponent
+                    </a>
                     <i class="material-icons p-2 rounded-full bg-grey-light mr-6">favorite_border</i>
                     <i class="material-icons p-2 rounded-full bg-grey-light mr-6">share</i>
             </div>

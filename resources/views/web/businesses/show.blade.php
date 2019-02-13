@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+<br><br>
     <div class="container flex flex-wrap">
         <div class="w-1/4 pl-4">
             <div class="relative rounded-lg bg-white shadow-lg px-8 py-6" >
@@ -41,13 +42,16 @@
                     @endforelse
                 </ol>
             </div>
-            @component('components.form.button', [
-                'label' => 'ارسال پیام',
-                'raised' => true,
-                'shaped' => true,
-                'custom_class' => 'p-10',
-                'link' => route('profile.chats.show', $business->slug)
-            ])@endcomponent
+            <div class="text-center">
+                <br><br>
+                @component('components.form.button', [
+                    'label' => 'ارسال پیام',
+                    'raised' => true,
+                    'shaped' => true,
+                    'custom_class' => 'p-10',
+                    'link' => route('profile.chats.show', $business->slug)
+                ])@endcomponent
+            </div>
 
         </div>
         <div class="w-3/4 pr-4">
