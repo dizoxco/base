@@ -173,7 +173,7 @@
 </div>
 {{-- @component('components.links', ['nav' => 'main'])@endcomponent --}}
 @if(!isset($profile_mode))
-    <div class="footer">
+    <div class="footer bg-white">
         @component('components.footer') @endcomponent
     </div>
 @endif
