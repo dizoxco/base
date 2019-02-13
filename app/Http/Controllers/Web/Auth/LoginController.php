@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Web\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
 use Auth;
 use Google_Client;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -53,7 +53,7 @@ class LoginController extends Controller
             if ($payload) {
                 $user = User::firstOrCreate(
                     [
-                        'google_id' => $payload['sub']
+                        'google_id' => $payload['sub'],
                     ],
                     [
                         'email' => $payload['email'],
@@ -62,12 +62,13 @@ class LoginController extends Controller
                 );
                 $user->addMediaFromUrl($payload['picture'])->toMediaCollection(enum('media.user.avatar'));
                 Auth::login($user);
-                return response([],Response::HTTP_OK);
+
+                return response([], Response::HTTP_OK);
             } else {
-                return response([],Response::HTTP_NOT_FOUND);
+                return response([], Response::HTTP_NOT_FOUND);
             }
         } catch (\Throwable $throwable) {
-            return response([],Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response([], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
