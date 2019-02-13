@@ -3868,6 +3868,10 @@ table {
   min-height: 100vh;
 }
 
+.min-h-screen\/7 {
+  min-height: 70vh;
+}
+
 .min-w-0 {
   min-width: 0;
 }
@@ -17051,6 +17055,10 @@ table tr td {
     min-height: 100vh;
   }
 
+  .sm\:min-h-screen\/7 {
+    min-height: 70vh;
+  }
+
   .sm\:min-w-0 {
     min-width: 0;
   }
@@ -23003,6 +23011,10 @@ table tr td {
 
   .md\:min-h-screen {
     min-height: 100vh;
+  }
+
+  .md\:min-h-screen\/7 {
+    min-height: 70vh;
   }
 
   .md\:min-w-0 {
@@ -28959,6 +28971,10 @@ table tr td {
     min-height: 100vh;
   }
 
+  .lg\:min-h-screen\/7 {
+    min-height: 70vh;
+  }
+
   .lg\:min-w-0 {
     min-width: 0;
   }
@@ -34911,6 +34927,10 @@ table tr td {
 
   .xl\:min-h-screen {
     min-height: 100vh;
+  }
+
+  .xl\:min-h-screen\/7 {
+    min-height: 70vh;
   }
 
   .xl\:min-w-0 {

@@ -20,9 +20,9 @@
   
   
   
-  <div class="glass fixed t-0 r-0 w-full h-full z-60 "></div>
+  <div class="glass fixed t-0 r-0 w-full h-full z-60 @if(session('side_content')) active @endif"></div>
   
-  <div class="side fixed t0 r0 w-full bg-white h-full z-70 over-glass">
+  <div class="side fixed t0 r0 w-full bg-white h-full z-70 @if(session('side_content')) over-glass @endif">
   
       <div class="side-top-nav absolute h-16 bg-white w-full z-80 flex items-center">
         <div class="close" glass=".side">
@@ -35,7 +35,7 @@
         </ul>
       </div>
   
-      <div class="side-content cart flex h-full p-8 pt-20 overflow-auto">
+      <div class="side-content cart flex h-full p-8 pt-20 overflow-auto @if(session('side_content')=='cart') active @endif">
         @if (empty($cart))
           <div class="side__cart-empty-container w-full text-center">
               <h6 class="mb-8">سبد خرید شما خالی است</h6>
@@ -68,6 +68,7 @@
             @endforeach
             <div class="text-center mt-4">
               @component('components.form.field')
+              <a href="/cart">
                 @component('components.form.button',[
                   'label' => 'مشاهده سبد خرید',
                   'full' => true,
@@ -75,13 +76,14 @@
                   'type' => 'text',
                 ])
                 @endcomponent
+              </a>
               @endcomponent
             </div>
           </div>
         @endif
       </div>
   
-      <div class="side-content wishlist flex h-full p-8 pt-4 overflow-auto">
+      <div class="side-content wishlist flex h-full p-8 pt-4 overflow-auto @if(session('side_content')=='wishlist') active @endif">
         @if (empty($wishlist))
           <div class="side__wishlist-container w-full text-center">
               <h6 class="mb-8">کمد لباس شما خالی است</h6>
@@ -108,11 +110,24 @@
                 </div>
               </div>
             @endforeach
+            <div class="text-center mt-4">
+              @component('components.form.field')
+              <a href="/wishlist">
+                @component('components.form.button',[
+                  'label' => 'مشاهده کمد لباس',
+                  'full' => true,
+                  'name' => 'btn_side_cart',
+                  'type' => 'text',
+                ])
+                @endcomponent
+              </a>
+              @endcomponent
+            </div>
           </div>
         @endif
       </div>
   
-      <div class="side-content login flex h-full p-10 pt-4 overflow-auto">
+      <div class="side-content login flex h-full p-10 pt-4 overflow-auto @if(session('side_content')=='login') active @endif">
         @if (auth()->check())
           <div class="side__loged-container w-full">
             @foreach (auth()->user()->businesses as $business)

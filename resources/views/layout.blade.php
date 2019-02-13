@@ -11,7 +11,7 @@
 <body class="@isset($profile_mode) profile @endisset" dir="rtl">
 @component('components.nav.simple') @endcomponent
 
-<div id="content">
+<div id="content" class="min-h-screen/7">
     @yield('content')
 </div>
 <div class="container medium flexzz flex-wrap hidden">
