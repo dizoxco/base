@@ -1,3 +1,4 @@
+sdfsdfsdfsd
 <ol>
     @forelse($cart as $variation)
         <li> {{ $variation->product->title }} </li>

@@ -54,7 +54,7 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
         // Route::get('/', 'BusinessManagerController@index')->name('index');
         // Route::name('show.')->prefix('{business}')->group(function () {
             Route::get('/', 'BusinessManagerController@show')->name('show');
-            Route::get('products', 'BusinessManagerController@products')->name('products');
+            Route::get('products', 'BusinessManagerController@products')->name('products.index');
 
             Route::name('orders.')->prefix('orders')->group(function () {
                 Route::get('/', 'BusinessManagerController@orders')->name('index');

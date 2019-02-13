@@ -22,7 +22,7 @@
   
   <div class="glass fixed t-0 r-0 w-full h-full z-60 "></div>
   
-  <div class="side fixed t0 r0 w-full bg-white h-full z-70">
+  <div class="side fixed t0 r0 w-full bg-white h-full z-70 over-glass">
   
       <div class="side-top-nav absolute h-16 bg-white w-full z-80 flex items-center">
         <div class="close" glass=".side">
@@ -35,7 +35,7 @@
         </ul>
       </div>
   
-      <div class="side-content cart flex h-full p-8 pt-20 hidden overflow-auto">
+      <div class="side-content cart flex h-full p-8 pt-20 overflow-auto">
         @if (empty($cart))
           <div class="side__cart-empty-container w-full text-center">
               <h6 class="mb-8">سبد خرید شما خالی است</h6>
@@ -103,38 +103,45 @@
       <div class="side-content login flex h-full p-10 pt-20 overflow-auto">
         @if (auth()->check())
           <div class="side__loged-container w-full">
-            <div class="relative">
-                <div class="side__loged-user text-left -mr-16 bg-grey-lighter rounded-l-full flex items-center justify-end">
-                    <img class="w-24 rounded-full h-full border-8 border-solid border-grey-lighter" src="/images/avatar.jpg" alt="">
-                  </div>
-                  <div class="side__loged-container-menu mt-2">
-                    <a href="#"><span><i class="material-icons">person_outline</i></span><span>پروفایل<span>&ThickSpace;مزون ژولی</span></span></a>
-                    <a href="#"><span><i class="material-icons">room_service</i></span><span>سفارشات مزون</span><span class="rounded-full bg-indigo-light text-white absolute pin-l h-8 px-3 flex justify-center ml-2">3</span></a>
-                    <a href="#"><span><i class="material-icons">chat</i></span><span>چت ها</span><span class="rounded-full bg-pink-light text-white absolute pin-l h-8 px-3 flex justify-center ml-2">25</span></a>
-                  </div>
-            </div>
-            <hr class="border border-solid border-grey-lighter my-0 -mx-10">
+            @foreach (auth()->user()->businesses as $business)
+              <a class="-mr-8 bg-grey-lighter rounded-l-full flex items-center" href="{{route('profile.businesses.show', $business->slug)}}">
+                <div class="w-5/6 pr-8">{{$business->brand}}</div>
+                <img class="w-1/6 h-auto rounded-full m-2 " src="{{$business->getFirstMedia(enum('media.business.logo')) ? $business->getFirstMedia(enum('media.business.logo'))->getUrl('thumb') : '/images/avatar.jpg'}}" alt="">
+              </a>
+              <div class="side__loged-container-menu mt-2">
+                <a class="relative" href="{{route('profile.businesses.orders.index', $business->slug)}}">
+                  <i class="material-icons">room_service</i> سفارشات <span class="rounded-full bg-indigo-light text-white absolute pin-l h-8 px-3 flex justify-center ml-2">3</span>
+                </a>
+                <a class="relative" href="{{route('profile.businesses.products.index', $business->slug)}}">
+                  <i class="material-icons">room_service</i> محصولات <span class="rounded-full bg-indigo-light text-white absolute pin-l h-8 px-3 flex justify-center ml-2">3</span>
+                </a>
+                <a class="relative" href="{{route('profile.businesses.chats.index', $business->slug)}}">
+                  <i class="material-icons">chat</i> چت ها <span class="rounded-full bg-pink-light text-white absolute pin-l h-8 px-3 flex justify-center ml-2">25</span>
+                </a>
+              </div>
+              <hr class="border border-solid border-grey-lighter my-0 -mx-10">
+            @endforeach
             <div class="mt-2 relative">
-                <div class="side__loged-user text-left -mr-16 bg-grey-lighter rounded-l-full flex items-center justify-end">
-                    <img class="w-24 rounded-full h-full border-8 border-solid border-grey-lighter " src="/images/avatar.jpg" alt="">
-                  </div>
-                  <div class="side__loged-container-menu mt-2">
-                    <a href="#"><span><i class="material-icons">person_outline</i></span><span>پروفایل<span>&ThickSpace; امید شجاعی</span></span></a>
-                    <a href="#"><span><i class="material-icons">room_service</i></span><span>سفارش‌های من</span></a>
-                    <a href="#"><span><i class="material-icons">shopping_basket</i></span><span>سبد خرید</span></a>
-                    <a href="#"><span><i class="material-icons">favorite_border</i></span><span>کُمد لباس هایم</span></a>
-                  </div>
-                  <div>
-                      <a 
-                              href="{{ route('logout') }}"
-                              onclick="event.preventDefault();document.getElementById('logout').submit()"
-                      >
-                          خروج
-                      </a>
-                      <form id="logout" action="{{ route('logout') }}" method="post" style="display:none">
-                          {{ csrf_field() }}
-                      </form>
-                  </div>
+              <a class="-mr-8 bg-grey-lighter rounded-l-full flex items-center" href="/profile">
+                  <div class="w-5/6 pr-8">{{auth()->user()->name}}</div>
+                  <img class="w-1/6 h-auto rounded-full m-2 " src="{{auth()->user()->getFirstMedia('avatar') ? auth()->user()->getFirstMedia('avatar')->getUrl() : '/images/avatar.jpg'}}" alt="">
+              </a>
+              <div class="side__loged-container-menu mt-2">
+                <a href="/profile/orders"><span><i class="material-icons">room_service</i></span><span>سفارش‌های من</span></a>
+                <a href="#"><span><i class="material-icons">shopping_basket</i></span><span>سبد خرید</span></a>
+                <a href="#"><span><i class="material-icons">favorite_border</i></span><span>کُمد لباس هایم</span></a>
+              </div>
+                <div>
+                    <a 
+                            href="{{ route('logout') }}"
+                            onclick="event.preventDefault();document.getElementById('logout').submit()"
+                    >
+                        خروج
+                    </a>
+                    <form id="logout" action="{{ route('logout') }}" method="post" style="display:none">
+                        {{ csrf_field() }}
+                    </form>
+                </div>
             </div>
           </div>
         @else

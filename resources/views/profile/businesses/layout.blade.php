@@ -30,12 +30,6 @@
                         <span class="mdc-list-item__text">چت ها</span>
                     </li>
                 </a>
-                <a href="/profile/edit" class="block">
-                    <li class="mdc-list-item mdc-ripple" tabindex="0">
-                        <span class="mdc-list-item__graphic material-icons" aria-hidden="true">people</span>
-                        <span class="mdc-list-item__text">خروج</span>
-                    </li>
-                </a>
             </ul>
         </div>
         <div class="profile-content">

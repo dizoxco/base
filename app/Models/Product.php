@@ -85,8 +85,8 @@ class Product extends Model implements HasMedia
             ->registerMediaConversions(function (Media $media) {
                 $this->addMediaConversion('thumb')
                     ->crop(Manipulations::CROP_CENTER, 150, 150);
-                $this->addMediaConversion('teaser')
-                    ->crop(Manipulations::CROP_CENTER, 450, 450);
+                // $this->addMediaConversion('teaser')
+                //     ->crop(Manipulations::CROP_CENTER, 450, 450);
             });
 
         $this->addMediaCollection('product-gallery');

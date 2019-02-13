@@ -192,7 +192,7 @@
         </footer>
     </div>
 @endif
-!isset(<script src="/js/app.js"></script>)
+<script src="/js/app.js"></script>
 <script>
     $('#btn_side_login').click(function (event) {
         event.preventDefault();
