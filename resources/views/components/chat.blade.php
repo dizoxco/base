@@ -37,10 +37,14 @@
                                 break;
                         }
                     @endphp
-                    <div>
-                        <a class="chat-id" href="{{$href}}" api-href="{{$ajax_href}}">
-                            <img class="rounded-full w-10" src="{{$img}}" alt=""/>
-                            {{ $title }}
+                    <div class="my-4">
+                        <a class="chat-id flex" href="{{$href}}" api-href="{{$ajax_href}}">
+                            <img class="rounded-full w-1/5" src="{{$img}}" alt=""/>
+                            <div class="w-4/5">
+                                <p class="p-4">
+                                    {{ $title }}
+                                </p>
+                            </div>
                         </a>
                     </div>
                 @empty
