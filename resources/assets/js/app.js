@@ -72,15 +72,15 @@ $('a.chat-id').click(function(e){
     e.preventDefault();
     $.get( $(this).attr('api-href'), function( data ) {
         $( '.chat-comments' ).html( $(data).find('.chat-comments').html() );
-        window.mdc.autoInit(document.querySelector('.chat-comments'));
         new Swiper($('.chat-comments'), {
             direction: 'vertical',
             slidesPerView: 'auto',
             freeMode: true,
             scrollbar: {
-            el: '.swiper-scrollbar',
+                el: '.swiper-scrollbar',
             },
             mousewheel: true,
         });
+        window.mdc.autoInit(document.querySelector('.chat-comments'));
     }, 'html');
 });
