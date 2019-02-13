@@ -2,6 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="{{ env('GOOGLE_CLIENT_ID') }}">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     <meta name="theme-color" content="#002f6c" />
     <title>مدلا - @yield('title')</title>
@@ -178,6 +181,31 @@
     </div>
 @endif
 <script src="/js/app.js"></script>
+<script>
+    gapi.load('auth2', function() {
+        gapi.auth2.init();
+    });
+    function onSignIn(googleUser) {
+        var xhr;
+        var id_token = googleUser.getAuthResponse().id_token;
+        xhr = new XMLHttpRequest();
+        xhr.open('POST', '{{ route('google') }}');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRF-Token', "{{ csrf_token() }}");
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                window.location.reload();
+            } else if(xhr.status === 404) {
+                alert('invalid person');
+            } else if(xhr.status === 500) {
+                alert(' server error = ' + xhr.responseText);
+            } else {
+                alert(' unknown');
+            }
+        };
+        xhr.send('token=' + id_token);
+    }
+</script>
 <script>
     $('#btn_side_login').click(function (event) {
         event.preventDefault();

@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Auth;
+use Google_Client;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {
@@ -33,5 +38,36 @@ class LoginController extends Controller
     public function redirectPath()
     {
         return session()->previousUrl() ?? route('home');
+    }
+
+    public function google(Request $request)
+    {
+        try {
+            $client = new Google_Client([
+                'client_id' => env('GOOGLE_CLIENT_ID'),
+                'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+                'redirect_uri' => route('google'),
+            ]);
+
+            $payload = $client->verifyIdToken($request->input('token'));
+            if ($payload) {
+                $user = User::firstOrCreate(
+                    [
+                        'google_id' => $payload['sub']
+                    ],
+                    [
+                        'email' => $payload['email'],
+                        'name' => $payload['name'],
+                    ]
+                );
+                $user->addMediaFromUrl($payload['picture'])->toMediaCollection(enum('media.user.avatar'));
+                Auth::login($user);
+                return response([],Response::HTTP_OK);
+            } else {
+                return response([],Response::HTTP_NOT_FOUND);
+            }
+        } catch (\Throwable $throwable) {
+            return response([],Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

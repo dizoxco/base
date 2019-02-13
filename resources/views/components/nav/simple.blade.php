@@ -149,26 +149,29 @@
               <hr class="border border-solid border-grey-lighter my-0 -mx-10">
             @endforeach
             <div class="mt-2 relative">
-              <a class="-mr-8 bg-grey-lighter rounded-l-full flex items-center" href="/profile">
-                  <div class="w-5/6 pr-8">{{auth()->user()->name}}</div>
-                  <img class="w-1/6 h-auto rounded-full m-2 " src="{{auth()->user()->getFirstMedia('avatar') ? auth()->user()->getFirstMedia('avatar')->getUrl() : '/images/avatar.jpg'}}" alt="">
-              </a>
-              <div class="side__loged-container-menu mt-2">
-                <a href="/profile/orders"><span><i class="material-icons">room_service</i></span><span>سفارش‌های من</span></a>
-                <a href="#"><span><i class="material-icons">shopping_basket</i></span><span>سبد خرید</span></a>
-                <a href="#"><span><i class="material-icons">favorite_border</i></span><span>کُمد لباس هایم</span></a>
-              </div>
-                <div>
-                    <a 
-                            href="{{ route('logout') }}"
-                            onclick="event.preventDefault();document.getElementById('logout').submit()"
-                    >
-                        خروج
-                    </a>
-                    <form id="logout" action="{{ route('logout') }}" method="post" style="display:none">
-                        {{ csrf_field() }}
-                    </form>
-                </div>
+                <div class="side__loged-user text-left -mr-16 bg-grey-lighter rounded-l-full flex items-center justify-end">
+                    <img class="w-24 rounded-full h-full border-8 border-solid border-grey-lighter " src="/images/avatar.jpg" alt="">
+                  </div>
+                  <div class="side__loged-container-menu mt-2">
+                    <a href="#"><span><i class="material-icons">person_outline</i></span><span>پروفایل<span>&ThickSpace; امید شجاعی</span></span></a>
+                    <a href="#"><span><i class="material-icons">room_service</i></span><span>سفارش‌های من</span></a>
+                    <a href="#"><span><i class="material-icons">shopping_basket</i></span><span>سبد خرید</span></a>
+                    <a href="#"><span><i class="material-icons">favorite_border</i></span><span>کُمد لباس هایم</span></a>
+                  </div>
+                  <div>
+                      <a 
+                              href="{{ route('logout') }}"
+                              onclick="
+                                event.preventDefault();
+                                gapi.auth2.getAuthInstance().signOut();
+                                document.getElementById('logout').submit()"
+                      >
+                          خروج
+                      </a>
+                      <form id="logout" action="{{ route('logout') }}" method="post" style="display:none">
+                          {{ csrf_field() }}
+                      </form>
+                  </div>
             </div>
           </div>
         @else
@@ -210,12 +213,7 @@
                     @endcomponent
                   @endcomponent
               </form>
-              <button class="rounded-full bg-grey-lighter my-8">
-                <span class="items-center flex w-auto px-4 py-1">
-                  <a href="#">با گوگل وارد شوید</a>
-                  <img class="w-8 h-6 pr-4" src="/images/google-icon.svg" alt="">
-                </span>
-              </button>
+              <div class="g-signin2" data-onsuccess="onSignIn"></div>
               <br>
               <span side-content=".side-content.register">
                 @component('components.form.button',[
