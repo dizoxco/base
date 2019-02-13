@@ -79,6 +79,11 @@
                         </p>
                     </div>
                 @endforeach
+                <br><br><br>
+            </div>
+        </div>
+        <div class="swiper-scrollbar"></div>
+        <div class="absolute pin-b w-full z-40 bg-white ml-8">
                 @component('components.form',[
                     'method' => 'POST',
                     'action' => $href
@@ -89,8 +94,6 @@
                     ])
                     @endcomponent
                 @endcomponent
-            </div>
         </div>
-        <div class="swiper-scrollbar"></div>
     </div>
 </div>

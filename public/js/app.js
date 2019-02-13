@@ -7437,7 +7437,6 @@ $('a.chat-id').click(function (e) {
     e.preventDefault();
     $.get($(this).attr('api-href'), function (data) {
         $('.chat-comments').html($(data).find('.chat-comments').html());
-        window.mdc.autoInit(document.querySelector('.chat-comments'));
         new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($('.chat-comments'), {
             direction: 'vertical',
             slidesPerView: 'auto',
@@ -7447,6 +7446,7 @@ $('a.chat-id').click(function (e) {
             },
             mousewheel: true
         });
+        window.mdc.autoInit(document.querySelector('.chat-comments'));
     }, 'html');
 });
 
