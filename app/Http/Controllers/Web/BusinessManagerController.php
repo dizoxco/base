@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Web;
 
 use Auth;
-use App\Models\Chat;
 use App\Models\Order;
 use App\Models\Ticket;
 use App\Models\Business;
@@ -53,6 +52,7 @@ class BusinessManagerController extends Controller
     public function showChat(Business $business, Ticket $chat)
     {
         $business->load('chats.comments');
+
         return view('profile.businesses.chats', compact('business'));
     }
 
@@ -60,8 +60,9 @@ class BusinessManagerController extends Controller
     {
         $chat->comments()->create([
             'user_id' => auth()->id(),
-            'body' => request()->body
+            'body' => request()->body,
         ]);
+
         return back();
     }
 }
