@@ -1,8 +1,12 @@
 <?php
 
-Auth::routes();
 Route::any('lab', function () {
 });
+
+// Override the default logout route that user GET instead of POST
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+Route::post('google', 'Auth\LoginController@google')->name('google');
+Auth::routes();
 
 Route::get('/', 'PageController@home')->name('home');
 Route::get('/search/{searchPanel}', 'SearchPanelController@search')->name('search');
@@ -51,8 +55,6 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
     });
 
     Route::name('businesses.')->prefix('businesses/{business}')->group(function () {
-        // Route::get('/', 'BusinessManagerController@index')->name('index');
-        // Route::name('show.')->prefix('{business}')->group(function () {
             Route::get('/', 'BusinessManagerController@show')->name('show');
             Route::get('products', 'BusinessManagerController@products')->name('products');
 
@@ -66,7 +68,6 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
                 Route::get('{chat}', 'BusinessManagerController@showChat')->name('show');
                 Route::post('{chat}', 'BusinessManagerController@storeChatComment')->name('store');
             });
-        // });
     });
 
     Route::name('credentials.')->prefix('credentials')->group(function () {
@@ -90,5 +91,3 @@ Route::get('/srch/{key}', function ($key) {
 Route::view('admin', 'admin');
 Route::view('admin/{any}', 'admin')->where('any', '.*');
 // ==================================== End Admin Section =====================
-
-Route::get('logout', '\App\Http\Controllers\Web\Auth\LoginController@logout');

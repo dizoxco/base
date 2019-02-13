@@ -20,6 +20,7 @@ if (! function_exists('nav')) {
     }
 }
 
+// todo:must move to the blade extension
 if (! function_exists('nav_render')) {
     function nav_render($menu, $class = null)
     {

@@ -9,6 +9,7 @@
         "ext-json": "*",
         "anetwork/validation": "^2.1",
         "fideloper/proxy": "~3.3",
+        "google/apiclient": "^2.2",
         "ipecompany/smsirlaravel": "^1.0",
         "larabook/gateway": "^3.3",
         "laravel/framework": "5.5.*",

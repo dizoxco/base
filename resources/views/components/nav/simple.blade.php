@@ -127,7 +127,10 @@
                   <div>
                       <a 
                               href="{{ route('logout') }}"
-                              onclick="event.preventDefault();document.getElementById('logout').submit()"
+                              onclick="
+                                event.preventDefault();
+                                gapi.auth2.getAuthInstance().signOut();
+                                document.getElementById('logout').submit()"
                       >
                           خروج
                       </a>
@@ -176,12 +179,7 @@
                     @endcomponent
                   @endcomponent
               </form>
-              <button class="rounded-full bg-grey-lighter my-8">
-                <span class="items-center flex w-auto px-4 py-1">
-                  <a href="#">با گوگل وارد شوید</a>
-                  <img class="w-8 h-6 pr-4" src="/images/google-icon.svg" alt="">
-                </span>
-              </button>
+              <div class="g-signin2" data-onsuccess="onSignIn"></div>
               <br>
               <span side-content=".side-content.register">
                 @component('components.form.button',[
