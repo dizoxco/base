@@ -5,6 +5,8 @@ import {MDCRipple} from '@material/ripple';
 import {MDCSelect} from '@material/select';
 import {MDCList} from '@material/list';
 
+window.mdc = {autoInit: mdcAutoInit};
+
 mdcAutoInit.register('mdc-text-field', MDCTextField);
 // mdcAutoInit.register('mdc-list', MDCList);
 mdcAutoInit.register('mdc-text-field-icon', MDCTextFieldIcon);

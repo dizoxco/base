@@ -13659,6 +13659,19 @@ table tr td {
   min-height: 7rem;
 }
 
+.swiper-container-vertical > .swiper-scrollbar {
+  right: auto;
+  left: 10px;
+}
+
+.chat-comments .me {
+  background-color: blue;
+}
+
+.chat-comments .tome {
+  background-color: red;
+}
+
 @media (min-width: 576px) {
   .sm\:list-reset {
     list-style: none;

@@ -5,6 +5,18 @@ require("./front/productGallery");
 require("./front/mdc");
 require("./front/navigation");
 
+  
+$('.scroll-swiper').each(function(){
+    new Swiper($(this), {
+        direction: 'vertical',
+        slidesPerView: 'auto',
+        freeMode: true,
+        scrollbar: {
+        el: '.swiper-scrollbar',
+        },
+        mousewheel: true,
+    });
+});
 $('.swiper.simple').each(function(){
     new Swiper($(this), {
         speed: 400,
@@ -53,4 +65,22 @@ $('td').click(function(){
     if( $(this).parent().attr('href') ){
         window.location = $(this).parent().attr('href');
     }
+});
+
+
+$('a.chat-id').click(function(e){
+    e.preventDefault();
+    $.get( $(this).attr('api-href'), function( data ) {
+        $( '.chat-comments' ).html( $(data).find('.chat-comments').html() );
+        window.mdc.autoInit(document.querySelector('.chat-comments'));
+        new Swiper($('.chat-comments'), {
+            direction: 'vertical',
+            slidesPerView: 'auto',
+            freeMode: true,
+            scrollbar: {
+            el: '.swiper-scrollbar',
+            },
+            mousewheel: true,
+        });
+    }, 'html');
 });

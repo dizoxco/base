@@ -45,15 +45,23 @@ class BusinessManagerController extends Controller
 
     public function chats(Business $business)
     {
-        $chats = $business->load('chats')->chats;
+        $business->load('chats');
 
-        return view('profile.businesses.chats', compact('business', 'chats'));
+        return view('profile.businesses.chats', compact('business'));
     }
 
     public function showChat(Business $business, Ticket $chat)
     {
-        $comments = $chat->load('comments.user')->comments;
+        $business->load('chats.comments');
+        return view('profile.businesses.chats', compact('business'));
+    }
 
-        return view('profile.businesses.showChats', compact('comments', 'chat'));
+    public function storeChatComment(Business $business, Ticket $chat)
+    {
+        $chat->comments()->create([
+            'user_id' => auth()->id(),
+            'body' => request()->body
+        ]);
+        return back();
     }
 }

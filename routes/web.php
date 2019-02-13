@@ -50,10 +50,10 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
         Route::post('{business}', 'ChatController@store')->name('store');
     });
 
-    Route::name('businesses.')->prefix('businesses')->group(function () {
-        Route::get('/', 'BusinessManagerController@index')->name('index');
-        Route::name('show.')->prefix('{business}')->group(function () {
-            Route::get('/', 'BusinessManagerController@show')->name('index');
+    Route::name('businesses.')->prefix('businesses/{business}')->group(function () {
+        // Route::get('/', 'BusinessManagerController@index')->name('index');
+        // Route::name('show.')->prefix('{business}')->group(function () {
+            Route::get('/', 'BusinessManagerController@show')->name('show');
             Route::get('products', 'BusinessManagerController@products')->name('products');
 
             Route::name('orders.')->prefix('orders')->group(function () {
@@ -64,8 +64,9 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
             Route::name('chats.')->prefix('chats')->group(function () {
                 Route::get('/', 'BusinessManagerController@chats')->name('index');
                 Route::get('{chat}', 'BusinessManagerController@showChat')->name('show');
+                Route::post('{chat}', 'BusinessManagerController@storeChatComment')->name('store');
             });
-        });
+        // });
     });
 
     Route::name('credentials.')->prefix('credentials')->group(function () {

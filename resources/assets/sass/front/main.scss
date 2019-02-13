@@ -65,3 +65,20 @@ table{
         }
     }
 }
+
+
+
+.swiper-container-vertical > .swiper-scrollbar{
+    right: auto;
+    left: 10px;
+}
+
+.chat-comments{
+    .me{
+        background-color: blue;
+        
+    }
+    .tome{
+        background-color: red;
+    }
+}

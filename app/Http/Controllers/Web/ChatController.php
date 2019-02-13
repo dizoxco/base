@@ -19,10 +19,11 @@ class ChatController extends Controller
 
     public function show(Business $business)
     {
-        $chat = $business->chats()->firstOrCreate(['user_id' => Auth::id()]);
-        $comments = $chat->comments;
+        $chats = Auth::user()->chats()->with('business')->get();
+        // $chat = $business->chats()->firstOrCreate(['user_id' => Auth::id()]);
+        // $comments = $chat->comments;
 
-        return view('profile.chats.show', compact('chat', 'comments'));
+        return view('profile.chats.index', compact('chats'));
     }
 
     public function store(StoreTicketRequest $request, Business $business)

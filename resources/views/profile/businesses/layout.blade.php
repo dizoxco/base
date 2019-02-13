@@ -12,12 +12,12 @@
                         <span class="mdc-list-item__text">محصولات</span>
                     </li>
                 </a>
-                <a href="{{ route('profile.businesses.index') }}" class="block">
+                {{-- <a href="{{ route('profile.businesses.index') }}" class="block">
                     <li class="mdc-list-item mdc-ripple" tabindex="0">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">business</span>
                         <span class="mdc-list-item__text">کسب و کارهای شما</span>
                     </li>
-                </a>
+                </a> --}}
                 <a href="/profile/orders" class="block">
                     <li class="mdc-list-item mdc-ripple">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">place</span>
@@ -46,7 +46,7 @@
                     <br><br>
                 </div>
             </div>
-            <div class="bg-white p-8 -mt-8 rounded-lg">
+            <div class="bg-white p-8 pb-2 -mt-8 rounded-lg">
                 @yield('profile-content')
             </div>
         </div>

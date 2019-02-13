@@ -7373,6 +7373,17 @@ __webpack_require__(204);
 __webpack_require__(205);
 __webpack_require__(215);
 
+$('.scroll-swiper').each(function () {
+    new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($(this), {
+        direction: 'vertical',
+        slidesPerView: 'auto',
+        freeMode: true,
+        scrollbar: {
+            el: '.swiper-scrollbar'
+        },
+        mousewheel: true
+    });
+});
 $('.swiper.simple').each(function () {
     new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($(this), {
         speed: 400,
@@ -7420,6 +7431,23 @@ $('td').click(function () {
     if ($(this).parent().attr('href')) {
         window.location = $(this).parent().attr('href');
     }
+});
+
+$('a.chat-id').click(function (e) {
+    e.preventDefault();
+    $.get($(this).attr('api-href'), function (data) {
+        $('.chat-comments').html($(data).find('.chat-comments').html());
+        window.mdc.autoInit(document.querySelector('.chat-comments'));
+        new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($('.chat-comments'), {
+            direction: 'vertical',
+            slidesPerView: 'auto',
+            freeMode: true,
+            scrollbar: {
+                el: '.swiper-scrollbar'
+            },
+            mousewheel: true
+        });
+    }, 'html');
 });
 
 /***/ }),
@@ -19315,6 +19343,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+window.mdc = { autoInit: __WEBPACK_IMPORTED_MODULE_0__material_auto_init___default.a };
 
 __WEBPACK_IMPORTED_MODULE_0__material_auto_init___default.a.register('mdc-text-field', __WEBPACK_IMPORTED_MODULE_1__material_textfield__["MDCTextField"]);
 // mdcAutoInit.register('mdc-list', MDCList);

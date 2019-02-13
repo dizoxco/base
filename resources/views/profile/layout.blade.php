@@ -12,12 +12,6 @@
                         <span class="mdc-list-item__text">پروفایل</span>
                     </li>
                 </a>
-                <a href="{{ route('profile.businesses.index') }}" class="block">
-                    <li class="mdc-list-item mdc-ripple ">
-                        <span class="mdc-list-item__graphic material-icons" aria-hidden="true">place</span>
-                        <span class="mdc-list-item__text">کسب و کارها</span>
-                    </li>
-                </a>
                 <a href="/profile/addresses" class="block">
                     <li class="mdc-list-item mdc-ripple mdc-list-item--activated">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">place</span>
