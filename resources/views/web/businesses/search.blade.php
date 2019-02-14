@@ -1,8 +1,8 @@
 @extends('layout')
 @section('content')
+<br>
     <div class="flex flex-wrap container">
-        <div class="w-1/4 pl-4">
-            <form target="_self">
+        <div class="w-1/4 pl-4 search-panel-options">
                 @forelse($options as $name => $option)
                 @if ($option['query'] !== 'order')
                 <div class="relative rounded-lg bg-white shadow-lg pt-2 pb-4 px-4 mb-4">
@@ -34,14 +34,8 @@
                 @empty
                     <p>انتخابی وجود ندارد.</p>
                 @endforelse
-                @component('components.form.button', [
-                    'label' => 'جستجو',
-                    'outlined' => true,
-                    'shaped' => true
-                ])@endcomponent                
-            </form>
         </div>
-        <div class="w-3/4 pr-4">
+        <div class="w-3/4 pr-4 search-panel-result">
             <div class="relative rounded-lg bg-white shadow-lg py-4 mb-2">
                 <span class="absoulute text-grey-light pin-r mx-4"><i class="material-icons" style="transform:scaleX(-1)">sort</i></span>
                 @foreach ($options as $option)

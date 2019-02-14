@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+<br>
     <div class="flex flex-wrap container">
         <div class="w-full md:w-1/4 px-4 search-panel-options">
                 @forelse($options as $name => $option)
