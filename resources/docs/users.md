@@ -18,12 +18,45 @@ users can register and login throgh google.
 ### ui
 interface for login, register and remember password based on config for avalable methods and default method
 
+
+
+
+
 ## user private profile
-profile
+private user profile for access and manage personal information and resoource.
 
 ### ui
-profile ui and navigation
+- profile navigation
+- access from outside of profile
+- tables template
+- forms template
+
+### edit profile and authenticate info
+
+
+
+
 
 ## user manager in admin panel
+
+### api
+
+### crud user
+
+### assign user roles
+
+
+
+
+
 ## role manager in admin panel
+
+### crud roles
+
+### assign permissions to role
+
+
+
+
+
 ## auhorize
