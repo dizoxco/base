@@ -50,26 +50,26 @@
     - crud variations
     
 ### search panels
-    - crud search panel in admin panel
-    - search panel results
-    - search panel map and breadcrumb
+- crud search panel in admin panel
+- search panel results
+- search panel map and breadcrumb
     
 ### orders
-    - access orders in private profile
-    - administer orders in admin panel
-    - administer orders in own business profile
+- access orders in private profile
+- administer orders in admin panel
+- administer orders in own business profile
 
 ### chats
-     - start chat from user to business
-     - visit own chats in user pfrivate profile
-     - visit own chats in business private profile
+ - start chat from user to business
+ - visit own chats in user pfrivate profile
+ - visit own chats in business private profile
      
 ### tickets
-    - start ticket from user to site admins
-    - administer tickets in admin panel
+- start ticket from user to site admins
+- administer tickets in admin panel
     
 ### posts
-    - view posts list
-    - view each post
-    - view post tag list
-    - crud posts in admin panel
+- view posts list
+- view each post
+- view post tag list
+- crud posts in admin panel
