@@ -38,7 +38,6 @@ class BusinessesTableSeeder extends Seeder
 
             // Between 0 to 10 random items are assigned to the business.
             $products = $business->products()->createMany(factory(Product::class, random_int(0, 10))->make()->toArray());
-
         }
         $tags = Tag::all();
         foreach (Product::all() as $product) {
@@ -68,13 +67,11 @@ class BusinessesTableSeeder extends Seeder
                 'variations' => $variations->pluck('id')->toJson(),
             ]);
 
-
-
             if ($faker->boolean()) {
                 // By chance of 50% product get the mobile tag
                 // $product->tags()->sync($mobile_tag, false);
                 // By chance of 50% product give users that like it and added to their wish lists
-                    $product->users()->sync($users->random(10)->pluck('id')->toArray(), false);
+                $product->users()->sync($users->random(10)->pluck('id')->toArray(), false);
             }
         }
     }
