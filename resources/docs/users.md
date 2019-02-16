@@ -32,6 +32,7 @@ private user profile for access and manage personal information and resoource.
 - forms template
 
 ### edit profile and authenticate info
+each user can modify own profile and authenticate info.
 
 
 
