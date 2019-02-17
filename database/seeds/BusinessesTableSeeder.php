@@ -63,9 +63,9 @@ class BusinessesTableSeeder extends Seeder
             )->toArray());
 
             // and save that
-            $product->update([
-                'variations' => $variations->pluck('id')->toJson(),
-            ]);
+            // $product->update([
+            //     'variations' => $variations->pluck('id')->toJson(),
+            // ]);
 
             if ($faker->boolean()) {
                 // By chance of 50% product get the mobile tag
