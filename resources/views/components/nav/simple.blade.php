@@ -55,7 +55,7 @@
             @foreach ($cart as $cart_item)
               <div class="side__cart-product flex py-3 px-5 relative">
                 <div class="side__cart-product-img w-1/3 ">
-                  <img src="{{$cart_item->product->getFirstMedia(enum('media.product.banner'))->getFullUrl()}}" class="w-24">
+                  <img src="{{optional($cart_item->product->getFirstMedia(enum('media.product.banner')))->getFullUrl()}}" class="w-24">
                 </div>
                 <div class="side__cart-product-detail caption pr-2 w-2/3">
                   <div class="side__cart-product-name text-sm text-black">
@@ -99,7 +99,7 @@
             @foreach ($wishlist as $wish_item)
               <div class="side__cart-product flex py-3 px-5 relative">
                 <div class="side__cart-product-img w-1/3 ">
-                  <img src="{{$wish_item->getFirstMedia(enum('media.product.banner'))->getFullUrl()}}" class="w-24">
+                  <img src="{{optional($wish_item->getFirstMedia(enum('media.product.banner')))->getFullUrl()}}" class="w-24">
                 </div>
                 <div class="side__cart-product-detail caption pr-2 w-2/3">
                   <div class="side__cart-product-name text-sm text-black">
@@ -139,7 +139,7 @@
                 <a class="relative" href="{{route('profile.businesses.orders.index', $business->slug)}}">
                   <i class="material-icons">room_service</i> سفارشات <span class="rounded-full bg-indigo-light text-white absolute pin-l h-8 px-3 flex justify-center ml-2">3</span>
                 </a>
-                <a class="relative" href="{{route('profile.businesses.products.index', $business->slug)}}">
+                <a class="relative" href="{{route('profile.businesses.products', $business->slug)}}">
                   <i class="material-icons">room_service</i> محصولات <span class="rounded-full bg-indigo-light text-white absolute pin-l h-8 px-3 flex justify-center ml-2">3</span>
                 </a>
                 <a class="relative" href="{{route('profile.businesses.chats.index', $business->slug)}}">
@@ -177,13 +177,13 @@
         @else
           <div class="side__login-container w-full text-center">
               <h6 class="mb-8">به حساب کاربری خود وارد شوید</h6>
-              <form id="frm_side_login" action="/login" method="post">
+              <form id="frm_side_login" action="{{ route('login') }}" method="POST">
                   {{ csrf_field() }}
                   @component('components.form.text',[
-                    'label' => 'ایمیل',
+                    'label' => 'ایمیل یا تلفن همراه',
                     'full' => true,
-                    'name' => 'email',
-                    'value' => 'admin@base.com',
+                    'name' => 'service',
+                    'value' => 'akbarjimi@yahoo.com',
                   ])
                   @endcomponent
                   @component('components.form.text',[
@@ -240,10 +240,10 @@
               ])
               @endcomponent
               @component('components.form.text',[
-                'label' => 'ایمیل',
+                'label' => 'ایمیل یا تلفن همراه',
                 'full' => true,
-                'name' => 'email',
-                'value' => 'nonsense@email.com',
+                'name' => 'service',
+                'value' => 'nonsense@service.com',
               ])
               @endcomponent
               @component('components.form.text',[
@@ -298,9 +298,11 @@
       <div class="side-content forgot flex h-full p-10 pt-4 overflow-auto">
           <div class="side__forgot-container w-full text-center">
               <h6 class="mb-8">بازیابی رمز عبور</h6>
-              <form action="">
+              <form action="{{ route('password.email') }}" method="POST">
+                  {{ csrf_field() }}
                   @component('components.form.text',[
-                    'label' => 'ایمیل',
+                    'label' => 'ایمیل یا تلفن همراه یا شماره تلفن همراه',
+                    'name' => 'service',
                     'full' => true
                   ])
                   @endcomponent
@@ -331,7 +333,7 @@
           <div class="side__reset-password-container w-full text-center">
               <h6 class="mb-8">تغییر رمز عبور</h6>
               <form action="">
-                  <div><input type="text" placeholder="ایمیل"></div>
+                  <div><input type="text" placeholder="ایمیل یا تلفن همراه"></div>
                   <div><input type="text" placeholder="رمز عبور"></div>
                   <div><input type="text" placeholder="تکرار رمز عبور"></div>
                   <button>تغییر رمز عبور</button>

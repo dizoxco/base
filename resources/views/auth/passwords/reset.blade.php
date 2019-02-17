@@ -13,15 +13,15 @@
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                        <div class="form-group{{ $errors->has('service') ? ' has-error' : '' }}">
+                            <label for="service" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}" required autofocus>
+                                <input id="service" type="text" class="form-control" name="service" value="{{ $service or old('service') }}" required autofocus>
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('service'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('service') }}</strong>
                                     </span>
                                 @endif
                             </div>

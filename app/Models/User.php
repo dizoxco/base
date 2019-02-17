@@ -27,7 +27,7 @@ class User extends Authenticatable implements HasMedia
     ];
 
     protected $fillable = [
-        'google_id', 'name', 'avatar', 'email', 'password', 'active', 'activation_token',
+        'google_id', 'name', 'avatar', 'email', 'mobile', 'password', 'active', 'activation_token',
     ];
 
     protected $hidden = [

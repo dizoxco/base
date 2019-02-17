@@ -17,11 +17,13 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('google_id')->unique()->nullable();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
+            $table->string('mobile')->unique()->nullable();
             $table->string('password')->nullable();
-            $table->boolean('active')->default(false);
             $table->string('activation_token')->unique()->nullable();
             $table->rememberToken();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('mobile_verified_at')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();

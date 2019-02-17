@@ -7,3 +7,4 @@ require_once 'Faker.php';
 require_once 'OmidFaker.php';
 require_once 'Nav.php';
 require_once 'Notification.php';
+require_once 'Service.php';

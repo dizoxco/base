@@ -210,7 +210,7 @@
     $('#btn_side_login').click(function (event) {
         event.preventDefault();
         $.post( "{{ route('api.auth.login') }}", {
-            email : $("#frm_side_login").find("input[name='email']").val(),
+            service : $("#frm_side_login").find("input[name='service']").val(),
             password : $("#frm_side_login").find("input[name='password']").val(),
             remember : $("#frm_side_login").find("input[name='remember']").val()
         }).done(function (data) {
@@ -225,13 +225,13 @@
         event.preventDefault();
         $.post( "{{ route('api.auth.register') }}", {
             name : $("#frm_side_register").find("input[name='name']").val(),
-            email : $("#frm_side_register").find("input[name='email']").val(),
+            service : $("#frm_side_register").find("input[name='service']").val(),
             password : $("#frm_side_register").find("input[name='password']").val(),
             password_confirmation : $("#frm_side_register").find("input[name='password_confirmation']").val(),
             terms : $("#frm_side_register").find("input[name='terms']").val(),
         }).done(function (data) {
-            $("#frm_side_login").find("input[name='email']").val(
-                $("#frm_side_register").find("input[name='email']").val(),
+            $("#frm_side_login").find("input[name='service']").val(
+                $("#frm_side_register").find("input[name='service']").val(),
             );
 
             $("#frm_side_login").find("input[name='password']").val(

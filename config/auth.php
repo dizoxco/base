@@ -2,6 +2,30 @@
 
 return [
 
+    'via' => [
+        'mobile' => [
+            // These options are used for login, registration and reset.
+            'enabled' => true,
+            'pattern' => '/^(((98)|(\+98)|(0098)|0)(9){1}[0-9]{9})+$/',
+            // This option used for registration.
+            'validation' => 'required|string|max:255|iran_mobile|unique:users,mobile',
+        ],
+        'email' => [
+            // These options are used for login, registration and reset.
+            'enabled' => true,
+            'pattern' => '/[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/',
+            // This option used for registration.
+            'validation' => 'required|string|email|max:255|unique:users,email',
+        ],
+        'google_id' => [
+            // These options are used for login, registration and reset.
+            'enabled' => true,
+            'pattern' => '/\d/',
+            // This option used for registration.
+            'validation' => 'required|numeric|unique:users,google_id',
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
