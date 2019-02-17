@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 namespace App\Utility\PasswordBroker;
+
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class PasswordBrokerServiceProvider extends BaseServiceProvider

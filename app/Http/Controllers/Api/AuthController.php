@@ -48,6 +48,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         auth_user()->tokens()->whereRevoked(false)->update(['revoked' => true]);
+
         return [
             'errors'    =>  [
                 'auth'  =>  [trans('auth.logout')],
@@ -63,11 +64,11 @@ class AuthController extends Controller
         $service_name = service_type($service);
 
         $request->merge([
-            'activation_token' => $service_name . '_' . random_int(111111, 999999),
+            'activation_token' => $service_name.'_'.random_int(111111, 999999),
             'password' => bcrypt($request->input('password')),
              // email => john@doe.com
             // mobile => +989123456789
-             $service_name => $service
+             $service_name => $service,
         ]);
 
         if ($user = UserRepo::create($request->except('avatar'))) {

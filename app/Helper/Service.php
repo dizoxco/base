@@ -18,7 +18,7 @@ if (! function_exists('service_type')) {
     }
 }
 
-/**
+/*
  * @param array $data
  * @return \Illuminate\Validation\Validator
  */
@@ -26,6 +26,7 @@ if (! function_exists('service_disabled')) {
     function service_disabled()
     {
         $data['service'] = false;
+
         return Validator::make($data, [
             'service' => 'accepted',
         ]);

@@ -2,12 +2,11 @@
 
 namespace App\Utility\PasswordBroker;
 
-use Illuminate\Auth\Passwords\TokenRepositoryInterface;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Contracts\Hashing\Hasher as HasherContract;
-use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
+use Illuminate\Database\ConnectionInterface;
+use Illuminate\Auth\Passwords\TokenRepositoryInterface;
+use Illuminate\Contracts\Hashing\Hasher as HasherContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class DatabaseTokenRepository implements TokenRepositoryInterface
 {
@@ -111,7 +110,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     {
         return request()->merge([
             'token' => $this->hasher->make($token),
-            'created_at' => new Carbon
+            'created_at' => new Carbon,
         ])->except(['_token', 'service']);
     }
 
@@ -175,7 +174,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
      */
     public function createNewToken()
     {
-        return random_int(111111,999999);
+        return random_int(111111, 999999);
     }
 
     /**

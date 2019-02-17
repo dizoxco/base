@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Web\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
 {
@@ -135,8 +135,6 @@ class ResetPasswordController extends Controller
                 return $name;
             }
         }
-
-        return null;
     }
 
     /**
@@ -150,7 +148,7 @@ class ResetPasswordController extends Controller
         $service = $this->guessService($request->all());
 
         return $request->merge([
-            $service => $request->input('service')
+            $service => $request->input('service'),
         ])->only(
             $service, 'password', 'password_confirmation', 'token'
         );

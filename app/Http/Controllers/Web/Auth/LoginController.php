@@ -81,7 +81,7 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
         return $request->merge([
-            $this->service_type => $request->input('service')
+            $this->service_type => $request->input('service'),
         ])->only($this->service_type, 'password');
     }
 

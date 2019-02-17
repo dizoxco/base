@@ -24,6 +24,7 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         $validation = config('auth.via.'.service_type($this->input('service')).'.validation');
+
         return [
             'name'      =>  'required',
             'service'   =>  $validation,

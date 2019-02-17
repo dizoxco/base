@@ -1,13 +1,12 @@
 <?php
 
-
 namespace App\Utility\PasswordBroker;
 
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Illuminate\Contracts\Auth\PasswordBrokerFactory as FactoryContract;
 
-class PasswordBrokerManager implements  FactoryContract
+class PasswordBrokerManager implements FactoryContract
 {
     /**
      * The application instance.

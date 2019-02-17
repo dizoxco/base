@@ -124,6 +124,7 @@ class UserRepository extends BaseRepository
     {
         $user = User::where('activation_token', 'like', '%'.$token)->firstOrFail();
         $service_name = explode('_', $user->activation_token)[0];
+
         return $user->update([
             $service_name.'_verified_at' => now(),
             'activation_token' => null,

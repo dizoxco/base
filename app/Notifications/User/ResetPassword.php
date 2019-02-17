@@ -3,8 +3,8 @@
 namespace App\Notifications\User;
 
 use App\Channels\SMSChannel;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class ResetPassword extends Notification
 {
@@ -37,6 +37,7 @@ class ResetPassword extends Notification
         if (request()->has('mobile')) {
             return SMSChannel::class;
         }
+
         return ['mail'];
     }
 
@@ -58,7 +59,7 @@ class ResetPassword extends Notification
     {
         return [
             'parameters' => [
-                'VerificationCode' => $this->token
+                'VerificationCode' => $this->token,
             ],
             'template_id' => 5561,
         ];
