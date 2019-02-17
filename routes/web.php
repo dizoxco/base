@@ -3,8 +3,12 @@
 Route::any('lab', function () {
 });
 
+Route::get('logout', function () {
+});
 // Override the default logout route that user GET instead of POST
-Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+//Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('password/token', 'Auth\ForgotPasswordController@getToken')->name('password.token.get');
+Route::post('password/token', 'Auth\ForgotPasswordController@validateToken')->name('password.token.validate');
 Route::post('google', 'Auth\LoginController@google')->name('google');
 Auth::routes();
 

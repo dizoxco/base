@@ -45,19 +45,9 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * Logout user (Revoke the token).
-     *
-     * @param Request $request
-     * @return array
-     */
     public function logout(Request $request)
     {
-        $user = auth_user();
-        $user->tokens()->each(function (Token $token) {
-            $token->revoke();
-        });
-
+        auth_user()->tokens()->whereRevoked(false)->update(['revoked' => true]);
         return [
             'errors'    =>  [
                 'auth'  =>  [trans('auth.logout')],
