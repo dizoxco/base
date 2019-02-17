@@ -122,9 +122,11 @@ class UserRepository extends BaseRepository
 
     public function activate(string $token): int
     {
-        return User::where('activation_token', '=', $token)->update([
-            'active'            =>  true,
-            'activation_token'  =>  null,
+        $user = User::where('activation_token', 'like', '%'.$token)->firstOrFail();
+        $service_name = explode('_', $user->activation_token)[0];
+        return $user->update([
+            $service_name.'_verified_at' => now(),
+            'activation_token' => null,
         ]);
     }
 
