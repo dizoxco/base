@@ -2,6 +2,7 @@
 
 namespace App\Notifications\User;
 
+use App\Channels\SMSChannel;
 use App\Models\User;
 use App\Mail\User\UserStoreMailable;
 use Illuminate\Notifications\Notification;
@@ -18,11 +19,25 @@ class UserStoreNotification extends Notification
 
     public function via()
     {
+        if ($this->user->mobile) {
+            return [SMSChannel::class];
+        }
+
         return ['mail'];
     }
 
     public function toMail()
     {
         return new UserStoreMailable($this->user);
+    }
+
+    public function toSMS()
+    {
+        return [
+            'parameters' => [
+                'VerificationCode' => explode("_", $this->user->activation_token)[1]
+            ],
+            'template_id' => 5561,
+        ];
     }
 }

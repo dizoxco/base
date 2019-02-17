@@ -55,25 +55,28 @@ class AuthController extends Controller
         ];
     }
 
-    /**
-     * Create user.
-     *
-     * @param StoreUserRequest $request
-     *
-     * @return \Illuminate\Http\JsonResponse [string] message
-     */
     public function register(StoreUserRequest $request)
     {
+        // Anything that user enter.
+        $service = $request->input('service');
+        // We guess what the user has entered. mobile, email or etc...
+        $service_name = service_type($service);
+
         $request->merge([
-            'activation_token'  =>  str_random(32),
+            'activation_token' => $service_name . '_' . random_int(111111, 999999),
             'password' => bcrypt($request->input('password')),
+             // email => john@doe.com
+            // mobile => +989123456789
+             $service_name => $service
         ]);
 
         if ($user = UserRepo::create($request->except('avatar'))) {
             if ($request->hasFile('avatar')) {
                 $user->addMediaFromRequest('avatar')->toMediaCollection(enum('media.user.avatar'));
             }
-            Auth::loginUsingId($user->id);
+
+            Auth::login($user);
+
             event(new UserStoreEvent($user));
 
             return response()->json(
@@ -86,21 +89,12 @@ class AuthController extends Controller
             return response()->json(
                 [
                     'message' =>  trans('auth.register_failed'),
-                    'data' => $user,
                 ],
                 Response::HTTP_BAD_REQUEST
             );
         }
     }
 
-    /**
-     * active user account | method: get.
-     *
-     * @param Request $request
-     * @param $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function activate(Request $request, $token)
     {
         if (UserRepo::activate($token)) {

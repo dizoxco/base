@@ -9,67 +9,42 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
+    protected $service_type;
 
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    public function redirectPath()
     {
-        return Validator::make($data, [
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        return session()->previousUrl() ?? route('home');
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
     protected function create(array $data)
     {
         return User::create([
             'name' => $data['name'],
-            'email' => $data['email'],
+            $this->service_type => $data['service'],
             'password' => bcrypt($data['password']),
         ]);
     }
 
-    protected function redirectTo()
+    protected function validator(array $data)
     {
-        return route('profile.index');
+        if ($this->service_type = service_type($data['service'])) {
+            $config = config('auth.via.'.$this->service_type);
+            if ($config['enabled']) {
+                return Validator::make($data, [
+                    'service'   =>  $config['validation'],
+                    'name'      =>  'required',
+                    'password'  =>  'required|string|min:6|confirmed',
+                ]);
+            }
+        }
+
+        return service_disabled();
     }
 }
