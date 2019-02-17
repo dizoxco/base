@@ -15,13 +15,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    /**
-     * @param PostLoginRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function login(PostLoginRequest $request)
     {
-        $credentials = $request->only(['email', 'password']);
+        // Anything that user enter.
+        $service = $request->input('service');
+        // We guess what the user has entered. mobile, email or etc...
+        $service_type = service_type($service);
+
+        $request->merge([$service_type => $service]);
+
+        $credentials = $request->only([$service_type, 'password']);
         if (! Auth::attempt($credentials)) {
             return response()->json(
                 [
@@ -33,19 +36,7 @@ class AuthController extends Controller
             );
         }
 
-        /** @var User $user */
-        $user = Auth::user();
-        $tokenResult = $user->createToken('Personal Access Token');
-
-        /** @var Token $token */
-        $token = $tokenResult->token;
-
-        //  todo: test with remember me
-        if ($request->filled('remember_me')) {
-            $token->expires_at = now()->addWeek();
-        }
-
-        $token->save();
+        $tokenResult = $this->createToken($request);
 
         return response()->json([
             'access_token'  =>  $tokenResult->accessToken,
@@ -137,5 +128,20 @@ class AuthController extends Controller
                 Response::HTTP_BAD_REQUEST
             );
         }
+    }
+
+    protected function createToken(PostLoginRequest $request): \Laravel\Passport\PersonalAccessTokenResult
+    {
+        $tokenResult = Auth::user()->createToken('Personal Access Token');
+
+        $token = $tokenResult->token;
+
+        if ($request->filled('remember_me')) {
+            $token->expires_at = now()->addWeek();
+        }
+
+        $token->save();
+
+        return $tokenResult;
     }
 }
