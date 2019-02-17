@@ -61,16 +61,19 @@ class LoginController extends Controller
                     [
                         'email' => $payload['email'],
                         'name' => $payload['name'],
+                        'email_verified_at' => now(),
                     ]
                 );
+
                 $user->addMediaFromUrl($payload['picture'])->toMediaCollection(enum('media.user.avatar'));
+
                 Auth::login($user);
 
                 return response([], Response::HTTP_OK);
             } else {
                 return response([], Response::HTTP_NOT_FOUND);
             }
-        } catch (\Throwable $throwable) {
+        } catch (Throwable $throwable) {
             return response([], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
