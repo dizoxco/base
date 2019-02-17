@@ -19,15 +19,19 @@ class User extends Authenticatable implements HasMedia
 {
     use Notifiable, SoftDeletes, HasApiTokens, HasRoles, HasMediaTrait, HasMediaRelation;
 
-    protected $perPage = 2;
+    protected $perPage = 10;
 
     protected $casts = [
-        'deleted_at'    =>  'datetime',
-        'active'        =>  'boolean',
+        'email_verified_at' => 'datetime',
+        'mobile_verified_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
     ];
 
     protected $fillable = [
-        'google_id', 'name', 'avatar', 'email', 'mobile', 'password', 'active', 'activation_token',
+        'google_id', 'name', 'email', 'mobile', 'password', 'activation_token',
+        'remember_token', 'email_verified_at', 'mobile_verified_at'
     ];
 
     protected $hidden = [
@@ -63,11 +67,6 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(Ticket::class, 'user_id', 'id')
             ->where('business_id', '=', 0);
-//        return $this->belongsToMany(
-//            Chat::class,
-//            'chat_users',
-//            'user_id'
-//        )->where('chats.type', '=', enum('chat.type.ticket'));
     }
 
     public function businesses() : BelongsToMany
