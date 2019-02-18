@@ -14,6 +14,7 @@ class Variation extends Model
 
     protected $casts = [
         'quantity' => 'integer',
+        'options' => 'array'
     ];
 
     public function customers() : BelongsToMany

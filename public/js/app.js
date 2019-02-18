@@ -7450,6 +7450,34 @@ $('a.chat-id').click(function (e) {
     }, 'html');
 });
 
+if ($('#product-options').length) {
+    var productPageUpdate = function productPageUpdate() {
+        $('#product-options [option]').each(function () {
+            productOptions[$(this).attr('option')] = $(this).find('.check.active').length ? $(this).find('.check.active').attr('value') : $(this).find('.check').first().attr('value');
+        });
+        $('table.product-variations tr').each(function () {
+            var show = true;
+            for (var key in productOptions) {
+                if (productOptions[key] != $(this).attr(key)) show = false;
+            }
+            if (show) {
+                $(this).removeClass('hidden');
+            } else {
+                $(this).addClass('hidden');
+            }
+        });
+    };
+
+    var productOptions = {};
+    productPageUpdate();
+
+    $('#product-options .check').click(function () {
+        $(this).parent().find('.check.active').removeClass('active');
+        $(this).addClass('active');
+        productPageUpdate();
+    });
+}
+
 /***/ }),
 
 /***/ 202:

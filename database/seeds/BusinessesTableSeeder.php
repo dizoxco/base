@@ -105,7 +105,7 @@ class BusinessesTableSeeder extends Seeder
             for ($i=0; $i < rand(3, 7); $i++) {
                 $options = [];
                 foreach ($product->options as $option) {
-                    $option[] = [$option['name'] => $option['values'][array_rand($option['values'])]['value'] ];
+                    $options[$option['name']] = $option['values'][array_rand($option['values'])]['value'];
                 }
                 $variations[] = [
                     'business_id' => rand(1, 100),

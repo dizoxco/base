@@ -51,7 +51,7 @@ class Product extends Model implements HasMedia
         return $this->belongsToMany(Business::class, 'businesses_products', 'product_id', 'business_id', 'id', 'id');
     }
 
-    public function relatedVariations(): HasMany
+    public function variations(): HasMany
     {
         return $this->hasMany(Variation::class, 'product_id', 'id');
     }
