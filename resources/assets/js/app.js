@@ -84,3 +84,36 @@ $('a.chat-id').click(function(e){
         window.mdc.autoInit(document.querySelector('.chat-comments'));
     }, 'html');
 });
+
+
+
+
+if($('#product-options').length){
+    var productOptions = {};
+    productPageUpdate();
+    function productPageUpdate(){
+        $('#product-options [option]').each(function(){
+            productOptions[$(this).attr('option')] = $(this).find('.check.active').length? 
+                        $(this).find('.check.active').attr('value'):
+                        $(this).find('.check').first().attr('value');
+        });
+        $('table.product-variations tr').each(function(){
+            var show = true;
+            for (var key in productOptions) {
+                if(productOptions[key] != $(this).attr(key) )
+                    show = false
+            }
+            if (show) {
+                $(this).removeClass('hidden');
+            }else{
+                $(this).addClass('hidden');
+            }
+        });
+        
+    }
+    $('#product-options .check').click(function(){
+        $(this).parent().find('.check.active').removeClass('active');
+        $(this).addClass('active');
+        productPageUpdate();
+    });
+}

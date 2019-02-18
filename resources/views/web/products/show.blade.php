@@ -81,19 +81,30 @@
                     <i class="material-icons pl-2">access_time</i>
                     <span class="text-sm">زمان تحویل</span><span class="delivery-date pr-2 text-sm">۲۲ اسفند ماه</span>  
                 </div>
-            </div>
+            </div>   
             
-            <div class="size">
-            </div>    
-            <div class="py-6">
-                    @component('components.form.text', [
-                        'label' => 'انتخاب پارچه',
-                        'outlined' => true,
-                        'shaped' => true
-                    ])@endcomponent
-            </div> 
+            <div id="product-options">
+                @foreach ($product->options as $option)
+                    @component('components.form.field')
+                        <div option="{{$option['name']}}">
+                            <span class="title">{{$option['label']}}:</span><br>
+                            @foreach ($option['values'] as $value)
+                                <div value="{{$value['value']}}" class="check p-2 border-2 border-solid ml-4 inline-block border-black rounded-full cursor-pointer">
+                                    @isset($value['color'])
+                                        <span class="border-2 border-solid p-3 inline-block border-black rounded-full align-middle" style="background-color: {{ $value['color'] }}">
+                                        </span>
+                                    @endisset
+                                    <span>
+                                        {{$value['label']}}
+                                    </span>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endcomponent
+                @endforeach
+            </div>
             <div class="flex items-center py-6">
-                    <a href="{{ route('cart.store', $product->relatedVariations[0]) }}">
+                    <a href="{{ route('cart.store', $product->variations[0]) }}">
                         @component('components.form.button', [
                             'label' => 'افزودن به سبد خرید',
                             'raised' => true,
@@ -164,8 +175,28 @@
                 </div>
             </div>
         </div>
-
-
+        <div class="w-full">
+            <table class="product-variations">
+                <thead></thead>
+                <tbody>
+                    @foreach ($product->variations as $variation)
+                        <tr class="hidden" @foreach ($variation['options'] as $opt => $val) {{$opt}} = {{$val}} @endforeach>
+                            <td>{{ $variation->business->brand }}</td>
+                            <td>{{ $variation->quantity }}</td>
+                            <td>{{ $variation->price }}</td>
+                            <td>
+                                <a href="{{ route('cart.store', $variation) }}">
+                                    @component('components.form.button', [
+                                        'label' => 'افزودن به سبد خرید',
+                                        'raised' => true,
+                                    ])@endcomponent
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         {{-- <div class="w-full">
             <table class="table-auto">
                 <h2 class="bg-green-dark">فروشندگان</h2>
