@@ -5,42 +5,44 @@ use Faker\Factory as Faker;
 $faker = Faker::create('fa_IR');
 
 $factory->define(App\Models\Product::class, function () use ($faker) {
-    $options = array_random([
-        'color' => [
+    $options = array_filter([
+        [
+            'name' => 'color',
             'label' => 'رنگ',
             'type' => 'color',
-            'values' => array_random([
-                'red' => ['label' => 'قرمز', 'color' => '#e5e5e5'],
-                'pink' => ['label' => 'صورتی', 'color' => '#dddddd'],
-                'black' => ['label' => 'مشکی', 'color' => '#555555'],
-                'yellow' => ['label' => 'زرد', 'color' => '#aaaaaa'],
-            ], rand(1, 4)),
+            'values' => array_filter([
+                ['value' => 'red', 'label' => 'قرمز', 'color' => '#e5e5e5'],
+                ['value' => 'pink', 'label' => 'صورتی', 'color' => '#dddddd'],
+                ['value' => 'black', 'label' => 'مشکی', 'color' => '#555555'],
+                ['value' => 'yellow', 'label' => 'زرد', 'color' => '#aaaaaa']
+            ], function(){ return rand(0,1); }),
         ],
-        'size' => [
+        [
+            'name' => 'size',
             'label' => 'سایز',
             'type' => 'check',
-            'values' => array_random([
-                's' => ['label' => 's'],
-                'm' => ['label' => 'm'],
-                'l' => ['label' => 'l'],
-                'xl' => ['label' => 'xl'],
-            ], rand(1, 4)),
+            'values' => array_filter([
+                ['value' => 's', 'label' => 's'],
+                ['value' => 'm', 'label' => 'm'],
+                ['value' => 'l', 'label' => 'l'],
+                ['value' => 'xl', 'label' => 'xl']
+            ], function(){ return rand(0,1); }),
         ],
-        'capacity' => [
+        [
+            'name' => 'capacity',
             'label' => 'ظرفیت',
             'type' => 'select',
-            'values' => array_random([
-                '8' => ['label' => '8 GB'],
-                '16' => ['label' => '16 GB'],
-                '32' => ['label' => '32 GB'],
-                '64' => ['label' => '64 GB'],
-            ], rand(1, 4)),
-        ],
-    ], rand(1, 3));
-
+            'values' => array_filter([
+                ['value' => '8', 'label' => '8 GB'],
+                ['value' => '16', 'label' => '16 GB'],
+                ['value' => '32', 'label' => '32 GB'],
+                ['value' => '64', 'label' => '64 GB']
+            ], function(){ return rand(0,1); }),
+        ]
+    ], function($option){ return count($option['values'])? rand(0,1): false; });
     return [
         'title'     =>  $title = \faker('sentence')->first(),
-        'slug'      =>  str_slug($title),
+        'slug'      =>  str_slug($title) . rand(10000, 99999),
         'abstract'  =>  \faker('paragraph')->first(),
         'body'      =>  implode(PHP_EOL, \faker('paragraph', 4)->toArray()),
         'attributes'=>  json_encode($faker->paragraphs()),
