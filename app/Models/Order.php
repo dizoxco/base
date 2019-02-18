@@ -11,7 +11,7 @@ class Order extends Model implements IsPayable
     use Payable;
 
     protected $fillable = [
-        'user_id', 'receiver', 'mobile', 'province', 'city', 'address', 'postal_code',
+        'user_id', 'receiver', 'mobile', 'province', 'city_id', 'address', 'postal_code',
     ];
 
     protected $casts = [
@@ -22,7 +22,7 @@ class Order extends Model implements IsPayable
     {
         return $this->belongsToMany(
             Variation::class, 'orders_products', 'order_id', 'variation_id', 'id', 'id'
-        )->withPivot(['count', 'price']);
+        )->withPivot(['quantity', 'price']);
     }
 
     public function paid()

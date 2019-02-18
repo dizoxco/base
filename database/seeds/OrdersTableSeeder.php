@@ -19,7 +19,7 @@ class OrdersTableSeeder extends Seeder
             foreach ($orders as $order) {
                 $variations = Variation::inRandomOrder()
                     ->select(['id as variation_id', 'price'])
-                    ->selectRaw('quantity - 1 as count')
+                    ->selectRaw('quantity - 1 as quantity')
                     ->take(2)
                     ->get()
                     ->toArray();
@@ -33,7 +33,7 @@ class OrdersTableSeeder extends Seeder
             }
         }
         DB::table('orders_products')->update(['options' => json_encode([])]);
-        DB::table('orders_products')->where('count', '<', 2)
-            ->update(['count' => DB::raw('RAND() * 10')]);
+        DB::table('orders_products')->where('quantity', '<', 2)
+            ->update(['quantity' => DB::raw('RAND() * 10')]);
     }
 }
