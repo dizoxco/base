@@ -59,6 +59,7 @@ class CartController extends Controller
         if (Auth::check()) {
             try {
                 Auth::user()->cart()->whereUserId(Auth::id())->whereVariationId($variation->id)->delete();
+                $cookie = Cookie::make('cart', null);
             } catch (\Throwable $throwable) {
                 return back();
             }
@@ -76,6 +77,6 @@ class CartController extends Controller
                 ->with('side_content', 'cart');
         }
 
-        return back()->with('side_content', 'cart');
+        return back()->with('side_content', 'cart')->withCookie($cookie);
     }
 }
