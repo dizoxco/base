@@ -9,6 +9,6 @@ class TaxonomyController extends Controller
 {
     public function index()
     {
-        return TaxonomyRepo::getAll(['with'=>'tags']);
+        return TaxonomyRepo::getAll();
     }
 }
