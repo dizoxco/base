@@ -44,6 +44,16 @@ class User extends Authenticatable implements HasMedia
         return "{$this->name} {$this->family}";
     }
 
+    public function getCartCostAttribute()
+    {
+        $carts = $this->cart()->with('variation')->get();
+        $total = 0;
+        foreach ($carts as $item) {
+            $total += $item->quantity * $item->variation->price;
+        }
+        return $total;
+    }
+
     //  =============================== End Accessor ==========================
 
     //  =============================== Relationships =========================
