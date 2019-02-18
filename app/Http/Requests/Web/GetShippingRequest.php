@@ -26,7 +26,8 @@ class GetShippingRequest extends FormRequest
     {
         $cart = Auth::user()->cart();
         if (! $cart->count()) {
-            $this->merge(['cart' => 0,]);
+            $this->merge(['cart' => 0]);
+
             return ['cart' => 'required|min:1'];
         }
 
@@ -34,7 +35,8 @@ class GetShippingRequest extends FormRequest
             return $item->quantity <= $item->variation->quantity;
         });
         if (! $check) {
-            $this->merge(['check' => $check,]);
+            $this->merge(['check' => $check]);
+
             return ['check' => 'accepted'];
         }
 

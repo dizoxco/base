@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Requests\Payment\StorePaymentRequest;
-use App\Models\Order;
-use http\Cookie;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Session;
+use App\Models\Order;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Payment\StorePaymentRequest;
 
 class PaymentController extends Controller
 {
@@ -17,6 +15,7 @@ class PaymentController extends Controller
             'پرداخت انلاین' => 'online',
             'پرداخت در محل' => 'pos',
         ];
+
         return view('profile.payment', compact('payment_methods'));
     }
 
@@ -36,7 +35,7 @@ class PaymentController extends Controller
         });
 
         // Submit order with its variations
-        $address = Session::pull("address");
+        $address = Session::pull('address');
         if ($address === null) {
             return redirect()->route('shipping.index');
         }

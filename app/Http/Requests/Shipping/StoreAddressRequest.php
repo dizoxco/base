@@ -3,8 +3,8 @@
 namespace App\Http\Requests\Shipping;
 
 use Auth;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class StoreAddressRequest extends FormRequest
 {
@@ -29,10 +29,11 @@ class StoreAddressRequest extends FormRequest
             'address' => [
                 'required',
                 'numeric',
-                Rule::exists('addresses','id')->where(function ($query) {
+                Rule::exists('addresses', 'id')->where(function ($query) {
                     $user_addresses_id = Auth::user()->addresses()->select('id')->pluck('id')->toArray();
+
                     return $query->whereIn('id', $user_addresses_id);
-                })
+                }),
             ],
         ];
     }

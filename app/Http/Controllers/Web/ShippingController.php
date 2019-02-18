@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Shipping\StoreAddressRequest;
-use App\Http\Requests\Web\GetShippingRequest;
 use Auth;
-use phpDocumentor\Reflection\DocBlock\Tags\Reference\Fqsen;
 use Session;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Web\GetShippingRequest;
+use App\Http\Requests\Shipping\StoreAddressRequest;
 
 class ShippingController extends Controller
 {
@@ -19,7 +18,7 @@ class ShippingController extends Controller
     public function store(StoreAddressRequest $request)
     {
         Session::put(
-            "address",
+            'address',
             $request->input('address') // put address in session
         );
 

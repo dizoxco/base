@@ -14,8 +14,10 @@ $factory->define(App\Models\Product::class, function () use ($faker) {
                 ['value' => 'red', 'label' => 'قرمز', 'color' => '#e5e5e5'],
                 ['value' => 'pink', 'label' => 'صورتی', 'color' => '#dddddd'],
                 ['value' => 'black', 'label' => 'مشکی', 'color' => '#555555'],
-                ['value' => 'yellow', 'label' => 'زرد', 'color' => '#aaaaaa']
-            ], function(){ return rand(0,1); }),
+                ['value' => 'yellow', 'label' => 'زرد', 'color' => '#aaaaaa'],
+            ], function () {
+                return rand(0, 1);
+            }),
         ],
         [
             'name' => 'size',
@@ -25,8 +27,10 @@ $factory->define(App\Models\Product::class, function () use ($faker) {
                 ['value' => 's', 'label' => 's'],
                 ['value' => 'm', 'label' => 'm'],
                 ['value' => 'l', 'label' => 'l'],
-                ['value' => 'xl', 'label' => 'xl']
-            ], function(){ return rand(0,1); }),
+                ['value' => 'xl', 'label' => 'xl'],
+            ], function () {
+                return rand(0, 1);
+            }),
         ],
         [
             'name' => 'capacity',
@@ -36,13 +40,18 @@ $factory->define(App\Models\Product::class, function () use ($faker) {
                 ['value' => '8', 'label' => '8 GB'],
                 ['value' => '16', 'label' => '16 GB'],
                 ['value' => '32', 'label' => '32 GB'],
-                ['value' => '64', 'label' => '64 GB']
-            ], function(){ return rand(0,1); }),
-        ]
-    ], function($option){ return count($option['values'])? rand(0,1): false; });
+                ['value' => '64', 'label' => '64 GB'],
+            ], function () {
+                return rand(0, 1);
+            }),
+        ],
+    ], function ($option) {
+        return count($option['values']) ? rand(0, 1) : false;
+    });
+
     return [
         'title'     =>  $title = \faker('sentence')->first(),
-        'slug'      =>  str_slug($title) . rand(10000, 99999),
+        'slug'      =>  str_slug($title).rand(10000, 99999),
         'abstract'  =>  \faker('paragraph')->first(),
         'body'      =>  implode(PHP_EOL, \faker('paragraph', 4)->toArray()),
         'attributes'=>  json_encode($faker->paragraphs()),

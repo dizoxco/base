@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Payment;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class StorePaymentRequest extends FormRequest
 {
@@ -28,8 +28,8 @@ class StorePaymentRequest extends FormRequest
             'payment' => [
                 'required',
                 'string',
-                Rule::in(['online', 'pos',])
-            ]
+                Rule::in(['online', 'pos']),
+            ],
         ];
     }
 }

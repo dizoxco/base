@@ -51,6 +51,7 @@ class User extends Authenticatable implements HasMedia
         foreach ($carts as $item) {
             $total += $item->quantity * $item->variation->price;
         }
+
         return $total;
     }
 

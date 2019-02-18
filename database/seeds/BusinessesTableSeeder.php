@@ -5,7 +5,6 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Business;
 use App\Models\Taxonomy;
-use App\Models\Variation;
 use Illuminate\Database\Seeder;
 
 class BusinessesTableSeeder extends Seeder
@@ -32,20 +31,19 @@ class BusinessesTableSeeder extends Seeder
             $taggables[] = [
                 'tag_id' => $business_types->random()->id,
                 'taggable_id' => $business->id,
-                'taggable_type' => 'App\Models\Business'
+                'taggable_type' => 'App\Models\Business',
             ];
             $taggables[] = [
                 'tag_id' => $business_fields->random()->id,
                 'taggable_id' => $business->id,
-                'taggable_type' => 'App\Models\Business'
+                'taggable_type' => 'App\Models\Business',
             ];
             $taggables[] = [
                 'tag_id' => $business_contracts->random()->id,
                 'taggable_id' => $business->id,
-                'taggable_type' => 'App\Models\Business'
+                'taggable_type' => 'App\Models\Business',
             ];
 
-            
             // Introduces multiple users as business owners.
             foreach ($users->random(rand(1, 4)) as $user) {
                 $business_users[] = [
@@ -64,11 +62,9 @@ class BusinessesTableSeeder extends Seeder
 
             // A logo is dedicated to the business.
             $business->addMediaFromUrl(resource_path('seed/logo-images/'.rand(1, 68).'.png'))->toMediaCollection(enum('media.business.logo'));
-
         }
         DB::table('businesses_users')->insert($business_users);
         DB::table('businesses_products')->insert($businesses_products);
-
 
         $product_tags = Tag::WhereIn(
             'taxonomy_id',
@@ -83,7 +79,7 @@ class BusinessesTableSeeder extends Seeder
                 $taggables[] = [
                     'tag_id' => $tag->id,
                     'taggable_id' => $product->id,
-                    'taggable_type' => 'App\Models\Product'
+                    'taggable_type' => 'App\Models\Product',
                 ];
             }
 
@@ -102,7 +98,7 @@ class BusinessesTableSeeder extends Seeder
                 'product_id' => $product->id,
             ];
 
-            for ($i=0; $i < rand(3, 7); $i++) {
+            for ($i = 0; $i < rand(3, 7); $i++) {
                 $options = [];
                 foreach ($product->options as $option) {
                     $options[$option['name']] = $option['values'][array_rand($option['values'])]['value'];
@@ -115,11 +111,11 @@ class BusinessesTableSeeder extends Seeder
                     'options' => json_encode($options),
                 ];
 
-                if (rand(0, 1)){
+                if (rand(0, 1)) {
                     $carts[] = [
                         'variation_id' => count($variations),
                         'user_id' => rand(1, 1000),
-                        'quantity' => rand(1, 3)
+                        'quantity' => rand(1, 3),
                     ];
                 }
             }
