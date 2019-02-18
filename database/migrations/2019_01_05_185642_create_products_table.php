@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->text('abstract')->nullable();
             $table->text('body');
             $table->json('attributes');
-            $table->json('variations')->nullable();
+            $table->json('options')->nullable();
             $table->boolean('single');
             $table->unsignedInteger('price');
             $table->smallInteger('status')->default(1);

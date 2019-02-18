@@ -21,13 +21,13 @@ class Product extends Model implements HasMedia
     use SoftDeletes, HasSlug, HasMediaTrait;
 
     protected $fillable = [
-        'title', 'slug', 'abstract', 'body', 'attributes', 'variations',
+        'title', 'slug', 'abstract', 'body', 'attributes', 'options',
         'single', 'available_at',
     ];
 
     protected $casts = [
-        'single' => 'boolean',
-        'variations' => 'array',
+        'single'    => 'boolean',
+        'options'   => 'array',
     ];
 
     //  =============================== Relationships =========================

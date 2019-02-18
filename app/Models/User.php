@@ -133,9 +133,7 @@ class User extends Authenticatable implements HasMedia
     public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumb')
-            ->width(100)
-            ->height(100)
-            ->nonQueued()
+            ->crop('crop-center', 150, 150)
             ->performOnCollections(enum('media.user.avatar'));
     }
 
