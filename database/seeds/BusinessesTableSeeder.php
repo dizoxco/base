@@ -13,36 +13,79 @@ class BusinessesTableSeeder extends Seeder
     public function run()
     {
         Business::insert(factory(Business::class, 100)->make()->toArray());
+        Product::insert(factory(Product::class, 300)->make()->toArray());
 
         $users = User::all();
         $businesses = Business::all();
-        $faker = Faker\Factory::create();
-        $mobile_tag = Tag::whereSlug('mobiles')->first()->id;
-        $business_types = Taxonomy::whereSlug('types')->first()->tags->pluck('id')->toArray();
-        $business_fields = Taxonomy::whereSlug('fields')->first()->tags->pluck('id')->toArray();
-        $business_contracts = Taxonomy::whereSlug('contracts')->first()->tags->pluck('id')->toArray();
+        $products = Product::all();
 
+        $faker = Faker\Factory::create();
+        // $mobile_tag = Tag::whereSlug('mobiles')->first()->id;
+        $business_types = Taxonomy::whereSlug('types')->first()->tags;
+        $business_fields = Taxonomy::whereSlug('fields')->first()->tags;
+        $business_contracts = Taxonomy::whereSlug('contracts')->first()->tags;
+        $taggables = [];
+        $business_users = [];
+        $businesses_products = [];
         foreach ($businesses as $business) {
             // Give business tags in type and fields and contract
-            $business->tags()->sync([
-                $business_types[array_rand($business_types)],
-                $business_fields[array_rand($business_fields)],
-                $business_contracts[array_rand($business_contracts)],
-            ]);
+            $taggables[] = [
+                'tag_id' => $business_types->random()->id,
+                'taggable_id' => $business->id,
+                'taggable_type' => 'App\Models\Business'
+            ];
+            $taggables[] = [
+                'tag_id' => $business_fields->random()->id,
+                'taggable_id' => $business->id,
+                'taggable_type' => 'App\Models\Business'
+            ];
+            $taggables[] = [
+                'tag_id' => $business_contracts->random()->id,
+                'taggable_id' => $business->id,
+                'taggable_type' => 'App\Models\Business'
+            ];
 
+            
             // Introduces multiple users as business owners.
-            $business->users()->attach($users->random(3));
+            foreach ($users->random(rand(1, 4)) as $user) {
+                $business_users[] = [
+                    'business_id' => $business->id,
+                    'user_id' => $user->id,
+                ];
+            }
+
+            // assign products to business
+            foreach ($products->random(rand(1, 5)) as $product) {
+                $businesses_products[] = [
+                    'business_id' => $business->id,
+                    'product_id' => $product->id,
+                ];
+            }
 
             // A logo is dedicated to the business.
             $business->addMediaFromUrl(resource_path('seed/logo-images/'.rand(1, 68).'.png'))->toMediaCollection(enum('media.business.logo'));
 
-            // Between 0 to 10 random items are assigned to the business.
-            $products = $business->products()->createMany(factory(Product::class, random_int(0, 10))->make()->toArray());
         }
-        $tags = Tag::all();
-        foreach (Product::all() as $product) {
+        DB::table('businesses_users')->insert($business_users);
+        DB::table('businesses_products')->insert($businesses_products);
+
+
+        $product_tags = Tag::WhereIn(
+            'taxonomy_id',
+            Taxonomy::whereIn('slug', ['brands', 'colors', 'forms'])->pluck('id')->toArray()
+        )->get();
+        $wishlists = [];
+        $variations = [];
+        $carts = [];
+        foreach ($products as $product) {
             // Assign random tags to each product
-            $product->tags()->sync($tags->random(3)->pluck('id')->toArray());
+            foreach ($product_tags->random(6) as $tag) {
+                $taggables[] = [
+                    'tag_id' => $tag->id,
+                    'taggable_id' => $product->id,
+                    'taggable_type' => 'App\Models\Product'
+                ];
+            }
 
             // Assigns an image as index to the product.
             $product->addMediaFromUrl(resource_path('seed/product-images/'.rand(1, 20).'.jpg'))->toMediaCollection(enum('media.product.banner'));
@@ -54,25 +97,36 @@ class BusinessesTableSeeder extends Seeder
                 )->toMediaCollection(enum('media.product.gallery'));
             }
 
-            // Make several different types of that product.
-            $variations = $product->relatedVariations()->createMany(factory(Variation::class, 5)->make(
-                [
+            $wishlists[] = [
+                'user_id' => rand(1, 1000),
+                'product_id' => $product->id,
+            ];
+
+            for ($i=0; $i < rand(3, 7); $i++) {
+                $options = [];
+                foreach ($product->options as $option) {
+                    $option[] = [$option['name'] => $option['values'][array_rand($option['values'])]['value'] ];
+                }
+                $variations[] = [
                     'business_id' => rand(1, 100),
-                    'product_id' => rand(1, 1000),
-                ]
-            )->toArray());
+                    'product_id' => $product->id,
+                    'price' => rand(10000, 1000000),
+                    'quantity' => rand(1, 10),
+                    'options' => json_encode($options),
+                ];
 
-            // and save that
-            // $product->update([
-            //     'variations' => $variations->pluck('id')->toJson(),
-            // ]);
-
-            if ($faker->boolean()) {
-                // By chance of 50% product get the mobile tag
-                // $product->tags()->sync($mobile_tag, false);
-                // By chance of 50% product give users that like it and added to their wish lists
-                $product->users()->sync($users->random(10)->pluck('id')->toArray(), false);
+                if (rand(0, 1)){
+                    $carts[] = [
+                        'variation_id' => count($variations),
+                        'user_id' => rand(1, 1000),
+                        'quantity' => rand(1, 3)
+                    ];
+                }
             }
         }
+        DB::table('taggables')->insert($taggables);
+        DB::table('variations')->insert($variations);
+        DB::table('carts')->insert($carts);
+        DB::table('wishlists')->insert($wishlists);
     }
 }
