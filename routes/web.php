@@ -3,10 +3,8 @@
 Route::any('lab', function () {
 });
 
-Route::get('logout', function () {
-});
 // Override the default logout route that user GET instead of POST
-//Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('password/token', 'Auth\ForgotPasswordController@getToken')->name('password.token.get');
 Route::post('password/token', 'Auth\ForgotPasswordController@validateToken')->name('password.token.validate');
 Route::post('google', 'Auth\LoginController@google')->name('google');
@@ -33,6 +31,16 @@ Route::name('cart.')->prefix('cart')->group(function () {
     Route::get('/', 'CartController@index')->name('index');
     Route::get('{variation}', 'CartController@store')->name('store');
     Route::get('{variation}/destroy', 'CartController@destroy')->name('destroy');
+});
+
+Route::name('shipping.')->prefix('shipping')->middleware('auth')->group(function () {
+    Route::get('/', 'ShippingController@index')->name('index');
+    Route::post('/', 'ShippingController@store')->name('store');
+});
+
+Route::name('payment.')->prefix('payment')->middleware('auth')->group(function () {
+    Route::get('/', 'PaymentController@index')->name('index');
+    Route::post('/', 'PaymentController@store')->name('store');
 });
 
 Route::name('profile.')->prefix('profile')->middleware('auth')->group(function () {

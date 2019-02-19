@@ -1,3 +1,4 @@
+
 # Base Document
 
 <p align="center">
@@ -12,22 +13,22 @@
 ## project scops and progress
 [40% - 125h]
 
-### [User](resources/docs/users.md)
-- [Authenticate](resources/docs/users.md#authenticate) [50% - 16h]
-    - [sms](resources/docs/users.md#sms) [20% - 5h]
-    - [email](resources/docs/users.md#email) [60% - 4h]
-    - [google](resources/docs/users.md#google) [80% - 4h]
-    - [validation](resources/docs/users.md#sms) [20% - 5h]
-    - [reset password](resources/docs/users.md#sms) [20% - 5h]
-    - [ui](resources/docs/users.md#ui) [80% - 3h]
-- [user private profile](resources/docs/users.md#user-private-profile) [55% - 10h]
-    - [ui](resources/docs/users.md#ui-1) [50% - 5h]
-    - [edit profile info](resources/docs/users.md#edit-profile-and-authenticate-info) [60% - 5h]
-    - [edit authenticate info](resources/docs/users.md#edit-profile-and-authenticate-info) [60% - 5h]
-- [user manager in admin panel](resources/docs/users.md#user-manager-in-admin-panel)
-    - [api](resources/docs/users.md#api)
-    - [crud user](resources/docs/users.md#crud-user)
-    - [assign user roles](resources/docs/users.md#assign-user-roles)
+### User
+- Authenticate
+    -  &#9644;&#x25AC;&#9645; sms
+    - email
+    - &#9646;&#9646;&#9646;&#9647;&#9647; google
+    - validation
+    - reset password
+    - ui
+- user private profile
+    - ui
+    - edit profile info
+    - edit authenticate info
+- user manager in admin panel
+    - api
+    - crud user
+    - assign user roles
 - role manager in admin panel
     - crud roles
     - assign permissions to role

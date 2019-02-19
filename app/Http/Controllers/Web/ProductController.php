@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
     public function show(Product $product)
     {
-        $product->load(['tags', 'media', 'comments', 'relatedVariations', 'users']);
+        $product->load(['tags', 'media', 'comments', 'variations', 'users']);
         $recent = ProductRepo::getRecent();
         $related = ProductRepo::getRelated($product);
         if (Auth::check()) {

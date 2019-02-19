@@ -18,7 +18,7 @@ class ProfileController extends Controller
 
     public function orders()
     {
-        $orders = auth()->user()->orders()->with('city', 'variations', 'variations.product')->get();
+        $orders = Auth::user()->orders()->with('city', 'variations', 'variations.product')->get();
 
         return view('profile.orders', compact('orders'));
     }
