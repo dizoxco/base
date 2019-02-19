@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'driver' => 'smtp',
-    'host' => 'smtp.mailtrap.io',
-    'port' => 2525,
+    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'host' => env('MAIL_HOST', 'smtp.mailtrap.io'),
+    'port' => env('MAIL_PORT', 2525),
     'from' => [
-        'address' => 'noreply@larabase.dev',
-        'name' => 'Larabase Administration',
+        'address' => env('MAIL_FROM_ADDRESS', 'john@doe.com'),
+        'name' => env('MAIL_FROM_NAME', 'John Doe'),
     ],
-    'username' => '5593db13773ba5',
-    'password' => '32d59f0010acc4',
+    'username' => env('MAIL_USERNAME'),
+    'password' => env('MAIL_PASSWORD'),
     'sendmail' => '/usr/sbin/sendmail -bs',
     'pretend' => false,
 ];

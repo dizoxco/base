@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ClearCartCookie;
 use Illuminate\Auth\Middleware\Authorize;
 use App\Http\Middleware\CustomHttpHeaders;
 use App\Http\Middleware\AccessControlLayer;
@@ -32,8 +33,7 @@ class Kernel extends HttpKernel
         Middleware\TrimStrings::class,
         ConvertEmptyStringsToNull::class,
         Middleware\TrustProxies::class,
-        //  Add content-type : application/vnd.api+json to every response
-        CustomHttpHeaders::class,
+        ClearCartCookie::class,
     ];
 
     /**
@@ -55,6 +55,8 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
+            //  Add content-type : application/vnd.api+json to every response
+            CustomHttpHeaders::class,
         ],
     ];
 

@@ -28,7 +28,7 @@ class StorePaymentRequest extends FormRequest
             'payment' => [
                 'required',
                 'string',
-                Rule::in(['online', 'pos']),
+                Rule::in(['zarinpal', 'pos']),
             ],
         ];
     }
