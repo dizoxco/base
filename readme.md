@@ -10,37 +10,37 @@
 </a>
 </p>
 
-## project scops and progress
-[40% - 125h]
-
 ### User
-- Authenticate
-    -  &#9644;&#x25AC;&#9645; sms
-    - email
+- Authenticate - 8
+    - &#9646;&#9646;&#9646;&#9647;&#9647; sms
+    - &#9646;&#9646;&#9646;&#9647;&#9647; email
     - &#9646;&#9646;&#9646;&#9647;&#9647; google
-    - validation
-    - reset password
-    - ui
-- user private profile
-    - ui
-    - edit profile info
-    - edit authenticate info
-- user manager in admin panel
-    - api
-    - crud user
-    - assign user roles
-- role manager in admin panel
-    - crud roles
-    - assign permissions to role
-- authorize
+    - &#9646;&#9646;&#9646;&#9647;&#9647; validation
+    - &#9646;&#9646;&#9646;&#9646;&#9647; reset password
+    - &#9646;&#9646;&#9646;&#9646;&#9647; ui
+- user private profile - 2
+    - &#9646;&#9646;&#9646;&#9647;&#9647; ui
+    - &#9646;&#9646;&#9646;&#9647;&#9647; edit profile info
+    - &#9646;&#9646;&#9646;&#9647;&#9647; edit authenticate info
+- user manager in admin panel - 3
+    - &#9646;&#9646;&#9646;&#9646;&#9647; api
+    - &#9646;&#9646;&#9647;&#9647;&#9647; crud user
+    - &#9647;&#9647;&#9647;&#9647;&#9647; assign user roles
+- role manager in admin panel - 3
+    - &#9647;&#9647;&#9647;&#9647;&#9647; crud roles
+    - &#9647;&#9647;&#9647;&#9647;&#9647; assign permissions to role
+- authorize - 3
+    - &#9646;&#9646;&#9646;&#9647;&#9647; admin routes
+    - &#9646;&#9646;&#9646;&#9647;&#9647; profile routes and resources
+    - &#9647;&#9647;&#9647;&#9647;&#9647; business routes and resources in profile
 
 ### businesses
-- manage business through owner user
-    - create own business
-    - edit bio and contact info
-- crud businesses in admin panels
-- business public profile
-- search businesses
+- manage business through owner user - 3
+    - &#9646;&#9646;&#9646;&#9647;&#9647; create own business
+    - &#9646;&#9646;&#9646;&#9647;&#9647; edit bio and contact info
+- crud businesses in admin panels - 5
+- business public profile - 2
+- search businesses - 3
 
 ### products
 - manage products from business owners
