@@ -22,7 +22,6 @@ class CreateVariationsTable extends Migration
             $table->json('options');
             $table->text('description')->nullable();
             $table->integer('delivery')->default(0);
-            $table->integer('delivery')->default(0);
             $table->integer('status')->default(0);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
