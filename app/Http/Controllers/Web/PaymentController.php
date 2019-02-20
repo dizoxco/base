@@ -129,7 +129,7 @@ class PaymentController extends Controller
         $transaction = Transaction::create([
             'method' => $method,
             'model' => $order,
-            'user_id' => Auth::id(),
+            'user_id' => $user->id,
             'amount' => $user->cartCost,
         ]);
         $user->cart()->forceDelete();
