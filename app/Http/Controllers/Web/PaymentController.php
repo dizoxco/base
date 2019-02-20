@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Web;
 
+use Auth;
+use Session;
+use App\Models\User;
+use App\Models\Order;
+use Zarinpal\Zarinpal;
+use App\Models\Transaction;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Payment\StorePaymentRequest;
-use App\Models\Order;
-use App\Models\Transaction;
-use App\Models\User;
-use Auth;
-use Illuminate\Http\Request;
-use Session;
-use Zarinpal\Zarinpal;
 
 class PaymentController extends Controller
 {
@@ -53,6 +53,7 @@ class PaymentController extends Controller
                 'options' => json_encode($cart->variation->options),
             ];
         });
+
         return $order_variation;
     }
 
@@ -62,6 +63,7 @@ class PaymentController extends Controller
             $user->addresses()->whereId($address)->first()->toArray()
         );
         $order->variations()->sync($order_variation, false);
+
         return $order;
     }
 
@@ -77,12 +79,14 @@ class PaymentController extends Controller
             return back();
         }
         $user->cart()->forceDelete();
-        return redirect()->to(env('ZARINPAL') . $transaction->options['Authority']);
+
+        return redirect()->to(env('ZARINPAL').$transaction->options['Authority']);
     }
 
     private function payWithPos(User $user)
     {
         $user->cart()->forceDelete();
+
         return redirect()->route('profile.orders')
             ->withCookie(\Cookie::make('cart', null));
     }
@@ -93,6 +97,7 @@ class PaymentController extends Controller
             "JSON_EXTRACT(options, '$.Authority') = '{$request->get('Authority')}'")
         ->firstOrFail();
         $transaction->verify(['sandbox' => true]);
+
         return redirect()->route('profile.orders');
     }
 }

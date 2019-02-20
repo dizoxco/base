@@ -31,11 +31,12 @@ trait Payer
     {
         $method = $this->getAttribute('method');
         $payment_method = new $method();
-        if (!empty($options)) {
+        if (! empty($options)) {
             $result = $payment_method->verify($this, extract($options));
         }
         $result = $payment_method->verify($this);
         $this->options = array_merge($this->options, $result);
+
         return $this->saveOrFail();
     }
 
@@ -60,7 +61,7 @@ trait Payer
 
             return $model;
         } catch (\Throwable $throwable) {
-            return null;
+            return;
         }
     }
 

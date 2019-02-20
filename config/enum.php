@@ -5,7 +5,7 @@ return [
     'payment' => [
         'pos' => [
             'key' => 'pos',
-            'description' => 'پرداخت در محل'
+            'description' => 'پرداخت در محل',
         ],
         'zarinpal' => [
             'key' => 'zarinpal',

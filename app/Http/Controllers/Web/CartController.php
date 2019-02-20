@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Models\Cart;
 use Auth;
 use Cookie;
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Variation;
 use Illuminate\Http\Request;
