@@ -1,11 +1,11 @@
 <?php
 
-
 namespace App\Repositories;
 
 use App\Models\Taxonomy;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
+
 class TaxonomyRepository extends BaseRepository
 {
     public function getAll($params = []) : ?Collection
@@ -18,5 +18,4 @@ class TaxonomyRepository extends BaseRepository
 
         return $taxonomies->get();
     }
-
 }
