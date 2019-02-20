@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Requests\Profile\UpdateProductRequest;
 use Auth;
 use App\Models\Order;
 use App\Models\Ticket;
 use App\Models\Product;
 use App\Models\Business;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Profile\UpdateProductRequest;
 
 class BusinessManagerController extends Controller
 {
@@ -47,6 +47,7 @@ class BusinessManagerController extends Controller
     {
         $options = array_pluck($product->options, 'values');
         $variations = $this->crossJoin($options);
+
         return view(
             'profile.businesses.products.show',
             compact('variations', 'product', 'business')
