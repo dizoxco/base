@@ -9,13 +9,13 @@
                         <div class="side__cart-product-img w-1/3 ">
                             روش های پرداخت
                         </div>
-                        @forelse($payment_methods as $name => $key)
+                        @forelse($paymentMethods as $key => $method)
                         <div class="side__cart-product-detail caption pr-2 w-2/3">
                           <div class="side__cart-product-name text-sm text-black">
                             <div class="font-bold text-black text-lg mt-3">
                                 <input type="radio" name="payment" value="{{ $key }}">
                                 <span class="text-sm font-normal text-black">
-                                روش : {{ $name }}
+                                روش : {{ $method['description'] }}
                                 </span>
                             </div>
                           </div>

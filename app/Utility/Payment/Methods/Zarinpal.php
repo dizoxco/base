@@ -36,12 +36,14 @@ class Zarinpal implements PaymentMethod
         return $this->options;
     }
 
-    public function verify($transaction)
+    public function verify($transaction, $sandbox = false)
     {
         $zarinpal = new ZarinpalGateway(config('gateway.zarinpal.merchant-id'));
-        $authority = $transaction->options['Authority'];
+        if ($sandbox) {
+            $zarinpal->enableSandbox();
+        }
 
-        return $zarinpal->verify($transaction->amount, $authority);
+        return $zarinpal->verify($transaction->amount, $transaction->options['Authority']);
     }
 
     public function setOptions(array $options): void

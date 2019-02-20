@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use Auth;
 use Cookie;
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Variation;
 use Illuminate\Http\Request;
@@ -14,13 +15,20 @@ class CartController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            $cart = auth()->user()->cart()->with('variation.product')->get()->pluck('variation');
+            $carts = auth()->user()->cart()->with('variation.product')->get();
         } else {
-            $cart = array_wrap(json_decode(Cookie::get('cart'), true));
-            $cart = Variation::whereIn('id', array_keys($cart))->get();
+            $carts = collect();
+            if ($variations = json_decode(Cookie::get('cart'), true)) {
+                foreach ($variations as $variation => $quantity) {
+                    $carts->push(Cart::newModelInstance([
+                        'variation_id' => $variation,
+                        'quantity' => $quantity,
+                    ])->load('variation'));
+                }
+            }
         }
 
-        return view('profile.cart', compact('cart'));
+        return view('profile.cart', compact('carts'));
     }
 
     public function store(Request $request, Variation $variation)

@@ -3,6 +3,7 @@
 Route::any('lab', function () {
 });
 
+Route::get('/verify', 'PaymentController@verify')->name('verify');
 // Override the default logout route that user GET instead of POST
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('password/token', 'Auth\ForgotPasswordController@getToken')->name('password.token.get');

@@ -34,6 +34,13 @@ class LoginController extends Controller
         return session()->previousUrl() ?? route('home');
     }
 
+    protected function authenticated()
+    {
+        return redirect()->intended($this->redirectPath())
+            ->withCookie(Cookie::make('cart', null))
+            ->withCookie(Cookie::make('wishlist', null));
+    }
+
     public function logout(Request $request)
     {
         $this->guard()->logout();

@@ -2,6 +2,7 @@
 
 namespace App\Utility\Payment\Traits;
 
+use DB;
 use InvalidArgumentException;
 use Illuminate\Validation\Validator;
 use App\Utility\Payment\Contracts\IsPayable;
@@ -26,12 +27,17 @@ trait Payer
         return $payment_method->execute();
     }
 
-    public function verify()
+    public function verify(array $options = [])
     {
         $method = $this->getAttribute('method');
         $payment_method = new $method();
+        if (! empty($options)) {
+            $result = $payment_method->verify($this, extract($options));
+        }
+        $result = $payment_method->verify($this);
+        $this->options = array_merge($this->options, $result);
 
-        return $payment_method->verify($this);
+        return $this->saveOrFail();
     }
 
     // ================================ End Payment Operates ==================
@@ -39,18 +45,24 @@ trait Payer
     // ================================ Payment validated and stored ==========
     public static function create(array $attributes = [])
     {
-        parent::validateInputs($attributes);
+        try {
+            parent::validateInputs($attributes);
 
-        $options = parent::pay($attributes);
+            $options = parent::pay($attributes);
 
-        $model = $options['model']->pays()->create([
-            'user_id'   =>  $options['user_id'],
-            'amount'    =>  $options['amount'],
-            'method'    =>  $options['method'],
-            'options'   =>  array_except($options, ['user_id', 'amount', 'method', 'model']),
-        ]);
+            $model = DB::transaction(function () use ($options) {
+                return $options['model']->pays()->create([
+                    'user_id'   =>  $options['user_id'],
+                    'amount'    =>  $options['amount'],
+                    'method'    =>  $options['method'],
+                    'options'   =>  array_except($options, ['user_id', 'amount', 'method', 'model']),
+                ]);
+            });
 
-        return $model;
+            return $model;
+        } catch (\Throwable $throwable) {
+            return;
+        }
     }
 
     public function validateInputs(array $attributes): void

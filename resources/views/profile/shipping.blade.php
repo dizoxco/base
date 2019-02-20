@@ -7,42 +7,44 @@
                 'action' => route('shipping.store'),
                 'method' => 'POST',
             ])
-                @forelse($addresses as $address)
+                @if($addresses->isNotEmpty())
                     <div class="side__cart-product flex py-3 px-5 relative bg-white mb-4 ml-2">
                         <div class="side__cart-product-img w-1/3 ">
                             ادرس ها
                         </div>
-                        <div class="side__cart-product-detail caption pr-2 w-2/3">
-                            <div class="side__cart-product-name text-sm text-black">
-                                <div class="font-bold text-black text-lg mt-3">
-                                    <input type="radio" name="address" value="{{ $address->id }}">
-                                    <span class="text-sm font-normal text-black">
+                        @foreach($addresses as $address)
+                            <div class="side__cart-product-detail caption pr-2 w-2/3">
+                                <div class="side__cart-product-name text-sm text-black">
+                                    <div class="font-bold text-black text-lg mt-3">
+                                        <input type="radio" name="address" value="{{ $address->id }}">
+                                        <span class="text-sm font-normal text-black">
                                 گیرنده : {{ $address->receiver }}
                                 </span>
-                                    <span class="text-sm font-normal text-black">
+                                        <span class="text-sm font-normal text-black">
                                 موبایل : {{ $address->mobile }}
                                 </span>
-                                    <span class="text-sm font-normal text-black">
+                                        <span class="text-sm font-normal text-black">
                                 شهر : {{ $address->city->name }}
                                 </span>
-                                    <span class="text-sm font-normal text-black">
+                                        <span class="text-sm font-normal text-black">
                                 کدپستی : {{ $address->postal_code }}
                                 </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                     @component('components.form.button',[
                         'label' => 'انتخاب آدرس',
                     ])
                     @endcomponent
-                @empty
+                @else
                     @component('components.form.button',[
                         'label' => 'افزودن آدرس',
                         'name' => 'btn_shipping_add_address',
                     ])
                     @endcomponent
-                @endforelse
+                @endif
              @endcomponent
         </div>
         <div class="w-1/3">
