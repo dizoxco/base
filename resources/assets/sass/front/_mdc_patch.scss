@@ -4,6 +4,12 @@
 // }
 // @import "@material/rtl/mixins";
 // mdc-rtl('.rtl');
+
+$mdc-theme-primary: #fcb8ab;
+$mdc-theme-secondary: #feeae6;
+$mdc-theme-on-primary: #442b2d;
+$mdc-theme-on-secondary: #442b2d;
+
 @import "@material/ripple/mdc-ripple";
 @import "@material/form-field/mdc-form-field";
 @import "@material/icon-button/mdc-icon-button";
@@ -65,6 +71,26 @@
         outline: none;
     }
 }
+
+.mdc-list{
+    font-family: IRANSans;
+}
 .mdc-list-item {
     border-radius: 32px 0 0 32px;
+    margin-left: 6.5rem;
+    color: #fff;
+    padding-right: 0;
+
+    // &:not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::before, :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::after {
+    //     background-color: red;
+    // }
+
+    &:hover{
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &__graphic.material-icons {
+        color: #fff;
+        padding-right: 2rem;
+    }
 }

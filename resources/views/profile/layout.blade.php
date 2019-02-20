@@ -1,7 +1,7 @@
 @extends('layout', ['profile_mode' => true, 'title' => $title ?? 'عنوان بده'])
 @section('content')
     <div id="profile-layout">
-        <div class="profile-nav fixed h-full">
+        <div class="profile-nav fixed h-full ">
             <br>
             <br>
             <br>
@@ -51,14 +51,14 @@
             </ul>
         </div>
         <div class="profile-content">
-            <div class="bg-blue">
+            <div class="bg-grey-darker">
                 <div class="container">
                     <br>
-                    <h1 class="text-white">{{$title ?? 'عنوان بده'}}</h1>
+                    <h1 class="text-white title my-6">{{$title ?? 'عنوان بده'}}</h1>
                     <br><br>
                 </div>
             </div>
-            <div class="bg-white p-8 -mt-8 rounded-lg">
+            <div class="bg-white p-12 -mt-8 rounded-lg">
                 @yield('profile-content')
             </div>
         </div>

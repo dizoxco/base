@@ -38,6 +38,7 @@ body{
     margin-right: auto;
     margin-left: auto;
     max-width: 1600px;
+
     &.large{
         max-width: 980px;
     }
@@ -67,19 +68,25 @@ table{
 }
 
 
-
 .swiper-container-vertical > .swiper-scrollbar{
     right: auto;
     left: 10px;
 }
 
 .chat-comments{
+    background-image: linear-gradient(to left bottom, #F8FAFC , #B8C2CC);
+    background-size: cover;
+   & .dd {
+       
+    &:hover .cc {
+        display: block;
+    }
+   } 
     .me{
-        background-color: blue;
-        
+
     }
     .tome{
-        background-color: red;
+        direction: ltr;
     }
 }
 
