@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Web;
 
-use Auth;
-use Session;
-use App\Models\User;
-use App\Models\Order;
-use Zarinpal\Zarinpal;
-use App\Models\Transaction;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Payment\StorePaymentRequest;
+use App\Models\Order;
+use App\Models\Transaction;
+use App\Models\User;
+use Auth;
+use Illuminate\Http\Request;
+use Session;
 
 class PaymentController extends Controller
 {
@@ -21,7 +20,7 @@ class PaymentController extends Controller
 
     public function store(StorePaymentRequest $request)
     {
-        $order_variation = $this->createVariations($user = Auth::user());
+        $order_variation = $this->createVariationsFromCart($user = Auth::user());
 
         $address = Session::pull('address');
         if ($address === null) {
@@ -35,14 +34,20 @@ class PaymentController extends Controller
                 return $this->payWithZarinpal($order, $user);
                 break;
             case $method === enum('payment.pos.key'):
-                return $this->payWithPos($user);
+                return $this->payWithPos($order, $user);
                 break;
             default:
                 return back();
         }
     }
 
-    private function createVariations(User $user): array
+    /**
+     * Prepare selected variations to store in the database
+     *
+     * @param User $user
+     * @return array
+     */
+    private function createVariationsFromCart(User $user): array
     {
         $order_variation = [];
         $user->cart()->with('variation')->get()->each(function ($cart) use (&$order_variation) {
@@ -57,7 +62,15 @@ class PaymentController extends Controller
         return $order_variation;
     }
 
-    private function submitOrder(User $user, $address, array $order_variation)
+    /**
+     * Save items ordered by the user in the database
+     *
+     * @param User $user
+     * @param int $address
+     * @param array $order_variation
+     * @return Order
+     */
+    private function submitOrder(User $user, int $address, array $order_variation): Order
     {
         $order = $user->orders()->create(
             $user->addresses()->whereId($address)->first()->toArray()
@@ -67,28 +80,60 @@ class PaymentController extends Controller
         return $order;
     }
 
+    /**
+     * Save type and amount of transaction and redirect user to payment page
+     *
+     * @param Order $order
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
     private function payWithZarinpal(Order $order, User $user)
     {
+        $transaction = $this->createTransaction('zarinpal', $order, $user);
+        if ($transaction === null) {
+            return back()->withErrors(['transaction' => 'fail']);
+        } else {
+            return redirect()->to(env('ZARINPAL').$transaction->options['Authority']);
+        }
+    }
+
+    /**
+     * Save the transaction type and amount
+     * Redirect the user to the order details page
+     *
+     * @param Order $order
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    private function payWithPos(Order $order, User $user)
+    {
+        $transaction = $this->createTransaction('pos', $order, $user);
+        if ($transaction === null) {
+            return back()->withErrors(['transaction' => 'fail']);
+        } else {
+            return redirect()->route('profile.orders.show', $order);
+        }
+    }
+
+    /**
+     * Save the transaction in the database and return its model
+     * Empty user cart
+     *
+     * @param string $method
+     * @param Order $order
+     * @param User $user
+     * @return Transaction|null
+     */
+    private function createTransaction(string $method, Order $order, User $user)
+    {
         $transaction = Transaction::create([
-            'method' => 'zarinpal',
+            'method' => $method,
             'model' => $order,
             'user_id' => Auth::id(),
             'amount' => $user->cartCost,
         ]);
-        if ($transaction === null) {
-            return back();
-        }
         $user->cart()->forceDelete();
-
-        return redirect()->to(env('ZARINPAL').$transaction->options['Authority']);
-    }
-
-    private function payWithPos(User $user)
-    {
-        $user->cart()->forceDelete();
-
-        return redirect()->route('profile.orders')
-            ->withCookie(\Cookie::make('cart', null));
+        return $transaction;
     }
 
     public function verify(Request $request)
@@ -98,6 +143,6 @@ class PaymentController extends Controller
         ->firstOrFail();
         $transaction->verify(['sandbox' => true]);
 
-        return redirect()->route('profile.orders');
+        return redirect()->route('profile.orders.show', $transaction->payable);
     }
 }

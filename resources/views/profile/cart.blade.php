@@ -39,11 +39,11 @@
                 @endauth
                 @guest
                     @php
-                        $total = $carts->reduce(function ($carry, $cart) {
+                        $cartCost = $carts->reduce(function ($carry, $cart) {
                             return $carry + ($cart->quantity * $cart->variation->price);
                         });
                     @endphp
-                    <h6>@toman($total)</h6>
+                    <h6>@toman($cartCost)</h6>
                 @endguest
                 <br>
                 @component('components.form.button',[

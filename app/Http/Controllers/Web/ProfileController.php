@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Http\Requests\Order\ShowOrderRequest;
+use App\Models\Order;
 use Auth;
 use Hash;
 use App\Http\Controllers\Controller;
@@ -21,6 +23,11 @@ class ProfileController extends Controller
         $orders = Auth::user()->orders()->with('city', 'variations', 'variations.product')->get();
 
         return view('profile.orders', compact('orders'));
+    }
+
+    public function orderShow(Order $order)
+    {
+        return view('profile.orders.show', compact('order'));
     }
 
     public function credentials()
