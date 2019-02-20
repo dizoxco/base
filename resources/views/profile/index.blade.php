@@ -1,4 +1,5 @@
 @extends('profile.layout')
+
 @section('profile-content')
     <div class="flex flex-wrap">
         <h1>پروفایل</h1>
