@@ -20,7 +20,7 @@ class TaxonomyResource extends Resource
             ],
             'relations' =>  [
                 $this->mergeWhen($this->whenLoaded('tags'), [
-                    'tags' =>$this->tags
+                    'tags' =>$this->tags,
                 ]),
             ],
         ];
