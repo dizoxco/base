@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
                 }
 
                 if ($wishlist = json_decode(Cookie::get('wishlist'), true)) {
-                    $wishlist = Product::whereHas('relatedVariations', function ($query) use ($wishlist) {
+                    $wishlist = Product::whereHas('variations', function ($query) use ($wishlist) {
                         return $query->whereIn('id', array_keys($wishlist));
                     })->get();
                 }

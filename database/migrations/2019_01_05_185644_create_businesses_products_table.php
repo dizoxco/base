@@ -14,9 +14,9 @@ class CreateBusinessesProductsTable extends Migration
     public function up()
     {
         Schema::create('businesses_products', function (Blueprint $table) {
-            $table->increments('id');
             $table->unsignedInteger('business_id');
             $table->unsignedInteger('product_id');
+            $table->integer('status')->default(0);
             $table->timestamps();
 
             $table->foreign('business_id')->references('id')->on('businesses');

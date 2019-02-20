@@ -66,6 +66,8 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
         Route::post('{business}', 'ChatController@store')->name('store');
     });
 
+    Route::get('businesses/create', 'BusinessManagerController@create')->name('businesses.create');
+    Route::post('businesses', 'BusinessManagerController@store')->name('businesses.store');
     Route::name('businesses.')->prefix('businesses/{business}')->group(function () {
         Route::get('/', 'BusinessManagerController@show')->name('show');
         Route::get('products', 'BusinessManagerController@products')->name('products');
