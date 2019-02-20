@@ -19,28 +19,13 @@
 
 
 
-@component('components.dialog',[
-    'id' => 'fff',
-    'title' => 'sdfdf'
+
+
+@component('components.form.button',[
+    'label' => 'dfdf',
+    'dialog' => 'fff'
 ])
-    @component('components.form.field')
-        @component('components.form.select', [
-            'label' => 'افزودن کسب و کار',
-            'options' => [
-                'aa' => 'aaa',
-                'bb' => 'bbb',
-                'cc' => 'ccc',
-                'dd' => 'ddd',
-            ],
-        ])
-        @endcomponent
-    @endcomponent
+    
 @endcomponent
-
-
-<button type="button" class="mdc-button" dialog="fff">
-        <span class="mdc-button__label">Cancel</span>
-      </button>
-
 
 @endsection

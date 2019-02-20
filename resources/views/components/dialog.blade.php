@@ -10,12 +10,16 @@
         {{ $slot }}
       </div>
       <footer class="mdc-dialog__actions">
-        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
-          <span class="mdc-button__label">No</span>
-        </button>
-        <a class="mdc-button mdc-dialog__button" data-mdc-dialog-action="yes">
-          <span class="mdc-button__label">Yes</span>
-        </a>
+        @foreach ($buttons ?? [] as $button => $label)
+          <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="{{$button}}">
+            <span class="mdc-button__label">{{$label}}</span>
+          </button>
+        @endforeach
+        @isset($cancel)
+          <a class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+            <span class="mdc-button__label">{{$cancel}}</span>
+          </a>
+        @endisset
       </footer>
     </div>
   </div>
