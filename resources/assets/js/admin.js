@@ -19,7 +19,8 @@ import {
     SnackReducer,
     TicketReducer,
     UserReducer,
-    AppReducer
+    AppReducer,
+    TaxonomyReducer
 } from './admin/reducers';
 
 import App from './admin/App';
@@ -37,6 +38,7 @@ const store = createStore(
                     snacks: SnackReducer,
                     tickets: TicketReducer,
                     users: UserReducer,
+                    taxonomies: TaxonomyReducer,
                     app: AppReducer
                 }),
                 composeEnhancers( applyMiddleware(thunk))
