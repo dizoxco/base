@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Payment\StorePaymentRequest;
+use Auth;
+use Session;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Transaction;
-use App\Models\User;
-use Auth;
 use Illuminate\Http\Request;
-use Session;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Payment\StorePaymentRequest;
 
 class PaymentController extends Controller
 {
@@ -42,7 +42,7 @@ class PaymentController extends Controller
     }
 
     /**
-     * Prepare selected variations to store in the database
+     * Prepare selected variations to store in the database.
      *
      * @param User $user
      * @return array
@@ -63,7 +63,7 @@ class PaymentController extends Controller
     }
 
     /**
-     * Save items ordered by the user in the database
+     * Save items ordered by the user in the database.
      *
      * @param User $user
      * @param int $address
@@ -81,7 +81,7 @@ class PaymentController extends Controller
     }
 
     /**
-     * Save type and amount of transaction and redirect user to payment page
+     * Save type and amount of transaction and redirect user to payment page.
      *
      * @param Order $order
      * @param User $user
@@ -99,7 +99,7 @@ class PaymentController extends Controller
 
     /**
      * Save the transaction type and amount
-     * Redirect the user to the order details page
+     * Redirect the user to the order details page.
      *
      * @param Order $order
      * @param User $user
@@ -117,7 +117,7 @@ class PaymentController extends Controller
 
     /**
      * Save the transaction in the database and return its model
-     * Empty user cart
+     * Empty user cart.
      *
      * @param string $method
      * @param Order $order
@@ -133,6 +133,7 @@ class PaymentController extends Controller
             'amount' => $user->cartCost,
         ]);
         $user->cart()->forceDelete();
+
         return $transaction;
     }
 

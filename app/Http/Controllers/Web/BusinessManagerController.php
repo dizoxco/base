@@ -24,6 +24,7 @@ class BusinessManagerController extends Controller
     {
         request()->merge(['contact' => [], 'status' => 0]);
         $business = auth()->user()->businesses()->create(request()->all());
+
         return redirect()->route('profile.businesses.show', $business->slug);
         // dd($business);
     }

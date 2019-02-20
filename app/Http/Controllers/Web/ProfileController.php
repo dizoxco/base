@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Requests\Order\ShowOrderRequest;
-use App\Models\Order;
 use Auth;
 use Hash;
+use App\Models\Order;
 use App\Http\Controllers\Controller;
 use App\Repositories\Facades\UserRepo;
 use App\Http\Requests\Profile\UpdateInfoRequest;
