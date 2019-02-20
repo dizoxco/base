@@ -117,3 +117,10 @@ if($('#product-options').length){
         productPageUpdate();
     });
 }
+
+
+
+
+$('.mdc-select__selected-text').click(function(){
+    $('.mdc-select__menu').width($(this).parent().width());
+});

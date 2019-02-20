@@ -104,14 +104,14 @@
                 @endforeach
             </div>
             <div class="flex items-center py-6">
-                    <a href="{{ route('cart.store', $product->variations[0]) }}">
-                        @component('components.form.button', [
-                            'label' => 'افزودن به سبد خرید',
-                            'raised' => true,
-                        ])@endcomponent
-                    </a>
-                    <i class="material-icons p-2 rounded-full bg-grey-light mr-6">favorite_border</i>
-                    <i class="material-icons p-2 rounded-full bg-grey-light mr-6">share</i>
+                <a href="{{ route('cart.store', $product->variations[0]) }}">
+                    @component('components.form.button', [
+                        'label' => 'افزودن به سبد خرید',
+                        'raised' => true,
+                    ])@endcomponent
+                </a>
+                <i class="material-icons p-2 rounded-full bg-grey-light mr-6">favorite_border</i>
+                <i class="material-icons p-2 rounded-full bg-grey-light mr-6">share</i>
             </div>
             @if($is_favorite)
                 <a
@@ -132,6 +132,15 @@
                         href="{{ route('wishlist.store', $product->slug) }}"
                 >
                     افزودن به علاقه مندی ها
+                </a>
+            @endif
+            @if (!$product->single)
+                <br>
+                <a href="{{ route('cart.store', $product->variations[0]) }}">
+                    @component('components.form.button', [
+                        'label' => 'افزودن به محصولات خود',
+                        'raised' => true,
+                    ])@endcomponent
                 </a>
             @endif
         </div> 

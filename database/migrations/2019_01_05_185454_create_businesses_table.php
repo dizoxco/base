@@ -19,6 +19,7 @@ class CreateBusinessesTable extends Migration
             $table->char('slug', 100)->unique()->nullable();
             $table->unsignedInteger('city_id');
             $table->json('contact');
+            $table->integer('status')->default(0);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();
