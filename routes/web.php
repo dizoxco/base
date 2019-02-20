@@ -72,6 +72,8 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
     Route::name('businesses.')->prefix('businesses/{business}')->group(function () {
         Route::get('/', 'BusinessManagerController@show')->name('show');
         Route::get('products', 'BusinessManagerController@products')->name('products');
+        Route::get('products/{product}', 'BusinessManagerController@showProduct')->name('products.show');
+        Route::put('products/{product}', 'BusinessManagerController@updateProduct')->name('products.update');
 
         Route::name('orders.')->prefix('orders')->group(function () {
             Route::get('/', 'BusinessManagerController@orders')->name('index');
