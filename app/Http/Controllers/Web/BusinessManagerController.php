@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Web;
 use Auth;
 use App\Models\Order;
 use App\Models\Ticket;
+use App\Models\Product;
 use App\Models\Business;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Profile\UpdateProductRequest;
 
 class BusinessManagerController extends Controller
 {
@@ -39,6 +41,72 @@ class BusinessManagerController extends Controller
         $products = $business->load('products')->products;
 
         return view('profile.businesses.products', compact('business', 'products'));
+    }
+
+    public function showProduct(Business $business, Product $product)
+    {
+        $options = array_pluck($product->options, 'values');
+        $variations = $this->crossJoin($options);
+
+        return view(
+            'profile.businesses.products.show',
+            compact('variations', 'product', 'business')
+        );
+    }
+
+    public function updateProduct(Business $business, Product $product, UpdateProductRequest $request)
+    {
+        $price = array_filter($request->input('price'));
+        $quantity = array_filter($request->input('quantity'));
+        $delivery = array_filter($request->input('delivery'));
+        $options = array_pluck($product->options, 'values');
+        $variations = $this->crossJoin($options);
+
+        foreach ($price as $ip => $p) {
+            if (isset($quantity[$ip])) {
+                foreach ($quantity as $iq => $q) {
+                    if (isset($delivery[$iq])) {
+                        foreach ($delivery as $id => $d) {
+                            \DB::enableQueryLog();
+                            $product->variations()->updateOrCreate(
+                                [
+                                    'business_id' => $business->id,
+                                    'options' => "JSON_EXTRACT('options','$.')",
+                                ],
+                                [
+                                    'price' => $p,
+                                    'quantity' => $q,
+                                    'delivery' => $d,
+                                    'options' => $variations[$ip],
+                                ]
+                            );
+                            dd(\DB::getQueryLog());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public function crossJoin($arrays)
+    {
+        $results = [[]];
+
+        foreach ($arrays as $index => $array) {
+            $append = [];
+
+            foreach ($results as $product) {
+                foreach ($array as $item) {
+                    $product[$index] = $item;
+
+                    $append[] = $product;
+                }
+            }
+
+            $results = $append;
+        }
+
+        return $results;
     }
 
     public function orders(Business $business)
