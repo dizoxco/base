@@ -23,6 +23,13 @@ class RegisterController extends Controller
         return session()->previousUrl() ?? route('home');
     }
 
+    protected function registered()
+    {
+        return redirect($this->redirectPath())
+            ->withCookie(Cookie::make('cart', null))
+            ->withCookie(Cookie::make('wishlist', null));
+    }
+
     protected function create(array $data)
     {
         return User::create([
