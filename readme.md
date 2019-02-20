@@ -1,3 +1,4 @@
+
 # Base Document
 
 <p align="center">
@@ -9,37 +10,37 @@
 </a>
 </p>
 
-## project scops and progress
-[40% - 125h]
-
-### [User](resources/docs/users.md)
-- [Authenticate](resources/docs/users.md#authenticate) [50% - 16h]
-    - [sms](resources/docs/users.md#sms) [20% - 5h]
-    - [email](resources/docs/users.md#email) [60% - 4h]
-    - [google](resources/docs/users.md#google) [80% - 4h]
-    - [validation](resources/docs/users.md#sms) [20% - 5h]
-    - [reset password](resources/docs/users.md#sms) [20% - 5h]
-    - [ui](resources/docs/users.md#ui) [80% - 3h]
-- [user private profile](resources/docs/users.md#user-private-profile) [55% - 10h]
-    - [ui](resources/docs/users.md#ui-1) [50% - 5h]
-    - [edit profile info](resources/docs/users.md#edit-profile-and-authenticate-info) [60% - 5h]
-    - [edit authenticate info](resources/docs/users.md#edit-profile-and-authenticate-info) [60% - 5h]
-- [user manager in admin panel](resources/docs/users.md#user-manager-in-admin-panel)
-    - [api](resources/docs/users.md#api)
-    - [crud user](resources/docs/users.md#crud-user)
-    - [assign user roles](resources/docs/users.md#assign-user-roles)
-- role manager in admin panel
-    - crud roles
-    - assign permissions to role
-- authorize
+### User
+- Authenticate - 8
+    - &#9646;&#9646;&#9646;&#9647;&#9647; sms
+    - &#9646;&#9646;&#9646;&#9647;&#9647; email
+    - &#9646;&#9646;&#9646;&#9647;&#9647; google
+    - &#9646;&#9646;&#9646;&#9647;&#9647; validation
+    - &#9646;&#9646;&#9646;&#9646;&#9647; reset password
+    - &#9646;&#9646;&#9646;&#9646;&#9647; ui
+- user private profile - 2
+    - &#9646;&#9646;&#9646;&#9647;&#9647; ui
+    - &#9646;&#9646;&#9646;&#9647;&#9647; edit profile info
+    - &#9646;&#9646;&#9646;&#9647;&#9647; edit authenticate info
+- user manager in admin panel - 3
+    - &#9646;&#9646;&#9646;&#9646;&#9647; api
+    - &#9646;&#9646;&#9647;&#9647;&#9647; crud user
+    - &#9647;&#9647;&#9647;&#9647;&#9647; assign user roles
+- role manager in admin panel - 3
+    - &#9647;&#9647;&#9647;&#9647;&#9647; crud roles
+    - &#9647;&#9647;&#9647;&#9647;&#9647; assign permissions to role
+- authorize - 3
+    - &#9646;&#9646;&#9646;&#9647;&#9647; admin routes
+    - &#9646;&#9646;&#9646;&#9647;&#9647; profile routes and resources
+    - &#9647;&#9647;&#9647;&#9647;&#9647; business routes and resources in profile
 
 ### businesses
-- manage business through owner user
-    - create own business
-    - edit bio and contact info
-- crud businesses in admin panels
-- business public profile
-- search businesses
+- manage business through owner user - 3
+    - &#9646;&#9646;&#9646;&#9647;&#9647; create own business
+    - &#9646;&#9646;&#9646;&#9647;&#9647; edit bio and contact info
+- crud businesses in admin panels - 5
+- business public profile - 2
+- search businesses - 3
 
 ### products
 - manage products from business owners
