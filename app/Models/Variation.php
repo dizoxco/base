@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Variation extends Model
 {
     protected $fillable = [
-      'business_id', 'product_id', 'quantity', 'price', 'options',
+      'business_id', 'product_id', 'quantity', 'price', 'options', 'delivery', 'status'
     ];
 
     protected $casts = [

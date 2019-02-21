@@ -39,7 +39,8 @@ class Business extends Model implements HasMedia
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'businesses_products', 'business_id', 'product_id', 'id', 'id');
+        // return $this->belongsToMany(Product::class, 'businesses_products', 'business_id', 'product_id', 'id', 'id');
+        return $this->belongsToMany(Product::class, 'variations', 'business_id', 'product_id', 'id', 'id')->distinct();
     }
 
     public function logo(): MorphToMany

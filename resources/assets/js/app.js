@@ -124,3 +124,71 @@ if($('#product-options').length){
 $('.mdc-select__selected-text').click(function(){
     $('.mdc-select__menu').width($(this).parent().width());
 });
+
+
+
+
+
+$(document).ready(function () {
+    gapi.load('auth2', function() {
+        gapi.auth2.init();
+    });
+
+    function onSignIn(googleUser) {
+        var xhr;
+        var id_token = googleUser.getAuthResponse().id_token;
+        xhr = new XMLHttpRequest();
+        xhr.open('POST', '/google');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="X-CSRF-Token"]').attr('content'));
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                window.location.reload();
+            } else if(xhr.status === 404) {
+                alert('invalid person');
+            } else if(xhr.status === 500) {
+                alert(' server error = ' + xhr.responseText);
+            } else {
+                alert(' unknown');
+            }
+        };
+        xhr.send('token=' + id_token);
+    }
+
+    $('#btn_side_login').click(function (event) {
+        event.preventDefault();
+        $.post( "{{ route('api.auth.login') }}", {
+            service : $("#frm_side_login").find("input[name='service']").val(),
+            password : $("#frm_side_login").find("input[name='password']").val(),
+            remember : $("#frm_side_login").find("input[name='remember']").val()
+        }).done(function (data) {
+            document.cookie = "token="+data.access_token+";path=/";
+            $("#frm_side_login").submit();
+        }).fail(function (data) {
+            alert(data.responseText)
+        });
+    });
+
+    $('#btn_side_register').click(function (event) {
+        event.preventDefault();
+        $.post( "{{ route('api.auth.register') }}", {
+            name : $("#frm_side_register").find("input[name='name']").val(),
+            service : $("#frm_side_register").find("input[name='service']").val(),
+            password : $("#frm_side_register").find("input[name='password']").val(),
+            password_confirmation : $("#frm_side_register").find("input[name='password_confirmation']").val(),
+            terms : $("#frm_side_register").find("input[name='terms']").val(),
+        }).done(function (data) {
+            $("#frm_side_login").find("input[name='service']").val(
+                $("#frm_side_register").find("input[name='service']").val(),
+            );
+
+            $("#frm_side_login").find("input[name='password']").val(
+                $("#frm_side_register").find("input[name='password']").val(),
+            );
+
+            $("#frm_side_login").submit();
+        }).fail(function (data) {
+            alert(data.responseText)
+        });
+    });
+});

@@ -96,4 +96,38 @@ class Product extends Model implements HasMedia
     {
         return ProductRepo::getRelated($this, $number);
     }
+
+    public function getCombinedVariationsAttribute()
+    {
+        $variations = [[]];
+        foreach ($this->options as $option_index => $option) {
+            $append = [];
+            foreach ($variations as $variation) {
+                foreach ($option['values'] as $option_value ) {
+                    $variation['options'][$option['name']] = $option_value;
+                    $variation['variation'] = null;
+                    $append[] = $variation;
+                }
+            }
+            $variations = $append;
+        }
+
+        if (isset(request()->route()->parameters()['business'])) {
+            $saved_variations = $this->variations()
+                                    ->where('business_id', request()->route()->parameters()['business']->id)
+                                    ->get();
+            foreach ($variations as $variation_index => $variation) {
+                foreach ($saved_variations as $saved_variation) {
+                    $same = true;
+                    foreach ($variation['options'] as $variation_option_name => $variation_option) {
+                        if ($saved_variation->options[$variation_option_name] != $variation_option['value'])
+                            $same = false;
+                    }
+                    if ($same) $variations[$variation_index]['variation'] = $saved_variation;
+                }
+            }
+        }
+        
+        return $variations;
+    }
 }

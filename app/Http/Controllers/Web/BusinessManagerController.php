@@ -45,69 +45,42 @@ class BusinessManagerController extends Controller
 
     public function showProduct(Business $business, Product $product)
     {
-        $options = array_pluck($product->options, 'values');
-        $variations = $this->crossJoin($options);
-
-        return view(
-            'profile.businesses.products.show',
-            compact('variations', 'product', 'business')
-        );
+        return view('profile.businesses.products.show', compact('product', 'business'));
     }
 
     public function updateProduct(Business $business, Product $product, UpdateProductRequest $request)
     {
-        $price = array_filter($request->input('price'));
-        $quantity = array_filter($request->input('quantity'));
-        $delivery = array_filter($request->input('delivery'));
-        $options = array_pluck($product->options, 'values');
-        $variations = $this->crossJoin($options);
-
-        foreach ($price as $ip => $p) {
-            if (isset($quantity[$ip])) {
-                foreach ($quantity as $iq => $q) {
-                    if (isset($delivery[$iq])) {
-                        foreach ($delivery as $id => $d) {
-                            \DB::enableQueryLog();
-                            $product->variations()->updateOrCreate(
-                                [
-                                    'business_id' => $business->id,
-                                    'options' => "JSON_EXTRACT('options','$.')",
-                                ],
-                                [
-                                    'price' => $p,
-                                    'quantity' => $q,
-                                    'delivery' => $d,
-                                    'options' => $variations[$ip],
-                                ]
-                            );
-                            dd(\DB::getQueryLog());
-                        }
+        $combined_variations = $product->combinedVariations;
+        $requested_variations = $request->variations;
+        foreach ($combined_variations as $combined_variation_index => $combined_variation) {
+            if ($combined_variation['variation'] == null) {
+                if (
+                    intval($requested_variations[$combined_variation_index]['price']) > 0 ||
+                    intval($requested_variations[$combined_variation_index]['quantity']) > 0 ||
+                    intval($requested_variations[$combined_variation_index]['delivery']) > 0 
+                ) {
+                    $options = [];
+                    foreach ($combined_variation['options'] as $optin_name => $optione_value) {
+                        $options[$optin_name] = $optione_value['value'];
                     }
+                    $product->variations()->create([
+                        'business_id' => $business->id,
+                        'price' => intval($requested_variations[$combined_variation_index]['price']),
+                        'quantity' => intval($requested_variations[$combined_variation_index]['quantity']),
+                        'delivery' => intval($requested_variations[$combined_variation_index]['delivery']),
+                        'options' => $options
+                    ]);
                 }
+
+            } else{
+                $requested_variations[$combined_variation_index]['status'] = 0;
+                $combined_variation['variation']->update($requested_variations[$combined_variation_index]);
             }
         }
+        return back();
     }
 
-    public function crossJoin($arrays)
-    {
-        $results = [[]];
 
-        foreach ($arrays as $index => $array) {
-            $append = [];
-
-            foreach ($results as $product) {
-                foreach ($array as $item) {
-                    $product[$index] = $item;
-
-                    $append[] = $product;
-                }
-            }
-
-            $results = $append;
-        }
-
-        return $results;
-    }
 
     public function orders(Business $business)
     {
