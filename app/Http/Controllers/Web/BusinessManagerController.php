@@ -52,8 +52,6 @@ class BusinessManagerController extends Controller
     {
         $combined_variations = $product->combinedVariations;
         $requested_variations = $request->variations;
-        // dd($combined_variations);
-        // dd($requested_variations);
         foreach ($combined_variations as $combined_variation_index => $combined_variation) {
             if ($combined_variation['variation'] == null) {
                 if (
@@ -80,39 +78,6 @@ class BusinessManagerController extends Controller
             }
         }
         return back();
-        // dd($requested_variations);
-        
-        // dd($request->all());
-        // $price = array_filter($request->input('price'));
-        // $quantity = array_filter($request->input('quantity'));
-        // $delivery = array_filter($request->input('delivery'));
-        // $options = array_pluck($product->options, 'values');
-        // $variations = $this->crossJoin($options);
-
-        // foreach ($price as $ip => $p) {
-        //     if (isset($quantity[$ip])) {
-        //         foreach ($quantity as $iq => $q) {
-        //             if (isset($delivery[$iq])) {
-        //                 foreach ($delivery as $id => $d) {
-        //                     \DB::enableQueryLog();
-        //                     $product->variations()->updateOrCreate(
-        //                         [
-        //                             'business_id' => $business->id,
-        //                             'options' => "JSON_EXTRACT('options','$.')",
-        //                         ],
-        //                         [
-        //                             'price' => $p,
-        //                             'quantity' => $q,
-        //                             'delivery' => $d,
-        //                             'options' => $variations[$ip],
-        //                         ]
-        //                     );
-        //                     dd(\DB::getQueryLog());
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
     }
 
 

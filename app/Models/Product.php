@@ -126,22 +126,6 @@ class Product extends Model implements HasMedia
                     if ($same) $variations[$variation_index]['variation'] = $saved_variation;
                 }
             }
-            // if (isset($saved_variations)) {
-            //     foreach($saved_variations as $saved_variation){
-            //         $same = true;
-            //         $log[] = [$saved_variation->options , $variation['options']];
-            //         foreach($saved_variation->options as $saved_option => $saved_value){
-            //             if(
-            //                 isset($variation['options'][$saved_option]['value']) &&
-            //                 $variation['options'][$saved_option]['value'] != $saved_value 
-            //             ){
-            //                 $same = false;
-            //             }
-            //         }
-            //         // if($same) $variation['variation'] = $saved_variation;
-            //         $variation['variation'] = $same? $saved_variation: null;
-            //     }
-            // }
         }
         
         return $variations;
