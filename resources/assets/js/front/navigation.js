@@ -54,7 +54,7 @@ $('.nav-mobile a').click(function(e){
 
 $('#srch').keyup(function(){
   if ($(this).val()) {
-    $.get( "/srch/"+$(this).val(), function( data ) {
+    $.get( "/search/keyword/"+$(this).val(), function( data ) {
       $( ".mega-search__result" ).html( data );
     }, 'html').fail(function(){
       console.log('srch error');

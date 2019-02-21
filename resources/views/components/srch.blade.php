@@ -9,8 +9,8 @@
 <div class="search-result__brands">
     <span class="font-bold">فروشندگان</span>
     <ul>
-        @foreach ($bussinesses as $business)
-            <li><a href="#">{{$business->brand}}</a></li>
+        @foreach ($businesses as $business)
+            <li><a href="{{ route('businesses.show', $business->slug) }}">{{$business->brand}}</a></li>
         @endforeach
     </ul>
 </div>

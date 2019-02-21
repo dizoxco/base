@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Web;
 use App\Models\Product;
 use App\Models\Business;
 use App\Models\SearchPanel;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class SearchPanelController extends Controller
 {
-    public function search(Request $request, SearchPanel $searchPanel)
+    public function panel(Request $request, SearchPanel $searchPanel)
     {
         $options = $searchPanel->options;
 
@@ -25,5 +26,13 @@ class SearchPanelController extends Controller
 
             return view('web.businesses.search', compact('options', 'businesses'));
         }
+    }
+
+    public function keyword(string $keyword)
+    {
+        $businesses = Business::Where('brand', 'like', '%'.$keyword.'%')->take(7)->get();
+        $tags = Tag::Where('label', 'like', '%'.$keyword.'%')->take(7)->get();
+
+        return view('components.srch', compact('businesses', 'tags'));
     }
 }

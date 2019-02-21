@@ -11,12 +11,15 @@ Route::post('password/token', 'Auth\ForgotPasswordController@validateToken')->na
 Route::post('google', 'Auth\LoginController@google')->name('google');
 Auth::routes();
 
-Route::get('/', 'PageController@home')->name('home');
-Route::get('/search/{searchPanel}', 'SearchPanelController@search')->name('search');
 Route::get('/products/{product}', 'ProductController@show')->name('products.show');
 Route::get('/posts', 'PostController@index')->name('posts.index');
 Route::get('/posts/{post}', 'PostController@show')->name('posts.show');
 Route::get('/posts/tags/{tag}', 'PostController@tags')->name('posts.tag');
+
+Route::name('search.')->prefix('search')->group(function () {
+    Route::get('{searchPanel}', 'SearchPanelController@panel')->name('panel');
+    Route::get('keyword/{keyword}', 'SearchPanelController@keyword')->name('keyword');
+});
 
 Route::name('businesses.')->prefix('businesses')->group(function () {
     Route::get('{business}', 'BusinessController@show')->name('show');
@@ -105,12 +108,6 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
         Route::get('/', 'ProfileController@info')->name('edit');
         Route::post('/', 'ProfileController@updateInfo')->name('update');
     });
-});
-Route::get('/srch/{key}', function ($key) {
-    $bussinesses = App\Models\Business::Where('brand', 'like', '%'.$key.'%')->take(7)->get();
-    $tags = App\Models\Tag::Where('label', 'like', '%'.$key.'%')->take(7)->get();
-
-    return view('components.srch', compact('bussinesses', 'tags'));
 });
 
 // ==================================== Admin Section =========================
