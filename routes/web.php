@@ -74,29 +74,36 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
         Route::put('{ticket}/reply', 'TicketController@reply')->name('reply');
         Route::put('{ticket}/toggle', 'TicketController@toggle')->name('toggle');
     });
+
     Route::name('chats.')->prefix('chats')->group(function () {
         Route::get('/', 'ChatController@index')->name('index');
         Route::get('{business}', 'ChatController@show')->name('show');
         Route::post('{business}', 'ChatController@store')->name('store');
     });
 
-    Route::get('businesses/create', 'BusinessManagerController@create')->name('businesses.create');
-    Route::post('businesses', 'BusinessManagerController@store')->name('businesses.store');
-    Route::name('businesses.')->prefix('businesses/{business}')->group(function () {
-        Route::get('/', 'BusinessManagerController@show')->name('show');
-        Route::get('products', 'BusinessManagerController@products')->name('products');
-        Route::get('products/{product}', 'BusinessManagerController@showProduct')->name('products.show');
-        Route::put('products/{product}', 'BusinessManagerController@updateProduct')->name('products.update');
+    Route::name('businesses.')->prefix('businesses')->group(function () {
+        Route::get('create', 'BusinessManagementController@create')->name('create');
+        Route::post('/', 'BusinessManagementController@store')->name('store');
 
-        Route::name('orders.')->prefix('orders')->group(function () {
-            Route::get('/', 'BusinessManagerController@orders')->name('index');
-            Route::get('{order}', 'BusinessManagerController@showOrder')->name('show');
-        });
+        Route::prefix('{business}')->group(function () {
+            Route::get('/', 'BusinessManagementController@show')->name('show');
 
-        Route::name('chats.')->prefix('chats')->group(function () {
-            Route::get('/', 'BusinessManagerController@chats')->name('index');
-            Route::get('{chat}', 'BusinessManagerController@showChat')->name('show');
-            Route::post('{chat}', 'BusinessManagerController@storeChatComment')->name('store');
+            Route::name('products.')->prefix('products')->group(function () {
+                Route::get('/', 'ProductManagementController@index')->name('index');
+                Route::get('{product}', 'ProductManagementController@show')->name('show');
+                Route::put('{product}', 'ProductManagementController@update')->name('update');
+            });
+
+            Route::name('orders.')->prefix('orders')->group(function () {
+                Route::get('/', 'OrderManagementController@index')->name('index');
+                Route::get('{order}', 'OrderManagementController@show')->name('show');
+            });
+
+            Route::name('chats.')->prefix('chats')->group(function () {
+                Route::get('/', 'ChatManagementController@index')->name('index');
+                Route::get('{chat}', 'ChatManagementController@show')->name('show');
+                Route::post('{chat}', 'ChatManagementController@comment')->name('store');
+            });
         });
     });
 
