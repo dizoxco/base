@@ -51,7 +51,7 @@ $factory->define(App\Models\Product::class, function () use ($faker) {
 
     return [
         'title'     =>  $title = \faker('word', 15)->implode(' '),
-        'slug'      =>  str_slug($title) . rand(1000, 9999),
+        'slug'      =>  str_slug($title).rand(1000, 9999),
         'abstract'  =>  \faker('paragraph')->first(),
         'body'      =>  implode(PHP_EOL, \faker('paragraph', 4)->toArray()),
         'attributes'=>  json_encode($faker->paragraphs()),
