@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Models\Business;
 use App\Models\Ticket;
+use App\Models\Business;
+use App\Http\Controllers\Controller;
 
 class ChatManagementController extends Controller
 {

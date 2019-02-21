@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Models\Business;
 use Auth;
+use App\Models\Business;
+use App\Http\Controllers\Controller;
 
 class BusinessManagementController extends Controller
 {

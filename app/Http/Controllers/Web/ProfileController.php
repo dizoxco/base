@@ -114,7 +114,8 @@ class ProfileController extends Controller
 
     public function orderShow(Order $order)
     {
-        $order = $order->load('variations.business','user');
+        $order = $order->load('variations.business', 'user');
+
         return view('profile.orders.show', compact('order'));
     }
 

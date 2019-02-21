@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Models\Business;
 use App\Models\Order;
+use App\Models\Business;
+use App\Http\Controllers\Controller;
 
 class OrderManagementController extends Controller
 {

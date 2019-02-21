@@ -15,6 +15,7 @@ class OrdersTableSeeder extends Seeder
             $user->orders()->createMany(
                 $user->addresses->map(function ($address) use ($statuses) {
                     $address['status'] = $statuses[array_rand($statuses)]['value'];
+
                     return $address;
                 })->toArray()
             );

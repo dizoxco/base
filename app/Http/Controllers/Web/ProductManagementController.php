@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Models\Product;
+use App\Models\Business;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\UpdateProductRequest;
-use App\Models\Business;
-use App\Models\Product;
 
 class ProductManagementController extends Controller
 {
