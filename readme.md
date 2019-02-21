@@ -10,39 +10,69 @@
 </a>
 </p>
 
-### User
-- Authenticate - 8
-    - &#9646;&#9646;&#9646;&#9647;&#9647; sms
-    - &#9646;&#9646;&#9646;&#9647;&#9647; email
-    - &#9646;&#9646;&#9646;&#9647;&#9647; google
-    - &#9646;&#9646;&#9646;&#9647;&#9647; validation
-    - &#9646;&#9646;&#9646;&#9646;&#9647; reset password
-    - &#9646;&#9646;&#9646;&#9646;&#9647; ui
-- user private profile - 2
-    - &#9646;&#9646;&#9646;&#9647;&#9647; ui
-    - &#9646;&#9646;&#9646;&#9647;&#9647; edit profile info
-    - &#9646;&#9646;&#9646;&#9647;&#9647; edit authenticate info
-- user manager in admin panel - 3
-    - &#9646;&#9646;&#9646;&#9646;&#9647; api
-    - &#9646;&#9646;&#9647;&#9647;&#9647; crud user
-    - &#9647;&#9647;&#9647;&#9647;&#9647; assign user roles
-- role manager in admin panel - 3
-    - &#9647;&#9647;&#9647;&#9647;&#9647; crud roles
-    - &#9647;&#9647;&#9647;&#9647;&#9647; assign permissions to role
-- authorize - 3
-    - &#9646;&#9646;&#9646;&#9647;&#9647; admin routes
-    - &#9646;&#9646;&#9646;&#9647;&#9647; profile routes and resources
-    - &#9647;&#9647;&#9647;&#9647;&#9647; business routes and resources in profile
 
-### businesses
-- manage business through owner user - 3
-    - &#9646;&#9646;&#9646;&#9647;&#9647; create own business
-    - &#9646;&#9646;&#9646;&#9647;&#9647; edit bio and contact info
-- crud businesses in admin panels - 5
-- business public profile - 2
-- search businesses - 3
+## User
+- **Authenticate - 8h**
+    -   **sms #2**
+	    - [ ] test login
+	    - [ ] test register
+	    - [ ] test reset password
+	    - [ ] test verify phone number
+	    - [ ] test login with email or phone after registr
+    - **email #2**
+	    - [ ] test login
+	    - [ ] test register
+	    - [ ] test reset password
+	    - [ ] test verify email
+	    - [ ] test login with phone after register
+	    - [ ] test login after google after register
+    - **google #2**
+	    - [ ] test register
+	    - [ ] test login
+	    - [ ] test set pass after register
+	    - [ ] test login with email or phone after register
+    - **ui #4**
+	    - [ ] test js
+	    - [ ] set token for admin panel
+	    - [ ] final ui an ux
+- **user profile - 2h**
+    - **ui #4**
+	    - [ ] mobile navigation
+	    - [ ] colors and layout
+    - **edit profile info #2**
+	    - [ ] reset password
+	    - [ ] edit login id (email and phone)
+	    - [ ] verify email or phone after change
+- **manage users in admin panel - 3h**
+	- **crud users #3**
+	    - [x]  crud API
+	    - [ ] crud user in admin UI
+	    - [ ] assign user roles
+	- **role manager in admin panel #3**
+	    - [ ] crud roles api
+	    - [ ] crud roles
+	    - [ ] assign permissions to role
+- **authorize - #3**
+    - [ ] admin routes
+    - [ ] profile routes and resources
+    - [ ] business routes and resources in profile
 
-### products
+## businesses
+- **manage business through owner user - #3**
+    - [ ] create own business
+    - [ ] edit bio and contact info
+- **manage businesses in admin panels - #3**
+	- [ ] crud api 
+	- [ ] crud businesses
+	- [ ] accept business and set tags
+- **business public profile - #2**
+	- [ ] show products
+	- [ ] show bio and contact info
+	- [ ] start chat with business
+	- [ ] show business reviews and rating
+- **search businesses - #3**
+
+## products
 - manage products from business owners
     - create product for own business
     - edit own variations
