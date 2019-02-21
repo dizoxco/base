@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('city_id');
             $table->text('address');
             $table->char('postal_code');
-            $table->boolean('done')->default(false);
+            $table->boolean('status')->default(enum('order.status.queue.value'));
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

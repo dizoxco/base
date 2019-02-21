@@ -2,6 +2,34 @@
 
 return [
 
+    'order' => [
+        'status' => [ //
+            'queue' => [
+                'label' => 'در صف بررسی' ,
+                'value' => 0
+            ],
+            'confirm' => [
+                'label' => 'تایید سفارش' ,
+                'value' => 1
+            ],
+            'prepare' => [
+                'label' => 'آماده سازی سفارش' ,
+                'value' => 2
+            ],
+            'await' => [
+                'label' => 'در انتظار پرداخت' ,
+                'value' => 3
+            ],
+            'sending' => [
+                'label' => 'در حال ارسال' ,
+                'value' => 4
+            ],
+            'delivered' => [
+                'label' => 'تحویل مرسوله' ,
+                'value' => 5
+            ],
+        ],
+    ],
     'payment' => [
         'pos' => [
             'key' => 'pos',

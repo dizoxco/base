@@ -11,8 +11,12 @@ class OrdersTableSeeder extends Seeder
     {
         $users = User::all();
         foreach ($users as $user) {
+            $statuses = enum('order.status');
             $user->orders()->createMany(
-                $user->addresses->toArray()
+                $user->addresses->map(function ($address) use ($statuses) {
+                    $address['status'] = $statuses[array_rand($statuses)]['value'];
+                    return $address;
+                })->toArray()
             );
 
             $orders = $user->orders;
@@ -33,7 +37,5 @@ class OrdersTableSeeder extends Seeder
             }
         }
         DB::table('orders_products')->update(['options' => json_encode([])]);
-        DB::table('orders_products')->where('quantity', '<', 2)
-            ->update(['quantity' => DB::raw('RAND() * 10')]);
     }
 }

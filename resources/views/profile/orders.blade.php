@@ -12,13 +12,17 @@
         <tbody>
                 @forelse($orders as $order)
                         <tr href="{{route('profile.orders.show', $order)}}">
-                                <td>{{ $order->id }}</td>
+                                <td>
+                                        <a href="{{route('profile.orders.show', $order)}}">
+                                                {{ $order->id }}
+                                        </a>
+                                </td>
                                 <td>{{ $order->receiver }}</td>
                                 <td>{{ $order->mobile }}</td>
                                 <td>{{ $order->city->name }}</td>
                         </tr>
                 @empty
-                        <tr><td>sdfsdfsdf</td></tr>
+                        <td colspan="4">شما سفارشی ندارید</td>
                 @endforelse
         </tbody>
 </table>
