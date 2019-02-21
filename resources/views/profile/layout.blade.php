@@ -52,13 +52,13 @@
         </div>
         <div class="profile-content">
             <div class="bg-grey-darker">
-                <div class="container">
+                <div class="px-12">
                     <br>
                     <h1 class="text-white title my-6">{{$title ?? 'عنوان بده'}}</h1>
                     <br><br>
                 </div>
             </div>
-            <div class="bg-white p-12 -mt-8 rounded-lg">
+            <div class="bg-white -mt-8 rounded-t-lg overflow-hidden @if($fit ?? false) p-0 @else p-12 @endif">
                 @yield('profile-content')
             </div>
         </div>

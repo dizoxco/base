@@ -1,6 +1,6 @@
-@extends('profile.layout', ['title' => 'سفارشات'])
+@extends('profile.layout', ['title' => 'سفارشات', 'fit' => true])
 @section('profile-content')
-<table>
+<table class="table-patch">
         <thead>
                 <tr>
                         <th>شناسه</th>

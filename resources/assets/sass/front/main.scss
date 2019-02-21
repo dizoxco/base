@@ -55,18 +55,37 @@ body{
 
 table{
     width: 100%;
-    tr{
-        border-bottom: 1px solid #c5c5c5;
-        &:odd{
-            background-color: red;
+    thead:hover{
+        background-color: white;
+    }
+    tbody {
+        tr:hover {
+            background-color: #F1F5F8;
         }
+    }
+
+    th{
+        padding: 1.2rem 0;
+        color: #8795A1;
+        cursor: auto;
+        &:first-child {
+            padding-right: 3rem;
+        }
+    }
+
+    tr{
+        border-bottom: 1px solid #DAE1E7;
+        cursor: pointer;
+
         td{
-            padding: 1.5rem 1rem;
+            padding: 1rem 0;
             min-height: 7rem;
+            &:first-child {
+                padding-right: 3rem;
+            }
         }
     }
 }
-
 
 .swiper-container-vertical > .swiper-scrollbar{
     right: auto;
