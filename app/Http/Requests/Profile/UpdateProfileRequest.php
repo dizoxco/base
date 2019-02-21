@@ -5,7 +5,7 @@ namespace App\Http\Requests\Profile;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCredentialRequest extends FormRequest
+class UpdateProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,15 +25,20 @@ class UpdateCredentialRequest extends FormRequest
     public function rules()
     {
         $rule = [
+            'name' => 'required',
             'email' => [
-                'required', 'string', 'email', 'max:255',
+                'required_without:mobile','nullable', 'string', 'email', 'max:255',
                 Rule::unique('users', 'email')->ignore(auth()->user()->id),
+            ],
+            'mobile' => [
+                'required_without:email','nullable', 'string', 'iran_mobile',
+                Rule::unique('users', 'mobile')->ignore(auth()->user()->id),
             ],
         ];
 
-        if ($this->has('password')) {
+        if ($this->filled('old_password')) {
             return array_merge($rule, [
-                'password' => 'nullable|string|min:6|confirmed',
+                'password' => 'required|string|min:6|confirmed',
             ]);
         }
 

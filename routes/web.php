@@ -49,7 +49,16 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
     Route::get('edit', 'ProfileController@edit')->name('edit');
     Route::put('/', 'ProfileController@update')->name('update');
 
+    Route::name('verification.')->prefix('verification')->group(function () {
+        Route::get('email','ProfileController@sendEmailVerification')->name('email.send');
+        Route::get('email/{token}','ProfileController@checkEmailVerification')->name('email.check');
+
+        Route::get('mobile','ProfileController@sendMobileVerification')->name('mobile.send');
+        Route::get('mobile/{token}','ProfileController@checkMobileVerification')->name('mobile.check');
+    });
+
     Route::resource('addresses', 'AddressController');
+
     Route::get('orders', 'ProfileController@orders')->name('orders');
     Route::get('orders/{order}', 'ProfileController@orderShow')->name('orders.show');
 

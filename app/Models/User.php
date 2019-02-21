@@ -126,7 +126,6 @@ class User extends Authenticatable implements HasMedia
     //  =============================== End Relationships =====================
 
     //  =============================== Media =================================
-
     public function registerMediaCollections()
     {
         //  Register media collection for avatar that only accepts images
@@ -149,10 +148,24 @@ class User extends Authenticatable implements HasMedia
     }
 
     //  =============================== End Media =============================
+
     //  =============================== Complementary Methods =================
     public function resolveRouteBinding($user)
     {
         return UserRepo::find($user);
+    }
+
+    public function hasVerified(string $column)
+    {
+        if ($this->{$column.'_verified_at'}) {
+            return true;
+        }
+        return false;
+    }
+
+    public function hasNotVerified(string $column)
+    {
+        return ! $this->hasVerified($column);
     }
 
     //  =============================== End Complementary Methods =============
