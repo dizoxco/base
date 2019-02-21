@@ -2,11 +2,11 @@
 
 namespace App\Notifications\User;
 
-use App\Mail\User\EmailVerificationMailable;
-use App\Models\User;
 use Auth;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use App\Mail\User\EmailVerificationMailable;
 
 class EmailVerificationNotification extends Notification
 {

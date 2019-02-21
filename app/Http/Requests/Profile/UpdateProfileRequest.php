@@ -27,11 +27,11 @@ class UpdateProfileRequest extends FormRequest
         $rule = [
             'name' => 'required',
             'email' => [
-                'required_without:mobile','nullable', 'string', 'email', 'max:255',
+                'required_without:mobile', 'nullable', 'string', 'email', 'max:255',
                 Rule::unique('users', 'email')->ignore(auth()->user()->id),
             ],
             'mobile' => [
-                'required_without:email','nullable', 'string', 'iran_mobile',
+                'required_without:email', 'nullable', 'string', 'iran_mobile',
                 Rule::unique('users', 'mobile')->ignore(auth()->user()->id),
             ],
         ];

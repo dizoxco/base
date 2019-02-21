@@ -2,9 +2,9 @@
 
 namespace App\Notifications\User;
 
-use App\Channels\SMSChannel;
-use App\Models\User;
 use Auth;
+use App\Models\User;
+use App\Channels\SMSChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 

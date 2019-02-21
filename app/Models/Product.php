@@ -103,7 +103,7 @@ class Product extends Model implements HasMedia
         foreach ($this->options as $option_index => $option) {
             $append = [];
             foreach ($variations as $variation) {
-                foreach ($option['values'] as $option_value ) {
+                foreach ($option['values'] as $option_value) {
                     $variation['options'][$option['name']] = $option_value;
                     $variation['variation'] = null;
                     $append[] = $variation;
@@ -120,14 +120,17 @@ class Product extends Model implements HasMedia
                 foreach ($saved_variations as $saved_variation) {
                     $same = true;
                     foreach ($variation['options'] as $variation_option_name => $variation_option) {
-                        if ($saved_variation->options[$variation_option_name] != $variation_option['value'])
+                        if ($saved_variation->options[$variation_option_name] != $variation_option['value']) {
                             $same = false;
+                        }
                     }
-                    if ($same) $variations[$variation_index]['variation'] = $saved_variation;
+                    if ($same) {
+                        $variations[$variation_index]['variation'] = $saved_variation;
+                    }
                 }
             }
         }
-        
+
         return $variations;
     }
 }

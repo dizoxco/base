@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Models\Tag;
 use App\Models\Product;
 use App\Models\Business;
 use App\Models\SearchPanel;
-use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

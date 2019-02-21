@@ -41,15 +41,15 @@ class ProductManagementController extends Controller
                         'price' => intval($requested_variations[$combined_variation_index]['price']),
                         'quantity' => intval($requested_variations[$combined_variation_index]['quantity']),
                         'delivery' => intval($requested_variations[$combined_variation_index]['delivery']),
-                        'options' => $options
+                        'options' => $options,
                     ]);
                 }
-
-            } else{
+            } else {
                 $requested_variations[$combined_variation_index]['status'] = 0;
                 $combined_variation['variation']->update($requested_variations[$combined_variation_index]);
             }
         }
+
         return back();
     }
 }
