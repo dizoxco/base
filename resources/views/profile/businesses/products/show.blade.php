@@ -18,7 +18,7 @@
                     @foreach($variation as $column)
                         <td>
                             {{ $column['label'] }}
-                            <input type="hidden" name="variations[{{$index}}][options][{{$column['name']}}]">
+                            {{-- <input type="hidden" name="variations[{{$index}}][options][{{$column['name']}}]"> --}}
                         </td>
                     @endforeach
                     <td>

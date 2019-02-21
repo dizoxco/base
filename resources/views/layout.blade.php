@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="{{ env('GOOGLE_CLIENT_ID') }}">
+    <meta name="X-CSRF-Token" content="{{ csrf_token() }}">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     <meta name="theme-color" content="#002f6c" />

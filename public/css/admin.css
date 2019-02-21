@@ -2532,6 +2532,10 @@ table {
   border-radius: 1.5rem;
 }
 
+.rounded-xl {
+  border-radius: 2rem;
+}
+
 .rounded-full {
   border-radius: 9999px;
 }
@@ -2616,6 +2620,26 @@ table {
   border-bottom-left-radius: 1.5rem;
 }
 
+.rounded-t-xl {
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+}
+
+.rounded-r-xl {
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+}
+
+.rounded-b-xl {
+  border-bottom-right-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+}
+
+.rounded-l-xl {
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+}
+
 .rounded-t-full {
   border-top-left-radius: 9999px;
   border-top-right-radius: 9999px;
@@ -2698,6 +2722,22 @@ table {
 
 .rounded-bl-lg {
   border-bottom-left-radius: 1.5rem;
+}
+
+.rounded-tl-xl {
+  border-top-left-radius: 2rem;
+}
+
+.rounded-tr-xl {
+  border-top-right-radius: 2rem;
+}
+
+.rounded-br-xl {
+  border-bottom-right-radius: 2rem;
+}
+
+.rounded-bl-xl {
+  border-bottom-left-radius: 2rem;
 }
 
 .rounded-tl-full {
@@ -9167,6 +9207,10 @@ span[class^="MuiPrivateTabIndicator"]:before {
     border-radius: 1.5rem;
   }
 
+  .sm\:rounded-xl {
+    border-radius: 2rem;
+  }
+
   .sm\:rounded-full {
     border-radius: 9999px;
   }
@@ -9251,6 +9295,26 @@ span[class^="MuiPrivateTabIndicator"]:before {
     border-bottom-left-radius: 1.5rem;
   }
 
+  .sm\:rounded-t-xl {
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+  }
+
+  .sm\:rounded-r-xl {
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+  }
+
+  .sm\:rounded-b-xl {
+    border-bottom-right-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+  }
+
+  .sm\:rounded-l-xl {
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+  }
+
   .sm\:rounded-t-full {
     border-top-left-radius: 9999px;
     border-top-right-radius: 9999px;
@@ -9333,6 +9397,22 @@ span[class^="MuiPrivateTabIndicator"]:before {
 
   .sm\:rounded-bl-lg {
     border-bottom-left-radius: 1.5rem;
+  }
+
+  .sm\:rounded-tl-xl {
+    border-top-left-radius: 2rem;
+  }
+
+  .sm\:rounded-tr-xl {
+    border-top-right-radius: 2rem;
+  }
+
+  .sm\:rounded-br-xl {
+    border-bottom-right-radius: 2rem;
+  }
+
+  .sm\:rounded-bl-xl {
+    border-bottom-left-radius: 2rem;
   }
 
   .sm\:rounded-tl-full {
@@ -15125,6 +15205,10 @@ span[class^="MuiPrivateTabIndicator"]:before {
     border-radius: 1.5rem;
   }
 
+  .md\:rounded-xl {
+    border-radius: 2rem;
+  }
+
   .md\:rounded-full {
     border-radius: 9999px;
   }
@@ -15209,6 +15293,26 @@ span[class^="MuiPrivateTabIndicator"]:before {
     border-bottom-left-radius: 1.5rem;
   }
 
+  .md\:rounded-t-xl {
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+  }
+
+  .md\:rounded-r-xl {
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+  }
+
+  .md\:rounded-b-xl {
+    border-bottom-right-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+  }
+
+  .md\:rounded-l-xl {
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+  }
+
   .md\:rounded-t-full {
     border-top-left-radius: 9999px;
     border-top-right-radius: 9999px;
@@ -15291,6 +15395,22 @@ span[class^="MuiPrivateTabIndicator"]:before {
 
   .md\:rounded-bl-lg {
     border-bottom-left-radius: 1.5rem;
+  }
+
+  .md\:rounded-tl-xl {
+    border-top-left-radius: 2rem;
+  }
+
+  .md\:rounded-tr-xl {
+    border-top-right-radius: 2rem;
+  }
+
+  .md\:rounded-br-xl {
+    border-bottom-right-radius: 2rem;
+  }
+
+  .md\:rounded-bl-xl {
+    border-bottom-left-radius: 2rem;
   }
 
   .md\:rounded-tl-full {
@@ -21083,6 +21203,10 @@ span[class^="MuiPrivateTabIndicator"]:before {
     border-radius: 1.5rem;
   }
 
+  .lg\:rounded-xl {
+    border-radius: 2rem;
+  }
+
   .lg\:rounded-full {
     border-radius: 9999px;
   }
@@ -21167,6 +21291,26 @@ span[class^="MuiPrivateTabIndicator"]:before {
     border-bottom-left-radius: 1.5rem;
   }
 
+  .lg\:rounded-t-xl {
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+  }
+
+  .lg\:rounded-r-xl {
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+  }
+
+  .lg\:rounded-b-xl {
+    border-bottom-right-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+  }
+
+  .lg\:rounded-l-xl {
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+  }
+
   .lg\:rounded-t-full {
     border-top-left-radius: 9999px;
     border-top-right-radius: 9999px;
@@ -21249,6 +21393,22 @@ span[class^="MuiPrivateTabIndicator"]:before {
 
   .lg\:rounded-bl-lg {
     border-bottom-left-radius: 1.5rem;
+  }
+
+  .lg\:rounded-tl-xl {
+    border-top-left-radius: 2rem;
+  }
+
+  .lg\:rounded-tr-xl {
+    border-top-right-radius: 2rem;
+  }
+
+  .lg\:rounded-br-xl {
+    border-bottom-right-radius: 2rem;
+  }
+
+  .lg\:rounded-bl-xl {
+    border-bottom-left-radius: 2rem;
   }
 
   .lg\:rounded-tl-full {
@@ -27041,6 +27201,10 @@ span[class^="MuiPrivateTabIndicator"]:before {
     border-radius: 1.5rem;
   }
 
+  .xl\:rounded-xl {
+    border-radius: 2rem;
+  }
+
   .xl\:rounded-full {
     border-radius: 9999px;
   }
@@ -27125,6 +27289,26 @@ span[class^="MuiPrivateTabIndicator"]:before {
     border-bottom-left-radius: 1.5rem;
   }
 
+  .xl\:rounded-t-xl {
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+  }
+
+  .xl\:rounded-r-xl {
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+  }
+
+  .xl\:rounded-b-xl {
+    border-bottom-right-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+  }
+
+  .xl\:rounded-l-xl {
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+  }
+
   .xl\:rounded-t-full {
     border-top-left-radius: 9999px;
     border-top-right-radius: 9999px;
@@ -27207,6 +27391,22 @@ span[class^="MuiPrivateTabIndicator"]:before {
 
   .xl\:rounded-bl-lg {
     border-bottom-left-radius: 1.5rem;
+  }
+
+  .xl\:rounded-tl-xl {
+    border-top-left-radius: 2rem;
+  }
+
+  .xl\:rounded-tr-xl {
+    border-top-right-radius: 2rem;
+  }
+
+  .xl\:rounded-br-xl {
+    border-bottom-right-radius: 2rem;
+  }
+
+  .xl\:rounded-bl-xl {
+    border-bottom-left-radius: 2rem;
   }
 
   .xl\:rounded-tl-full {
