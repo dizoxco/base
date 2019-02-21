@@ -13,8 +13,8 @@
             break;
     }
 @endphp
-<div class="flex h-screen/7 bg-redx">
-    <div class="w-1/4 h-full swiper-container scroll-swiper">
+<div class="flex h-screen/7 shadow rounded-lg overflow-hidden">
+    <div class="w-1/4 h-full swiper-container scroll-swiper bg-grey-lighter ">
         <div class="swiper-wrapper">
             <div class="swiper-slide" style="height:auto">
                 @forelse($chats as $c)
@@ -37,9 +37,9 @@
                                 break;
                         }
                     @endphp
-                    <div class="my-4">
+                    <div class="p-2 border-b border-solid border-grey-lighter hover:bg-grey-light">
                         <a class="chat-id flex" href="{{$href}}" api-href="{{$ajax_href}}">
-                            <img class="rounded-full w-1/5" src="{{$img}}" alt=""/>
+                            <img class="rounded-full w-12 self-center" src="{{$img}}" alt=""/>
                             <div class="w-4/5">
                                 <p class="p-4">
                                     {{ $title }}
@@ -53,7 +53,22 @@
         </div>
         <div class="swiper-scrollbar"></div>
     </div>
-    <div class="w-3/4 h-full chat-comments swiper-container scroll-swiper">
+    <div class="w-3/4 h-full chat-comments swiper-container scroll-swiper bg-grey-lighter ">
+        <div class="bg-grey-darkest flex items-center px-8 z-10 p-2 z-50 absolute w-full shadow-lg">
+            <img class="w-10 rounded-full" src="/images/avatar.jpg" alt="">
+            <div class="font-bold text-white p-4">
+                    @switch($chatwith)
+                    @case('users')
+                        {{ $chat->user->name }}
+                        @break
+                    @case('businesses')
+                        {{ $chat->business->brand }}
+                        @break
+                    @default
+                        
+                @endswitch
+            </div>
+        </div>
         <div class="swiper-wrapper">
             <div class="swiper-slide p-8" style="height:auto; box-sizing: border-box">
                 @foreach ($chat->comments as $comment)
@@ -73,8 +88,8 @@
                                 break;
                         }
                     @endphp
-                    <div class="clearfix ">
-                        <p class="w-2/5 p-4 my-1 rounded @if($me) bg-red float-right @else bg-blue float-left @endif">
+                    <div class="clearfix flex items-center ">
+                        <p class=" w-2/5 py-4 px-6  my-1 rounded-xl flex @if($me) me bg-grey-darkest text-white @else tome bg-white mr-auto text-black @endif">
                             {{$comment->body}}
                         </p>
                     </div>
@@ -83,7 +98,7 @@
             </div>
         </div>
         <div class="swiper-scrollbar"></div>
-        <div class="absolute pin-b w-full z-40 bg-white ml-8">
+        <div class="absolute pin-b w-full z-40 px-8 py-4 bg-grey-lightest ">
                 @component('components.form',[
                     'method' => 'POST',
                     'action' => $href

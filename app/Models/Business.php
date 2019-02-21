@@ -94,11 +94,11 @@ class Business extends Model implements HasMedia
     public function registerMediaCollections()
     {
         $this->addMediaCollection(enum('media.business.logo'))
-             ->singleFile()
-             ->registerMediaConversions(function (Media $media) {
-                 $this->addMediaConversion('thumb')
-                      ->crop(Manipulations::CROP_CENTER, 150, 150);
-             });
+             ->singleFile();
+            //  ->registerMediaConversions(function (Media $media) {
+            //      $this->addMediaConversion('thumb')
+            //           ->crop(Manipulations::CROP_CENTER, 150, 150);
+            //  });
 
         $this->addMediaCollection('business-gallery');
     }

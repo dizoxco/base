@@ -12,7 +12,9 @@ class BusinessesTableSeeder extends Seeder
     public function run()
     {
         Business::insert(factory(Business::class, 100)->make()->toArray());
-        Product::insert(factory(Product::class, 300)->make()->toArray());
+        Product::insert(factory(Product::class, 100)->make()->toArray());
+        Product::insert(factory(Product::class, 100)->make()->toArray());
+        Product::insert(factory(Product::class, 100)->make()->toArray());
 
         $users = User::all();
         $businesses = Business::all();

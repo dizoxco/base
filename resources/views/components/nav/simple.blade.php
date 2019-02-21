@@ -132,7 +132,7 @@
             @foreach (auth()->user()->businesses as $business)
               <a class="-mr-8 bg-grey-lighter rounded-l-full flex items-center" href="{{route('profile.businesses.show', $business->slug)}}">
                 <div class="w-5/6 pr-8">{{$business->brand}}</div>
-                <img class="w-1/6 h-auto rounded-full m-2 " src="{{$business->getFirstMedia(enum('media.business.logo')) ? $business->getFirstMedia(enum('media.business.logo'))->getUrl('thumb') : '/images/avatar.jpg'}}" alt="">
+                {{-- <img class="w-1/6 h-auto rounded-full m-2 " src="{{$business->getFirstMedia(enum('media.business.logo')) ? $business->getFirstMedia(enum('media.business.logo'))->getUrl('thumb') : '/images/avatar.jpg'}}" alt=""> --}}
               </a>
               <div class="side__loged-container-menu mt-2">
                 <a class="relative" href="{{route('profile.businesses.orders.index', $business->slug)}}">
