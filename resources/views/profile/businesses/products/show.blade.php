@@ -6,29 +6,37 @@
     ])
         <table>
             <tr>
-                <th>نوع محصول</th>
+                @foreach ($product->options as $option)
+                    <th>{{$option['label']}}</th>
+                @endforeach
                 <th>قیمت</th>
                 <th>تعداد</th>
                 <th>تحویل</th>
             </tr>
             @foreach($variations as $index => $variation)
                 <tr>
-                    <td>
-                        @foreach($variation as $column)
+                    @foreach($variation as $column)
+                        <td>
                             {{ $column['label'] }}
-                        @endforeach
+                            <input type="hidden" name="variations[{{$index}}][options][{{$column['name']}}]">
+                        </td>
+                    @endforeach
+                    <td>
+                        <input class="mdc-text-field__input" type="text" name="variations[{{$index}}][price]">
                     </td>
                     <td>
-                        <input class="mdc-text-field__input" type="text" name="price{{ $index }}">
+                        <input class="mdc-text-field__input" type="text" name="variations[{{$index}}][quantity]">
                     </td>
                     <td>
-                        <input class="mdc-text-field__input" type="text" name="quantity{{ $index }}">
-                    </td>
-                    <td>
-                        <input class="mdc-text-field__input" type="text" name="delivery{{ $index }}">
+                        <input class="mdc-text-field__input" type="text" name="variations[{{$index}}][delivery]">
                     </td>
                 </tr>
             @endforeach
         </table>
+        @component('components.form.button',[
+            'label' => 'ذخیره'
+        ])
+            
+        @endcomponent
     @endcomponent
 @endsection
