@@ -32,8 +32,6 @@ class Kernel extends HttpKernel
         Middleware\TrimStrings::class,
         ConvertEmptyStringsToNull::class,
         Middleware\TrustProxies::class,
-        //  Add content-type : application/vnd.api+json to every response
-        CustomHttpHeaders::class,
     ];
 
     /**
@@ -55,6 +53,8 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
+            //  Add content-type : application/vnd.api+json to every response
+            CustomHttpHeaders::class,
         ],
     ];
 

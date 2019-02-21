@@ -46,8 +46,6 @@ class UserEventSubscribers
                     ]
                 );
             }
-
-            return \Response::make()->withCookie(\Cookie::make('cart', null));
         }
     }
 

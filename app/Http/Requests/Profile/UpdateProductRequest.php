@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Payment;
+namespace App\Http\Requests\Profile;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePaymentRequest extends FormRequest
+class UpdateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +24,7 @@ class StorePaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            'payment' => [
-                'required',
-                'string',
-                Rule::in(['zarinpal', 'pos']),
-            ],
+            //
         ];
     }
 }

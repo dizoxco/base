@@ -134,14 +134,43 @@
                     افزودن به علاقه مندی ها
                 </a>
             @endif
-            @if (!$product->single)
+            @if (!$product->single && count(auth()->user()->businesses))
                 <br>
-                <a href="{{ route('cart.store', $product->variations[0]) }}">
+                @if (count(auth()->user()->businesses) > 1)
                     @component('components.form.button', [
                         'label' => 'افزودن به محصولات خود',
                         'raised' => true,
+                        'dialog' => 'addp2b'
                     ])@endcomponent
-                </a>
+
+                    @component('components.dialog',[
+                        'id' => 'addp2b',
+                        'title' => 'sdfdf',
+                        'buttons' => [
+                            'save' => 'ذخیره'
+                        ],
+                        'cancel' => 'انصراف'
+                    ])
+                        @foreach (auth()->user()->businesses as $business)
+                            {{$business->brand}} <br>
+                        @endforeach
+                        @component('components.form.field')
+                            @component('components.form.select', [
+                                'label' => 'افزودن کسب و کار',
+                                'options' => [
+                                    'aa' => 'aaa',
+                                    'bb' => 'bbb',
+                                    'cc' => 'ccc',
+                                    'dd' => 'ddd',
+                                ],
+                            ])
+                            @endcomponent
+                        @endcomponent
+                    @endcomponent
+                @else
+                    link
+                @endif
+                
             @endif
         </div> 
 

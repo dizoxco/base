@@ -1,4 +1,3 @@
-
 @php
     $class = 'mdc-button';
     if(isset($type)){
@@ -13,7 +12,7 @@
     if(isset($dense)) $class .= ' mdc-button--dense';
 @endphp
 @isset($link)<a href="{{$link}}">@endisset
-<button @isset ($name) name="{{$name}}" id="{{$name}}" @endisset class="{{$class}}" @isset($disabled) disabled @endisset data-mdc-auto-init="mdc-ripple">
+<button @isset ($name) name="{{$name}}" id="{{$name}}" @endisset class="{{$class}}" @isset($disabled) disabled @endisset data-mdc-auto-init="mdc-ripple" @isset($dialog) dialog="{{$dialog}}" @endisset>
     @isset($icon)
         <i class="material-icons mdc-button__icon" aria-hidden="true">{{$icon}}</i>
     @endisset

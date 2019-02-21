@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Auth;
 
+use Cookie;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -21,6 +22,13 @@ class RegisterController extends Controller
     public function redirectPath()
     {
         return session()->previousUrl() ?? route('home');
+    }
+
+    protected function registered()
+    {
+        return redirect($this->redirectPath())
+            ->withCookie(Cookie::make('cart', null))
+            ->withCookie(Cookie::make('wishlist', null));
     }
 
     protected function create(array $data)

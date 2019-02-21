@@ -134,6 +134,10 @@ Route::middleware('auth:api')->group(function () {
         });
     });
 
+    Route::name('taxonomies.')->prefix('taxonomies')->group(function () {
+        Route::get('/', 'TaxonomyController@index')->name('index');
+    });
+
     Route::name('mediagroups')->prefix('mediagroups')->group(function () {
         Route::get('/', 'MediaGroupController@index');
         Route::get('{medium}', 'MediaGroupController@show');
