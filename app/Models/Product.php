@@ -96,4 +96,54 @@ class Product extends Model implements HasMedia
     {
         return ProductRepo::getRelated($this, $number);
     }
+
+    public function getCombinedVariationsAttribute()
+    {
+        $variations = [[]];
+        foreach ($this->options as $option_index => $option) {
+            $append = [];
+            foreach ($variations as $variation) {
+                foreach ($option['values'] as $option_value ) {
+                    $variation['options'][$option['name']] = $option_value;
+                    $variation['variation'] = null;
+                    $append[] = $variation;
+                }
+            }
+            $variations = $append;
+        }
+
+        if (isset(request()->route()->parameters()['business'])) {
+            $saved_variations = $this->variations()
+                                    ->where('business_id', request()->route()->parameters()['business']->id)
+                                    ->get();
+            foreach ($variations as $variation_index => $variation) {
+                foreach ($saved_variations as $saved_variation) {
+                    $same = true;
+                    foreach ($variation['options'] as $variation_option_name => $variation_option) {
+                        if ($saved_variation->options[$variation_option_name] != $variation_option['value'])
+                            $same = false;
+                    }
+                    if ($same) $variations[$variation_index]['variation'] = $saved_variation;
+                }
+            }
+            // if (isset($saved_variations)) {
+            //     foreach($saved_variations as $saved_variation){
+            //         $same = true;
+            //         $log[] = [$saved_variation->options , $variation['options']];
+            //         foreach($saved_variation->options as $saved_option => $saved_value){
+            //             if(
+            //                 isset($variation['options'][$saved_option]['value']) &&
+            //                 $variation['options'][$saved_option]['value'] != $saved_value 
+            //             ){
+            //                 $same = false;
+            //             }
+            //         }
+            //         // if($same) $variation['variation'] = $saved_variation;
+            //         $variation['variation'] = $same? $saved_variation: null;
+            //     }
+            // }
+        }
+        
+        return $variations;
+    }
 }
