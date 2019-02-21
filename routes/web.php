@@ -3,7 +3,7 @@
 Route::any('lab', function () {
 });
 
-Route::get('/verify', 'PaymentController@verify')->name('verify');
+Route::get('/', 'PageController@home')->name('home');
 // Override the default logout route that user GET instead of POST
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('password/token', 'Auth\ForgotPasswordController@getToken')->name('password.token.get');
@@ -45,6 +45,7 @@ Route::name('shipping.')->prefix('shipping')->middleware('auth')->group(function
 Route::name('payment.')->prefix('payment')->middleware('auth')->group(function () {
     Route::get('/', 'PaymentController@index')->name('index');
     Route::post('/', 'PaymentController@store')->name('store');
+    Route::get('/verify', 'PaymentController@verify')->name('verify');
 });
 
 Route::name('profile.')->prefix('profile')->middleware('auth')->group(function () {
