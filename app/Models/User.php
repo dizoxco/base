@@ -160,6 +160,7 @@ class User extends Authenticatable implements HasMedia
         if ($this->{$column.'_verified_at'}) {
             return true;
         }
+
         return false;
     }
 

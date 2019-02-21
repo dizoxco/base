@@ -57,7 +57,7 @@ class BusinessManagerController extends Controller
                 if (
                     intval($requested_variations[$combined_variation_index]['price']) > 0 ||
                     intval($requested_variations[$combined_variation_index]['quantity']) > 0 ||
-                    intval($requested_variations[$combined_variation_index]['delivery']) > 0 
+                    intval($requested_variations[$combined_variation_index]['delivery']) > 0
                 ) {
                     $options = [];
                     foreach ($combined_variation['options'] as $optin_name => $optione_value) {
@@ -68,19 +68,17 @@ class BusinessManagerController extends Controller
                         'price' => intval($requested_variations[$combined_variation_index]['price']),
                         'quantity' => intval($requested_variations[$combined_variation_index]['quantity']),
                         'delivery' => intval($requested_variations[$combined_variation_index]['delivery']),
-                        'options' => $options
+                        'options' => $options,
                     ]);
                 }
-
-            } else{
+            } else {
                 $requested_variations[$combined_variation_index]['status'] = 0;
                 $combined_variation['variation']->update($requested_variations[$combined_variation_index]);
             }
         }
+
         return back();
     }
-
-
 
     public function orders(Business $business)
     {
