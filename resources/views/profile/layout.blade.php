@@ -6,43 +6,43 @@
             <br>
             <br>
             <ul class="mdc-list">
-                <a href="/profile/edit" class="block">
+                <a href="{{ route('profile.wishlist.index') }}" class="block">
                     <li class="mdc-list-item mdc-ripple" tabindex="0">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">people</span>
-                        <span class="mdc-list-item__text">پروفایل</span>
+                        <span class="mdc-list-item__text">لیست علاقه مندی ها</span>
                     </li>
                 </a>
-                <a href="/profile/addresses" class="block">
+                <a href="{{ route('profile.addresses.index') }}" class="block">
                     <li class="mdc-list-item mdc-ripple mdc-list-item--activated">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">place</span>
                         <span class="mdc-list-item__text">آدرس ها</span>
                     </li>
                 </a>
-                <a href="/profile/orders" class="block">
+                <a href="{{ route('profile.orders.index') }}" class="block">
                     <li class="mdc-list-item mdc-ripple">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">place</span>
-                        <span class="mdc-list-item__text">سفارسات</span>
+                        <span class="mdc-list-item__text">سفارشات</span>
                     </li>
                 </a>
-                <a href="/profile/chats">
+                <a href="{{ route('profile.chats.index') }}">
                     <li class="mdc-list-item mdc-ripple">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">chat</span>
                         <span class="mdc-list-item__text">چت ها</span>
                     </li>
                 </a>
-                <a href="/profile/tickets">
+                <a href="{{ route('profile.tickets.index') }}">
                     <li class="mdc-list-item mdc-ripple">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">chat</span>
                         <span class="mdc-list-item__text">تیکت ها</span>
                     </li>
                 </a>
-                <a href="/profile/edit" class="block">
+                <a href="{{ route('profile.edit') }}" class="block">
                     <li class="mdc-list-item mdc-ripple" tabindex="0">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">people</span>
                         <span class="mdc-list-item__text">ویرایش پروفایل</span>
                     </li>
                 </a>
-                <a href="/profile/edit" class="block">
+                <a href="{{ route('logout') }}" class="block">
                     <li class="mdc-list-item mdc-ripple" tabindex="0">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">people</span>
                         <span class="mdc-list-item__text">خروج</span>

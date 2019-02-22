@@ -80,42 +80,19 @@ class User extends Authenticatable implements HasMedia
             ->where('business_id', '=', 0);
     }
 
-    public function businesses() : BelongsToMany
+    public function businesses(): BelongsToMany
     {
         return $this->belongsToMany(Business::class, 'businesses_users', 'user_id', 'business_id');
     }
 
-    public function wishlist()
+    public function wishlist(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'wishlists', 'user_id', 'product_id');
     }
 
-    public function cart()
+    public function cart(): HasMany
     {
         return $this->hasMany(Cart::class, 'user_id', 'id');
-    }
-
-    public function hasChatWith(int $userId) : bool
-    {
-        // fixme:equal to
-        // "select user_id from chat_users where chat_id in
-        //  (SELECT chat_id FROM `chat_users` WHERE chat_users.user_id = $this->id)
-        //  and user_id = $userId"
-        return $this->chats()->whereHas('users', function ($query) {
-            $query->where('user_id', '=', $this->id);
-        })->whereHas('users', function ($query) use ($userId) {
-            $query->where('user_id', '=', $userId);
-        })->whereType(enum('chat.type.chat'))
-            ->exists();
-    }
-
-    public function getChatWith(int $userId) : Chat
-    {
-        return $this->chats()->whereHas('users', function ($query) {
-            $query->where('user_id', '=', $this->id);
-        })->whereHas('users', function ($query) use ($userId) {
-            $query->where('user_id', '=', $userId);
-        })->whereType(enum('chat.type.chat'))->first();
     }
 
     public function orders(): HasMany

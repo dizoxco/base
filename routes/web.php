@@ -61,10 +61,16 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
         Route::get('mobile/{token}', 'ProfileController@checkMobileVerification')->name('mobile.check');
     });
 
-    Route::resource('addresses', 'AddressController');
+    Route::name('wishlist.')->prefix('wishlist')->group(function () {
+        Route::get('/', 'WishlistController@index')->name('index');
+        Route::get('{product}', 'WishlistController@store')->name('store');
+        Route::get('{product}/destroy', 'WishlistController@destroy')->name('destroy');
+    });
 
-    Route::get('orders', 'ProfileController@orders')->name('orders');
-    Route::get('orders/{order}', 'ProfileController@orderShow')->name('orders.show');
+    Route::name('orders.')->prefix('orders')->group(function () {
+        Route::get('/', 'ProfileController@orders')->name('index');
+        Route::get('{order}', 'ProfileController@orderShow')->name('show');
+    });
 
     Route::name('tickets.')->prefix('tickets')->group(function () {
         Route::get('/', 'TicketController@index')->name('index');
@@ -116,6 +122,8 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
         Route::get('/', 'ProfileController@info')->name('edit');
         Route::post('/', 'ProfileController@updateInfo')->name('update');
     });
+
+    Route::resource('addresses', 'AddressController');
 });
 
 // ==================================== Admin Section =========================

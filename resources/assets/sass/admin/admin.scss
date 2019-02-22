@@ -1,5 +1,5 @@
 @import 'global';
-@import 'react-table/react-table';
+//@import 'react-table/react-table';
 
 .fade-appear,
 .fade-enter {
@@ -87,7 +87,7 @@
 		 url('/fonts/IRANSans/woff/IRANSansWeb(FaNum).woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 		 url('/fonts/IRANSans/ttf/IRANSansWeb(FaNum).ttf') format('truetype');
 }
- 
+
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
@@ -135,7 +135,7 @@ span[class^="MuiPrivateTabIndicator"] {
   // padding-right: 300px;
   #top-nav{
     height: 60px;
-  }  
+  }
   #main-content{
     margin-right: 300px;
     #page{

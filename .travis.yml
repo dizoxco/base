@@ -5,6 +5,12 @@ php:
   - 7.2
   - 7.3
 
+# blocklist
+branches:
+  except:
+  - master
+  - develop
+
 before_install:
   - sudo apt-get -qq update
   - yes | pecl install imagick

@@ -32,19 +32,19 @@
                 {{ $variation->pivot->quantity }}
             </td>
             <td>
-                {{ $variation->pivot->price }}
+                @toman($variation->pivot->price)
             </td>
             <td>
-                {{ $variation->pivot->price * $variation->pivot->quantity }}
-            </td>
-            <td>
-                -
+                @toman($variation->pivot->price * $variation->pivot->quantity)
             </td>
             <td>
                 -
             </td>
             <td>
-                {{ $variation->pivot->price * $variation->pivot->quantity }}
+                -
+            </td>
+            <td>
+                @toman($variation->pivot->price * $variation->pivot->quantity)
             </td>
             <td>
                 {{ $variation->business->brand }}
