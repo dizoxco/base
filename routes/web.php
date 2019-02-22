@@ -108,7 +108,7 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
             Route::name('chats.')->prefix('chats')->group(function () {
                 Route::get('/', 'ChatManagementController@index')->name('index');
                 Route::get('{chat}', 'ChatManagementController@show')->name('show');
-                Route::post('{chat}', 'ChatManagementController@comment')->name('store');
+                Route::post('{chat}', 'ChatManagementController@store')->name('store');
             });
         });
     });

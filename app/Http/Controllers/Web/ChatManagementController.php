@@ -29,6 +29,6 @@ class ChatManagementController extends Controller
             'body' => request()->body,
         ]);
 
-        return back();
+        return redirect()->route('profile.businesses.chats.show', [$business->slug, $chat]);
     }
 }
