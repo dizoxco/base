@@ -53,7 +53,7 @@
                 <h6>@toman(auth()->user()->cartCost)</h6>
                 <br>
                 @component('components.form.button',[
-                    'label' => 'ادامه خرید',
+                    'label' => 'تایید و ادامه ثبت سفارش',
                 ])
                 @endcomponent
             </div>
