@@ -165,8 +165,8 @@
 }
 
 .side{
-    width: 400px;
-    right: -400px;
+    width: 350px;
+    right: -350px;
     transition: transform .3s;
     top: 0;
     
@@ -198,14 +198,15 @@
             }
         }
 
-        &.cart i{
+        &.cart i,
+        &.wishlist i{
             font-size: 1.2rem;
         }
     }
 }
 
 .side__loged-container {
-    padding-left: 4rem;
+    padding-left: .5rem;
     &-menu {
         display: flex;
         flex-direction: column;
@@ -213,7 +214,7 @@
             display: flex;
             align-items: center;
             margin-right: -2.5rem;
-            line-height: 3rem;
+            line-height: 3.2rem;
             color: #000;
             left: 0;
         

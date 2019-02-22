@@ -52,7 +52,7 @@
           </div>
           <div class="side__cart-container w-full mt-8">
             @foreach ($cart as $cart_item)
-              <div class="side__cart-product flex py-3 px-5 relative">
+              <div class="side__cart-product flex py-3 relative">
                 <div class="side__cart-product-img w-1/3 ">
                   <img src="{{optional($cart_item->product->getFirstMedia(enum('media.product.banner')))->getFullUrl()}}" class="w-24">
                 </div>
@@ -60,7 +60,7 @@
                   <div class="side__cart-product-name text-sm text-black">
                     <div>{{$cart_item->product->title}}</div>
                     <div class="font-bold text-black text-lg mt-3">{{$cart_item->price}} <span class="text-sm font-normal text-black">تومان</span> </div>
-                    <a href="{{route('cart.destroy', $cart_item)}}"><i class="material-icons absolute pin-l pin-t text-black ml-2 p-1 text-grey-dark">close</i></a>
+                    <a href="{{route('cart.destroy', $cart_item)}}"><i class="material-icons absolute pin-l pin-t text-black -ml-4 p-1 text-grey-dark">close</i></a>
                   </div>
                 </div>
               </div>
@@ -96,7 +96,7 @@
           </div>
           <div class="side__cart-container w-full mt-8">  
             @foreach ($wishlist as $wish_item)
-              <div class="side__cart-product flex py-3 px-5 relative">
+              <div class="side__cart-product flex py-3 relative">
                 <div class="side__cart-product-img w-1/3 ">
                   <img src="{{optional($wish_item->getFirstMedia(enum('media.product.banner')))->getFullUrl()}}" class="w-24">
                 </div>
@@ -104,7 +104,7 @@
                   <div class="side__cart-product-name text-sm text-black">
                     <div>{{$wish_item->title}}</div>
                     <div class="font-bold text-black text-lg mt-3">{{$wish_item->price}} <span class="text-sm font-normal text-black">تومان</span> </div>
-                    <a href="{{route('wishlist.destroy', $wish_item->slug)}}"><i class="material-icons absolute pin-l pin-t text-black ml-2 p-1 text-grey-dark">close</i></a>
+                    <a href="{{route('wishlist.destroy', $wish_item->slug)}}"><i class="material-icons absolute pin-l pin-t text-black -ml-4 p-1 text-grey-dark">close</i></a>
                   </div>
                 </div>
               </div>

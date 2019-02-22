@@ -5,10 +5,10 @@
 // @import "@material/rtl/mixins";
 // mdc-rtl('.rtl');
 
-$mdc-theme-primary: #fcb8ab;
-$mdc-theme-secondary: #feeae6;
-$mdc-theme-on-primary: #442b2d;
-$mdc-theme-on-secondary: #442b2d;
+$mdc-theme-primary: #22292F;
+$mdc-theme-secondary: red;
+$mdc-theme-on-primary: #8795A1;
+$mdc-theme-on-secondary: blue;
 
 @import "@material/ripple/mdc-ripple";
 @import "@material/form-field/mdc-form-field";
@@ -24,14 +24,23 @@ $mdc-theme-on-secondary: #442b2d;
 @import "@material/select/mdc-select";
 @import "@material/dialog/mdc-dialog";
 
-@import "@material/tab-bar/mdc-tab-bar";
-@import "@material/tab-scroller/mdc-tab-scroller";
-@import "@material/tab-indicator/mdc-tab-indicator";
-@import "@material/tab/mdc-tab";
 
 .mdc-text-field{
     label{
         font-family: IRANSans;
+    }
+
+    &__input {
+        font-family: IRANSans;
+
+        &:-webkit-autofill{
+            &,
+            &:hover,
+            &:focus,
+            &:active{
+                -webkit-box-shadow: 0 0 0 30px #fff inset !important;
+            }
+        }
     }
     &.mdc-text-field--outlined.shaped{
         .mdc-text-field__input{
@@ -72,6 +81,11 @@ $mdc-theme-on-secondary: #442b2d;
         outline: none;
     }
 }
+
+.mdc-button--raised:not(:disabled), .mdc-button--unelevated:not(:disabled) {
+    color: var(--mdc-theme-primary, #fff);
+}
+
 .mdc-icon-button{
     &:focus{
         outline: none;
@@ -83,7 +97,7 @@ $mdc-theme-on-secondary: #442b2d;
 }
 .mdc-list-item {
     border-radius: 32px 0 0 32px;
-    margin-left: 6.5rem;
+    margin-left: 3rem;
     color: #fff;
     padding-right: 0;
 

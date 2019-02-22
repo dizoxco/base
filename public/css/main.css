@@ -7671,26 +7671,26 @@ button.swiper-pagination-bullet {
 
 .mdc-ripple-surface--primary::before,
 .mdc-ripple-surface--primary::after {
-  background-color: #fcb8ab;
+  background-color: #22292f;
 }
 
 @supports not (-ms-ime-align: auto) {
   .mdc-ripple-surface--primary::before,
   .mdc-ripple-surface--primary::after {
     /* @alternate */
-    background-color: var(--mdc-theme-primary, #fcb8ab);
+    background-color: var(--mdc-theme-primary, #22292f);
   }
 }
 
 .mdc-ripple-surface--primary:hover::before {
-  opacity: .08;
+  opacity: .04;
 }
 
 .mdc-ripple-surface--primary:not(.mdc-ripple-upgraded):focus::before,
 .mdc-ripple-surface--primary.mdc-ripple-upgraded--background-focused::before {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .24;
+  opacity: .12;
 }
 
 .mdc-ripple-surface--primary:not(.mdc-ripple-upgraded)::after {
@@ -7701,35 +7701,35 @@ button.swiper-pagination-bullet {
 .mdc-ripple-surface--primary:not(.mdc-ripple-upgraded):active::after {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .32;
+  opacity: .16;
 }
 
 .mdc-ripple-surface--primary.mdc-ripple-upgraded {
-  --mdc-ripple-fg-opacity: .32;
+  --mdc-ripple-fg-opacity: .16;
 }
 
 .mdc-ripple-surface--accent::before,
 .mdc-ripple-surface--accent::after {
-  background-color: #feeae6;
+  background-color: red;
 }
 
 @supports not (-ms-ime-align: auto) {
   .mdc-ripple-surface--accent::before,
   .mdc-ripple-surface--accent::after {
     /* @alternate */
-    background-color: var(--mdc-theme-secondary, #feeae6);
+    background-color: var(--mdc-theme-secondary, red);
   }
 }
 
 .mdc-ripple-surface--accent:hover::before {
-  opacity: .08;
+  opacity: .04;
 }
 
 .mdc-ripple-surface--accent:not(.mdc-ripple-upgraded):focus::before,
 .mdc-ripple-surface--accent.mdc-ripple-upgraded--background-focused::before {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .24;
+  opacity: .12;
 }
 
 .mdc-ripple-surface--accent:not(.mdc-ripple-upgraded)::after {
@@ -7740,11 +7740,11 @@ button.swiper-pagination-bullet {
 .mdc-ripple-surface--accent:not(.mdc-ripple-upgraded):active::after {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .32;
+  opacity: .16;
 }
 
 .mdc-ripple-surface--accent.mdc-ripple-upgraded {
-  --mdc-ripple-fg-opacity: .32;
+  --mdc-ripple-fg-opacity: .16;
 }
 
 .mdc-form-field {
@@ -8434,9 +8434,9 @@ button.swiper-pagination-bullet {
 }
 
 .mdc-text-field .mdc-text-field__input {
-  caret-color: #fcb8ab;
+  caret-color: #22292f;
   /* @alternate */
-  caret-color: var(--mdc-theme-primary, #fcb8ab);
+  caret-color: var(--mdc-theme-primary, #22292f);
 }
 
 .mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mdc-text-field__input {
@@ -8448,9 +8448,9 @@ button.swiper-pagination-bullet {
 }
 
 .mdc-text-field .mdc-line-ripple {
-  background-color: #fcb8ab;
+  background-color: #22292f;
   /* @alternate */
-  background-color: var(--mdc-theme-primary, #fcb8ab);
+  background-color: var(--mdc-theme-primary, #22292f);
 }
 
 .mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--textarea) {
@@ -8676,9 +8676,9 @@ button.swiper-pagination-bullet {
 .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,
 .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,
 .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
-  border-color: #fcb8ab;
+  border-color: #22292f;
   /* @alternate */
-  border-color: var(--mdc-theme-primary, #fcb8ab);
+  border-color: var(--mdc-theme-primary, #22292f);
 }
 
 .mdc-text-field--outlined .mdc-floating-label--shake {
@@ -9298,9 +9298,9 @@ button.swiper-pagination-bullet {
 .mdc-text-field--textarea:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,
 .mdc-text-field--textarea:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,
 .mdc-text-field--textarea:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
-  border-color: #fcb8ab;
+  border-color: #22292f;
   /* @alternate */
-  border-color: var(--mdc-theme-primary, #fcb8ab);
+  border-color: var(--mdc-theme-primary, #22292f);
 }
 
 .mdc-text-field--textarea .mdc-floating-label--shake {
@@ -9462,7 +9462,7 @@ button.swiper-pagination-bullet {
 }
 
 .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
-  color: rgba(252, 184, 171, .87);
+  color: rgba(34, 41, 47, .87);
 }
 
 .mdc-text-field--focused .mdc-text-field__input:required ~ .mdc-floating-label::after,
@@ -9479,9 +9479,9 @@ button.swiper-pagination-bullet {
 .mdc-text-field--textarea.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
 .mdc-text-field--textarea.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
 .mdc-text-field--textarea.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
-  border-color: #fcb8ab;
+  border-color: #22292f;
   /* @alternate */
-  border-color: var(--mdc-theme-primary, #fcb8ab);
+  border-color: var(--mdc-theme-primary, #22292f);
 }
 
 .mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mdc-text-field__input {
@@ -10218,33 +10218,33 @@ button.swiper-pagination-bullet {
 }
 
 .mdc-button:not(:disabled) {
-  color: #fcb8ab;
+  color: #22292f;
   /* @alternate */
-  color: var(--mdc-theme-primary, #fcb8ab);
+  color: var(--mdc-theme-primary, #22292f);
 }
 
 .mdc-button::before,
 .mdc-button::after {
-  background-color: #fcb8ab;
+  background-color: #22292f;
 }
 
 @supports not (-ms-ime-align: auto) {
   .mdc-button::before,
   .mdc-button::after {
     /* @alternate */
-    background-color: var(--mdc-theme-primary, #fcb8ab);
+    background-color: var(--mdc-theme-primary, #22292f);
   }
 }
 
 .mdc-button:hover::before {
-  opacity: .08;
+  opacity: .04;
 }
 
 .mdc-button:not(.mdc-ripple-upgraded):focus::before,
 .mdc-button.mdc-ripple-upgraded--background-focused::before {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .24;
+  opacity: .12;
 }
 
 .mdc-button:not(.mdc-ripple-upgraded)::after {
@@ -10255,11 +10255,11 @@ button.swiper-pagination-bullet {
 .mdc-button:not(.mdc-ripple-upgraded):active::after {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .32;
+  opacity: .16;
 }
 
 .mdc-button.mdc-ripple-upgraded {
-  --mdc-ripple-fg-opacity: .32;
+  --mdc-ripple-fg-opacity: .16;
 }
 
 .mdc-button__label + .mdc-button__icon {
@@ -10340,29 +10340,29 @@ svg.mdc-button__icon {
 
 .mdc-button--raised:not(:disabled),
 .mdc-button--unelevated:not(:disabled) {
-  background-color: #fcb8ab;
+  background-color: #22292f;
 }
 
 @supports not (-ms-ime-align: auto) {
   .mdc-button--raised:not(:disabled),
   .mdc-button--unelevated:not(:disabled) {
     /* @alternate */
-    background-color: var(--mdc-theme-primary, #fcb8ab);
+    background-color: var(--mdc-theme-primary, #22292f);
   }
 }
 
 .mdc-button--raised:not(:disabled),
 .mdc-button--unelevated:not(:disabled) {
-  color: #442b2d;
+  color: #8795a1;
   /* @alternate */
-  color: var(--mdc-theme-on-primary, #442b2d);
+  color: var(--mdc-theme-on-primary, #8795a1);
 }
 
 .mdc-button--raised::before,
 .mdc-button--raised::after,
 .mdc-button--unelevated::before,
 .mdc-button--unelevated::after {
-  background-color: #442b2d;
+  background-color: #8795a1;
 }
 
 @supports not (-ms-ime-align: auto) {
@@ -10371,13 +10371,13 @@ svg.mdc-button__icon {
   .mdc-button--unelevated::before,
   .mdc-button--unelevated::after {
     /* @alternate */
-    background-color: var(--mdc-theme-on-primary, #442b2d);
+    background-color: var(--mdc-theme-on-primary, #8795a1);
   }
 }
 
 .mdc-button--raised:hover::before,
 .mdc-button--unelevated:hover::before {
-  opacity: .04;
+  opacity: .08;
 }
 
 .mdc-button--raised:not(.mdc-ripple-upgraded):focus::before,
@@ -10386,7 +10386,7 @@ svg.mdc-button__icon {
 .mdc-button--unelevated.mdc-ripple-upgraded--background-focused::before {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .12;
+  opacity: .24;
 }
 
 .mdc-button--raised:not(.mdc-ripple-upgraded)::after,
@@ -10399,12 +10399,12 @@ svg.mdc-button__icon {
 .mdc-button--unelevated:not(.mdc-ripple-upgraded):active::after {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .16;
+  opacity: .32;
 }
 
 .mdc-button--raised.mdc-ripple-upgraded,
 .mdc-button--unelevated.mdc-ripple-upgraded {
-  --mdc-ripple-fg-opacity: .16;
+  --mdc-ripple-fg-opacity: .32;
 }
 
 .mdc-button--raised {
@@ -10443,9 +10443,9 @@ svg.mdc-button__icon {
 }
 
 .mdc-button--outlined:not(:disabled) {
-  border-color: #fcb8ab;
+  border-color: #22292f;
   /* @alternate */
-  border-color: var(--mdc-theme-primary, #fcb8ab);
+  border-color: var(--mdc-theme-primary, #22292f);
 }
 
 .mdc-button--dense {
@@ -10786,26 +10786,26 @@ svg.mdc-button__icon {
 
 .mdc-checkbox::before,
 .mdc-checkbox::after {
-  background-color: #feeae6;
+  background-color: red;
 }
 
 @supports not (-ms-ime-align: auto) {
   .mdc-checkbox::before,
   .mdc-checkbox::after {
     /* @alternate */
-    background-color: var(--mdc-theme-secondary, #feeae6);
+    background-color: var(--mdc-theme-secondary, red);
   }
 }
 
 .mdc-checkbox:hover::before {
-  opacity: .08;
+  opacity: .04;
 }
 
 .mdc-checkbox:not(.mdc-ripple-upgraded):focus::before,
 .mdc-checkbox.mdc-ripple-upgraded--background-focused::before {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .24;
+  opacity: .12;
 }
 
 .mdc-checkbox:not(.mdc-ripple-upgraded)::after {
@@ -10816,11 +10816,11 @@ svg.mdc-button__icon {
 .mdc-checkbox:not(.mdc-ripple-upgraded):active::after {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .32;
+  opacity: .16;
 }
 
 .mdc-checkbox.mdc-ripple-upgraded {
-  --mdc-ripple-fg-opacity: .32;
+  --mdc-ripple-fg-opacity: .16;
 }
 
 .mdc-checkbox::before,
@@ -10853,12 +10853,12 @@ svg.mdc-button__icon {
 
 .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background,
 .mdc-checkbox__native-control:enabled:indeterminate ~ .mdc-checkbox__background {
-  border-color: #feeae6;
+  border-color: red;
   /* @alternate */
-  border-color: var(--mdc-theme-secondary, #feeae6);
-  background-color: #feeae6;
+  border-color: var(--mdc-theme-secondary, red);
+  background-color: red;
   /* @alternate */
-  background-color: var(--mdc-theme-secondary, #feeae6);
+  background-color: var(--mdc-theme-secondary, red);
 }
 
 @-webkit-keyframes mdc-checkbox-fade-in-background-0 {
@@ -10868,12 +10868,12 @@ svg.mdc-button__icon {
   }
 
   50% {
-    border-color: #feeae6;
+    border-color: red;
     /* @alternate */
-    border-color: var(--mdc-theme-secondary, #feeae6);
-    background-color: #feeae6;
+    border-color: var(--mdc-theme-secondary, red);
+    background-color: red;
     /* @alternate */
-    background-color: var(--mdc-theme-secondary, #feeae6);
+    background-color: var(--mdc-theme-secondary, red);
   }
 }
 
@@ -10884,24 +10884,24 @@ svg.mdc-button__icon {
   }
 
   50% {
-    border-color: #feeae6;
+    border-color: red;
     /* @alternate */
-    border-color: var(--mdc-theme-secondary, #feeae6);
-    background-color: #feeae6;
+    border-color: var(--mdc-theme-secondary, red);
+    background-color: red;
     /* @alternate */
-    background-color: var(--mdc-theme-secondary, #feeae6);
+    background-color: var(--mdc-theme-secondary, red);
   }
 }
 
 @-webkit-keyframes mdc-checkbox-fade-out-background-0 {
   0%,
   80% {
-    border-color: #feeae6;
+    border-color: red;
     /* @alternate */
-    border-color: var(--mdc-theme-secondary, #feeae6);
-    background-color: #feeae6;
+    border-color: var(--mdc-theme-secondary, red);
+    background-color: red;
     /* @alternate */
-    background-color: var(--mdc-theme-secondary, #feeae6);
+    background-color: var(--mdc-theme-secondary, red);
   }
 
   100% {
@@ -10913,12 +10913,12 @@ svg.mdc-button__icon {
 @keyframes mdc-checkbox-fade-out-background-0 {
   0%,
   80% {
-    border-color: #feeae6;
+    border-color: red;
     /* @alternate */
-    border-color: var(--mdc-theme-secondary, #feeae6);
-    background-color: #feeae6;
+    border-color: var(--mdc-theme-secondary, red);
+    background-color: red;
     /* @alternate */
-    background-color: var(--mdc-theme-secondary, #feeae6);
+    background-color: var(--mdc-theme-secondary, red);
   }
 
   100% {
@@ -10940,21 +10940,21 @@ svg.mdc-button__icon {
 }
 
 .mdc-checkbox__checkmark {
-  color: #442b2d;
+  color: #8795a1;
 }
 
 .mdc-checkbox__mixedmark {
-  border-color: #442b2d;
+  border-color: #8795a1;
 }
 
 .mdc-checkbox__background::before {
-  background-color: #feeae6;
+  background-color: red;
 }
 
 @supports not (-ms-ime-align: auto) {
   .mdc-checkbox__background::before {
     /* @alternate */
-    background-color: var(--mdc-theme-secondary, #feeae6);
+    background-color: var(--mdc-theme-secondary, red);
   }
 }
 
@@ -11251,25 +11251,25 @@ svg.mdc-button__icon {
 }
 
 .mdc-radio .mdc-radio__native-control:enabled:checked + .mdc-radio__background .mdc-radio__outer-circle {
-  border-color: #feeae6;
+  border-color: red;
   /* @alternate */
-  border-color: var(--mdc-theme-secondary, #feeae6);
+  border-color: var(--mdc-theme-secondary, red);
 }
 
 .mdc-radio .mdc-radio__native-control:enabled + .mdc-radio__background .mdc-radio__inner-circle {
-  border-color: #feeae6;
+  border-color: red;
   /* @alternate */
-  border-color: var(--mdc-theme-secondary, #feeae6);
+  border-color: var(--mdc-theme-secondary, red);
 }
 
 .mdc-radio .mdc-radio__background::before {
-  background-color: #feeae6;
+  background-color: red;
 }
 
 @supports not (-ms-ime-align: auto) {
   .mdc-radio .mdc-radio__background::before {
     /* @alternate */
-    background-color: var(--mdc-theme-secondary, #feeae6);
+    background-color: var(--mdc-theme-secondary, red);
   }
 }
 
@@ -11346,26 +11346,26 @@ svg.mdc-button__icon {
 
 .mdc-radio::before,
 .mdc-radio::after {
-  background-color: #feeae6;
+  background-color: red;
 }
 
 @supports not (-ms-ime-align: auto) {
   .mdc-radio::before,
   .mdc-radio::after {
     /* @alternate */
-    background-color: var(--mdc-theme-secondary, #feeae6);
+    background-color: var(--mdc-theme-secondary, red);
   }
 }
 
 .mdc-radio:hover::before {
-  opacity: .08;
+  opacity: .04;
 }
 
 .mdc-radio:not(.mdc-ripple-upgraded):focus::before,
 .mdc-radio.mdc-ripple-upgraded--background-focused::before {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .24;
+  opacity: .12;
 }
 
 .mdc-radio:not(.mdc-ripple-upgraded)::after {
@@ -11376,11 +11376,11 @@ svg.mdc-button__icon {
 .mdc-radio:not(.mdc-ripple-upgraded):active::after {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .32;
+  opacity: .16;
 }
 
 .mdc-radio.mdc-ripple-upgraded {
-  --mdc-ripple-fg-opacity: .32;
+  --mdc-ripple-fg-opacity: .16;
 }
 
 .mdc-radio__background {
@@ -11599,16 +11599,16 @@ svg.mdc-button__icon {
 
 .mdc-list-item--selected,
 .mdc-list-item--activated {
-  color: #fcb8ab;
+  color: #22292f;
   /* @alternate */
-  color: var(--mdc-theme-primary, #fcb8ab);
+  color: var(--mdc-theme-primary, #22292f);
 }
 
 .mdc-list-item--selected .mdc-list-item__graphic,
 .mdc-list-item--activated .mdc-list-item__graphic {
-  color: #fcb8ab;
+  color: #22292f;
   /* @alternate */
-  color: var(--mdc-theme-primary, #fcb8ab);
+  color: var(--mdc-theme-primary, #22292f);
 }
 
 .mdc-list-item--disabled {
@@ -11949,31 +11949,31 @@ svg.mdc-button__icon {
 }
 
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::before {
-  opacity: .24;
+  opacity: .12;
 }
 
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::before,
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::after {
-  background-color: #fcb8ab;
+  background-color: #22292f;
 }
 
 @supports not (-ms-ime-align: auto) {
   :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::before,
   :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::after {
     /* @alternate */
-    background-color: var(--mdc-theme-primary, #fcb8ab);
+    background-color: var(--mdc-theme-primary, #22292f);
   }
 }
 
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated:hover::before {
-  opacity: .32;
+  opacity: .16;
 }
 
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated:not(.mdc-ripple-upgraded):focus::before,
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated.mdc-ripple-upgraded--background-focused::before {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .48;
+  opacity: .24;
 }
 
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated:not(.mdc-ripple-upgraded)::after {
@@ -11984,39 +11984,39 @@ svg.mdc-button__icon {
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated:not(.mdc-ripple-upgraded):active::after {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .56;
+  opacity: .28;
 }
 
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated.mdc-ripple-upgraded {
-  --mdc-ripple-fg-opacity: .56;
+  --mdc-ripple-fg-opacity: .28;
 }
 
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected::before {
-  opacity: .16;
+  opacity: .08;
 }
 
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected::before,
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected::after {
-  background-color: #fcb8ab;
+  background-color: #22292f;
 }
 
 @supports not (-ms-ime-align: auto) {
   :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected::before,
   :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected::after {
     /* @alternate */
-    background-color: var(--mdc-theme-primary, #fcb8ab);
+    background-color: var(--mdc-theme-primary, #22292f);
   }
 }
 
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected:hover::before {
-  opacity: .24;
+  opacity: .12;
 }
 
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected:not(.mdc-ripple-upgraded):focus::before,
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected.mdc-ripple-upgraded--background-focused::before {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .4;
+  opacity: .2;
 }
 
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected:not(.mdc-ripple-upgraded)::after {
@@ -12027,11 +12027,11 @@ svg.mdc-button__icon {
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected:not(.mdc-ripple-upgraded):active::after {
   -webkit-transition-duration: 75ms;
           transition-duration: 75ms;
-  opacity: .48;
+  opacity: .24;
 }
 
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected.mdc-ripple-upgraded {
-  --mdc-ripple-fg-opacity: .48;
+  --mdc-ripple-fg-opacity: .24;
 }
 
 a.mdc-list-item {
@@ -12470,13 +12470,13 @@ a.mdc-list-item {
 }
 
 .mdc-select:not(.mdc-select--disabled).mdc-select--focused .mdc-line-ripple {
-  background-color: #fcb8ab;
+  background-color: #22292f;
   /* @alternate */
-  background-color: var(--mdc-theme-primary, #fcb8ab);
+  background-color: var(--mdc-theme-primary, #22292f);
 }
 
 .mdc-select:not(.mdc-select--disabled).mdc-select--focused .mdc-floating-label {
-  color: rgba(252, 184, 171, .87);
+  color: rgba(34, 41, 47, .87);
 }
 
 .mdc-select:not(.mdc-select--disabled) .mdc-select__native-control:hover {
@@ -12592,7 +12592,7 @@ a.mdc-list-item {
 }
 
 .mdc-select--focused .mdc-select__dropdown-icon {
-  background: url("data:image/svg+xml,%3Csvg%20width%3D%2210px%22%20height%3D%225px%22%20viewBox%3D%227%2010%2010%205%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%0A%20%20%20%20%3Cpolygon%20id%3D%22Shape%22%20stroke%3D%22none%22%20fill%3D%22%23fcb8ab%22%20fill-rule%3D%22evenodd%22%20opacity%3D%221%22%20points%3D%227%2010%2012%2015%2017%2010%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E") no-repeat center;
+  background: url("data:image/svg+xml,%3Csvg%20width%3D%2210px%22%20height%3D%225px%22%20viewBox%3D%227%2010%2010%205%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%0A%20%20%20%20%3Cpolygon%20id%3D%22Shape%22%20stroke%3D%22none%22%20fill%3D%22%2322292F%22%20fill-rule%3D%22evenodd%22%20opacity%3D%221%22%20points%3D%227%2010%2012%2015%2017%2010%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E") no-repeat center;
   -webkit-transform: rotate(180deg) translateY(-5px);
           transform: rotate(180deg) translateY(-5px);
   -webkit-transition: -webkit-transform 150ms cubic-bezier(.4, 0, .2, 1);
@@ -12725,9 +12725,9 @@ a.mdc-list-item {
 .mdc-select--outlined:not(.mdc-select--disabled).mdc-select--focused .mdc-notched-outline .mdc-notched-outline__leading,
 .mdc-select--outlined:not(.mdc-select--disabled).mdc-select--focused .mdc-notched-outline .mdc-notched-outline__notch,
 .mdc-select--outlined:not(.mdc-select--disabled).mdc-select--focused .mdc-notched-outline .mdc-notched-outline__trailing {
-  border-color: #fcb8ab;
+  border-color: #22292f;
   /* @alternate */
-  border-color: var(--mdc-theme-primary, #fcb8ab);
+  border-color: var(--mdc-theme-primary, #22292f);
 }
 
 .mdc-select--outlined .mdc-floating-label--shake {
@@ -13525,565 +13525,19 @@ a.mdc-list-item {
   overflow: hidden;
 }
 
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-.mdc-tab-bar {
-  width: 100%;
-}
-
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-.mdc-tab-scroller {
-  overflow-y: hidden;
-}
-
-.mdc-tab-scroller__test {
-  position: absolute;
-  top: -9999px;
-  width: 100px;
-  height: 100px;
-  overflow-x: scroll;
-}
-
-.mdc-tab-scroller__scroll-area {
-  -webkit-overflow-scrolling: touch;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  overflow-x: hidden;
-}
-
-.mdc-tab-scroller__scroll-area::-webkit-scrollbar,
-.mdc-tab-scroller__test::-webkit-scrollbar {
-  display: none;
-}
-
-.mdc-tab-scroller__scroll-area--scroll {
-  overflow-x: scroll;
-}
-
-.mdc-tab-scroller__scroll-content {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 auto;
-          flex: 1 0 auto;
-  -webkit-transform: none;
-          transform: none;
-  will-change: transform;
-}
-
-.mdc-tab-scroller--align-start .mdc-tab-scroller__scroll-content {
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-}
-
-.mdc-tab-scroller--align-end .mdc-tab-scroller__scroll-content {
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-}
-
-.mdc-tab-scroller--align-center .mdc-tab-scroller__scroll-content {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.mdc-tab-scroller--animating .mdc-tab-scroller__scroll-area {
-  -webkit-overflow-scrolling: auto;
-}
-
-.mdc-tab-scroller--animating .mdc-tab-scroller__scroll-content {
-  -webkit-transition: 250ms -webkit-transform cubic-bezier(.4, 0, .2, 1);
-  transition: 250ms -webkit-transform cubic-bezier(.4, 0, .2, 1);
-  transition: 250ms transform cubic-bezier(.4, 0, .2, 1);
-  transition: 250ms transform cubic-bezier(.4, 0, .2, 1), 250ms -webkit-transform cubic-bezier(.4, 0, .2, 1);
-}
-
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-.mdc-tab-indicator {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.mdc-tab-indicator > .mdc-tab-indicator__content--underline {
-  background-color: #fcb8ab;
-  /* @alternate */
-  background-color: var(--mdc-theme-primary, #fcb8ab);
-}
-
-.mdc-tab-indicator > .mdc-tab-indicator__content--underline {
-  height: 2px;
-}
-
-.mdc-tab-indicator > .mdc-tab-indicator__content--icon {
-  color: #feeae6;
-  /* @alternate */
-  color: var(--mdc-theme-secondary, #feeae6);
-}
-
-.mdc-tab-indicator > .mdc-tab-indicator__content--icon {
-  height: 34px;
-  font-size: 34px;
-}
-
-.mdc-tab-indicator__content {
-  -webkit-transform-origin: left;
-          transform-origin: left;
-  opacity: 0;
-}
-
-.mdc-tab-indicator__content--underline {
-  -ms-flex-item-align: end;
-      align-self: flex-end;
-  width: 100%;
-}
-
-.mdc-tab-indicator__content--icon {
-  -ms-flex-item-align: center;
-      align-self: center;
-  margin: 0 auto;
-}
-
-.mdc-tab-indicator--active > .mdc-tab-indicator__content {
-  opacity: 1;
-}
-
-.mdc-tab-indicator > .mdc-tab-indicator__content {
-  -webkit-transition: 250ms -webkit-transform cubic-bezier(.4, 0, .2, 1);
-  transition: 250ms -webkit-transform cubic-bezier(.4, 0, .2, 1);
-  transition: 250ms transform cubic-bezier(.4, 0, .2, 1);
-  transition: 250ms transform cubic-bezier(.4, 0, .2, 1), 250ms -webkit-transform cubic-bezier(.4, 0, .2, 1);
-}
-
-.mdc-tab-indicator--no-transition > .mdc-tab-indicator__content {
-  -webkit-transition: none;
-  transition: none;
-}
-
-.mdc-tab-indicator--fade > .mdc-tab-indicator__content {
-  -webkit-transition: 150ms opacity linear;
-  transition: 150ms opacity linear;
-}
-
-.mdc-tab-indicator--active.mdc-tab-indicator--fade > .mdc-tab-indicator__content {
-  -webkit-transition-delay: 100ms;
-          transition-delay: 100ms;
-}
-
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-.mdc-tab {
-  position: relative;
-  font-family: Roboto, sans-serif;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  font-size: .875rem;
-  line-height: 2.25rem;
-  font-weight: 500;
-  letter-spacing: .08928571em;
-  text-decoration: none;
-  text-transform: uppercase;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 auto;
-          flex: 1 0 auto;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  height: 48px;
-  padding: 0 24px;
-  border: none;
-  outline: none;
-  background: none;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-appearance: none;
-  z-index: 1;
-}
-
-.mdc-tab .mdc-tab__text-label {
-  color: #000;
-  /* @alternate */
-  color: var(--mdc-theme-on-surface, #000);
-}
-
-.mdc-tab .mdc-tab__icon {
-  color: #000;
-  /* @alternate */
-  color: var(--mdc-theme-on-surface, #000);
-}
-
-.mdc-tab--min-width {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 1 auto;
-          flex: 0 1 auto;
-}
-
-.mdc-tab__ripple {
-  --mdc-ripple-fg-size: 0;
-  --mdc-ripple-left: 0;
-  --mdc-ripple-top: 0;
-  --mdc-ripple-fg-scale: 1;
-  --mdc-ripple-fg-translate-end: 0;
-  --mdc-ripple-fg-translate-start: 0;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  will-change: transform, opacity;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.mdc-tab__ripple::before,
-.mdc-tab__ripple::after {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0;
-  pointer-events: none;
-  content: "";
-}
-
-.mdc-tab__ripple::before {
-  -webkit-transition: opacity 15ms linear, background-color 15ms linear;
-  transition: opacity 15ms linear, background-color 15ms linear;
-  z-index: 1;
-}
-
-.mdc-tab__ripple.mdc-ripple-upgraded::before {
-  -webkit-transform: scale(var(--mdc-ripple-fg-scale, 1));
-          transform: scale(var(--mdc-ripple-fg-scale, 1));
-}
-
-.mdc-tab__ripple.mdc-ripple-upgraded::after {
-  top: 0;
-  /* @noflip */
-  left: 0;
-  -webkit-transform: scale(0);
-          transform: scale(0);
-  -webkit-transform-origin: center center;
-          transform-origin: center center;
-}
-
-.mdc-tab__ripple.mdc-ripple-upgraded--unbounded::after {
-  top: var(--mdc-ripple-top, 0);
-  /* @noflip */
-  left: var(--mdc-ripple-left, 0);
-}
-
-.mdc-tab__ripple.mdc-ripple-upgraded--foreground-activation::after {
-  -webkit-animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards;
-          animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards;
-}
-
-.mdc-tab__ripple.mdc-ripple-upgraded--foreground-deactivation::after {
-  -webkit-animation: mdc-ripple-fg-opacity-out 150ms;
-          animation: mdc-ripple-fg-opacity-out 150ms;
-  -webkit-transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1));
-          transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1));
-}
-
-.mdc-tab__ripple::before,
-.mdc-tab__ripple::after {
-  top: calc(50% - 100%);
-  /* @noflip */
-  left: calc(50% - 100%);
-  width: 200%;
-  height: 200%;
-}
-
-.mdc-tab__ripple.mdc-ripple-upgraded::after {
-  width: var(--mdc-ripple-fg-size, 100%);
-  height: var(--mdc-ripple-fg-size, 100%);
-}
-
-.mdc-tab__ripple::before,
-.mdc-tab__ripple::after {
-  background-color: #fcb8ab;
-}
-
-@supports not (-ms-ime-align: auto) {
-  .mdc-tab__ripple::before,
-  .mdc-tab__ripple::after {
-    /* @alternate */
-    background-color: var(--mdc-theme-primary, #fcb8ab);
-  }
-}
-
-.mdc-tab__ripple:hover::before {
-  opacity: .08;
-}
-
-.mdc-tab__ripple:not(.mdc-ripple-upgraded):focus::before,
-.mdc-tab__ripple.mdc-ripple-upgraded--background-focused::before {
-  -webkit-transition-duration: 75ms;
-          transition-duration: 75ms;
-  opacity: .24;
-}
-
-.mdc-tab__ripple:not(.mdc-ripple-upgraded)::after {
-  -webkit-transition: opacity 150ms linear;
-  transition: opacity 150ms linear;
-}
-
-.mdc-tab__ripple:not(.mdc-ripple-upgraded):active::after {
-  -webkit-transition-duration: 75ms;
-          transition-duration: 75ms;
-  opacity: .32;
-}
-
-.mdc-tab__ripple.mdc-ripple-upgraded {
-  --mdc-ripple-fg-opacity: .32;
-}
-
-.mdc-tab__content {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  height: inherit;
-  pointer-events: none;
-}
-
-.mdc-tab__text-label,
-.mdc-tab__icon {
-  -webkit-transition: 150ms color linear, 150ms opacity linear;
-  transition: 150ms color linear, 150ms opacity linear;
-  z-index: 2;
-}
-
-.mdc-tab__text-label {
-  display: inline-block;
-  opacity: .6;
-  line-height: 1;
-}
-
-.mdc-tab__icon {
-  width: 24px;
-  height: 24px;
-  opacity: .54;
-  font-size: 24px;
-}
-
-.mdc-tab--stacked {
-  height: 72px;
-}
-
-.mdc-tab--stacked .mdc-tab__content {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.mdc-tab--stacked .mdc-tab__icon {
-  padding-top: 12px;
-}
-
-.mdc-tab--stacked .mdc-tab__text-label {
-  padding-bottom: 16px;
-}
-
-.mdc-tab--active .mdc-tab__text-label {
-  color: #fcb8ab;
-  /* @alternate */
-  color: var(--mdc-theme-primary, #fcb8ab);
-}
-
-.mdc-tab--active .mdc-tab__icon {
-  color: #fcb8ab;
-  /* @alternate */
-  color: var(--mdc-theme-primary, #fcb8ab);
-}
-
-.mdc-tab--active .mdc-tab__text-label,
-.mdc-tab--active .mdc-tab__icon {
-  -webkit-transition-delay: 100ms;
-          transition-delay: 100ms;
-  opacity: 1;
-}
-
-.mdc-tab:not(.mdc-tab--stacked) .mdc-tab__icon + .mdc-tab__text-label {
-  /* @noflip */
-  padding-left: 8px;
-  /* @noflip */
-  padding-right: 0;
-}
-
-[dir="rtl"] .mdc-tab:not(.mdc-tab--stacked) .mdc-tab__icon + .mdc-tab__text-label,
-.mdc-tab:not(.mdc-tab--stacked) .mdc-tab__icon + .mdc-tab__text-label[dir="rtl"] {
-  /* @noflip */
-  padding-left: 0;
-  /* @noflip */
-  padding-right: 8px;
-}
-
 .mdc-text-field label {
   font-family: IRANSans;
+}
+
+.mdc-text-field__input {
+  font-family: IRANSans;
+}
+
+.mdc-text-field__input:-webkit-autofill,
+.mdc-text-field__input:-webkit-autofill:hover,
+.mdc-text-field__input:-webkit-autofill:focus,
+.mdc-text-field__input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #fff inset !important;
 }
 
 .mdc-text-field.mdc-text-field--outlined.shaped .mdc-text-field__input {
@@ -14128,6 +13582,11 @@ a.mdc-list-item {
   outline: none;
 }
 
+.mdc-button--raised:not(:disabled),
+.mdc-button--unelevated:not(:disabled) {
+  color: var(--mdc-theme-primary, #fff);
+}
+
 .mdc-icon-button:focus {
   outline: none;
 }
@@ -14138,7 +13597,7 @@ a.mdc-list-item {
 
 .mdc-list-item {
   border-radius: 32px 0 0 32px;
-  margin-left: 6.5rem;
+  margin-left: 3rem;
   color: #fff;
   padding-right: 0;
 }
@@ -14303,8 +13762,8 @@ a.mdc-list-item {
 }
 
 .side {
-  width: 400px;
-  right: -400px;
+  width: 350px;
+  right: -350px;
   -webkit-transition: -webkit-transform .3s;
   transition: -webkit-transform .3s;
   transition: transform .3s;
@@ -14340,12 +13799,13 @@ a.mdc-list-item {
   width: 100%;
 }
 
-.side .side-content.cart i {
+.side .side-content.cart i,
+.side .side-content.wishlist i {
   font-size: 1.2rem;
 }
 
 .side__loged-container {
-  padding-left: 4rem;
+  padding-left: .5rem;
 }
 
 .side__loged-container-menu {
@@ -14366,7 +13826,7 @@ a.mdc-list-item {
       -ms-flex-align: center;
           align-items: center;
   margin-right: -2.5rem;
-  line-height: 3rem;
+  line-height: 3.2rem;
   color: #000;
   left: 0;
 }
@@ -14632,14 +14092,14 @@ a.mdc-list-item {
 }
 
 #profile-layout .profile-nav {
-  width: 400px;
+  width: 350px;
   right: 0;
   background-color: #22292f;
   top: 0;
 }
 
 #profile-layout .profile-content {
-  margin-right: 400px;
+  margin-right: 350px;
 }
 
 html {
@@ -14700,17 +14160,36 @@ table {
   width: 100%;
 }
 
-table tr {
-  border-bottom: 1px solid #c5c5c5;
+table thead:hover {
+  background-color: white;
 }
 
-table tr:odd {
-  background-color: red;
+table tbody tr:hover {
+  background-color: #f1f5f8;
+}
+
+table th {
+  padding: 1.2rem 0;
+  color: #8795a1;
+  cursor: auto;
+}
+
+table th:first-child {
+  padding-right: 3rem;
+}
+
+table tr {
+  border-bottom: 1px solid #dae1e7;
+  cursor: pointer;
 }
 
 table tr td {
-  padding: 1.5rem 1rem;
+  padding: 1rem 0;
   min-height: 7rem;
+}
+
+table tr td:first-child {
+  padding-right: 3rem;
 }
 
 .swiper-container-vertical > .swiper-scrollbar {
