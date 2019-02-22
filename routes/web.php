@@ -61,10 +61,10 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
         Route::get('mobile/{token}', 'ProfileController@checkMobileVerification')->name('mobile.check');
     });
 
-    Route::resource('addresses', 'AddressController');
-
-    Route::get('orders', 'ProfileController@orders')->name('orders');
-    Route::get('orders/{order}', 'ProfileController@orderShow')->name('orders.show');
+    Route::name('orders.')->prefix('orders')->group(function () {
+        Route::get('/', 'ProfileController@orders')->name('index');
+        Route::get('{order}', 'ProfileController@orderShow')->name('show');
+    });
 
     Route::name('tickets.')->prefix('tickets')->group(function () {
         Route::get('/', 'TicketController@index')->name('index');

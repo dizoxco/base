@@ -18,10 +18,10 @@
                         <span class="mdc-list-item__text">آدرس ها</span>
                     </li>
                 </a>
-                <a href="/profile/orders" class="block">
+                <a href="{{ route('profile.orders.index') }}" class="block">
                     <li class="mdc-list-item mdc-ripple">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">place</span>
-                        <span class="mdc-list-item__text">سفارسات</span>
+                        <span class="mdc-list-item__text">سفارشات</span>
                     </li>
                 </a>
                 <a href="/profile/chats">

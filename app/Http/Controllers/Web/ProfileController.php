@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use Auth;
 use Hash;
+use Illuminate\Http\Request;
 use Session;
 use App\Models\Order;
 use App\Http\Controllers\Controller;
@@ -105,11 +106,13 @@ class ProfileController extends Controller
         return redirect()->route('profile.index', ['verify' => 'expired_token']);
     }
 
-    public function orders()
+    public function orders(Request $request)
     {
-        $orders = Auth::user()->orders()->with('city', 'variations', 'variations.product')->get();
+        $orders = Auth::user()->orders()
+            ->with('city', 'variations', 'variations.product')
+            ->paginate($request->input('per_page',12));
 
-        return view('profile.orders', compact('orders'));
+        return view('profile.orders.index', compact('orders'));
     }
 
     public function orderShow(Order $order)
