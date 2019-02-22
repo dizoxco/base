@@ -6,10 +6,10 @@
             <br>
             <br>
             <ul class="mdc-list">
-                <a href="/profile/edit" class="block">
+                <a href="{{ route('profile.wishlist.index') }}" class="block">
                     <li class="mdc-list-item mdc-ripple" tabindex="0">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">people</span>
-                        <span class="mdc-list-item__text">پروفایل</span>
+                        <span class="mdc-list-item__text">لیست علاقه مندی ها</span>
                     </li>
                 </a>
                 <a href="/profile/addresses" class="block">
