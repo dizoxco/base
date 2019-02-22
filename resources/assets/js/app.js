@@ -157,7 +157,7 @@ $(document).ready(function () {
 
     $('#btn_side_login').click(function (event) {
         event.preventDefault();
-        $.post( "{{ route('api.auth.login') }}", {
+        $.post( "/api/auth/login", {
             service : $("#frm_side_login").find("input[name='service']").val(),
             password : $("#frm_side_login").find("input[name='password']").val(),
             remember : $("#frm_side_login").find("input[name='remember']").val()
@@ -171,7 +171,7 @@ $(document).ready(function () {
 
     $('#btn_side_register').click(function (event) {
         event.preventDefault();
-        $.post( "{{ route('api.auth.register') }}", {
+        $.post( "/api/auth/register", {
             name : $("#frm_side_register").find("input[name='name']").val(),
             service : $("#frm_side_register").find("input[name='service']").val(),
             password : $("#frm_side_register").find("input[name='password']").val(),
