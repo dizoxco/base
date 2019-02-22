@@ -17,7 +17,7 @@ class WishlistController extends Controller
             $wishlist = auth()->user()->wishlist()->with('users')->get();
         } else {
             $wishlist = array_wrap(json_decode(Cookie::get('wishlist'), true));
-            $wishlist = Product::whereHas('relatedVariations', function ($query) use ($wishlist) {
+            $wishlist = Product::whereHas('variations', function ($query) use ($wishlist) {
                 return $query->whereIn('id', array_keys($wishlist));
             })->get();
         }
