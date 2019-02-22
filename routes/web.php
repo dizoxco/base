@@ -122,6 +122,8 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
         Route::get('/', 'ProfileController@info')->name('edit');
         Route::post('/', 'ProfileController@updateInfo')->name('update');
     });
+
+    Route::resource('addresses', 'AddressController');
 });
 
 // ==================================== Admin Section =========================
