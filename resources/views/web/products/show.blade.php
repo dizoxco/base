@@ -134,7 +134,7 @@
                     افزودن به علاقه مندی ها
                 </a>
             @endif
-            @if (!$product->single && count(auth()->user()->businesses))
+            @if (auth()->check() && !$product->single && count(auth()->user()->businesses))
                 <br>
                 @if (count(auth()->user()->businesses) > 1)
                     @component('components.form.button', [
