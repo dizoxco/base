@@ -27,12 +27,12 @@
         ])
         @endcomponent
 
-        @component('components.form.text', [
-            'label' => 'city_id',
+        @component('components.form.select',[
+            'label' => 'شهر',
             'name' => 'city_id',
-            'value' => 1,
+            'value' => old('city_id', $address->city_id ?? ''),
             'half' => true,
-            'value' => old('city_id', $address->city_id ?? '')
+            'options' => cities()->pluck('name', 'id')
         ])
         @endcomponent
         
