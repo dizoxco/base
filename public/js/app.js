@@ -7437,7 +7437,7 @@ $('a.chat-id').click(function (e) {
     e.preventDefault();
     $.get($(this).attr('api-href'), function (data) {
         $('.chat-comments').html($(data).find('.chat-comments').html());
-        new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($('.chat-comments'), {
+        new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($('.chat-comments .scroll-swiper'), {
             direction: 'vertical',
             slidesPerView: 'auto',
             freeMode: true,
@@ -7510,7 +7510,7 @@ $(document).ready(function () {
 
     $('#btn_side_login').click(function (event) {
         event.preventDefault();
-        $.post("{{ route('api.auth.login') }}", {
+        $.post("/api/auth/login", {
             service: $("#frm_side_login").find("input[name='service']").val(),
             password: $("#frm_side_login").find("input[name='password']").val(),
             remember: $("#frm_side_login").find("input[name='remember']").val()
@@ -7524,7 +7524,7 @@ $(document).ready(function () {
 
     $('#btn_side_register').click(function (event) {
         event.preventDefault();
-        $.post("{{ route('api.auth.register') }}", {
+        $.post("/api/auth/register", {
             name: $("#frm_side_register").find("input[name='name']").val(),
             service: $("#frm_side_register").find("input[name='service']").val(),
             password: $("#frm_side_register").find("input[name='password']").val(),

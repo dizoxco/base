@@ -1,27 +1,39 @@
-@extends('layout')
-@section('content')
-    <div class="flex flex-wrap">
-        <div class="w-1/4 pl-4">
-        </div>
-        <div class="w-3/4 pr-4">
-            <div class="relative rounded-lg bg-white shadow-lg px-8 py-6 mb-6">
-                <form action="{{ route('profile.tickets.store') }}" method="post">
-                    {{ csrf_field() }}
-                    <input type="text" name="title" placeholder="عنوان" required>
-                    <select name="category_id" id="category_id">
-                        @foreach(enum('ticket.category') as $id => $name)
-                            <option value="{{ $id }}">{{ $name }}</option>
-                        @endforeach
-                    </select>
-                    <textarea name="body" id="body" cols="30" rows="10" placeholder="متن پیام" required></textarea>
-                    <button type="submit">ذخیره تیکت </button>
-                </form>
-            </div>
-            <div class="relative rounded-lg bg-white shadow-lg px-8 py-6 mb-4 ">
-            </div>
-            <div class="flex flex-wrap">
-            </div>
-        </div>
+@extends('profile.layout')
+@section('profile-content')
+    @component('components.form',[
+        'action' => route('profile.tickets.store'),
+        'method' => 'POST'
+    ])
+        @component('components.form.text', [
+            'label' => 'عنوان',
+            'name' => 'title',
+            'half' => true,
+            'value' => old('name')
+        ])
+        @endcomponent
 
-    </div>
+        @component('components.form.select',[
+            'label' => 'شهر',
+            'name' => 'city_id',
+            'half' => true,
+            'value' => 1,
+            'options' => enum('ticket.category')
+        ])
+        @endcomponent
+
+        @component('components.form.textarea', [
+            'label' => 'متن پیام',
+            'name' => 'body',
+            'value' => old('body')
+        ])
+        @endcomponent
+
+        @component('components.form.field')
+            @component('components.form.button',[
+                'label' => 'ایجاد'
+            ])
+            @endcomponent
+        @endcomponent
+    @endcomponent
+    
 @endsection

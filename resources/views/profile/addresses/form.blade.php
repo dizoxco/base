@@ -1,11 +1,5 @@
 @extends('profile.layout')
 @section('profile-content')
-    @forelse($errors->all() as $error)
-        @component('components.form.field')
-            {{ $error }}
-        @endcomponent
-    @empty
-    @endforelse
     @component('components.form',[
         'action' => isset($address)? route('profile.addresses.update', $address): 
                         route('profile.addresses.store'),

@@ -19,10 +19,8 @@ class ChatController extends Controller
 
     public function show(Business $business)
     {
+        $business->chats()->firstOrCreate(['user_id' => Auth::id()]);
         $chats = Auth::user()->chats()->with('business')->get();
-        // $chat = $business->chats()->firstOrCreate(['user_id' => Auth::id()]);
-        // $comments = $chat->comments;
-
         return view('profile.chats.index', compact('chats'));
     }
 

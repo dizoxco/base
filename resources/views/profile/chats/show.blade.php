@@ -1,6 +1,6 @@
 @extends('profile.layout', ['title' => 'چت ها'])
 @section('profile-content')
-
+dddddddddddddd
     @forelse($comments as $comment)
         <div>
             {{ $comment->user->fullname }} : {{ $comment->body }}

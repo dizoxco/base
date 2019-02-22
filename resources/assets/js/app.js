@@ -72,7 +72,7 @@ $('a.chat-id').click(function(e){
     e.preventDefault();
     $.get( $(this).attr('api-href'), function( data ) {
         $( '.chat-comments' ).html( $(data).find('.chat-comments').html() );
-        new Swiper($('.chat-comments'), {
+        new Swiper($('.chat-comments .scroll-swiper'), {
             direction: 'vertical',
             slidesPerView: 'auto',
             freeMode: true,
