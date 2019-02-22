@@ -60,7 +60,7 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
         Route::get('mobile', 'ProfileController@sendMobileVerification')->name('mobile.send');
         Route::get('mobile/{token}', 'ProfileController@checkMobileVerification')->name('mobile.check');
     });
-    
+
     Route::name('wishlist.')->prefix('wishlist')->group(function () {
         Route::get('/', 'WishlistController@index')->name('index');
         Route::get('{product}', 'WishlistController@store')->name('store');

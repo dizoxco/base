@@ -26,12 +26,14 @@ class WishlistController extends Controller
     {
         if (Auth::check()) {
             $wishlist = auth()->user()->wishlist()->with('users')->get();
+
             return view('profile.wishlist', compact('wishlist'));
         } else {
             $wishlist = array_wrap(json_decode(Cookie::get('wishlist'), true));
             $wishlist = Product::whereHas('variations', function ($query) use ($wishlist) {
                 return $query->whereIn('id', array_keys($wishlist));
             })->get();
+
             return view('wishlist', compact('wishlist'));
         }
     }

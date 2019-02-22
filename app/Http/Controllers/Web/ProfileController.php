@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Web;
 
 use Auth;
 use Hash;
-use Illuminate\Http\Request;
 use Session;
 use App\Models\Order;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Facades\UserRepo;
 use App\Http\Requests\Profile\UpdateInfoRequest;
@@ -110,7 +110,7 @@ class ProfileController extends Controller
     {
         $orders = Auth::user()->orders()
             ->with('city', 'variations', 'variations.product')
-            ->paginate($request->input('per_page',12));
+            ->paginate($request->input('per_page', 12));
 
         return view('profile.orders.index', compact('orders'));
     }

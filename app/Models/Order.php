@@ -34,6 +34,7 @@ class Order extends Model implements IsPayable
 
         return $successful_payments === $this->cost ?: $this->cost - $successful_payments;
     }
+
     //  =============================== End Accessor ==========================
 
     //  =============================== Relationships =========================
@@ -53,10 +54,10 @@ class Order extends Model implements IsPayable
     {
         return $this->belongsTo(City::class, 'city_id', 'id');
     }
-    
+
     //  =============================== End Relationships =====================
 
     //  =============================== Complementary Methods =================
-    
+
     //  =============================== End Complementary Methods =============
 }
