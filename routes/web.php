@@ -115,16 +115,6 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
         });
     });
 
-    Route::name('credentials.')->prefix('credentials')->group(function () {
-        Route::get('/edit', 'ProfileController@credentials')->name('edit');
-        Route::put('/update', 'ProfileController@updateCredentials')->name('update');
-    });
-
-    Route::name('info.')->prefix('info')->group(function () {
-        Route::get('/', 'ProfileController@info')->name('edit');
-        Route::post('/', 'ProfileController@updateInfo')->name('update');
-    });
-
     Route::resource('addresses', 'AddressController');
 });
 
