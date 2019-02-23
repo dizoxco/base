@@ -1,6 +1,6 @@
 @extends('layout')
 @php
-    $banner = $product->getMedia(enum('media.product.banner'))[0];
+    $banner = $product->getFirstMedia(enum('media.product.banner'));
     $gallery = $product->getMedia(enum('media.product.gallery'));
 @endphp
 @section('content')
