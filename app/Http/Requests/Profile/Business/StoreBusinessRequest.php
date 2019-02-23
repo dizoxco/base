@@ -25,7 +25,7 @@ class StoreBusinessRequest extends FormRequest
     {
         return [
             'brand' => 'required',
-            'city_id' => 'required|exists:cities,id'
+            'city_id' => 'required|exists:cities,id',
         ];
     }
 }

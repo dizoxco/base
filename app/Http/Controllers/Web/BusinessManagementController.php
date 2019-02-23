@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Requests\Profile\Business\StoreBusinessRequest;
-use App\Http\Requests\Profile\Business\UpdateBusinessRequest;
 use Auth;
+use Throwable;
 use App\Models\Business;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Throwable;
+use App\Http\Requests\Profile\Business\StoreBusinessRequest;
+use App\Http\Requests\Profile\Business\UpdateBusinessRequest;
 
 class BusinessManagementController extends Controller
 {
@@ -22,10 +21,10 @@ class BusinessManagementController extends Controller
     {
         $form = [
             'action' => route('profile.businesses.store'),
-            'method' => 'post'
+            'method' => 'post',
         ];
 
-        return view('profile.businesses.create',compact('form'));
+        return view('profile.businesses.create', compact('form'));
     }
 
     public function store(StoreBusinessRequest $request)
@@ -56,8 +55,8 @@ class BusinessManagementController extends Controller
             $values = array_filter($contact['value']);
 
             $length = max(count($titles), count($values)) - 1;
-            for ($i = 0;$i <= $length; $i++) {
-                if (!isset($titles[$i]) || !isset($values[$i])) {
+            for ($i = 0; $i <= $length; $i++) {
+                if (! isset($titles[$i]) || ! isset($values[$i])) {
                     return redirect()->back()
                         ->withErrors(['required' => "contact[{$key}][title][$i]}"])
                         ->withInput();
@@ -66,6 +65,7 @@ class BusinessManagementController extends Controller
                 $result[$key]['value'][$i] = $values[$i];
             }
         }
+
         return $result;
     }
 
@@ -78,10 +78,10 @@ class BusinessManagementController extends Controller
     {
         $form = [
             'action' => route('profile.businesses.update', $business->slug),
-            'method' => 'put'
+            'method' => 'put',
         ];
 
-        return view('profile.businesses.create', compact('business','form'));
+        return view('profile.businesses.create', compact('business', 'form'));
     }
 
     public function update(UpdateBusinessRequest $request, Business $business)
