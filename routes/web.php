@@ -68,8 +68,8 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
     });
 
     Route::name('orders.')->prefix('orders')->group(function () {
-        Route::get('/', 'ProfileController@orders')->name('index');
-        Route::get('{order}', 'ProfileController@orderShow')->name('show');
+        Route::get('/', 'OrderController@index')->name('index');
+        Route::get('{order}', 'OrderController@show')->name('show');
     });
 
     Route::name('tickets.')->prefix('tickets')->group(function () {
