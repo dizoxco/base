@@ -93,6 +93,8 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
 
         Route::prefix('{business}')->group(function () {
             Route::get('/', 'BusinessManagementController@show')->name('show');
+            Route::get('/edit', 'BusinessManagementController@edit')->name('edit');
+            Route::put('/update', 'BusinessManagementController@update')->name('update');
 
             Route::name('products.')->prefix('products')->group(function () {
                 Route::get('/', 'ProductManagementController@index')->name('index');

@@ -192,3 +192,12 @@ $(document).ready(function () {
         });
     });
 });
+
+
+$('.addable .add').click(function(){
+    $(this).prev().prev().append($(this).prev().html());
+    window.mdc.autoInit();
+});
+
+var el = document.querySelector('.addable .items');
+var sortable = Sortable.create(el);

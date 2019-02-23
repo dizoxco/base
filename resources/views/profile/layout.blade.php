@@ -6,6 +6,14 @@
             <br>
             <br>
             <ul class="mdc-list">
+                @if(!auth()->user()->hasBusiness())
+                <a href="{{ route('profile.businesses.create') }}" class="block">
+                    <li class="mdc-list-item mdc-ripple" tabindex="0">
+                        <span class="mdc-list-item__graphic material-icons" aria-hidden="true">people</span>
+                        <span class="mdc-list-item__text">ایجاد کسب و کار</span>
+                    </li>
+                </a>
+                @endif
                 <a href="{{ route('profile.wishlist.index') }}" class="block">
                     <li class="mdc-list-item mdc-ripple" tabindex="0">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">people</span>

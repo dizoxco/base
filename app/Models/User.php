@@ -146,5 +146,10 @@ class User extends Authenticatable implements HasMedia
         return ! $this->hasVerified($column);
     }
 
+    public function hasBusiness($count = 1)
+    {
+        return $this->businesses->isNotEmpty();
+    }
+
     //  =============================== End Complementary Methods =============
 }

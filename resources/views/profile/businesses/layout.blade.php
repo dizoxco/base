@@ -6,25 +6,19 @@
             <br>
             <br>
             <ul class="mdc-list">
-                <a href="/profile/edit" class="block">
+                <a href="{{ route('profile.businesses.products.index',$business->slug) }}" class="block">
                     <li class="mdc-list-item mdc-ripple" tabindex="0">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">people</span>
                         <span class="mdc-list-item__text">محصولات</span>
                     </li>
                 </a>
-                {{-- <a href="{{ route('profile.businesses.index') }}" class="block">
-                    <li class="mdc-list-item mdc-ripple" tabindex="0">
-                        <span class="mdc-list-item__graphic material-icons" aria-hidden="true">business</span>
-                        <span class="mdc-list-item__text">کسب و کارهای شما</span>
-                    </li>
-                </a> --}}
-                <a href="/profile/orders" class="block">
+                <a href="{{ route('profile.businesses.orders.index',$business->slug) }}" class="block">
                     <li class="mdc-list-item mdc-ripple">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">place</span>
-                        <span class="mdc-list-item__text">سفارسات</span>
+                        <span class="mdc-list-item__text">سفارشات</span>
                     </li>
                 </a>
-                <a href="/profile/chats">
+                <a href="{{ route('profile.businesses.chats.index',$business->slug) }}">
                     <li class="mdc-list-item mdc-ripple">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">chat</span>
                         <span class="mdc-list-item__text">چت ها</span>
