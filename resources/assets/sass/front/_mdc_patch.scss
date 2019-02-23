@@ -114,3 +114,12 @@ $mdc-theme-on-secondary: blue;
         padding-right: 2rem;
     }
 }
+.mdc-radio .mdc-radio__background::before {
+    background-color: $mdc-theme-primary;
+}
+// .mdc-radio {
+
+//     & &__background::before {
+//         background-color: $mdc-theme-primary;
+//     }
+// }

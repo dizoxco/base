@@ -54,18 +54,31 @@ body{
 }
 
 table{
+    border-collapse: collapse;
+    border-radius: 1em;
+    overflow: hidden;
     width: 100%;
-    thead:hover{
-        background-color: white;
+    &:not(:last-child) {
+        border-bottom: 1px solid #DAE1E7;
     }
+    
+    thead {
+        background-color: #F1F5F8;
+        border-bottom: 1px solid #DAE1E7;
+    }
+    
     tbody {
         tr:hover {
             background-color: #F1F5F8;
         }
+
+        tr:not(:last-child) {
+            border-bottom: 1px solid #DAE1E7;
+        }
     }
 
     th{
-        padding: 1.2rem 0;
+        padding: 1.5rem 0;
         color: #8795A1;
         cursor: auto;
         &:first-child {
@@ -74,7 +87,9 @@ table{
     }
 
     tr{
-        border-bottom: 1px solid #DAE1E7;
+        // &:not(:last-child) {
+        //     border-bottom: 1px solid #DAE1E7;
+        // }
         cursor: pointer;
 
         td{

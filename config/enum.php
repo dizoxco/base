@@ -31,13 +31,13 @@ return [
         ],
     ],
     'payment' => [
-        'pos' => [
-            'key' => 'pos',
-            'description' => 'پرداخت در محل',
-        ],
         'zarinpal' => [
             'key' => 'zarinpal',
             'description' => 'زرین پال',
+        ],
+        'pos' => [
+            'key' => 'pos',
+            'description' => 'پرداخت در محل',
         ],
     ],
 

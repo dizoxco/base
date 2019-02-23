@@ -138,7 +138,7 @@
                 <a class="relative" href="{{route('profile.businesses.orders.index', $business->slug)}}">
                   <i class="material-icons">room_service</i> سفارشات <span class="rounded-full bg-indigo-light text-white absolute pin-l h-8 px-3 flex justify-center ml-2">3</span>
                 </a>
-                <a class="relative" href="{{route('profile.businesses.products', $business->slug)}}">
+                <a class="relative" href="{{route('profile.businesses.products.index', $business->slug)}}">
                   <i class="material-icons">room_service</i> محصولات <span class="rounded-full bg-indigo-light text-white absolute pin-l h-8 px-3 flex justify-center ml-2">3</span>
                 </a>
                 <a class="relative" href="{{route('profile.businesses.chats.index', $business->slug)}}">
