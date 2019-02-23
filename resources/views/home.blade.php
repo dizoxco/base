@@ -1,5 +1,12 @@
 @extends('layout')
 @section('content')
+    @isset($errors)
+        @foreach($errors->all() as $error)
+            <script>
+                alert("{{ $error }}")
+            </script>
+        @endforeach
+    @endisset
     <div class="swiper simple -mx-4 overflow-hidden" column="3" >
         <div class="swiper-wrapper">
             @forelse ($posts as $post)

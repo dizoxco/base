@@ -235,69 +235,6 @@
                 </tbody>
             </table>
         </div>
-        {{-- <div class="w-full">
-            <table class="table-auto">
-                <h2 class="bg-green-dark">فروشندگان</h2>
-                <th>
-                    <td>ردیف</td>
-                    <td>لوگو</td>
-                    <td>نام</td>
-                    <td>ادرس</td>
-                </th>
-                @forelse($product->businesses as $business)
-                <tr class="table-row">
-                    <td>{{ $loop->index+1 }}</td>
-                    <td><img class="w-1/4" src="{{ $business->getFirstMediaUrl(enum('media.business.logo')) }}" alt=""></td>
-                    <td><a href="{{ route('businesses.show', $business->slug) }}">{{ $business->brand }}</a></td>
-                    <td>{{ $business->address }}</td>
-                </tr>
-                @empty
-                    این محصول هیچ فروشنده ای ندارد.
-                @endforelse
-            </table>
-        </div>
-        <div class="w-full">
-            <table class="table-auto">
-                <h2 class="bg-green-dark">انواع مختلف محصول</h2>
-                <th>
-                <td>ردیف</td>
-                <td>قیمت</td>
-                <td>افزودن به کارت</td>
-                </th>
-                @forelse($product->relatedVariations as $variation)
-                    <tr class="table-row">
-                        <td>{{ $loop->index+1 }}</td>
-                        <td><img class="w-1/4" src="{{ $business->getFirstMediaUrl(enum('media.business.logo')) }}" alt=""></td>
-                        <td><a href="{{ route('businesses.show', $business->slug) }}">{{ $business->brand }}</a></td>
-                    </tr>
-                    @empty
-                        این محصول هیچ فروشنده ای ندارد.
-                    @endforelse
-                </table>
-            </div>
-            <div class="w-full">
-                <table class="table-auto">
-                    <h2 class="bg-green-dark">انواع مختلف محصول</h2>
-                    <th>
-                    <td>ردیف</td>
-                    <td>قیمت</td>
-                    <td>افزودن به کارت</td>
-                    </th>
-                    @forelse($product->relatedVariations as $variation)
-                        <tr class="table-row">
-                            <td>{{ $loop->index+1 }}</td>
-                            <td>@toman($variation->price)</td>
-                            <td>
-                                <a href="{{ route('cart.store', $variation) }}">
-                                    افزودن به سبد خرید
-                                </a>
-                            </td>
-                        </tr>
-                    @empty
-                        این محصول هیچ فروشنده ای ندارد.
-                    @endforelse
-                </table>
-            </div> --}}
             <div class="w-1/3 m-12 pin-l">
                 <div class="pb-6 font-bold">توضیحات محصول</div>
                <div class="text-sm leading-loose">
@@ -326,16 +263,6 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="w-full">
-                <h3 class="bg-red-light">نظرات</h3>
-                <ol>
-                    @forelse($product->comments as $comment)
-                        <li> {{ $comment->body }}</li>
-                    @empty
-                        اولین کسی باشید که برای این محضول نظر میدهد.
-                    @endforelse
-                </ol>
-            </div> --}}
         </div>
     </div>
 @endsection

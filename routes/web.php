@@ -4,17 +4,27 @@ Route::any('lab', function () {
 });
 
 Route::get('/', 'PageController@home')->name('home');
+// Authentication Routes...// Registration Routes...
+Route::post('google', 'Auth\LoginController@google')->name('google');
+Route::post('login', 'Auth\LoginController@login')->name('login');
+Route::get('/verify', 'PaymentController@verify')->name('verify');
 // Override the default logout route that user GET instead of POST
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('password/token', 'Auth\ForgotPasswordController@getToken')->name('password.token.get');
-Route::post('password/token', 'Auth\ForgotPasswordController@validateToken')->name('password.token.validate');
-Route::post('google', 'Auth\LoginController@google')->name('google');
-Auth::routes();
 
+// Registration Routes...
+Route::post('register', 'Auth\RegisterController@register')->name('register');
+
+// Password Reset Routes...
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::post('password/token', 'Auth\ForgotPasswordController@validateToken')->name('password.token.validate');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('/products/{product}', 'ProductController@show')->name('products.show');
-Route::get('/posts', 'PostController@index')->name('posts.index');
-Route::get('/posts/{post}', 'PostController@show')->name('posts.show');
-Route::get('/posts/tags/{tag}', 'PostController@tags')->name('posts.tag');
+
+Route::name('posts.')->prefix('posts')->group(function () {
+    Route::get('/', 'PostController@index')->name('index');
+    Route::get('{post}', 'PostController@show')->name('show');
+    Route::get('tags/{tag}', 'PostController@tags')->name('tag');
+});
 
 Route::name('search.')->prefix('search')->group(function () {
     Route::get('{searchPanel}', 'SearchPanelController@panel')->name('panel');
@@ -122,3 +132,6 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
 Route::view('admin', 'admin');
 Route::view('admin/{any}', 'admin')->where('any', '.*');
 // ==================================== End Admin Section =====================
+
+// When therer is no route matched, the user is returned to the home page.
+Route::fallback('RouteFallbackController');

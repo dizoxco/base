@@ -1,5 +1,6 @@
 // import $ from 'jquery';
 import Swiper from 'swiper';
+import Sortable from 'sortablejs';
 window.$ = window.jQuery = require("jquery");
 require("./front/productGallery");
 require("./front/mdc");
