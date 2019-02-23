@@ -9,7 +9,7 @@
             'label' => 'گیرنده',
             'name' => 'receiver',
             'half' => true,
-            'value' => old('reciver', $address->receiver ?? '')
+            'value' => old('receiver', $address->receiver ?? '')
         ])
         @endcomponent
 
