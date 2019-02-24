@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(CartsTableSeeder::class);
         $this->call(OrdersTableSeeder::class);
         $this->call(SearchPanelTableSeeder::class);
+        $this->call(DesignerTableSeeder::class);
         Storage::deleteDirectory('tmp');
     }
 }
