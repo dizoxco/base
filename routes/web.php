@@ -58,6 +58,9 @@ Route::name('payment.')->prefix('payment')->middleware('auth')->group(function (
     Route::get('/verify', 'PaymentController@verify')->name('verify');
 });
 
+Route::get('/designers/{designer}', 'DesignerController@show')->name('designers.show');
+Route::get('/designers/{designer}/json', 'DesignerController@json')->name('designers.json');
+
 Route::name('profile.')->prefix('profile')->middleware('auth')->group(function () {
     Route::get('/', 'ProfileController@index')->name('index');
     Route::get('edit', 'ProfileController@edit')->name('edit');

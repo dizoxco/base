@@ -138,3 +138,71 @@ table{
         li{width: 50%;}
     }
 }
+
+
+.designer-canvas{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    .canvas{
+        width: 100%;
+        img{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 500px;
+            width: auto;
+        }
+    }
+    .toolbar{
+        width: 200px;
+        .options{
+            position: absolute;
+            top: 0;
+            right: -200px;
+            width: 200px;
+            transition: transform .3s;
+            height: 100%;
+            background-color: #ccc;
+            &:first-child{
+                right: 0px;
+                position: relative;
+            }
+            &.active{
+                transform: translateX(-100%);
+            }
+            .option{
+                &.active{
+                    background-color: #bbb;
+                }
+            }
+        }
+        .values{
+            position: absolute;
+            top: 0;
+            right: -200px;
+            width: 200px;
+            transition: all .3s;
+            background-color: #fff;
+            height: 100%;
+            opacity: 0;
+            &.active{
+                transform: translateX(-200%);
+                opacity: 1;
+            }
+            .value{
+                &.active{
+                    background-color: #ddd;
+                }
+            }
+        }
+        .sq{
+            height: 200px;
+            border: 1px solid;
+        }
+    }
+}
