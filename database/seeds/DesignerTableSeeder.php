@@ -13,7 +13,7 @@ class DesignerTableSeeder extends Seeder
             'slug' => 'night dress'.rand(1, 10000),
             'parts' => [
                 'S' => [
-                    'fabric' => 'T',
+                    'fabric' => 'S',
                     'variations' => ['001', '004']
                 ],
                 'T' => [
@@ -52,7 +52,8 @@ class DesignerTableSeeder extends Seeder
                 ]
             ],
             'flags' => [
-                ['id' => 0, 'description' => 'پارچه گلی']
+                'f0' => 'پارچه مخملی است',
+                'f1' => 'پارچه مخملی ضروری نیست',
             ],
             'options' => [
                 [
@@ -63,27 +64,27 @@ class DesignerTableSeeder extends Seeder
                             'label' => 'آستین',
                             'camera' => 'Front',
                             'values' => [
-                                ['label' => 'کوتاه', 'key' => 'S', 'value' => '001'],
-                                ['label' => 'بلند', 'key' => 'S', 'value' => '004'],
-                            ]
-                        ],
-                        [
-                            'label' => 'یقه',
-                            'camera' => 'Front',
-                            'values' => [
-                                ['label' => 'کوتاه', 'key' => 'T', 'value' => '001'],
-                                ['label' => 'بلند', 'key' => 'T', 'value' => '003'],
-                                ['label' => 'متوسط', 'key' => 'T', 'value' => '004'],
+                                ['label' => 'کوتاه', 'key' => 'S', 'value' => '001', 'flagup' => 'f1'],
+                                ['label' => 'بلند', 'key' => 'S', 'value' => '004', 'flag' => 'f0', 'flagdown' => 'f1'],
                             ]
                         ],
                         [
                             'label' => 'پارچه',
                             'camera' => 'Front',
                             'values' => [
-                                ['label' => 'صورتی', 'key' => 'T', 'fabric' => 'F001'],
-                                ['label' => 'سبز', 'key' => 'T', 'fabric' => 'F002'],
+                                ['label' => 'سبز', 'key' => 'S', 'fabric' => 'F001', 'flagdown' => 'f0', 'flag' => 'f1'],
+                                ['label' => 'صورتی', 'key' => 'S', 'fabric' => 'F002', 'flagup' => 'f0'],
                             ]
                         ],
+                    ]
+                ],
+                [
+                    'label' => 'بدنه',
+                    'camera' => 'Front',
+                    'values' => [
+                        ['label' => 'کوتاه', 'key' => 'T', 'value' => '001', 'fabric' => 'F001'],
+                        ['label' => 'بلند', 'key' => 'T', 'value' => '003', 'fabric' => 'F002'],
+                        ['label' => 'متوسط', 'key' => 'T', 'value' => '004', 'fabric' => 'F001'],
                     ]
                 ],
                 [
