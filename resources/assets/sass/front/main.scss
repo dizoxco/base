@@ -154,7 +154,9 @@ table{
             position: absolute;
             top: 0;
             left: 0;
-            height: 500px;
+            right: 0;
+            height: 100%;
+            margin: auto;
             width: auto;
         }
     }
@@ -197,6 +199,10 @@ table{
             .value{
                 &.active{
                     background-color: #ddd;
+                }
+                &.disable{
+                    color: red !important;
+                    opacity: .3;
                 }
             }
         }

@@ -212,8 +212,12 @@ $('.designer-canvas').ready(function(){
             camera: null,
             parts: [],
             fabrics: [],
-            render: []
+            render: [],
+            flags: []
         };
+        Object.keys(designer.flags).map(function(key, index) {
+            designer.flags[key] = false;
+        });
         renderDesigner();
     })
 });
@@ -228,11 +232,15 @@ $('.designer-canvas [option]').click(function(){
     $('.designer-canvas [panel='+$(this).attr('option')+']').addClass('active');
 })
 $('.designer-canvas .value').click(function(){
-    $(this).parent().find('.active').removeClass('active');
-    $(this).addClass('active');
-    console.log(designer.order);
-    
-    renderDesigner();
+    if (!$(this).hasClass('disable')) {
+
+        if ($(this).attr('flagup')) designer.flags[$(this).attr('flagup')] = true;
+        if ($(this).attr('flagdown')) designer.flags[$(this).attr('flagdown')] = false;
+
+        $(this).parent().find('.active').removeClass('active');
+        $(this).addClass('active');
+        renderDesigner();
+    }
 })
 function renderDesigner(){
     
@@ -244,6 +252,13 @@ function renderDesigner(){
     designer.order.camera = active_option.attr('camera');
     designer.order.render = [];
     
+    $('.designer-canvas .value[flag]').each(function(){
+        if(designer.flags[$(this).attr('flag')])
+            $(this).removeClass('disable');
+        else
+            $(this).addClass('disable');
+    });
+
     $('.designer-canvas .values').each(function(){
         var active = $(this).find('.value.active').first();
         
@@ -251,6 +266,9 @@ function renderDesigner(){
             active = $(this).find('.value').first();
             active.addClass('active');
         }
+        if (active.attr('flagup')) designer.flags[active.attr('flagup')] = true;
+        if (active.attr('flagdown')) designer.flags[active.attr('flagdown')] = false;
+        
         if (active.attr('value')) {
             designer.order.parts[active.attr('key')] = active.attr('value');
         }
@@ -289,6 +307,9 @@ function renderDesigner(){
             // imgs[i].setAttribute('src', "/png/" + src);// attr('src', src);
         }
     })
+
+    console.log(designer);
+    
     
 }
 
