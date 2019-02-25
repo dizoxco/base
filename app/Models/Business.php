@@ -3,16 +3,16 @@
 namespace App\Models;
 
 use Spatie\MediaLibrary\File;
-use App\Repositories\Facades\BusinessRepo;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\MediaLibrary\Models\Media;
+use Illuminate\Database\Eloquent\Model;
+use App\Repositories\Facades\BusinessRepo;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Business extends Model implements HasMedia
 {
@@ -119,5 +119,6 @@ class Business extends Model implements HasMedia
     {
         return $this->getMedia(enum('media.business.logo'))->isNotEmpty();
     }
+
     //  =============================== End Complementary Methods =============
 }

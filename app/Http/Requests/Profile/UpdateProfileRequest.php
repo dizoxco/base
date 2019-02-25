@@ -34,7 +34,7 @@ class UpdateProfileRequest extends FormRequest
                 'required_without:email', 'nullable', 'string', 'iran_mobile',
                 Rule::unique('users', 'mobile')->ignore(auth()->user()->id),
             ],
-            'avatar' => 'image'
+            'avatar' => 'image',
         ];
 
         if ($this->filled('old_password')) {
