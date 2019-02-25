@@ -1,13 +1,12 @@
 @extends('profile.businesses.layout', ['title' => $business->brand])
 @section('profile-content')
-    <a href="{{ route('profile.businesses.edit', $business->slug) }}">
-        Edit
-    </a>
-    <div>
-        برند : {{ $business->brand }}
+    <div class="mb-3">
+        <span class="text-grey-dark font-bold pl-4 my-2 ">برند : </span>
+        {{ $business->brand }}
     </div>
-    <div>
-        شهر : {{ $business->city->name }}
+    <div class="mb-3">
+        <span class="text-grey-dark font-bold pl-4 my-2 ">شهر : </span>
+        {{ $business->city->name }}
     </div>
     @forelse($business->contact as $key => $contact)
         @php $length = max(count($contact['title']), count($contact['value'])) - 1; @endphp
@@ -25,18 +24,13 @@
             @endfor
     @empty
     @endforelse
-    <div>
-        تاریخ ایجاد : {{ $business->created_at->diffForHumans() }}
+    <div class="mb-3">
+        <span class="text-grey-dark font-bold pl-4 my-2 ">تاریخ ایجاد : </span>
+
+        {{ $business->created_at->diffForHumans() }}
     </div>
-    <div>
-        آخرین به روزرسانی : {{ $business->updated_at->diffForHumans() }}
-    </div>
-    <div>
-        <div>
-            <a href="{{ route('profile.businesses.chats.index', $business->slug) }}">chats</a>
-        </div>
-        <div>
-            <a href="{{ route('profile.businesses.orders.index', $business->slug) }}">orders</a>
-        </div>
+    <div class="mb-3">
+        <span class="text-grey-dark font-bold pl-4 my-2 ">آخرین به روزرسانی :</span>
+        {{ $business->updated_at->diffForHumans() }}
     </div>
 @endsection

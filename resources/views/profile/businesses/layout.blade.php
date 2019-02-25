@@ -3,7 +3,7 @@
     <div id="profile-layout">
         <div class="profile-nav fixed h-full" style="top:64px">
             <div class="side__loged-user text-left -mr-16 bg-grey-darker rounded-l-full flex items-center justify-end ml-12 mt-4">
-                <a href="{{route('profile.businesses.products.index', $business->slug)}}" class="text-white bg-grey-dark rounded-full py-2 px-5 pl-12 -ml-6 text-sm">{{$business->brand}}</a>
+                <a href="{{route('profile.businesses.show', $business->slug)}}" class="text-white bg-grey-dark rounded-full py-2 px-5 pl-12 -ml-6 text-sm">{{$business->brand}}</a>
                 <img class="w-24 h-24 rounded-full border-8 border-solid border-grey-darker " src="{{auth()->user()->getFirstMedia('avatar') ? auth()->user()->getFirstMedia('avatar')->getUrl() : '/images/avatar.jpg'}}" alt="">
             </div>
             <ul class="mdc-list profile-mdc-list">
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-white -mt-8 rounded-t-lg overflow-hidden">
+            <div class="bg-white -mt-8 rounded-t-lg overflow-hidden @if($fit ?? false) p-0 @else p-12 @endif">
                 @yield('profile-content')
             </div>
         </div>

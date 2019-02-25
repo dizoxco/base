@@ -1,4 +1,4 @@
-@extends('profile.businesses.layout', ['title' => "محصولات $business->brand"])
+@extends('profile.businesses.layout', ['title' => "محصولات $business->brand", 'fit' => true])
 @section('profile-content')
     <table>
         <tr>
