@@ -21,6 +21,7 @@ class ChatController extends Controller
     {
         $business->chats()->firstOrCreate(['user_id' => Auth::id()]);
         $chats = Auth::user()->chats()->with('business')->get();
+
         return view('profile.chats.index', compact('chats'));
     }
 
