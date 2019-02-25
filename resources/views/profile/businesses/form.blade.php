@@ -9,6 +9,11 @@
         ])
         @endcomponent
 
+        @if(isset($business) && $business->hasLogo())
+            <img src="{{ $business->logo->getUrl() }}" alt="logo">
+        @endif
+        <input type="file" id="logo" name="logo" class="mdc-text-field__input">
+
         @component('components.form.select',[
             'label' => 'شهر',
             'name' => 'city_id',

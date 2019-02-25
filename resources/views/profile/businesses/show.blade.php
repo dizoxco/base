@@ -3,6 +3,9 @@
     <a href="{{ route('profile.businesses.edit', $business->slug) }}">
         Edit
     </a>
+    @if($business->hasLogo())
+        <img src="{{ $business->logo->getUrl() }}" alt="logo">
+    @endif
     <div>
         برند : {{ $business->brand }}
     </div>

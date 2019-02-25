@@ -22,9 +22,10 @@ class BusinessManagementController extends Controller
         $form = [
             'action' => route('profile.businesses.store'),
             'method' => 'post',
+            'enctype' => true,
         ];
 
-        return view('profile.businesses.create', compact('form'));
+        return view('profile.businesses.form', compact('form'));
     }
 
     public function store(StoreBusinessRequest $request)
@@ -36,8 +37,12 @@ class BusinessManagementController extends Controller
             }
 
             $business = Auth::user()->businesses()->create(
-                $request->merge(['contact' => $contacts])->all()
+                $request->merge(['contact' => $contacts])->except('logo')
             );
+
+            if ($request->hasFile('logo')) {
+                $business->addMediaFromRequest('logo')->toMediaCollection(enum('media.business.logo'));
+            }
         } catch (Throwable $throwable) {
             return redirect()->back()
                 ->withErrors(['server' => trans('http.bad_request')])
@@ -79,9 +84,10 @@ class BusinessManagementController extends Controller
         $form = [
             'action' => route('profile.businesses.update', $business->slug),
             'method' => 'put',
+            'enctype' => true,
         ];
 
-        return view('profile.businesses.create', compact('business', 'form'));
+        return view('profile.businesses.form', compact('business', 'form'));
     }
 
     public function update(UpdateBusinessRequest $request, Business $business)
@@ -92,7 +98,11 @@ class BusinessManagementController extends Controller
                 return $contacts; // redirect back
             }
 
-            $business->update($request->merge(['contact' => $contacts])->all());
+            if ($request->hasFile('logo')) {
+                $business->addMediaFromRequest('logo')->toMediaCollection(enum('media.business.logo'));
+            }
+
+            $business->update($request->merge(['contact' => $contacts])->except('logo'));
         } catch (Throwable $throwable) {
             return redirect()->back()
                 ->withErrors(['server' => trans('http.bad_request')])

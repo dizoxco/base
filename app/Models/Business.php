@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
-use Spatie\Sluggable\HasSlug;
-use Spatie\Image\Manipulations;
-use Spatie\Sluggable\SlugOptions;
-use Spatie\MediaLibrary\Models\Media;
-use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\File;
 use App\Repositories\Facades\BusinessRepo;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Business extends Model implements HasMedia
 {
@@ -25,6 +25,14 @@ class Business extends Model implements HasMedia
     protected $casts = [
         'contact' => 'array',
     ];
+
+    //  =============================== Relationships =========================
+    public function getLogoAttribute()
+    {
+        return $this->getFirstMedia(enum('media.business.logo'));
+    }
+
+    //  =============================== Relationships =========================
 
     //  =============================== Relationships =========================
     public function users() : BelongsToMany
@@ -69,6 +77,24 @@ class Business extends Model implements HasMedia
 
     //  =============================== End Relationships =====================
 
+    //  =============================== Media =================================
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection(enum('media.business.logo'))
+            ->acceptsFile(function (File $file) {
+                $allowedMimes = [
+                    'image/jpeg', 'image/png', 'image/tiff', 'image/bmp',
+                ];
+
+                return in_array($file->mimeType, $allowedMimes);
+            })
+            ->singleFile();
+
+        $this->addMediaCollection('business-gallery');
+    }
+
+    //  =============================== End Media =============================
+
     //  =============================== Complementary Methods =================
     public function getSlugOptions(): SlugOptions
     {
@@ -78,7 +104,6 @@ class Business extends Model implements HasMedia
             ->saveSlugsTo('slug');
     }
 
-    //  =============================== End Complementary Methods =============
     public function resolveRouteBinding($business)
     {
         if (request()->isXmlHttpRequest()) {
@@ -90,15 +115,9 @@ class Business extends Model implements HasMedia
         }
     }
 
-    public function registerMediaCollections()
+    public function hasLogo()
     {
-        $this->addMediaCollection(enum('media.business.logo'))
-             ->singleFile();
-        //  ->registerMediaConversions(function (Media $media) {
-        //      $this->addMediaConversion('thumb')
-        //           ->crop(Manipulations::CROP_CENTER, 150, 150);
-        //  });
-
-        $this->addMediaCollection('business-gallery');
+        return $this->getMedia(enum('media.business.logo'))->isNotEmpty();
     }
+    //  =============================== End Complementary Methods =============
 }

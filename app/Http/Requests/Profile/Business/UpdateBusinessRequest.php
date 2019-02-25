@@ -24,7 +24,9 @@ class UpdateBusinessRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'brand' => 'required',
+            'city_id' => 'required|exists:cities,id',
+            'logo' => 'image',
         ];
     }
 }
