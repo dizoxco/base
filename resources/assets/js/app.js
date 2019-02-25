@@ -2,9 +2,9 @@
 import Swiper from 'swiper';
 import Sortable from 'sortablejs';
 window.$ = window.jQuery = require("jquery");
-// require("./front/productGallery");
-// require("./front/mdc");
-// require("./front/navigation");
+require("./front/productGallery");
+require("./front/mdc");
+require("./front/navigation");
 
 // table collapsible
 $('.collapse').click(function(){
