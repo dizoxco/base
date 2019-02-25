@@ -97,10 +97,13 @@ $mdc-theme-on-secondary: blue;
 
 .mdc-list{
     font-family: IRANSans;
+
+    &.profile-mdc-list {
+        margin-left: 3rem;
+    }
 }
 .mdc-list-item {
     border-radius: 32px 0 0 32px;
-    margin-left: 3rem;
     color: #fff;
     padding-right: 0;
 
