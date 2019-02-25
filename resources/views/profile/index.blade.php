@@ -5,20 +5,22 @@
      {{ $user->full_name }}
     @component('components.form.field')
     @endcomponent
-    <span class="text-grey-dark font-bold pl-4 my-2 ">ایمیل :</span>
-    {{ $user->email }}
+    @if($user->email)
+        ایمیل : {{ $user->email }}
         @if($user->hasVerified('email'))
             ایمیل تایید شده است
             <i class="material-icons bg-green" >done</i>
         @endif
+    @endif
     @component('components.form.field')
     @endcomponent
-    <span class="text-grey-dark font-bold pl-4 my-2 ">موبایل :</span>
-    {{ $user->mobile }} تایید موبایل
+    @if($user->mobile)
+        موبایل : {{ $user->mobile }}
         @if($user->hasVerified('mobile'))
             موبایل تایید شده است
             <i class="material-icons bg-green" >done</i>
         @endif
+    @endif
     @component('components.form.field')
     @endcomponent
     <span class="text-grey-dark font-bold pl-4 my-2 ">عضویت از :</span>

@@ -7,14 +7,6 @@
                 <img class="w-24 h-24 rounded-full border-8 border-solid border-grey-darker " src="{{auth()->user()->getFirstMedia('avatar') ? auth()->user()->getFirstMedia('avatar')->getUrl() : '/images/avatar.jpg'}}" alt="">
             </div>
             <ul class="mdc-list profile-mdc-list">
-                @if(!auth()->user()->hasBusiness())
-                <a href="{{ route('profile.businesses.create') }}" class="block">
-                    <li class="mdc-list-item mdc-ripple" tabindex="0">
-                        <span class="mdc-list-item__graphic material-icons" aria-hidden="true">people</span>
-                        <span class="mdc-list-item__text">ایجاد کسب و کار</span>
-                    </li>
-                </a>
-                @endif
                 <a href="{{ route('profile.wishlist.index') }}" class="block">
                     <li class="mdc-list-item mdc-ripple" tabindex="0">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">favorite_border</span>
