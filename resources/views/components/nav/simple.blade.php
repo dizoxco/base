@@ -130,10 +130,10 @@
         @if (auth()->check())
           <div class="side__loged-container w-full">
             @foreach (auth()->user()->businesses as $business)
-              <a class="-mr-8 bg-grey-lighter rounded-l-full flex items-center" href="{{route('profile.businesses.show', $business->slug)}}">
-                <div class="w-5/6 pr-8">{{$business->brand}}</div>
-                {{-- <img class="w-1/6 h-auto rounded-full m-2 " src="{{$business->getFirstMedia(enum('media.business.logo')) ? $business->getFirstMedia(enum('media.business.logo'))->getUrl('thumb') : '/images/avatar.jpg'}}" alt=""> --}}
-              </a>
+              <div class="side__loged-user text-left -mr-16 bg-grey-lighter rounded-l-full flex items-center justify-end">
+                <a href="{{route('profile.businesses.products.index', $business->slug)}}" class="text-white bg-grey-dark rounded-full py-2 px-5 pl-12 -ml-6 text-sm">{{$business->brand}}</a>
+                <img class="w-24 h-24 rounded-full border-8 border-solid border-grey-lighter " src="{{auth()->user()->getFirstMedia('avatar') ? auth()->user()->getFirstMedia('avatar')->getUrl() : '/images/avatar.jpg'}}" alt="">
+              </div>
               <div class="side__loged-container-menu mt-2">
                 <a class="relative" href="{{route('profile.businesses.orders.index', $business->slug)}}">
                   <i class="material-icons">room_service</i> سفارشات <span class="rounded-full bg-indigo-light text-white absolute pin-l h-8 px-3 flex justify-center ml-2">3</span>
@@ -148,31 +148,18 @@
               <hr class="border border-solid border-grey-lighter my-0 -mx-10">
             @endforeach
             <div class="mt-2 relative">
-                <div class="side__loged-user text-left -mr-16 bg-grey-lighter rounded-l-full flex items-center justify-end">
-                      <a href="#" class="text-white bg-grey-dark rounded-full py-2 px-5 pl-12 -ml-6 text-sm">پروفایل  نیما  قدمی</a>
-                      <img class="w-24 rounded-full h-full border-8 border-solid border-grey-lighter " src="/images/avatar.jpg" alt="">
-                    
-                  </div>
-                  <div class="side__loged-container-menu mt-2">
-                    <a href="#"><span><i class="material-icons">attach_money</i></span><span>سفارش‌های من</span></a>
-                    <a href="#"><span><i class="material-icons">card_travel</i></span><span>سبد خرید</span></a>
-                    <a href="#"><span><i class="material-icons">favorite_border</i></span><span>کُمد لباس هایم</span></a>
-                    <a href="#"><span><i class="material-icons">power_settings_new</i></span><span>خروج از حساب کاربری</span></a>
-                  </div>
-                  <div>
-                      <a 
-                              href="{{ route('logout') }}"
-                              onclick="
-                                event.preventDefault();
-                                gapi.auth2.getAuthInstance().signOut();
-                                document.getElementById('logout').submit()"
-                      >
-                          خروج
-                      </a>
-                      <form id="logout" action="{{ route('logout') }}" method="post" style="display:none">
-                          {{ csrf_field() }}
-                      </form>
-                  </div>
+              <div class="side__loged-user text-left -mr-16 bg-grey-lighter rounded-l-full flex items-center justify-end">
+                <a href="/profile" class="text-white bg-grey-dark rounded-full py-2 px-5 pl-12 -ml-6 text-sm">پروفایل  {{auth()->user()->name}}</a>
+                <img class="w-24 h-24 rounded-full border-8 border-solid border-grey-lighter " src="{{auth()->user()->getFirstMedia('avatar') ? auth()->user()->getFirstMedia('avatar')->getUrl() : '/images/avatar.jpg'}}" alt="">
+              </div>
+              <div class="side__loged-container-menu mt-2">
+                <a href="/profile/orders"><span><i class="material-icons">attach_money</i></span><span>سفارش‌های من</span></a>
+                <a href="/cart"><span><i class="material-icons">card_travel</i></span><span>سبد خرید</span></a>
+                <a href="/profile/wishlist"><span><i class="material-icons">favorite_border</i></span><span>کُمد لباس هایم</span></a>
+                <a href="/profile/chats"><span><i class="material-icons">chat</i></span><span>چت های من</span></a>
+                <a href="/profile/tickets"><span><i class="material-icons">chat</i></span><span>تیکت های من</span></a>
+                <a href="/logout"><span><i class="material-icons">power_settings_new</i></span><span>خروج از حساب کاربری</span></a>
+              </div>
             </div>
           </div>
         @else
