@@ -14,7 +14,9 @@
     }
 @endphp
 @if ($chats->isEmpty())
-    <h2>گفتگویی موجود نیست</h2>
+    <div class="p-12 text-grey-dark font-bold">
+        شما تیکتی ایجاد نکرده اید
+    </div>
 @else
 <div class="flex shadow rounded-lg overflow-hidden" style="height:calc(100vh - 182px)">
     <div class="w-1/4 h-full swiper-container scroll-swiper bg-grey-lighter ">
@@ -108,16 +110,16 @@
             <div class="swiper-scrollbar"></div>
         </div>
         <div class="w-full z-40 px-8 py-2 bg-grey-lightest ">
-                @component('components.form',[
-                    'method' => 'POST',
-                    'action' => $href
+            @component('components.form',[
+                'method' => 'POST',
+                'action' => $href
+            ])
+                @component('components.form.text',[
+                    'label' => 'متن پیام',
+                    'name' => 'body'
                 ])
-                    @component('components.form.text',[
-                        'label' => 'متن پیام',
-                        'name' => 'body'
-                    ])
-                    @endcomponent
                 @endcomponent
+            @endcomponent
         </div>
     </div>
 </div>
