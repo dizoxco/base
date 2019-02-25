@@ -146,32 +146,36 @@
                     افزودن به علاقه مندی ها
                 </a>
             @endif
-            @if (auth()->check() && !$product->single && count(auth()->user()->businesses))
-                <br>
-                @if (count(auth()->user()->businesses) > 1)
-                    @component('components.form.button', [
-                        'label' => 'افزودن به محصولات خود',
-                        'raised' => true,
-                        'dialog' => 'addp2b'
-                    ])@endcomponent
+            @auth
+                @if (!$product->single && auth()->user()->hasBusiness())
+                    <br>
+                    @if (count(auth()->user()->businesses) > 1)
+                        @component('components.form.button', [
+                            'label' => 'افزودن به محصولات خود',
+                            'raised' => true,
+                            'dialog' => 'addp2b'
+                        ])@endcomponent
 
-                    @component('components.dialog',[
-                        'id' => 'addp2b',
-                        'title' => 'sdfdf',
-                        'buttons' => [
-                            'save' => 'ذخیره'
-                        ],
-                        'cancel' => 'انصراف'
-                    ])
-                        @foreach (auth()->user()->businesses as $business)
-                            {{$business->brand}} <br>
-                        @endforeach
-                    @endcomponent
-                @else
-                    link
+                        @component('components.dialog',[
+                            'id' => 'addp2b',
+                            'title' => 'کسب و کارهای شما',
+                            'buttons' => [
+                                'save' => 'ذخیره'
+                            ],
+                            'cancel' => 'انصراف'
+                        ])
+                            @foreach (auth()->user()->businesses as $business)
+                                    <a href="{{ route('profile.businesses.products.show',[$business->slug, $product->slug]) }}">
+                                        {{ $business->brand }}
+                                    </a>
+                            @endforeach
+                        @endcomponent
+                    @else
+                        link
+                    @endif
+
                 @endif
-                
-            @endif
+            @endauth
         </div> 
 
         <div class="product-gallery bg-white hidden pin-y pin-x w-full h-full z-50 ">

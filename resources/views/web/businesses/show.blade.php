@@ -9,28 +9,34 @@
                 </div>
                 <h1 class="title text-center my-3">{{$business->brand}}</h1>
                 <div class="address">
-                    @forelse ($business->contact['address'] as $address)
-                        <p class="body-1"><span>آدرس</span> <span>{{$address['label']}}</span>:</p>
-                        <p class="caption">{{$address['value']}}</p>
-                    @empty
-                        There is no address submitted for this business
-                    @endforelse
+                    @isset($business->contact['address'])
+                        @forelse ($business->contact['address']['title'] as $index => $title)
+                            <p class="body-1"><span>آدرس</span> <span>{{ $title }}</span>:</p>
+                            <p class="caption">{{$business->contact['address']['value'][$index]}}</p>
+                        @empty
+                            There is no tel submitted for this business
+                        @endforelse
+                    @endisset
                 </div>
                 <div class="tel">
-                    @forelse ($business->contact['tel'] as $tel)
-                        <p class="body-1"><span>تلفن</span> <span>{{$tel['label']}}</span>:</p>
-                        <p class="caption">{{$tel['value']}}</p>
-                    @empty
-                        There is no tel submitted for this business
-                    @endforelse
+                    @isset($business->contact['tel'])
+                        @forelse ($business->contact['tel']['title'] as $index => $title)
+                            <p class="body-1"><span>تلفن</span> <span>{{ $title }}</span>:</p>
+                            <p class="caption">{{$business->contact['tel']['value'][$index]}}</p>
+                        @empty
+                            There is no tel submitted for this business
+                        @endforelse
+                    @endisset
                 </div>
                 <div class="instagram flex justify-center">
-                    @forelse ($business->contact['instagram'] as $instagram)
-                        {{-- <p class="body-1"><span>اینستاگرام</span> <span>{{$instagram['label']}}</span>:</p> --}}
-                        <a class="caption" href="{{$instagram['value']}}"><i class="material-icons px-2">public</i></a>
-                    @empty
-                        There is no Social media submitted for this business
-                    @endforelse
+                    @isset($business->contact['instagram'])
+                        @forelse ($business->contact['instagram']['title'] as $index => $title)
+                            <p class="body-1"><span>اینستاگرام</span> <span>{{ $title }}</span>:</p>
+                            <p class="caption">{{$business->contact['instagram']['value'][$index]}}</p>
+                        @empty
+                            There is no instagram submitted for this business
+                        @endforelse
+                    @endisset
                 </div>                
                 <ol>
                     @forelse($business->comments as $comment)
