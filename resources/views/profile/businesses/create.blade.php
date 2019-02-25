@@ -9,18 +9,21 @@
         ])
         @endcomponent
 
-        @component('components.form.text', [
+        @component('components.form.select',[
             'label' => 'شهر',
             'name' => 'city_id',
+            'value' => old('city_id', $business->city_id ?? ''),
             'half' => true,
-            'value' => old('city_id', $business->city_id ?? '')
+            'options' => cities()->pluck('name', 'id')
         ])
         @endcomponent
-        <div>
+    
+        <div class="w-full">
+            <br>
             <p>
                 شماره های تماس
             </p>
-            @component('components.form.addable')
+            @component('components.form.addable', ['new' => true])
                 @isset($business->contact['tel'])
                     @slot('items')
                         @php
@@ -31,24 +34,25 @@
                         @endphp
                         @for($i = 0; $i <= $length; $i++)
                             @component('components.form.addable-item')
-                                @component('components.form.text',[
-                                    'label' => 'عنوان تلفن',
-                                    'name' => "contact[tel][title][$i]",
-                                    'value' => $business->contact['tel']['title'][$i],
-                                ])
-                                @endcomponent
-                            @endcomponent
-                            @component('components.form.addable-item')
-                                @component('components.form.text',[
-                                    'label' => 'شماره تلفن',
-                                    'name' => "contact[tel][value][$i]",
-                                    'value' => $business->contact['tel']['value'][$i],
-                                ])
-                                @endcomponent
+                                <div class="w-full flex">
+                                    @component('components.form.text',[
+                                        'label' => 'عنوان تلفن',
+                                        'name' => "contact[tel][title][$i]",
+                                        'value' => $business->contact['tel']['title'][$i],
+                                    ])
+                                    @endcomponent
+                                    @component('components.form.text',[
+                                        'label' => 'شماره تلفن',
+                                        'name' => "contact[tel][value][$i]",
+                                        'value' => $business->contact['tel']['value'][$i],
+                                    ])
+                                    @endcomponent
+                                </div>
                             @endcomponent
                         @endfor
                     @endslot
                 @endisset
+                <div class="flex w-full">
                 @component('components.form.text',[
                     'label' => 'عنوان تلفن',
                     'name' => 'contact[tel][title][]',
@@ -59,14 +63,16 @@
                     'name' => 'contact[tel][value][]',
                 ])
                 @endcomponent
+                </div>
             @endcomponent
             <hr>
         </div>
-        <div>
+        <div class="w-full">
+            <br>
             <p>
                 اینستاگرام
             </p>
-            @component('components.form.addable')
+            @component('components.form.addable', ['new' => true])
                 @isset($business->contact['instagram'])
                     @slot('items')
                         @php
@@ -77,34 +83,36 @@
                         @endphp
                         @for($i = 0; $i <= $length; $i++)
                             @component('components.form.addable-item')
-                                @component('components.form.text',[
-                                    'label' => 'عنوان تلفن',
-                                    'name' => "contact[instagram][title][$i]",
-                                    'value' => $business->contact['instagram']['title'][$i],
-                                ])
-                                @endcomponent
-                            @endcomponent
-                            @component('components.form.addable-item')
-                                @component('components.form.text',[
-                                    'label' => 'شماره تلفن',
-                                    'name' => "contact[instagram][value][$i]",
-                                    'value' => $business->contact['instagram']['value'][$i],
-                                ])
-                                @endcomponent
+                                <div class="w-full flex">
+                                    @component('components.form.text',[
+                                        'label' => 'عنوان تلفن',
+                                        'name' => "contact[instagram][title][$i]",
+                                        'value' => $business->contact['instagram']['title'][$i],
+                                    ])
+                                    @endcomponent
+                                    @component('components.form.text',[
+                                        'label' => 'شماره تلفن',
+                                        'name' => "contact[instagram][value][$i]",
+                                        'value' => $business->contact['instagram']['value'][$i],
+                                    ])
+                                    @endcomponent
+                                </div>
                             @endcomponent
                         @endfor
                     @endslot
                 @endisset
-                @component('components.form.text',[
-                    'label' => 'عنوان صفحه',
-                    'name' => 'contact[instagram][title][]',
-                ])
-                @endcomponent
-                @component('components.form.text',[
-                    'label' => 'آدرس صفحه',
-                    'name' => 'contact[instagram][value][]',
-                ])
-                @endcomponent
+                <div class="w-full flex">
+                    @component('components.form.text',[
+                        'label' => 'عنوان صفحه',
+                        'name' => 'contact[instagram][title][]',
+                    ])
+                    @endcomponent
+                    @component('components.form.text',[
+                        'label' => 'آدرس صفحه',
+                        'name' => 'contact[instagram][value][]',
+                    ])
+                    @endcomponent
+                </div>
             @endcomponent
             <hr>
         </div>
