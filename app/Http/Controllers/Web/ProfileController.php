@@ -5,11 +5,8 @@ namespace App\Http\Controllers\Web;
 use Auth;
 use Hash;
 use Session;
-use App\Models\Order;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Facades\UserRepo;
-use App\Http\Requests\Profile\UpdateInfoRequest;
 use App\Http\Requests\Profile\UpdateProfileRequest;
 use App\Notifications\User\EmailVerificationNotification;
 use App\Notifications\User\MobileVerificationNotification;
@@ -104,69 +101,5 @@ class ProfileController extends Controller
         }
 
         return redirect()->route('profile.index', ['verify' => 'expired_token']);
-    }
-
-    public function orders(Request $request)
-    {
-        $orders = Auth::user()->orders()
-            ->with('city', 'variations', 'variations.product')
-            ->paginate($request->input('per_page', 12));
-
-        return view('profile.orders.index', compact('orders'));
-    }
-
-    public function orderShow(Order $order)
-    {
-        $order = $order->load('variations.business', 'user');
-
-        return view('profile.orders.show', compact('order'));
-    }
-
-    public function credentials()
-    {
-        return view('profile.credentials.edit')->withUser(Auth::user());
-    }
-
-    public function updateCredentials(UpdateProfileRequest $request)
-    {
-        if ($request->filled('password')) {
-            if (Hash::check($request->input('old_password'), auth()->user()->password)) {
-                $request->merge([
-                    'password' => Hash::make($request->input('password')),
-                ]);
-            } else {
-                return redirect()->route('profile.credentials.edit')->withErrors([
-                        'old_password' => 'old password is wrong',
-                    ]);
-            }
-        }
-
-        if (UserRepo::update(Auth::user(), array_filter($request->all()))) {
-            return redirect()->route('profile.credentials.edit');
-        } else {
-            return redirect()->route('profile.credentials.edit')
-                ->withInput()->withErrors([
-                    'error' => 'Something went wrong',
-                ]);
-        }
-    }
-
-    public function info()
-    {
-        $user = auth()->user();
-
-        return view('profile.info', compact('user'));
-    }
-
-    public function updateInfo(UpdateInfoRequest $request)
-    {
-        if (UserRepo::update(auth()->user(), $request->all())) {
-            return redirect()->route('profile.info.update');
-        } else {
-            return redirect()->route('profile.info.update')
-                ->withInput()->withErrors([
-                    'error' => 'Something went wrong',
-                ]);
-        }
     }
 }

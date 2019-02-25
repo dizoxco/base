@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 class OrderManagementController extends Controller
 {
-    public function orders(Business $business)
+    public function index(Business $business)
     {
         $orders = $business->products()->with('relatedVariations.orders.city', 'relatedVariations.orders.user')->get();
         $orders = $orders->pluck('relatedVariations')->collapse()->pluck('orders')->collapse();
@@ -16,7 +16,7 @@ class OrderManagementController extends Controller
         return view('profile.businesses.orders', compact('orders', 'business'));
     }
 
-    public function showOrder(Business $business, Order $order)
+    public function show(Business $business, Order $order)
     {
         $variations = $order->load('variations')->variations;
 

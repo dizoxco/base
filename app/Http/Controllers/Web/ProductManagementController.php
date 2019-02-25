@@ -9,19 +9,19 @@ use App\Http\Requests\Profile\UpdateProductRequest;
 
 class ProductManagementController extends Controller
 {
-    public function products(Business $business)
+    public function index(Business $business)
     {
         $products = $business->load('products')->products;
 
         return view('profile.businesses.products', compact('business', 'products'));
     }
 
-    public function showProduct(Business $business, Product $product)
+    public function show(Business $business, Product $product)
     {
         return view('profile.businesses.products.show', compact('product', 'business'));
     }
 
-    public function updateProduct(Business $business, Product $product, UpdateProductRequest $request)
+    public function update(Business $business, Product $product, UpdateProductRequest $request)
     {
         $combined_variations = $product->combinedVariations;
         $requested_variations = $request->variations;

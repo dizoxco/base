@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Businesses;
+namespace App\Http\Requests\Profile\Business;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateBusinessRequest extends FormRequest
+class StoreBusinessRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +23,8 @@ class UpdateBusinessRequest extends FormRequest
      */
     public function rules()
     {
-        $business = $this->route()->parameter('business');
-
         return [
-            'brand' => ['required', Rule::unique('businesses', 'id')->ignore($business->id)],
-            'slug' => ['required', Rule::unique('businesses', 'id')->ignore($business->id)],
+            'brand' => 'required',
             'city_id' => 'required|exists:cities,id',
         ];
     }

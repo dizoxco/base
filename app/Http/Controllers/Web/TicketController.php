@@ -27,8 +27,8 @@ class TicketController extends Controller
         $ticket = Auth::user()->tickets()->create([
             'business_id' => 0,
             'attributes' => [
-                'title' => $request->title
-            ]
+                'title' => $request->title,
+            ],
         ]);
         $request->merge(['user_id' => Auth::id()]);
         $ticket->comments()->create($request->all());

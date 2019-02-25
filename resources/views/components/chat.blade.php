@@ -41,11 +41,11 @@
                         }
                     @endphp
                     <div class="p-2 border-b border-solid border-grey-lighter hover:bg-grey-light">
-                        <a class="chat-id flex text-black" href="{{$href}}" api-href="{{$ajax_href}}">
+                        <a class="chat-id flex" href="{{$href}}" api-href="{{$ajax_href}}">
                             @if ($chatwith == 'modella')
-                                <div class="bg-grey-darkest text-white w-12 h-12 rounded-full flex items-center justify-center">
+                                <span class="bg-grey-darkest text-white w-12 h-12 rounded-full text-align-center">
                                     123
-                                </div>
+                                </span>
                             @else
                                 <img class="rounded-full w-12 self-center" src="{{$img}}" alt=""/>
                             @endif

@@ -7,5 +7,5 @@
             {{$slot}}
         @endcomponent
     </div>
-    <span class="add">add</span>
+    <span class="add">افزودن</span>
 </div>

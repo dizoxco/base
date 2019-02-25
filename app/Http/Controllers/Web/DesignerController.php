@@ -49,7 +49,6 @@ class DesignerController extends Controller
     {
         return view('web.designers.show', compact('designer'));
     }
-    
     public function json(Designer $designer)
     {
         return $designer;

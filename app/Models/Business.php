@@ -39,7 +39,6 @@ class Business extends Model implements HasMedia
 
     public function products()
     {
-        // return $this->belongsToMany(Product::class, 'businesses_products', 'business_id', 'product_id', 'id', 'id');
         return $this->belongsToMany(Product::class, 'variations', 'business_id', 'product_id', 'id', 'id')->distinct();
     }
 
@@ -86,7 +85,6 @@ class Business extends Model implements HasMedia
             return parent::resolveRouteBinding($business);
         } else {
             $business = BusinessRepo::findBySlug($business);
-            abort_if($business === null, 404);
 
             return $business;
         }

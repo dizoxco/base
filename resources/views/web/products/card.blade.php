@@ -10,7 +10,6 @@
         <a class="no-underline mt-3" href="{{route('products.show', $product->slug)}}">
             <h3 class=" subheading"> {{ $product->title }}</h3>
         </a>
-        {{-- <p>{{ $product->created_at->diffForHumans() }}</p> --}}
-        <p class="text-center body-1 mt-3 ">@toman($product->price)</p>
+        <p class="text-center body-1 my-4">@toman($product->price)</p>
     </div>
 </div>
