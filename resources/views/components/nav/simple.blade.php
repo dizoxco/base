@@ -184,7 +184,7 @@
                     'label' => 'ایمیل یا تلفن همراه',
                     'full' => true,
                     'name' => 'service',
-                    'value' => 'akbarjimi@yahoo.com',
+                    'value' => 'admin@base.com',
                   ])
                   @endcomponent
                   @component('components.form.text',[

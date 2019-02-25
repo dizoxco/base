@@ -18,20 +18,31 @@ class Order extends Model implements IsPayable
         'done' => 'boolean',
     ];
 
+    //  =============================== Accessor ==============================
+    public function getCostAttribute()
+    {
+        return $this->variations->reduce(function ($carry, $variation) {
+            return $carry + ($variation->pivot->quantity * $variation->pivot->price);
+        });
+    }
+
+    public function getPaidAttribute()
+    {
+        $successful_payments = $this->pays()
+            ->whereRaw("JSON_EXTRACT(options,'$.Status') = 'success'")
+            ->sum('amount');
+
+        return $successful_payments === $this->cost ?: $this->cost - $successful_payments;
+    }
+
+    //  =============================== End Accessor ==========================
+
+    //  =============================== Relationships =========================
     public function variations()
     {
         return $this->belongsToMany(
             Variation::class, 'orders_products', 'order_id', 'variation_id', 'id', 'id'
         )->withPivot(['quantity', 'price']);
-    }
-
-    public function paid()
-    {
-        $total_cost = $this->variations()->get()->sum(function ($order) {
-            return $order->count * $order->price;
-        });
-
-        return $this->isPaid($total_cost);
     }
 
     public function user()
@@ -43,4 +54,10 @@ class Order extends Model implements IsPayable
     {
         return $this->belongsTo(City::class, 'city_id', 'id');
     }
+
+    //  =============================== End Relationships =====================
+
+    //  =============================== Complementary Methods =================
+
+    //  =============================== End Complementary Methods =============
 }

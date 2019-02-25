@@ -1,11 +1,5 @@
 @extends('profile.layout')
 @section('profile-content')
-    @forelse($errors->all() as $error)
-        @component('components.form.field')
-            {{ $error }}
-        @endcomponent
-    @empty
-    @endforelse
     @component('components.form',[
         'action' => isset($address)? route('profile.addresses.update', $address): 
                         route('profile.addresses.store'),
@@ -15,7 +9,7 @@
             'label' => 'گیرنده',
             'name' => 'receiver',
             'half' => true,
-            'value' => old('reciver', $address->receiver ?? '')
+            'value' => old('receiver', $address->receiver ?? '')
         ])
         @endcomponent
 
@@ -27,12 +21,12 @@
         ])
         @endcomponent
 
-        @component('components.form.text', [
-            'label' => 'city_id',
+        @component('components.form.select',[
+            'label' => 'شهر',
             'name' => 'city_id',
-            'value' => 1,
+            'value' => old('city_id', $address->city_id ?? ''),
             'half' => true,
-            'value' => old('city_id', $address->city_id ?? '')
+            'options' => cities()->pluck('name', 'id')
         ])
         @endcomponent
         

@@ -21,6 +21,29 @@
         ])
         @endcomponent
 
+
+
+
+
+        @component('components.form.addable')
+            @slot('items')
+                @component('components.form.text',[
+                    'label' => 'sdf',
+                    'name' => 'dd'
+                ])
+                @endcomponent
+            @endslot
+            @component('components.form.text',[
+                'label' => 'sdf',
+                'name' => 'dd'
+            ])
+            @endcomponent
+        @endcomponent
+
+
+
+
+
         @component('components.form.field')
             @component('components.form.button',[
                 'label' => 'ذخیره'

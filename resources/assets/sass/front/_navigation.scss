@@ -155,7 +155,7 @@
 }
 
 .glass{
-    background-color: rgba(#794ACF, .4);
+    background-color: rgba(#3D4852, .6);
     display: none;
     top: 0;
     
@@ -192,10 +192,6 @@
             position: absolute;
             top: 64px;
             width: 100%;
-
-            &.mobile-menu {
-                // display: flex;
-            }
         }
 
         &.cart i,

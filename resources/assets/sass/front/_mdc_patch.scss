@@ -24,6 +24,9 @@ $mdc-theme-on-secondary: blue;
 @import "@material/select/mdc-select";
 @import "@material/dialog/mdc-dialog";
 
+.mdc-form-field{
+    font-family: IRANSans;
+}
 
 .mdc-text-field{
     label{

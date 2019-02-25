@@ -44,6 +44,7 @@
             <th>قیمت واحد</th>
             <th>قیمت کل</th>
             <th>قیمت نهایی</th>
+            <th></th>
         </thead>
         <tbody>
             @foreach($order->variations as $variation)
@@ -66,7 +67,9 @@
                     <td>
                         {{ $variation->pivot->price * $variation->pivot->quantity }}
                     </td>
-                    
+                    <td>
+                        <i class="material-icons">expand_more</i>
+                    </td>
                 </tr>
                 <tr class="colapsable hidden">
                     <td colspan="8">
@@ -104,23 +107,23 @@
                 @endphp
                 جمع کل :
             </td>
-            <td colspan="4"></td>
+            <td colspan="5"></td>
             <td>@toman($total)</td>
         </tr>
         
         <tr class="text-lg">
             <td>هزینه ارسال</td>
-            <td colspan="4"></td>
+            <td colspan="5"></td>
             <td>0</td>
         </tr>
         <tr class="text-lg">
             <td>مالیات</td>
-            <td colspan="4"></td>
+            <td colspan="5"></td>
             <td>0</td>
         </tr>
         <tr class="font-bold text-xl">
             <td> قابل پرداخت :</td>
-            <td colspan="4"></td>
+            <td colspan="5"></td>
             <td>@toman($total)</td>
         </tr>
     </table>

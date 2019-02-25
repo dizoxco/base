@@ -1,9 +1,25 @@
 // import $ from 'jquery';
 import Swiper from 'swiper';
+import Sortable from 'sortablejs';
 window.$ = window.jQuery = require("jquery");
 require("./front/productGallery");
 require("./front/mdc");
 require("./front/navigation");
+
+// table collapsible
+$('.collapse').click(function(){
+    $(this).next().toggleClass('hidden');
+    if($(this).next().hasClass('hidden')){
+        $(this).find('i').html('expand_more')
+    } else {
+        $(this).find('i').html('expand_less')
+    }
+    
+});
+
+
+// filter collapsible
+
 
   
 $('.scroll-swiper').each(function(){
@@ -72,7 +88,7 @@ $('a.chat-id').click(function(e){
     e.preventDefault();
     $.get( $(this).attr('api-href'), function( data ) {
         $( '.chat-comments' ).html( $(data).find('.chat-comments').html() );
-        new Swiper($('.chat-comments'), {
+        new Swiper($('.chat-comments .scroll-swiper'), {
             direction: 'vertical',
             slidesPerView: 'auto',
             freeMode: true,
@@ -157,7 +173,7 @@ $(document).ready(function () {
 
     $('#btn_side_login').click(function (event) {
         event.preventDefault();
-        $.post( "{{ route('api.auth.login') }}", {
+        $.post( "/api/auth/login", {
             service : $("#frm_side_login").find("input[name='service']").val(),
             password : $("#frm_side_login").find("input[name='password']").val(),
             remember : $("#frm_side_login").find("input[name='remember']").val()
@@ -171,7 +187,7 @@ $(document).ready(function () {
 
     $('#btn_side_register').click(function (event) {
         event.preventDefault();
-        $.post( "{{ route('api.auth.register') }}", {
+        $.post( "/api/auth/register", {
             name : $("#frm_side_register").find("input[name='name']").val(),
             service : $("#frm_side_register").find("input[name='service']").val(),
             password : $("#frm_side_register").find("input[name='password']").val(),
@@ -192,3 +208,12 @@ $(document).ready(function () {
         });
     });
 });
+
+
+$('.addable .add').click(function(){
+    $(this).prev().prev().append($(this).prev().html());
+    window.mdc.autoInit();
+});
+
+// var el = document.querySelector('.addable .items');
+// var sortable = Sortable.create(el);

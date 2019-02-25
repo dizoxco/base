@@ -5,18 +5,18 @@
             <i class="material-icons">star</i><i class="material-icons">star</i><i class="material-icons">star</i><i class="material-icons">star</i><i class="material-icons">star</i>
         </div>
     </div>
-    <div class="star-rating-fill" style="width:{{20 * $rating}}%;">
+    <div class="star-rating-fill" style="width:{{13.6 * $rating}}%;">
         <div class="star-rating">
             <i class="material-icons">star</i><i class="material-icons">star</i><i class="material-icons">star</i><i class="material-icons">star</i><i class="material-icons">star</i>
         </div>
     </div>
 </div>
 <style>
-    .star-rating .material-icons{font-size: 30px;}
+    .star-rating .material-icons{font-size: 1.4rem;}
     .star-rating{
         position: relative;
-        height: 30px;
-        width: 150px;
+        height: 20px;
+        width: 120px;
     }
     .star-rating-empty i{
         color:#d5d5d5;

@@ -11,18 +11,31 @@ use App\Http\Controllers\Controller;
 
 class WishlistController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function (Request $request, \Closure $next) {
+            if (($request->route()->getName() === 'wishlist.index') && Auth::check()) {
+                return redirect()->route('profile.wishlist.index');
+            }
+
+            return $next($request);
+        });
+    }
+
     public function index()
     {
         if (Auth::check()) {
             $wishlist = auth()->user()->wishlist()->with('users')->get();
+
+            return view('profile.wishlist', compact('wishlist'));
         } else {
             $wishlist = array_wrap(json_decode(Cookie::get('wishlist'), true));
             $wishlist = Product::whereHas('variations', function ($query) use ($wishlist) {
                 return $query->whereIn('id', array_keys($wishlist));
             })->get();
-        }
 
-        return view('profile.wishlist', compact('wishlist'));
+            return view('wishlist', compact('wishlist'));
+        }
     }
 
     public function store(Request $request, Product $product)

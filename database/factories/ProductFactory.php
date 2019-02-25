@@ -11,10 +11,10 @@ $factory->define(App\Models\Product::class, function () use ($faker) {
             'label' => 'رنگ',
             'type' => 'color',
             'values' => array_filter([
-                ['value' => 'red', 'label' => 'قرمز', 'color' => '#e5e5e5'],
-                ['value' => 'pink', 'label' => 'صورتی', 'color' => '#dddddd'],
-                ['value' => 'black', 'label' => 'مشکی', 'color' => '#555555'],
-                ['value' => 'yellow', 'label' => 'زرد', 'color' => '#aaaaaa'],
+                ['value' => 'red', 'label' => 'قرمز', 'color' => '#ff5c44'],
+                ['value' => 'pink', 'label' => 'صورتی', 'color' => '#ff95aa'],
+                ['value' => 'black', 'label' => 'مشکی', 'color' => '#000'],
+                ['value' => 'yellow', 'label' => 'زرد', 'color' => '#f9d42b'],
             ], function () {
                 return rand(0, 1);
             }),

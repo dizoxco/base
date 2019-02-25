@@ -24,7 +24,12 @@ class TicketController extends Controller
 
     public function store(StoreTicketRequest $request)
     {
-        $ticket = Auth::user()->tickets()->create(['business_id' => 0]);
+        $ticket = Auth::user()->tickets()->create([
+            'business_id' => 0,
+            'attributes' => [
+                'title' => $request->title
+            ]
+        ]);
         $request->merge(['user_id' => Auth::id()]);
         $ticket->comments()->create($request->all());
 
@@ -33,9 +38,9 @@ class TicketController extends Controller
 
     public function show(Ticket $ticket)
     {
-        $ticket->load('comments');
+        $tickets = Auth::user()->tickets;
 
-        return view('profile.tickets.show', compact('ticket'));
+        return view('profile.tickets.index', compact('tickets'));
     }
 
     public function reply(Request $request, Ticket $ticket)

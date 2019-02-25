@@ -42,9 +42,9 @@
             <img class="max-h-full" media-gallery="0" src="{{$banner->getFullUrl()}}" alt="">
         </div>
 
-        <div class="mr-16">
+        <div class="md:mr-16 w-full md:w-2/5">
             <h1 class="title">{{$product->title}}</h1>
-            <div class="flex caption pb-6">
+            <div class="flex items-center caption py-3">
                 @php
                     $number = 10;
                     $rating = 2.7;
@@ -55,16 +55,20 @@
                         'rating' => $rating,
                     ])@endcomponent
                 </div>
-                <p class="px-2">( {{$number}} رای )</p>
-                <p class="px-2">{{$rating}}</p>
+                <div class="flex">
+                    <p class="px-2">( {{$number}} رای )</p>
+                    {{-- <p class="px-2">{{$rating}}</p> --}}
+                </div>
 
             </div>
             <div class="price flex items-center py-6">
-                <p class="text-base text-grey-dark font-bold ml-10"><del>1,000,000 تومان</del></p>
-                <p class="text-xl font-bold ml-10">@toman($product->price)</p>
+                <p class="text-base text-grey-dark font-bold ml-6"><del>1,000,000 تومان</del></p>
+                <p class="text-xl font-bold ml-6">@toman($product->price)</p>
                 <div class="flex items-center">
-                    <div class="text-white rounded-full h-16 w-16 flex items-center justify-center bg-black border-4 border-solid border-white z-10 ">38%</div>
-                    <div class="text-white bg-grey-dark rounded-full py-2 px-4 pr-10 -mr-8 text-sm"> <span>تخفیف:</span><span class=""> 1,500,000 تومان</span></div>
+                    <div class="mouth-hole text-white rounded-full h-12 w-12 flex items-center justify-center bg-black border-4 border-solid border-white z-10 text-sm">%38</div>
+                    <div class="clip-path-holder px-10 -mr-8 p-4">
+                        <div class="tongue text-white bg-grey-dark rounded-full py-2 px-4 pr-10 -mr-8 text-sm"><span>تخفیف:</span><span class=""> 1,500,000 تومان</span></div>
+                    </div>
                 </div>
             </div>
             <div class="py-6">
@@ -75,7 +79,10 @@
                     @empty
                         مدلا
                     @endforelse
-                    <p class="rounded-full bg-black text-white px-4 py-2 text-sm mr-16">رضایت خرید : {{$rating*10}} %</p>
+                    <div class="mouth-hole text-white rounded-full h-12 w-12 flex items-center justify-center bg-black border-4 border-solid border-white z-10 mr-6 text-sm">%{{$rating*10}} </div>
+                    <div class="clip-path-holder px-10 -mr-8 p-4">
+                        <div class="tongue text-white bg-grey-dark rounded-full py-2 px-4 pr-10 -mr-8 text-sm">درصد رضایت خریداران</div>
+                    </div>
                 </div>
                 <div class="flex items-center py-2">
                     <i class="material-icons pl-2">access_time</i>
@@ -85,22 +92,24 @@
             
             <div id="product-options">
                 @foreach ($product->options as $option)
-                    @component('components.form.field')
-                        <div option="{{$option['name']}}">
-                            <span class="title">{{$option['label']}}:</span><br>
-                            @foreach ($option['values'] as $value)
-                                <div value="{{$value['value']}}" class="check p-2 border-2 border-solid ml-4 inline-block border-black rounded-full cursor-pointer">
-                                    @isset($value['color'])
-                                        <span class="border-2 border-solid p-3 inline-block border-black rounded-full align-middle" style="background-color: {{ $value['color'] }}">
+                    <div class="-mr-3">
+                        @component('components.form.field')
+                            <div option="{{$option['name']}}">
+                                <div class="mb-3">{{$option['label']}}:</div>
+                                @foreach ($option['values'] as $value)
+                                    <div value="{{$value['value']}}" class="check p-1 px-2 b  ml-4 inline-block rounded-full cursor-pointer bg-grey-lighter">
+                                        @isset($value['color'])
+                                            <span class="p-2 inline-block rounded-full align-middle" style="background-color: {{ $value['color'] }}">
+                                            </span>
+                                        @endisset
+                                        <span class="px-3">
+                                            {{$value['label']}}
                                         </span>
-                                    @endisset
-                                    <span>
-                                        {{$value['label']}}
-                                    </span>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endcomponent
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endcomponent
+                    </div>
                 @endforeach
             </div>
             <div class="flex items-center py-6">
@@ -113,6 +122,9 @@
                 <i class="material-icons p-2 rounded-full bg-grey-light mr-6">favorite_border</i>
                 <i class="material-icons p-2 rounded-full bg-grey-light mr-6">share</i>
             </div>
+
+            
+
             @if($is_favorite)
                 <a
                         style="text-decoration: none"
@@ -134,7 +146,7 @@
                     افزودن به علاقه مندی ها
                 </a>
             @endif
-            @if (!$product->single && count(auth()->user()->businesses))
+            @if (auth()->check() && !$product->single && count(auth()->user()->businesses))
                 <br>
                 @if (count(auth()->user()->businesses) > 1)
                     @component('components.form.button', [
@@ -177,7 +189,7 @@
         <div class="product-gallery bg-white hidden pin-y pin-x w-full h-full z-50 ">
             <div class="w-full flex">
                 <div class="w-1/8 flex flex-col">
-                    <div class="close hover:bg-grey-lighter h-screen/15 flex items-center justify-center" >
+                    <div class="close hover:bg-grey-lighter h-screen/15 w-full flex items-center justify-center" >
                         <i class="material-icons">close</i>
                     </div>
                     <div class="prev hover:bg-grey-lighter w-full flex items-center justify-center h-screen/7">
@@ -338,4 +350,7 @@
             </div> --}}
         </div>
     </div>
+    {{-- <div class="fixed pin-b h-16 w-full bg-red z-20">
+            jhkldfhksd
+    </div> --}}
 @endsection

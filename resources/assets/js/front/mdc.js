@@ -28,7 +28,7 @@ $('[dialog]').click(function(){
     dialogs[$(this).attr('dialog')].open();
 });
 
-const list = new MDCList(document.querySelector('.mdc-list'));
-const listItemRipples = list.listElements.map((listItemEl) => new MDCRipple(listItemEl));
+// const list = new MDCList(document.querySelector('.mdc-list'));
+// const listItemRipples = list.listElements.map((listItemEl) => new MDCRipple(listItemEl));
 
 mdcAutoInit();

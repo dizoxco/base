@@ -1,5 +1,5 @@
-@extends('profile.layout')
-@section('profile-content')
+@extends('layout')
+@section('content')
     <div class="flex flex-wrap container justify-center">
         @forelse($wishlist as $product)
             <div class="w-1/2 lg:w-1/4 p-3">
