@@ -16,7 +16,7 @@
         </thead>
         <tbody>
                 @forelse($orders as $order)
-                        <tr href="{{route('profile.orders.show', $order)}}">
+                        <tr href="{{route('profile.businesses.orders.show', [$business->slug, $order])}}">
                                 <td>
                                         {{ $loop->index * request('per_page') + 1 }}
                                 </td>
