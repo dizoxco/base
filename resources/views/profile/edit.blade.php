@@ -2,14 +2,19 @@
 @section('profile-content')
     @component('components.form',[
         'action' => route('profile.update'),
-        'method' => 'PUT'
+        'method' => 'PUT',
+        'enctype' => true,
     ])
 
+        @forelse($errors->all() as $error)
+            {{ $error }}
+        @empty
+        @endforelse
         @component('components.form.text', [
             'label' => 'نام',
             'name' => 'name',
             'half' => true,
-            'value' => old('name', Auth::user()->name)
+            'value' => old('name', $user->name)
         ])
         @endcomponent
 
@@ -20,11 +25,11 @@
             'label' => 'ایمیل',
             'name' => 'email',
             'half' => true,
-            'value' => old('email', Auth::user()->email)
+            'value' => old('email', $user->email)
         ])
         @endcomponent
 
-        @if(Auth::user()->email !== null && Auth::user()->hasNotVerified('email') && !session('token'))
+        @if($user->email !== null && $user->hasNotVerified('email') && !session('token'))
             <a href="{{ route('profile.verification.email.send') }}">
                 Email Verification
             </a>
@@ -37,11 +42,11 @@
             'label' => 'تلفن همراه',
             'name' => 'mobile',
             'half' => true,
-            'value' => old('mobile', Auth::user()->mobile)
+            'value' => old('mobile', $user->mobile)
         ])
         @endcomponent
 
-        @if(Auth::user()->mobile && Auth::user()->hasNotVerified('mobile') && !session('token'))
+        @if($user->mobile && $user->hasNotVerified('mobile') && !session('token'))
             <a href="{{ route('profile.verification.mobile.send') }}">
                 Mobile Verification
             </a>
@@ -61,7 +66,7 @@
             'type' => 'password'
         ])
         @endcomponent
-        
+
         @component('components.form.text', [
             'label' => 'تکرار رمز عبور',
             'name' => 'password_confirmation',
@@ -69,6 +74,12 @@
             'type' => 'password'
         ])
         @endcomponent
+
+        @if($user->hasAvatar())
+            <img src="{{ $user->avatar->getUrl() }}" alt="avatar">
+        @endif
+        <input type="file" id="avatar" class="mdc-text-field__input" name="avatar">
+
 
         @component('components.form.field')
             @component('components.form.button',[

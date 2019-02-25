@@ -55,6 +55,11 @@ class User extends Authenticatable implements HasMedia
         return $total;
     }
 
+    public function getAvatarAttribute()
+    {
+        return $this->getFirstMedia(enum('media.user.avatar'));
+    }
+
     //  =============================== End Accessor ==========================
 
     //  =============================== Relationships =========================
@@ -149,6 +154,11 @@ class User extends Authenticatable implements HasMedia
     public function hasBusiness()
     {
         return $this->businesses->isNotEmpty();
+    }
+
+    public function hasAvatar()
+    {
+        return $this->getMedia(enum('media.user.avatar'))->isNotEmpty();
     }
 
     //  =============================== End Complementary Methods =============

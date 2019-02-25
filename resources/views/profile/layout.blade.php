@@ -3,8 +3,12 @@
     <div id="profile-layout">
         <div class="profile-nav fixed h-full" style="top:64px">
             <div class="side__loged-user text-left -mr-16 bg-grey-darker rounded-l-full flex items-center justify-end ml-12 mt-4">
-                <a href="/profile" class="text-white bg-grey-dark rounded-full py-2 px-5 pl-12 -ml-6 text-sm">پروفایل  {{auth()->user()->name}}</a>
-                <img class="w-24 h-24 rounded-full border-8 border-solid border-grey-darker " src="{{auth()->user()->getFirstMedia('avatar') ? auth()->user()->getFirstMedia('avatar')->getUrl() : '/images/avatar.jpg'}}" alt="">
+                <a href="{{ route('profile.index') }}" class="text-white bg-grey-dark rounded-full py-2 px-5 pl-12 -ml-6 text-sm">پروفایل  {{\Auth::user()->name}}</a>
+                <img
+                        class="w-24 h-24 rounded-full border-8 border-solid border-grey-darker"
+                        src="{{ \Auth::user()->hasAvatar() ? \Auth::user()->avatar->getUrl() : '/images/avatar.jpg'}}"
+                        alt="avatar"
+                >
             </div>
             <ul class="mdc-list profile-mdc-list">
                 <a href="{{ route('profile.wishlist.index') }}" class="block">

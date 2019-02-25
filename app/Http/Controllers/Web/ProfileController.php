@@ -20,7 +20,7 @@ class ProfileController extends Controller
 
     public function edit()
     {
-        return view('profile.edit');
+        return view('profile.edit')->withUser(Auth::user());
     }
 
     public function update(UpdateProfileRequest $request)
@@ -36,7 +36,11 @@ class ProfileController extends Controller
                 ]);
             }
         }
-        UserRepo::update(Auth::user(), array_filter($request->all()));
+
+        if ($request->hasFile('avatar')) {
+            Auth::user()->addMediaFromRequest('avatar')->toMediaCollection(enum('media.user.avatar'));
+        }
+        UserRepo::update(Auth::user(), array_filter($request->except('avatar')));
 
         return redirect()->route('profile.index');
     }

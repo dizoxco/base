@@ -25,7 +25,7 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         $rule = [
-            'name' => 'required',
+            'name' => 'required|string',
             'email' => [
                 'required_without:mobile', 'nullable', 'string', 'email', 'max:255',
                 Rule::unique('users', 'email')->ignore(auth()->user()->id),
@@ -34,6 +34,7 @@ class UpdateProfileRequest extends FormRequest
                 'required_without:email', 'nullable', 'string', 'iran_mobile',
                 Rule::unique('users', 'mobile')->ignore(auth()->user()->id),
             ],
+            'avatar' => 'image'
         ];
 
         if ($this->filled('old_password')) {
