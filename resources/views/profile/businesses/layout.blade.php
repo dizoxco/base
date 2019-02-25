@@ -27,14 +27,15 @@
             </ul>
         </div>
         <div class="profile-content">
-            <div class="bg-blue">
-                <div class="container">
-                    <br>
-                    <h1 class="text-white">{{$title ?? 'عنوان بده'}}</h1>
-                    <br><br>
+            <div class="bg-grey-darker">
+                <div class="flex items-center px-12 pt-6 pb-12 justify-between">
+                    <h1 class="text-white title my-6">{{$title ?? 'عنوان بده'}}</h1>
+                    <div>
+                        @yield('profile-actions')
+                    </div>
                 </div>
             </div>
-            <div class="bg-white p-8 pb-2 -mt-8 rounded-lg">
+            <div class="bg-white -mt-8 rounded-t-lg overflow-hidden">
                 @yield('profile-content')
             </div>
         </div>

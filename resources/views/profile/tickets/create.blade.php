@@ -1,4 +1,4 @@
-@extends('profile.layout')
+@extends('profile.layout', ['title' => 'افزودن تیکت جدید'])
 @section('profile-content')
     @component('components.form',[
         'action' => route('profile.tickets.store'),

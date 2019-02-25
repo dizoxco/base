@@ -1,4 +1,11 @@
 @extends('profile.layout', ['title' => 'تیکت ها'])
+@section('profile-actions')
+    @component('components.form.button',[
+        'label' => 'تیکت جدید',
+        'link' => route('profile.tickets.create')
+    ])                    
+    @endcomponent
+@endsection
 @section('profile-content')
     @component('components.chat',[
         'chats' => $tickets,
