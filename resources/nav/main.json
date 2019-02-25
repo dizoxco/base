@@ -40,6 +40,14 @@
         "link": "/search/mobiles"
     },
     {
+        "label": "طراحی آنلاین",
+        "link": "/designers/1"
+    },
+    {
+        "label": "مجله مدلا",
+        "link": "/posts"
+    },
+    {
         "label": "پروفایل",
         "link": "/profile"
     }
