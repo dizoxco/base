@@ -1,32 +1,33 @@
-@extends('profile.layout')
+@extends('profile.layout', ['title' => 'پروفایل'])
 
 @section('profile-content')
-    <div class="flex flex-wrap">
-        <h1>پروفایل</h1>
-    </div>
-    نام : {{ $user->full_name }}
+    <span class="text-grey-dark font-bold pl-4 my-2 ">نام :</span>
+     {{ $user->full_name }}
     @component('components.form.field')
     @endcomponent
-    ایمیل : {{ $user->email }}
+    <span class="text-grey-dark font-bold pl-4 my-2 ">ایمیل :</span>
+    {{ $user->email }}
         @if($user->hasVerified('email'))
             ایمیل تایید شده است
             <i class="material-icons bg-green" >done</i>
         @endif
     @component('components.form.field')
     @endcomponent
-    موبایل : {{ $user->mobile }} تایید موبایل
+    <span class="text-grey-dark font-bold pl-4 my-2 ">موبایل :</span>
+    {{ $user->mobile }} تایید موبایل
         @if($user->hasVerified('mobile'))
             موبایل تایید شده است
             <i class="material-icons bg-green" >done</i>
         @endif
     @component('components.form.field')
     @endcomponent
-    عضویت از : {{ $user->created_at->diffForHumans() }}
+    <span class="text-grey-dark font-bold pl-4 my-2 ">عضویت از :</span>
+    {{ $user->created_at->diffForHumans() }}
     @component('components.form.field')
     @endcomponent
-    آخرین به روزرسانی : {{ $user->updated_at->diffForHumans() }}
-    <hr>
-    <table class="table-patch">
+    <span class="text-grey-dark font-bold pl-4 my-2 ">آخرین به روزرسانی :</span>
+    {{ $user->updated_at->diffForHumans() }}
+    <table class="table-patch mt-10">
         <thead>
         <tr>
             <th>ردیف</th>

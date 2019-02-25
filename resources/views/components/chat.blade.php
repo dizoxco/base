@@ -16,7 +16,7 @@
 @if ($chats->isEmpty())
     <h2>گفتگویی موجود نیست</h2>
 @else
-<div class="flex h-screen/7 shadow rounded-lg overflow-hidden">
+<div class="flex shadow rounded-lg overflow-hidden" style="height:calc(100vh - 182px)">
     <div class="w-1/4 h-full swiper-container scroll-swiper bg-grey-lighter ">
         <div class="swiper-wrapper">
             <div class="swiper-slide" style="height:auto">
@@ -43,8 +43,8 @@
                                 break;
                         }
                     @endphp
-                    <div class="p-2 border-b border-solid border-grey-lighter hover:bg-grey-light">
-                        <a class="chat-id flex" href="{{$href}}" api-href="{{$ajax_href}}">
+                    <div class="p-3 border-b border-solid border-grey-lighter hover:bg-grey-light pr-12">
+                        <a class="chat-id flex text-black" href="{{$href}}" api-href="{{$ajax_href}}">
                             @if ($chatwith == 'modella')
                                 <span class="bg-grey-darkest text-white w-12 h-12 rounded-full text-align-center">
                                     123
@@ -66,7 +66,7 @@
         <div class="swiper-scrollbar"></div>
     </div>
     <div class="w-3/4 h-full chat-comments bg-grey-lighter flex flex-col">
-        <div class="bg-grey-darkest flex items-center px-8 z-10 p-2 z-50 w-full shadow-lg">
+        <div class="bg-grey-darkest flex items-center px-8 z-10 p-2 z-50 w-full shadow-lg" style="line-height: 4rem">
             <img class="w-10 rounded-full" src="/images/avatar.jpg" alt="">
             <div class="font-bold text-white p-4">
                     @switch($chatwith)
@@ -83,7 +83,7 @@
         </div>
         <div class="w-full swiper-container scroll-swiper h-full">
             <div class="swiper-wrapper">
-                <div class="swiper-slide py-4 px-8" style="height:auto; box-sizing: border-box">
+                <div class="swiper-slide py-4 px-8 pl-12" style="height:auto; box-sizing: border-box">
                     @foreach ($chat->comments as $comment)
                         @php
                             switch ($chatwith) {
