@@ -17,7 +17,7 @@
         @forelse($orders as $order)
             <tr>
                 <td>
-                    <a href="{{ route('profile.businesses.show.orders.show', [$business->slug, $order]) }}">
+                    <a href="{{ route('profile.businesses.orders.show', [$business->slug, $order]) }}">
                         {{ $order->id }}
                     </a>
                 </td>

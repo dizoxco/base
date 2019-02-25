@@ -11,7 +11,7 @@
         @forelse($products as $product)
             <tr>
                 <td>
-                    <a href="{{ route('products.show', $product->slug) }}">
+                    <a href="{{ route('profile.businesses.products.show', [$business->slug, $product->slug]) }}">
                         {{ str_limit($product->title, 60) }}
                     </a>
                 </td>

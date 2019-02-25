@@ -26,7 +26,7 @@
                         @endcomponent
                         @component('components.form.button',[
                             'label' => 'حذف',
-                            'link' => route('profile.addresses.create'),
+                            'link' => route('profile.addresses.destroy', $address),
                             'dense' => true,
                             'type' => 'text',
                         ])                    
