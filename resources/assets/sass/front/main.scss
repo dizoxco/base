@@ -58,6 +58,11 @@ table{
     border-radius: 1em;
     overflow: hidden;
     width: 100%;
+
+    & a{
+        color: #000;
+    }
+
     &:not(:last-child) {
         border-bottom: 1px solid #DAE1E7;
     }
