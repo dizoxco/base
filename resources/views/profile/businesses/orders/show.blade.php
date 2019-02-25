@@ -15,14 +15,14 @@
         @forelse($variations as $variation)
             <tr>
                 <td>
-                    <a href="{{ route('profile.businesses.show.orders.show', [$business->slug, $order]) }}">
+                    <a href="{{ route('profile.businesses.orders.show', [$business->slug, $order]) }}">
                         {{ $order->id }}
                     </a>
                 </td>
                 <td>{{ $order->user->fullname }}</td>
                 <td>{{ $business->brand }}</td>
                 <td>
-                    <a href="{{ route('products.show', $variation->product->slug) }}">
+                    <a href="{{ route('profile.businesses.products.show', [$business->slug, $variation->product->slug]) }}">
                         {{ $variation->product->title }}
                     </a>
                 </td>

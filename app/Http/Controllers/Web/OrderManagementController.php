@@ -10,16 +10,16 @@ class OrderManagementController extends Controller
 {
     public function index(Business $business)
     {
-        $orders = $business->products()->with('relatedVariations.orders.city', 'relatedVariations.orders.user')->get();
-        $orders = $orders->pluck('relatedVariations')->collapse()->pluck('orders')->collapse();
+        $orders = $business->products()->with('variations.orders.city', 'variations.orders.user')->get();
+        $orders = $orders->pluck('variations')->collapse()->pluck('orders')->collapse();
 
-        return view('profile.businesses.orders', compact('orders', 'business'));
+        return view('profile.businesses.orders.index', compact('orders', 'business'));
     }
 
     public function show(Business $business, Order $order)
     {
         $variations = $order->load('variations')->variations;
 
-        return view('profile.businesses.showOrder', compact('business', 'order', 'variations'));
+        return view('profile.businesses.orders.show', compact('business', 'order', 'variations'));
     }
 }

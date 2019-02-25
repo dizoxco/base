@@ -166,18 +166,6 @@
                         @foreach (auth()->user()->businesses as $business)
                             {{$business->brand}} <br>
                         @endforeach
-                        @component('components.form.field')
-                            @component('components.form.select', [
-                                'label' => 'افزودن کسب و کار',
-                                'options' => [
-                                    'aa' => 'aaa',
-                                    'bb' => 'bbb',
-                                    'cc' => 'ccc',
-                                    'dd' => 'ddd',
-                                ],
-                            ])
-                            @endcomponent
-                        @endcomponent
                     @endcomponent
                 @else
                     link
