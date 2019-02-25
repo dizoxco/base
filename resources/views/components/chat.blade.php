@@ -13,6 +13,9 @@
             break;
     }
 @endphp
+@if ($chats->isEmpty())
+    <h2>گفتگویی موجود نیست</h2>
+@else
 <div class="flex h-screen/7 shadow rounded-lg overflow-hidden">
     <div class="w-1/4 h-full swiper-container scroll-swiper bg-grey-lighter ">
         <div class="swiper-wrapper">
@@ -118,3 +121,4 @@
         </div>
     </div>
 </div>
+@endif
