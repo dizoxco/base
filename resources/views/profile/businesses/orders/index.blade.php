@@ -1,37 +1,50 @@
 @extends('profile.businesses.layout', ['title' => "لیست سفارشات $business->brand "])
 @section('title', $business->brand)
 @section('profile-content')
-    <table>
-        <tr>
-            <th>کد سفارش</th>
-            <th>خریدار</th>
-            <th>گیرنده</th>
-            <th>موبایل</th>
-            <th>شهر</th>
-            <th>آدرس</th>
-            <th>کد پستی</th>
-            <th>وضعیت</th>
-            <th>تاریخ ایجاد</th>
-            <th>تاریخ به روزرسانی</th>
-        </tr>
-        @forelse($orders as $order)
-            <tr>
-                <td>
-                    <a href="{{ route('profile.businesses.orders.show', [$business->slug, $order]) }}">
-                        {{ $order->id }}
-                    </a>
-                </td>
-                <td>{{ $order->user->fullname }}</td>
-                <td>{{ $order->receiver }}</td>
-                <td>{{ $order->mobile }}</td>
-                <td>{{ $order->city->name }}</td>
-                <td>{{ $order->address }}</td>
-                <td>{{ $order->postal_code }}</td>
-                <td>{{ $order->done ? 'Complete' : 'inComplete' }}</td>
-                <td>{{ $order->created_at->diffForHumans() }}</td>
-                <td>{{ $order->updated_at->diffForHumans() }}</td>
-            </tr>
-        @empty
-        @endforelse
-    </table>
+<table class="table-patch">
+        <thead>
+                <tr>
+                        <th>ردیف</th>
+                        <th>شناسه سفارش</th>
+                        <th>تاریخ ثبت سفارش</th>
+                        <th>وضعیت تحویل</th>
+                        <th>مبلغ قابل پرداخت</th>
+                        <th>مبلغ کل</th>
+                        <th>وضعیت پرداخت</th>
+                        <th>جزییات</th>
+                </tr>
+        </thead>
+        <tbody>
+                @forelse($orders as $order)
+                        <tr href="{{route('profile.orders.show', $order)}}">
+                                <td>
+                                        {{ $loop->index * request('per_page') + 1 }}
+                                </td>
+                                <td>
+                                        {{ $order->id }}
+                                </td>
+                                <td>
+                                        {{ $order->created_at->diffForHumans() }}
+                                </td>
+                                <td>
+                                        {{ array_column(enum('order.status'),'label')[$order->status] ?? '-' }}
+                                </td>
+                                <td>
+                                        @toman($order->cost)
+                                </td>
+                                <td>
+                                        @toman($order->cost)
+                                </td>
+                                <td>
+                                        @toman($order->paid)
+                                </td>
+                                <td>
+                                        <i class="material-icons align-middle">chevron_left</i>
+                                </td>
+                        </tr>
+                @empty
+                        <td colspan="4">شما سفارشی ندارید</td>
+                @endforelse
+        </tbody>
+</table>
 @endsection

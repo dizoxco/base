@@ -1,4 +1,4 @@
-@extends('profile.layout', ['title' => 'افزودن کسب و کار'])
+@extends(isset($business)? 'profile.businesses.layout' :'profile.layout', ['title' => 'افزودن کسب و کار'])
 @section('profile-content')
     @component('components.form', $form)
         @component('components.form.text', [

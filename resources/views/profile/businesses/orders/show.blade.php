@@ -1,38 +1,130 @@
 @extends('profile.businesses.layout', ['title' => "سفارش شماره $order->id"])
 @section('profile-content')
-    <table>
-        <tr>
-            <th>کد سفارش</th>
-            <th>خریدار</th>
-            <th>کسب و کار</th>
-            <th>محصول</th>
-            <th>قیمت پایه</th>
-            <th>تعداد سفارش</th>
-            <th>قیمت کلی</th>
-            <th>تاریخ ایجاد</th>
-            <th>تاریخ به روزرسانی</th>
-        </tr>
-        @forelse($variations as $variation)
-            <tr>
+<div class="flex items-center w-1/2 pl-4">
+    <div class="text-grey-dark font-bold pl-4 my-2 ">شماره سفارش:</div>{{ $order->id }}
+</div>
+<div class="flex items-center w-1/2 pl-4">
+    <div class="text-grey-dark font-bold pl-4 my-2 ">تاریخ سفارش:</div>{{ $order->created_at->diffForHumans() }}
+</div>
+<div class="flex items-center w-1/2 pl-4">
+    <div class="text-grey-dark font-bold pl-4 my-2 ">وضضعیت سفارش:</div>{{ $order->status }}
+</div>
+<div class="bg-grey-lighter rounded-lg p-10 my-8" >
+    <div class="font-bold mb-6">اطلاعات سفارش دهنده</div>
+    <div class="flex ">
+        <div class="flex items-center w-1/2 pl-4">
+            <div class="text-grey-dark font-bold pl-4 my-2 ">نام:</div>{{ $order->user->name }}
+        </div>
+        <div class="flex items-center w-1/2">
+            <div class="text-grey-dark font-bold pl-4 my-2 ">تلفن:</div>{{ $order->mobile }}
+        </div>
+    </div>
+    <div class="flex ">
+        <div class="flex items-center w-1/2 pl-4">
+            <div class="text-grey-dark font-bold pl-4 my-2 ">آدرس:</div>{{ $order->address }}
+        </div>
+        <div class="flex items-center w-1/2">
+            <div class="text-grey-dark font-bold pl-4 my-2 ">کد پستی:</div>{{ $order->postal_code }}
+        </div>
+    </div>
+    <div class="flex ">
+        <div class="flex items-center w-1/2 pl-4">
+            <div class="text-grey-dark font-bold pl-4 my-2 ">هزینه ارسال:</div>نداریم
+        </div>
+        <div class="flex items-center w-1/2">
+            <div class="text-grey-dark font-bold pl-4 my-2 ">نحوه ارسال:</div>نداریم
+        </div>
+    </div>
+</div>
+<table class="my-10">
+    <thead>
+        <th> ردیف </th>
+        <th>نام محصول</th>
+        <th>تعداد</th>
+        <th>قیمت واحد</th>
+        <th>قیمت کل</th>
+        <th>قیمت نهایی</th>
+        <th></th>
+    </thead>
+    <tbody>
+        @foreach($order->variations as $variation)
+            <tr class="collapse">
                 <td>
-                    <a href="{{ route('profile.businesses.orders.show', [$business->slug, $order]) }}">
-                        {{ $order->id }}
-                    </a>
+                    {{ $loop->index + 1 }}
                 </td>
-                <td>{{ $order->user->fullname }}</td>
-                <td>{{ $business->brand }}</td>
                 <td>
-                    <a href="{{ route('profile.businesses.products.show', [$business->slug, $variation->product->slug]) }}">
-                        {{ $variation->product->title }}
-                    </a>
+                    {{ $variation->product->title }}
                 </td>
-                <td>@toman($variation->price)</td>
-                <td>{{ $variation->getOriginal('pivot_count') }}</td>
-                <td>@toman($variation->getOriginal('pivot_count') * $variation->price)</td>
-                <td>{{ $order->created_at->diffForHumans() }}</td>
-                <td>{{ $order->updated_at->diffForHumans() }}</td>
+                <td>
+                    {{ $variation->pivot->quantity }}
+                </td>
+                <td>
+                    {{ $variation->pivot->price }}
+                </td>
+                <td>
+                    {{ $variation->pivot->price * $variation->pivot->quantity }}
+                </td>
+                <td>
+                    {{ $variation->pivot->price * $variation->pivot->quantity }}
+                </td>
+                <td>
+                    <i class="material-icons">expand_more</i>
+                </td>
             </tr>
-        @empty
-        @endforelse
+            <tr class="colapsable hidden">
+                <td colspan="8">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            {{ $variation->business->brand }}
+                        </div>
+                        <div>
+                            <span class="pl-6">زمان تحویل</span>{{ $order->created_at->addDays($variation->delivery)->diffForHumans() }}
+                        </div>
+                        <div>
+                            @forelse($variation->business->contact as $contact => $details)
+                            @forelse($details as $detail)
+                                {{ $detail['label'] }} : {{ $detail['value'] }}
+                                <br>
+                            @empty
+                                no contact
+                            @endforelse
+                            <br>
+                            @empty
+                                آدرس ندارد
+                            @endforelse
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+    <tr class="text-lg">
+        <td>
+            @php
+            $total = $order->variations->reduce(function ($carry, $variation) {
+                return $carry + ($variation->pivot->quantity * $variation->pivot->price);
+            });
+            @endphp
+            جمع کل :
+        </td>
+        <td colspan="5"></td>
+        <td>@toman($total)</td>
+    </tr>
+    
+    <tr class="text-lg">
+        <td>هزینه ارسال</td>
+        <td colspan="5"></td>
+        <td>0</td>
+    </tr>
+    <tr class="text-lg">
+        <td>مالیات</td>
+        <td colspan="5"></td>
+        <td>0</td>
+    </tr>
+    <tr class="font-bold text-xl">
+        <td> قابل پرداخت :</td>
+        <td colspan="5"></td>
+        <td>@toman($total)</td>
+    </tr>
     </table>
 @endsection
