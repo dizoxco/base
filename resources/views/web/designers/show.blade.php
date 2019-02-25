@@ -63,6 +63,7 @@ $('.designer-canvas [option]').click(function(){
     $(this).parent().find('.active').removeClass('active');
     $(this).addClass('active');
     $('.designer-canvas [panel='+$(this).attr('option')+']').addClass('active');
+    renderDesigner();
 })
 $('.designer-canvas .value').click(function(){
     if (!$(this).hasClass('disable')) {
@@ -131,12 +132,17 @@ function renderDesigner(){
     
     var imgs = $('.designer-canvas .canvas img');
     
+    if (imgs[0] == undefined) {
+        $('.designer-canvas .canvas').append('<img src="/png/'+designer.order.camera+'-AVATAR.png" />');
+    }else{
+        imgs[0].src = "/png/" + designer.order.camera + '-AVATAR.png';
+        // $('.designer-canvas .canvas').append('<img src="/png/'+designer.order.camera+'-AVATAR.png" />');
+    }
     designer.order.render.map(function(src, i){
-        if (imgs[i] == undefined) {
+        if (imgs[i+1] == undefined) {
             $('.designer-canvas .canvas').append('<img src="/png/'+ src +'" />');
         }else{
-            
-            imgs[i].src = "/png/" + src;
+            imgs[i+1].src = "/png/" + src;
             // imgs[i].setAttribute('src', "/png/" + src);// attr('src', src);
         }
     })
