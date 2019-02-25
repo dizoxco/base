@@ -12,7 +12,7 @@ class SearchPanelTableSeeder extends Seeder
     {
         SearchPanel::create([
             'title' => 'تلفن های همراه',
-            'slug' => 'mobiles',
+            'slug' => 'dresses',
             'description' => 'lorem ipsum',
             'model' => Product::class,
             'options' => [
