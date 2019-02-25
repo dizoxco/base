@@ -26,10 +26,28 @@
                         @endcomponent
                         @component('components.form.button',[
                             'label' => 'حذف',
-                            'link' => route('profile.addresses.destroy', $address),
                             'dense' => true,
                             'type' => 'text',
+                            'dialog' => $address->id
                         ])                    
+                        @endcomponent
+                        @component('components.dialog',[
+                            'id' => $address->id,
+                            'title' => 'حذف',
+                            'cancel' => 'انصراف'
+                        ])
+                            <a
+                                    href=""
+                                    onclick="event.preventDefault(); document.getElementById('frm{{ $address->id }}').submit()"
+                            >
+                                {{ $address->address }}
+                            </a>
+                            @component('components.form',[
+                                'action' => route('profile.addresses.destroy',$address),
+                                'method' => 'delete',
+                                'id' => 'frm'.$address->id
+                            ])
+                            @endcomponent
                         @endcomponent
                     </div>
                 </div>

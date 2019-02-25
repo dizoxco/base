@@ -128,7 +128,7 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
         });
     });
 
-    Route::resource('addresses', 'AddressController');
+    Route::resource('addresses', 'AddressController')->except('show');
 });
 
 // ==================================== Admin Section =========================
