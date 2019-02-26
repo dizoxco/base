@@ -82,7 +82,7 @@ Route::middleware('auth:api')->group(function () {
         });
     });
 
-    Route::name('searchpanels.')->prefix('searchpanel')->group(function () {
+    Route::name('searchpanels.')->prefix('searchpanels')->group(function () {
         Route::get('/', 'SearchPanelController@index')->name('index')->middleware('permission:manage_search_panels');
         Route::post('/', 'SearchPanelController@store')->name('store')->middleware('permission:manage_search_panels');
 
