@@ -1,7 +1,7 @@
 @php
     $variations = $product->combinedVariations;
 @endphp
-@extends('profile.businesses.layout', ['title' => $product->title])
+@extends('profile.businesses.layout', ['title' => $product->title, 'fit' => true])
 @section('profile-content')
     @component('components.form',[
         'action' => route('profile.businesses.products.update',[$business->slug, $product->slug]),

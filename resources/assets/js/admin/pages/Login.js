@@ -7,7 +7,7 @@ class Login extends Component{
  
     state = {
         form:{
-            email: 'admin@base.com',
+            service: 'admin@base.com',
             password: '123456'
         }
     }
@@ -22,8 +22,8 @@ class Login extends Component{
                 <Text 
                     label="نام کاربری"
                     onChange={(e) => Changer(this, e)}
-                    name="email"
-                    value={this.state.form.email}
+                    name="service"
+                    value={this.state.form.service}
                 />
                 <br/>
                 <br/>

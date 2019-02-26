@@ -88,7 +88,7 @@ class DesignerTableSeeder extends Seeder
                 ],
                 [
                     'label' => 'دامن',
-                    'camera' => 'Front',
+                    'camera' => 'Back',
                     'values' => [
                         ['label' => 'صورتی', 'key' => 'SK', 'value' => '001', 'fabric' => 'F002'],
                         ['label' => 'سبز', 'key' => 'SK', 'value' => '002', 'fabric' => 'F001'],

@@ -1,4 +1,4 @@
-@extends('profile.layout', ['title' => 'تیکت ها'])
+@extends('profile.layout', ['title' => 'تیکت ها' , 'fit' => true])
 @section('profile-actions')
     @component('components.form.button',[
         'label' => 'تیکت جدید',

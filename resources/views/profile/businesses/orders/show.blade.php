@@ -126,5 +126,5 @@
         <td colspan="5"></td>
         <td>@toman($total)</td>
     </tr>
-    </table>
+</table>
 @endsection
