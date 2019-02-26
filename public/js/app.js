@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 205);
+/******/ 	return __webpack_require__(__webpack_require__.s = 208);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -69,416 +69,8 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return win; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return doc; });
-/**
- * SSR Window 1.0.1
- * Better handling for window object in SSR environment
- * https://github.com/nolimits4web/ssr-window
- *
- * Copyright 2018, Vladimir Kharlampidi
- *
- * Licensed under MIT
- *
- * Released on: July 18, 2018
- */
-var doc = (typeof document === 'undefined') ? {
-  body: {},
-  addEventListener: function addEventListener() {},
-  removeEventListener: function removeEventListener() {},
-  activeElement: {
-    blur: function blur() {},
-    nodeName: '',
-  },
-  querySelector: function querySelector() {
-    return null;
-  },
-  querySelectorAll: function querySelectorAll() {
-    return [];
-  },
-  getElementById: function getElementById() {
-    return null;
-  },
-  createEvent: function createEvent() {
-    return {
-      initEvent: function initEvent() {},
-    };
-  },
-  createElement: function createElement() {
-    return {
-      children: [],
-      childNodes: [],
-      style: {},
-      setAttribute: function setAttribute() {},
-      getElementsByTagName: function getElementsByTagName() {
-        return [];
-      },
-    };
-  },
-  location: { hash: '' },
-} : document; // eslint-disable-line
-
-var win = (typeof window === 'undefined') ? {
-  document: doc,
-  navigator: {
-    userAgent: '',
-  },
-  location: {},
-  history: {},
-  CustomEvent: function CustomEvent() {
-    return this;
-  },
-  addEventListener: function addEventListener() {},
-  removeEventListener: function removeEventListener() {},
-  getComputedStyle: function getComputedStyle() {
-    return {
-      getPropertyValue: function getPropertyValue() {
-        return '';
-      },
-    };
-  },
-  Image: function Image() {},
-  Date: function Date() {},
-  screen: {},
-  setTimeout: function setTimeout() {},
-  clearTimeout: function clearTimeout() {},
-} : window; // eslint-disable-line
-
-
-
-
-/***/ }),
-
-/***/ 205:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(206);
-__webpack_require__(211);
-module.exports = __webpack_require__(212);
-
-
-/***/ }),
-
-/***/ 206:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_swiper__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sortablejs__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sortablejs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sortablejs__);
-// import $ from 'jquery';
-
-
-window.$ = window.jQuery = __webpack_require__(210);
-__webpack_require__(688);
-__webpack_require__(689);
-__webpack_require__(700);
-
-// table collapsible
-$('.collapse').click(function () {
-    $(this).next().toggleClass('hidden');
-    if ($(this).next().hasClass('hidden')) {
-        $(this).find('i').html('expand_more');
-    } else {
-        $(this).find('i').html('expand_less');
-    }
-});
-
-// filter collapsible
-
-
-$('.scroll-swiper').each(function () {
-    new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($(this), {
-        direction: 'vertical',
-        slidesPerView: 'auto',
-        freeMode: true,
-        scrollbar: {
-            el: '.swiper-scrollbar'
-        },
-        mousewheel: true
-    });
-});
-$('.swiper.simple').each(function () {
-    new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($(this), {
-        speed: 400,
-        spaceBetween: 0,
-        direction: $(this).attr('direction') ? $(this).attr('direction') : 'horizontal',
-        mousewheel: $(this).attr('direction') == 'vertical',
-        slidesPerView: $(this).attr('column'),
-        autoplay: true,
-        loop: false
-    });
-});
-
-$('.toggler').click(function () {
-    console.log('dd');
-
-    $($(this).attr('toggle-target')).toggleClass($(this).attr('toggle-class'));
-});
-
-$('.search-panel-options input').change(function (e) {
-    e.preventDefault();
-    var url = window.location.href.split('?')[0] + '?';
-    $('.search-panel-options input').each(function () {
-        switch ($(this).attr('type')) {
-            case 'checkbox':
-                if ($(this).is(':checked')) {
-                    url += $(this).attr('name') + '=' + $(this).val() + '&';
-                }
-                break;
-            default:
-                if ($(this).val()) {
-                    url += $(this).attr('name') + '=' + $(this).val() + '&';
-                }
-                break;
-        }
-    });
-    // ajaxUpdate(url, '.search-panel-result');
-
-    $.get(url, function (data) {
-        $('.search-panel-result').html($(data).find('.search-panel-result').html());
-        window.history.pushState({}, '', url);
-    }, 'html');
-});
-
-$('td').click(function () {
-    if ($(this).parent().attr('href')) {
-        window.location = $(this).parent().attr('href');
-    }
-});
-
-$('a.chat-id').click(function (e) {
-    e.preventDefault();
-    $.get($(this).attr('api-href'), function (data) {
-        $('.chat-comments').html($(data).find('.chat-comments').html());
-        new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($('.chat-comments .scroll-swiper'), {
-            direction: 'vertical',
-            slidesPerView: 'auto',
-            freeMode: true,
-            scrollbar: {
-                el: '.swiper-scrollbar'
-            },
-            mousewheel: true
-        });
-        window.mdc.autoInit(document.querySelector('.chat-comments'));
-    }, 'html');
-});
-
-if ($('#product-options').length) {
-    var productPageUpdate = function productPageUpdate() {
-        $('#product-options [option]').each(function () {
-            productOptions[$(this).attr('option')] = $(this).find('.check.active').length ? $(this).find('.check.active').attr('value') : $(this).find('.check').first().attr('value');
-        });
-        $('table.product-variations tr').each(function () {
-            var show = true;
-            for (var key in productOptions) {
-                if (productOptions[key] != $(this).attr(key)) show = false;
-            }
-            if (show) {
-                $(this).removeClass('hidden');
-            } else {
-                $(this).addClass('hidden');
-            }
-        });
-    };
-
-    var productOptions = {};
-    productPageUpdate();
-
-    $('#product-options .check').click(function () {
-        $(this).parent().find('.check.active').removeClass('active');
-        $(this).addClass('active');
-        productPageUpdate();
-    });
-}
-
-$('.mdc-select__selected-text').click(function () {
-    $('.mdc-select__menu').width($(this).parent().width());
-});
-
-$(document).ready(function () {
-    gapi.load('auth2', function () {
-        gapi.auth2.init();
-    });
-
-    function onSignIn(googleUser) {
-        var xhr;
-        var id_token = googleUser.getAuthResponse().id_token;
-        xhr = new XMLHttpRequest();
-        xhr.open('POST', '/google');
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="X-CSRF-Token"]').attr('content'));
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                window.location.reload();
-            } else if (xhr.status === 404) {
-                alert('invalid person');
-            } else if (xhr.status === 500) {
-                alert(' server error = ' + xhr.responseText);
-            } else {
-                alert(' unknown');
-            }
-        };
-        xhr.send('token=' + id_token);
-    }
-
-    $('#btn_side_login').click(function (event) {
-        event.preventDefault();
-        $.post("/api/auth/login", {
-            service: $("#frm_side_login").find("input[name='service']").val(),
-            password: $("#frm_side_login").find("input[name='password']").val(),
-            remember: $("#frm_side_login").find("input[name='remember']").val()
-        }).done(function (data) {
-            document.cookie = "token=" + data.access_token + ";path=/";
-            $("#frm_side_login").submit();
-        }).fail(function (data) {
-            alert(data.responseText);
-        });
-    });
-
-    $('#btn_side_register').click(function (event) {
-        event.preventDefault();
-        $.post("/api/auth/register", {
-            name: $("#frm_side_register").find("input[name='name']").val(),
-            service: $("#frm_side_register").find("input[name='service']").val(),
-            password: $("#frm_side_register").find("input[name='password']").val(),
-            password_confirmation: $("#frm_side_register").find("input[name='password_confirmation']").val(),
-            terms: $("#frm_side_register").find("input[name='terms']").val()
-        }).done(function (data) {
-            $("#frm_side_login").find("input[name='service']").val($("#frm_side_register").find("input[name='service']").val());
-
-            $("#frm_side_login").find("input[name='password']").val($("#frm_side_register").find("input[name='password']").val());
-
-            $("#frm_side_login").submit();
-        }).fail(function (data) {
-            alert(data.responseText);
-        });
-    });
-});
-
-$('.addable .add').click(function () {
-    $(this).prev().prev().append($(this).prev().html());
-    window.mdc.autoInit();
-});
-
-// var el = document.querySelector('.addable .items');
-// var sortable = Sortable.create(el);
-
-var designer = null;
-$('.designer-canvas').ready(function () {
-    $.get('/designers/' + $('.designer-canvas').attr('designer') + '/json', function (data) {
-        designer = data;
-        designer.data = {};
-        designer.order = {
-            camera: null,
-            parts: [],
-            fabrics: [],
-            render: [],
-            flags: []
-        };
-        Object.keys(designer.flags).map(function (key, index) {
-            designer.flags[key] = false;
-        });
-        renderDesigner();
-    });
-});
-$('.designer-canvas .options .back').click(function () {
-    $('.designer-canvas .values.active').removeClass('active');
-    $(this).parent().removeClass('active');
-});
-$('.designer-canvas [option]').click(function () {
-    $('.designer-canvas .values.active').removeClass('active');
-    $(this).parent().find('.active').removeClass('active');
-    $(this).addClass('active');
-    $('.designer-canvas [panel=' + $(this).attr('option') + ']').addClass('active');
-});
-$('.designer-canvas .value').click(function () {
-    if (!$(this).hasClass('disable')) {
-
-        if ($(this).attr('flagup')) designer.flags[$(this).attr('flagup')] = true;
-        if ($(this).attr('flagdown')) designer.flags[$(this).attr('flagdown')] = false;
-
-        $(this).parent().find('.active').removeClass('active');
-        $(this).addClass('active');
-        renderDesigner();
-    }
-});
-function renderDesigner() {
-
-    var active_option = $('.designer-canvas .options .option.active');
-    if (active_option.length == 0) {
-        active_option = $('.designer-canvas .options .option').first();
-        active_option.addClass('active');
-    }
-    designer.order.camera = active_option.attr('camera');
-    designer.order.render = [];
-
-    $('.designer-canvas .value[flag]').each(function () {
-        if (designer.flags[$(this).attr('flag')]) $(this).removeClass('disable');else $(this).addClass('disable');
-    });
-
-    $('.designer-canvas .values').each(function () {
-        var active = $(this).find('.value.active').first();
-
-        if (active.length == 0) {
-            active = $(this).find('.value').first();
-            active.addClass('active');
-        }
-        if (active.attr('flagup')) designer.flags[active.attr('flagup')] = true;
-        if (active.attr('flagdown')) designer.flags[active.attr('flagdown')] = false;
-
-        if (active.attr('value')) {
-            designer.order.parts[active.attr('key')] = active.attr('value');
-        }
-        if (active.attr('fabric')) {
-            designer.order.fabrics[active.attr('key')] = active.attr('fabric');
-        }
-    });
-
-    // console.log(designer);
-
-    // designer['cameras'][designer.camera.name]['layers'].map(function(layers, i){
-    //     designer.camera.layers[i] = {
-    //         layers: layers,
-    //         fabrics: designer['cameras'][designer.camera.name]['fabrics'][i]
-    //     }
-    // });
-
-
-    designer.cameras[designer.order.camera].layers.map(function (layer, layerIndex) {
-        var parts = '',
-            fabrics = '';
-        layer.map(function (part, partIndex) {
-            parts += part + designer.order.parts[part];
-            fabrics += designer.cameras[designer.order.camera].fabrics[layerIndex][partIndex] ? designer.order.fabrics[designer.parts[part].fabric] : 'F000';
-        });
-        designer.order.render[layerIndex] = designer.order.camera + '-' + layerIndex + '_' + parts + '_' + fabrics + '.png';
-    });
-
-    var imgs = $('.designer-canvas .canvas img');
-
-    designer.order.render.map(function (src, i) {
-        if (imgs[i] == undefined) {
-            $('.designer-canvas .canvas').append('<img src="/png/' + src + '" />');
-        } else {
-
-            imgs[i].src = "/png/" + src;
-            // imgs[i].setAttribute('src', "/png/" + src);// attr('src', src);
-        }
-    });
-
-    console.log(designer);
-}
-
-/***/ }),
-
-/***/ 207:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_dom7_dist_dom7_modular__ = __webpack_require__(208);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ssr_window__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_dom7_dist_dom7_modular__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ssr_window__ = __webpack_require__(118);
 /**
  * Swiper 4.4.6
  * Most modern mobile touch slider and framework with hardware accelerated transitions
@@ -7501,7 +7093,588 @@ Swiper.use(components);
 
 /***/ }),
 
+/***/ 118:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return win; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return doc; });
+/**
+ * SSR Window 1.0.1
+ * Better handling for window object in SSR environment
+ * https://github.com/nolimits4web/ssr-window
+ *
+ * Copyright 2018, Vladimir Kharlampidi
+ *
+ * Licensed under MIT
+ *
+ * Released on: July 18, 2018
+ */
+var doc = (typeof document === 'undefined') ? {
+  body: {},
+  addEventListener: function addEventListener() {},
+  removeEventListener: function removeEventListener() {},
+  activeElement: {
+    blur: function blur() {},
+    nodeName: '',
+  },
+  querySelector: function querySelector() {
+    return null;
+  },
+  querySelectorAll: function querySelectorAll() {
+    return [];
+  },
+  getElementById: function getElementById() {
+    return null;
+  },
+  createEvent: function createEvent() {
+    return {
+      initEvent: function initEvent() {},
+    };
+  },
+  createElement: function createElement() {
+    return {
+      children: [],
+      childNodes: [],
+      style: {},
+      setAttribute: function setAttribute() {},
+      getElementsByTagName: function getElementsByTagName() {
+        return [];
+      },
+    };
+  },
+  location: { hash: '' },
+} : document; // eslint-disable-line
+
+var win = (typeof window === 'undefined') ? {
+  document: doc,
+  navigator: {
+    userAgent: '',
+  },
+  location: {},
+  history: {},
+  CustomEvent: function CustomEvent() {
+    return this;
+  },
+  addEventListener: function addEventListener() {},
+  removeEventListener: function removeEventListener() {},
+  getComputedStyle: function getComputedStyle() {
+    return {
+      getPropertyValue: function getPropertyValue() {
+        return '';
+      },
+    };
+  },
+  Image: function Image() {},
+  Date: function Date() {},
+  screen: {},
+  setTimeout: function setTimeout() {},
+  clearTimeout: function clearTimeout() {},
+} : window; // eslint-disable-line
+
+
+
+
+/***/ }),
+
+/***/ 119:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+/**
+ * @template A
+ */
+class MDCFoundation {
+  /** @return enum{cssClasses} */
+  static get cssClasses() {
+    // Classes extending MDCFoundation should implement this method to return an object which exports every
+    // CSS class the foundation class needs as a property. e.g. {ACTIVE: 'mdc-component--active'}
+    return {};
+  }
+
+  /** @return enum{strings} */
+  static get strings() {
+    // Classes extending MDCFoundation should implement this method to return an object which exports all
+    // semantic strings as constants. e.g. {ARIA_ROLE: 'tablist'}
+    return {};
+  }
+
+  /** @return enum{numbers} */
+  static get numbers() {
+    // Classes extending MDCFoundation should implement this method to return an object which exports all
+    // of its semantic numbers as constants. e.g. {ANIMATION_DELAY_MS: 350}
+    return {};
+  }
+
+  /** @return {!Object} */
+  static get defaultAdapter() {
+    // Classes extending MDCFoundation may choose to implement this getter in order to provide a convenient
+    // way of viewing the necessary methods of an adapter. In the future, this could also be used for adapter
+    // validation.
+    return {};
+  }
+
+  /**
+   * @param {A=} adapter
+   */
+  constructor(adapter = {}) {
+    /** @protected {!A} */
+    this.adapter_ = adapter;
+  }
+
+  init() {
+    // Subclasses should override this method to perform initialization routines (registering events, etc.)
+  }
+
+  destroy() {
+    // Subclasses should override this method to perform de-initialization routines (de-registering events, etc.)
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (MDCFoundation);
+
+
+/***/ }),
+
+/***/ 120:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+/* eslint no-unused-vars: [2, {"args": "none"}] */
+
+/**
+ * Adapter for MDC Text Field Icon.
+ *
+ * Defines the shape of the adapter expected by the foundation. Implement this
+ * adapter to integrate the text field icon into your framework. See
+ * https://github.com/material-components/material-components-web/blob/master/docs/authoring-components.md
+ * for more information.
+ *
+ * @record
+ */
+class MDCTextFieldIconAdapter {
+  /**
+   * Gets the value of an attribute on the icon element.
+   * @param {string} attr
+   * @return {string}
+   */
+  getAttr(attr) {}
+
+  /**
+   * Sets an attribute on the icon element.
+   * @param {string} attr
+   * @param {string} value
+   */
+  setAttr(attr, value) {}
+
+  /**
+   * Removes an attribute from the icon element.
+   * @param {string} attr
+   */
+  removeAttr(attr) {}
+
+  /**
+   * Sets the text content of the icon element.
+   * @param {string} content
+   */
+  setContent(content) {}
+
+  /**
+   * Registers an event listener on the icon element for a given event.
+   * @param {string} evtType
+   * @param {function(!Event): undefined} handler
+   */
+  registerInteractionHandler(evtType, handler) {}
+
+  /**
+   * Deregisters an event listener on the icon element for a given event.
+   * @param {string} evtType
+   * @param {function(!Event): undefined} handler
+   */
+  deregisterInteractionHandler(evtType, handler) {}
+
+  /**
+   * Emits a custom event "MDCTextField:icon" denoting a user has clicked the icon.
+   */
+  notifyIconAction() {}
+}
+
+/* unused harmony default export */ var _unused_webpack_default_export = (MDCTextFieldIconAdapter);
+
+
+/***/ }),
+
 /***/ 208:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(209);
+__webpack_require__(226);
+module.exports = __webpack_require__(227);
+
+
+/***/ }),
+
+/***/ 209:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_swiper__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sortablejs__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sortablejs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sortablejs__);
+// import $ from 'jquery';
+
+
+window.$ = window.jQuery = __webpack_require__(212);
+__webpack_require__(213);
+__webpack_require__(214);
+__webpack_require__(225);
+
+// table collapsible
+$('.collapse').click(function () {
+    $(this).next().toggleClass('hidden');
+    if ($(this).next().hasClass('hidden')) {
+        $(this).find('i').html('expand_more');
+    } else {
+        $(this).find('i').html('expand_less');
+    }
+});
+
+// filter collapsible
+
+
+$('.scroll-swiper').each(function () {
+    new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($(this), {
+        direction: 'vertical',
+        slidesPerView: 'auto',
+        freeMode: true,
+        scrollbar: {
+            el: '.swiper-scrollbar'
+        },
+        mousewheel: true
+    });
+});
+$('.swiper.simple').each(function () {
+    new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($(this), {
+        speed: 400,
+        spaceBetween: 0,
+        direction: $(this).attr('direction') ? $(this).attr('direction') : 'horizontal',
+        mousewheel: $(this).attr('direction') == 'vertical',
+        slidesPerView: $(this).attr('column'),
+        autoplay: true,
+        loop: false
+    });
+});
+
+$('.toggler').click(function () {
+    console.log('dd');
+
+    $($(this).attr('toggle-target')).toggleClass($(this).attr('toggle-class'));
+});
+
+$('.search-panel-options input').change(function (e) {
+    e.preventDefault();
+    var url = window.location.href.split('?')[0] + '?';
+    $('.search-panel-options input').each(function () {
+        switch ($(this).attr('type')) {
+            case 'checkbox':
+                if ($(this).is(':checked')) {
+                    url += $(this).attr('name') + '=' + $(this).val() + '&';
+                }
+                break;
+            default:
+                if ($(this).val()) {
+                    url += $(this).attr('name') + '=' + $(this).val() + '&';
+                }
+                break;
+        }
+    });
+    // ajaxUpdate(url, '.search-panel-result');
+
+    $.get(url, function (data) {
+        $('.search-panel-result').html($(data).find('.search-panel-result').html());
+        window.history.pushState({}, '', url);
+    }, 'html');
+});
+
+$('td').click(function () {
+    if ($(this).parent().attr('href')) {
+        window.location = $(this).parent().attr('href');
+    }
+});
+
+$('a.chat-id').click(function (e) {
+    e.preventDefault();
+    $.get($(this).attr('api-href'), function (data) {
+        $('.chat-comments').html($(data).find('.chat-comments').html());
+        new __WEBPACK_IMPORTED_MODULE_0_swiper__["a" /* default */]($('.chat-comments .scroll-swiper'), {
+            direction: 'vertical',
+            slidesPerView: 'auto',
+            freeMode: true,
+            scrollbar: {
+                el: '.swiper-scrollbar'
+            },
+            mousewheel: true
+        });
+        window.mdc.autoInit(document.querySelector('.chat-comments'));
+    }, 'html');
+});
+
+if ($('#product-options').length) {
+    var productPageUpdate = function productPageUpdate() {
+        $('#product-options [option]').each(function () {
+            productOptions[$(this).attr('option')] = $(this).find('.check.active').length ? $(this).find('.check.active').attr('value') : $(this).find('.check').first().attr('value');
+        });
+        $('table.product-variations tr').each(function () {
+            var show = true;
+            for (var key in productOptions) {
+                if (productOptions[key] != $(this).attr(key)) show = false;
+            }
+            if (show) {
+                $(this).removeClass('hidden');
+            } else {
+                $(this).addClass('hidden');
+            }
+        });
+    };
+
+    var productOptions = {};
+    productPageUpdate();
+
+    $('#product-options .check').click(function () {
+        $(this).parent().find('.check.active').removeClass('active');
+        $(this).addClass('active');
+        productPageUpdate();
+    });
+}
+
+$('.mdc-select__selected-text').click(function () {
+    $('.mdc-select__menu').width($(this).parent().width());
+});
+
+$(document).ready(function () {
+    gapi.load('auth2', function () {
+        gapi.auth2.init();
+    });
+
+    function onSignIn(googleUser) {
+        var xhr;
+        var id_token = googleUser.getAuthResponse().id_token;
+        xhr = new XMLHttpRequest();
+        xhr.open('POST', '/google');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="X-CSRF-Token"]').attr('content'));
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                window.location.reload();
+            } else if (xhr.status === 404) {
+                alert('invalid person');
+            } else if (xhr.status === 500) {
+                alert(' server error = ' + xhr.responseText);
+            } else {
+                alert(' unknown');
+            }
+        };
+        xhr.send('token=' + id_token);
+    }
+
+    $('#btn_side_login').click(function (event) {
+        event.preventDefault();
+        $.post("/api/auth/login", {
+            service: $("#frm_side_login").find("input[name='service']").val(),
+            password: $("#frm_side_login").find("input[name='password']").val(),
+            remember: $("#frm_side_login").find("input[name='remember']").val()
+        }).done(function (data) {
+            document.cookie = "token=" + data.access_token + ";path=/";
+            $("#frm_side_login").submit();
+        }).fail(function (data) {
+            alert(data.responseText);
+        });
+    });
+
+    $('#btn_side_register').click(function (event) {
+        event.preventDefault();
+        $.post("/api/auth/register", {
+            name: $("#frm_side_register").find("input[name='name']").val(),
+            service: $("#frm_side_register").find("input[name='service']").val(),
+            password: $("#frm_side_register").find("input[name='password']").val(),
+            password_confirmation: $("#frm_side_register").find("input[name='password_confirmation']").val(),
+            terms: $("#frm_side_register").find("input[name='terms']").val()
+        }).done(function (data) {
+            $("#frm_side_login").find("input[name='service']").val($("#frm_side_register").find("input[name='service']").val());
+
+            $("#frm_side_login").find("input[name='password']").val($("#frm_side_register").find("input[name='password']").val());
+
+            $("#frm_side_login").submit();
+        }).fail(function (data) {
+            alert(data.responseText);
+        });
+    });
+});
+
+$('.addable .add').click(function () {
+    $(this).prev().prev().append($(this).prev().html());
+    window.mdc.autoInit();
+});
+
+// var el = document.querySelector('.addable .items');
+// var sortable = Sortable.create(el);
+
+var designer = null;
+$('.designer-canvas').ready(function () {
+    $.get('/designers/' + $('.designer-canvas').attr('designer') + '/json', function (data) {
+        designer = data;
+        designer.data = {};
+        designer.order = {
+            camera: null,
+            parts: [],
+            fabrics: [],
+            render: [],
+            flags: []
+        };
+        Object.keys(designer.flags).map(function (key, index) {
+            designer.flags[key] = false;
+        });
+        renderDesigner();
+    });
+});
+$('.designer-canvas .options .back').click(function () {
+    $('.designer-canvas .values.active').removeClass('active');
+    $(this).parent().removeClass('active');
+});
+$('.designer-canvas [option]').click(function () {
+    $('.designer-canvas .values.active').removeClass('active');
+    $(this).parent().find('.active').removeClass('active');
+    $(this).addClass('active');
+    $('.designer-canvas [panel=' + $(this).attr('option') + ']').addClass('active');
+});
+$('.designer-canvas .value').click(function () {
+    if (!$(this).hasClass('disable')) {
+
+        if ($(this).attr('flagup')) designer.flags[$(this).attr('flagup')] = true;
+        if ($(this).attr('flagdown')) designer.flags[$(this).attr('flagdown')] = false;
+
+        $(this).parent().find('.active').removeClass('active');
+        $(this).addClass('active');
+        renderDesigner();
+    }
+});
+function renderDesigner() {
+
+    var active_option = $('.designer-canvas .options .option.active');
+    if (active_option.length == 0) {
+        active_option = $('.designer-canvas .options .option').first();
+        active_option.addClass('active');
+    }
+    designer.order.camera = active_option.attr('camera');
+    designer.order.render = [];
+
+    $('.designer-canvas .value[flag]').each(function () {
+        if (designer.flags[$(this).attr('flag')]) $(this).removeClass('disable');else $(this).addClass('disable');
+    });
+
+    $('.designer-canvas .values').each(function () {
+        var active = $(this).find('.value.active').first();
+
+        if (active.length == 0) {
+            active = $(this).find('.value').first();
+            active.addClass('active');
+        }
+        if (active.attr('flagup')) designer.flags[active.attr('flagup')] = true;
+        if (active.attr('flagdown')) designer.flags[active.attr('flagdown')] = false;
+
+        if (active.attr('value')) {
+            designer.order.parts[active.attr('key')] = active.attr('value');
+        }
+        if (active.attr('fabric')) {
+            designer.order.fabrics[active.attr('key')] = active.attr('fabric');
+        }
+    });
+
+    // console.log(designer);
+
+    // designer['cameras'][designer.camera.name]['layers'].map(function(layers, i){
+    //     designer.camera.layers[i] = {
+    //         layers: layers,
+    //         fabrics: designer['cameras'][designer.camera.name]['fabrics'][i]
+    //     }
+    // });
+
+
+    designer.cameras[designer.order.camera].layers.map(function (layer, layerIndex) {
+        var parts = '',
+            fabrics = '';
+        layer.map(function (part, partIndex) {
+            parts += part + designer.order.parts[part];
+            fabrics += designer.cameras[designer.order.camera].fabrics[layerIndex][partIndex] ? designer.order.fabrics[designer.parts[part].fabric] : 'F000';
+        });
+        designer.order.render[layerIndex] = designer.order.camera + '-' + layerIndex + '_' + parts + '_' + fabrics + '.png';
+    });
+
+    var imgs = $('.designer-canvas .canvas img');
+
+    designer.order.render.map(function (src, i) {
+        if (imgs[i] == undefined) {
+            $('.designer-canvas .canvas').append('<img src="/png/' + src + '" />');
+        } else {
+
+            imgs[i].src = "/png/" + src;
+            // imgs[i].setAttribute('src', "/png/" + src);// attr('src', src);
+        }
+    });
+
+    console.log(designer);
+}
+
+/***/ }),
+
+/***/ 210:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7592,7 +7765,7 @@ Swiper.use(components);
 /* unused harmony export touchmove */
 /* unused harmony export resize */
 /* unused harmony export scroll */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ssr_window__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ssr_window__ = __webpack_require__(118);
 /**
  * Dom7 2.1.2
  * Minimalistic JavaScript library for DOM manipulation, with a jQuery-compatible API
@@ -8938,7 +9111,7 @@ function scroll(...args) {
 
 /***/ }),
 
-/***/ 209:
+/***/ 211:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
@@ -11298,7 +11471,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
 
 /***/ }),
 
-/***/ 210:
+/***/ 212:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -21670,199 +21843,12 @@ return jQuery;
 
 /***/ }),
 
-/***/ 211:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 212:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 686:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-/**
- * @template A
- */
-class MDCFoundation {
-  /** @return enum{cssClasses} */
-  static get cssClasses() {
-    // Classes extending MDCFoundation should implement this method to return an object which exports every
-    // CSS class the foundation class needs as a property. e.g. {ACTIVE: 'mdc-component--active'}
-    return {};
-  }
-
-  /** @return enum{strings} */
-  static get strings() {
-    // Classes extending MDCFoundation should implement this method to return an object which exports all
-    // semantic strings as constants. e.g. {ARIA_ROLE: 'tablist'}
-    return {};
-  }
-
-  /** @return enum{numbers} */
-  static get numbers() {
-    // Classes extending MDCFoundation should implement this method to return an object which exports all
-    // of its semantic numbers as constants. e.g. {ANIMATION_DELAY_MS: 350}
-    return {};
-  }
-
-  /** @return {!Object} */
-  static get defaultAdapter() {
-    // Classes extending MDCFoundation may choose to implement this getter in order to provide a convenient
-    // way of viewing the necessary methods of an adapter. In the future, this could also be used for adapter
-    // validation.
-    return {};
-  }
-
-  /**
-   * @param {A=} adapter
-   */
-  constructor(adapter = {}) {
-    /** @protected {!A} */
-    this.adapter_ = adapter;
-  }
-
-  init() {
-    // Subclasses should override this method to perform initialization routines (registering events, etc.)
-  }
-
-  destroy() {
-    // Subclasses should override this method to perform de-initialization routines (de-registering events, etc.)
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (MDCFoundation);
-
-
-/***/ }),
-
-/***/ 687:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * @license
- * Copyright 2017 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-/* eslint no-unused-vars: [2, {"args": "none"}] */
-
-/**
- * Adapter for MDC Text Field Icon.
- *
- * Defines the shape of the adapter expected by the foundation. Implement this
- * adapter to integrate the text field icon into your framework. See
- * https://github.com/material-components/material-components-web/blob/master/docs/authoring-components.md
- * for more information.
- *
- * @record
- */
-class MDCTextFieldIconAdapter {
-  /**
-   * Gets the value of an attribute on the icon element.
-   * @param {string} attr
-   * @return {string}
-   */
-  getAttr(attr) {}
-
-  /**
-   * Sets an attribute on the icon element.
-   * @param {string} attr
-   * @param {string} value
-   */
-  setAttr(attr, value) {}
-
-  /**
-   * Removes an attribute from the icon element.
-   * @param {string} attr
-   */
-  removeAttr(attr) {}
-
-  /**
-   * Sets the text content of the icon element.
-   * @param {string} content
-   */
-  setContent(content) {}
-
-  /**
-   * Registers an event listener on the icon element for a given event.
-   * @param {string} evtType
-   * @param {function(!Event): undefined} handler
-   */
-  registerInteractionHandler(evtType, handler) {}
-
-  /**
-   * Deregisters an event listener on the icon element for a given event.
-   * @param {string} evtType
-   * @param {function(!Event): undefined} handler
-   */
-  deregisterInteractionHandler(evtType, handler) {}
-
-  /**
-   * Emits a custom event "MDCTextField:icon" denoting a user has clicked the icon.
-   */
-  notifyIconAction() {}
-}
-
-/* unused harmony default export */ var _unused_webpack_default_export = (MDCTextFieldIconAdapter);
-
-
-/***/ }),
-
-/***/ 688:
+/***/ 213:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_swiper__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_swiper__ = __webpack_require__(117);
 
 
 if ($('.product-gallery').length) {
@@ -21917,23 +21903,23 @@ if ($('.product-gallery').length) {
 
 /***/ }),
 
-/***/ 689:
+/***/ 214:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_auto_init__ = __webpack_require__(690);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_auto_init__ = __webpack_require__(215);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_auto_init___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__material_auto_init__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_textfield__ = __webpack_require__(691);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_textfield__ = __webpack_require__(216);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_textfield___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_textfield__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_textfield_icon__ = __webpack_require__(692);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ripple__ = __webpack_require__(696);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_textfield_icon__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ripple__ = __webpack_require__(221);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ripple___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ripple__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_select__ = __webpack_require__(697);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_select__ = __webpack_require__(222);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_select__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_list__ = __webpack_require__(698);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_list__ = __webpack_require__(223);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_list___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_list__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_dialog__ = __webpack_require__(699);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_dialog__ = __webpack_require__(224);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_dialog___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__material_dialog__);
 
 
@@ -21972,7 +21958,7 @@ __WEBPACK_IMPORTED_MODULE_0__material_auto_init___default()();
 
 /***/ }),
 
-/***/ 690:
+/***/ 215:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -22175,7 +22161,7 @@ mdcAutoInit.deregisterAll = function () {
 
 /***/ }),
 
-/***/ 691:
+/***/ 216:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -28469,14 +28455,14 @@ var MDCTextFieldIconAdapter = function () {
 
 /***/ }),
 
-/***/ 692:
+/***/ 217:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MDCTextFieldIcon; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_base_component__ = __webpack_require__(693);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adapter__ = __webpack_require__(687);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__foundation__ = __webpack_require__(694);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_base_component__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adapter__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__foundation__ = __webpack_require__(219);
 /* unused harmony reexport MDCTextFieldIconFoundation */
 /**
  * @license
@@ -28550,11 +28536,11 @@ class MDCTextFieldIcon extends __WEBPACK_IMPORTED_MODULE_0__material_base_compon
 
 /***/ }),
 
-/***/ 693:
+/***/ 218:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__foundation__ = __webpack_require__(686);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__foundation__ = __webpack_require__(119);
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -28690,13 +28676,13 @@ class MDCComponent {
 
 /***/ }),
 
-/***/ 694:
+/***/ 219:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_base_foundation__ = __webpack_require__(686);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adapter__ = __webpack_require__(687);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constants__ = __webpack_require__(695);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_base_foundation__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adapter__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constants__ = __webpack_require__(220);
 /**
  * @license
  * Copyright 2017 Google Inc.
@@ -28820,7 +28806,7 @@ class MDCTextFieldIconFoundation extends __WEBPACK_IMPORTED_MODULE_0__material_b
 
 /***/ }),
 
-/***/ 695:
+/***/ 220:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28859,7 +28845,7 @@ const strings = {
 
 /***/ }),
 
-/***/ 696:
+/***/ 221:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -30706,7 +30692,7 @@ var numbers = {
 
 /***/ }),
 
-/***/ 697:
+/***/ 222:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -40126,7 +40112,7 @@ var cssClasses = {
 
 /***/ }),
 
-/***/ 698:
+/***/ 223:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -41844,7 +41830,7 @@ function matches(element, selector) {
 
 /***/ }),
 
-/***/ 699:
+/***/ 224:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -45313,7 +45299,7 @@ var MDCDialogFoundation = function (_MDCFoundation) {
 
 /***/ }),
 
-/***/ 700:
+/***/ 225:
 /***/ (function(module, exports) {
 
 var prevScrollpos = window.pageYOffset;
@@ -45380,6 +45366,20 @@ $('#srch').keyup(function () {
     $(".mega-search__result").html("");
   }
 });
+
+/***/ }),
+
+/***/ 226:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 227:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 
