@@ -149,7 +149,7 @@
             @auth
                 @if (!$product->single && auth()->user()->hasBusiness())
                     <br>
-                    @if (count(auth()->user()->businesses) > 1)
+                    @if (auth()->user()->businesses->count() > 1)
                         @component('components.form.button', [
                             'label' => 'افزودن به محصولات خود',
                             'raised' => true,
@@ -171,9 +171,11 @@
                             @endforeach
                         @endcomponent
                     @else
-                        link
+                        @component('components.form.button', [
+                            'label' => 'افزودن به محصولات خود',
+                            'link' => route('profile.businesses.products.show',[$business->slug, $product->slug]),
+                        ])@endcomponent
                     @endif
-
                 @endif
             @endauth
         </div> 
