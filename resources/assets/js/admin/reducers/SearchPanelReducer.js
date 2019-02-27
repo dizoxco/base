@@ -1,7 +1,6 @@
 const initialState = {
     index: [],
-    post: null,
-    counter: 7  
+    // init:{id:0,attributes:{}}
 }
 export const SearchPanelReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -18,6 +17,8 @@ export const SearchPanelReducer = (state = initialState, action) => {
             state.index[i].attributes = { ...state.index[i].attributes, ...action.attributes };
             return state;
         case 'UPDATE-SEARCHPANEL':
+            console.log('updatedddddddddddddd');
+        
             let updatedIndex = state.index.findIndex((e) => e.id == action.payload.data.id );
             state.index[updatedIndex].attributes = action.payload.data.attributes;
             delete state.index[updatedIndex].oldAttributes;

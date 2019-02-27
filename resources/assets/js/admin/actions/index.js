@@ -6,6 +6,6 @@ export { getBusinesses, setBusiness, updateBusiness,storeBusiness } from './Busi
 export { setUser,storeUser,updateUser,getToken, logOut, getUsers } from './UserActions';
 export { flushSnacks } from './SnackActions';
 export { clearRedirect } from './AppActions';
-export { getSearchPanels } from './SearchPanelActions';
+export { getSearchPanels, setSearchPanel, updateSearchPanel } from './SearchPanelActions';
 export { getTickets } from './TicketActions';
 export { getTaxonomies } from './TaxonomyActions';

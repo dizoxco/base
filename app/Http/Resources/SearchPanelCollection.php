@@ -12,6 +12,10 @@ class SearchPanelCollection extends BaseCollection
      */
     public function toArray($request)
     {
+        $this->collection->transform(function ($searchpanel) {
+            return (new SearchPanelResource($searchpanel))->additional($this->additional);
+        });
+
         return parent::toArray($request);
     }
 }

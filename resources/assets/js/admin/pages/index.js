@@ -9,6 +9,7 @@ import Posts from './Posts';
 import Product from './Product';
 import Products from './Products';
 import Setting from './Setting';
+import SearchPanel from './SearchPanel';
 import SearchPanels from './SearchPanels';
 import Tickets from './Tickets';
 import User from './User';
@@ -30,6 +31,7 @@ export {
     Product,
     Products,
     Setting,
+    SearchPanel,
     SearchPanels,
     Tickets,
     User,

@@ -41,7 +41,9 @@ const routeslist = {
         },
         searchpanels: {
             prefix: '/searchpanels',
-            index: ''
+            index: '',
+            show: '/{searchpanel}',
+            update: '/{searchpanel}'
         },
         tickets: {
             prefix: '/tickets',
