@@ -1,7 +1,16 @@
+const init = {
+    type: 'post',
+    attributes: {
+        title: '',
+        slug: '',
+        abstract: '',
+        body: ''
+    }
+};
 const initialState = {
     index: [],
-    post: null,
-    counter: 7  
+    init,
+    create: {...init, id: 0},
 }
 export const PostReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -10,17 +19,20 @@ export const PostReducer = (state = initialState, action) => {
                 ...state,
                 index: action.payload.data
             }
-        case 'INCREMENT':
-            return {
-                ...state,
-                counter: state.counter + 1
-            };
+        case 'STORE-POST':
+            state.index.push(action.payload.data);
+            state.create = state.init;            
+            return state;
         case 'SET-POST':
-            let i = state.index.findIndex((e) => e.id == action.id );
-            if(state.index[i].oldAttributes == undefined){
-                state.index[i].oldAttributes = state.index[i].attributes;
+            if(action.id == 0){
+                state.create.attributes = {...state.create.attributes, ...action.attributes}
+            }else{
+                let i = state.index.findIndex((e) => e.id == action.id );
+                if(state.index[i].oldAttributes == undefined){
+                    state.index[i].oldAttributes = state.index[i].attributes;
+                }
+                state.index[i].attributes = { ...state.index[i].attributes, ...action.attributes };
             }
-            state.index[i].attributes = { ...state.index[i].attributes, ...action.attributes };
             return state;
         case 'UPDATE-POST':
             let updatedIndex = state.index.findIndex((e) => e.id == action.payload.data.id );

@@ -27,7 +27,8 @@ const routeslist = {
             prefix: '/posts',
             index: '?include=banner',
             show: '/{post}',
-            update: '/{post}'
+            update: '/{post}',
+            store: ''
         },
         taxonomies: {
             prefix: '/taxonomies',

@@ -16,6 +16,7 @@ export class Text extends Component{
                     name={this.props.name}
                     type={this.props.type}
                     fullWidth
+                    disabled={this.props.disabled}
                 />
             </div>
         );

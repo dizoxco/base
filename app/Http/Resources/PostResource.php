@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\Resource;
+// use Illuminate\Http\Resources\Json\Resource;
 
-class PostResource extends Resource
+class PostResource extends BaseResource
 {
     public function toArray($request)
     {
@@ -29,7 +29,7 @@ class PostResource extends Resource
                     'user' => $this->user->id,
                 ]),
                 $this->mergeWhen($this->whenLoaded('banner'), [
-                    'banner' => $this->banner[0]->id,
+                    'banner' => $this->banner[0]->id ?? null,
                 ]),
                 $this->mergeWhen($this->whenLoaded('tags'), [
                     'tags' => $this->tags->pluck('id'),

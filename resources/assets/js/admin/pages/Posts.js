@@ -18,7 +18,8 @@ class Posts extends Component{
             <Page                
                 title='مطالب'
                 button={{
-                    label: 'save'
+                    label: 'add new post',
+                    onClick: () => this.props.history.push('/admin/posts/create')
                 }}
                 onChange={(value) => this.setState({tab: value})}
             >   

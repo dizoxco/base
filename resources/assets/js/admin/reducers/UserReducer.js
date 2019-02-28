@@ -1,8 +1,8 @@
 const initialState = {
     token: null,
     user: null,
-    index: [{id:0,attributes:{}}],
-    init:{id:0,attributes:{}}
+    index: [],
+    init:{type: 'user', attributes:{}}
 };
 export const UserReducer = (state = initialState, action) => {
     switch (action.type) {
