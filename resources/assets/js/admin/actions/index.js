@@ -7,4 +7,5 @@ export { setUser,storeUser,updateUser,getToken, logOut, getUsers } from './UserA
 export { flushSnacks } from './SnackActions';
 export { clearRedirect } from './AppActions';
 export { getTickets } from './TicketActions';
+export { getTags, updateTag } from './TagActions';
 export { getTaxonomies } from './TaxonomyActions';

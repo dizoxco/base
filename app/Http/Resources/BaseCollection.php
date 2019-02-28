@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class BaseCollection extends ResourceCollection
 {

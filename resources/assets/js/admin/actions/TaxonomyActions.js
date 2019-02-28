@@ -1,4 +1,4 @@
-import { getting, putting, posting, setCookie } from "../../helpers";
+import {getting} from "../../helpers";
 import routes from '../routes';
 
 export const getTaxonomies = () => {

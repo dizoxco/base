@@ -7,4 +7,5 @@ export { UserReducer } from './UserReducer';
 export { SnackReducer } from './SnackReducer';
 export { TicketReducer } from './TicketReducer';
 export { AppReducer } from './AppReducer';
+export { TagReducer } from './TagReducer';
 export { TaxonomyReducer } from './TaxonomyReducer';

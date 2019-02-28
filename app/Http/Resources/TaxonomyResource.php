@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\Resource;
-
-class TaxonomyResource extends Resource
+class TaxonomyResource extends BaseResource
 {
     public function toArray($request)
     {
@@ -15,16 +13,28 @@ class TaxonomyResource extends Resource
                 'group_name'        =>  $this->group_name,
                 'label'             =>  $this->label,
                 'slug'              =>  $this->slug,
-                'created_at'        =>  $this->when($this->created_at, $this->created_at->timestamp),
-                'updated_at'        =>  $this->when($this->updated_at, $this->updated_at->timestamp),
+                $this->mergeWhen($this->dates(), $this->dates()),
             ],
             'relations' =>  [
-                $this->mergeWhen($this->whenLoaded('tags'), [
-                    'tags' =>$this->tags,
-                ]),
+                $this->whenLoaded('tags', function () {
+                    return ['tags'    =>  $this->tags->pluck('id')];
+                }),
             ],
         ];
 
         return $resource;
+    }
+
+    private function dates()
+    {
+        $dates = [];
+        $dateColumns = ['created_at', 'updated_at'];
+        foreach ($dateColumns as $column) {
+            if ($this->{$column} !== null) {
+                $dates[$column] = $this->{$column}->timestamp;
+            }
+        }
+
+        return empty($dates) ? false : $dates;
     }
 }

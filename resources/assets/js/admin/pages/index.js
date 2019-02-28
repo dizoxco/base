@@ -9,6 +9,9 @@ import Posts from './Posts';
 import Product from './Product';
 import Products from './Products';
 import Setting from './Setting';
+import Tag from './Tag';
+import Taxonomy from './Taxonomy';
+import Taxonomies from './Taxonomies';
 import Tickets from './Tickets';
 import User from './User';
 import Users from './Users';
@@ -29,6 +32,9 @@ export {
     Product,
     Products,
     Setting,
+    Tag,
+    Taxonomy,
+    Taxonomies,
     Tickets,
     User,
     Users

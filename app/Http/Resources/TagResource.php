@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-class TagResource
+class TagResource extends BaseResource
 {
     public function toArray($request)
     {
@@ -10,16 +10,28 @@ class TagResource
             'type'   =>  'tag',
             'id'     =>  (string) $this->id,
             'attributes'   =>  [
-                'group_name'        =>  $this->group_name,
-                'title'             =>  $this->title,
-                'slug'              =>  $this->slug,
-                'description'       =>  $this->description,
-                'custom_properties' =>  $this->custom_properties,
-                'created_at'        =>  $this->when($this->created_at, $this->created_at->timestamp),
-                'updated_at'        =>  $this->when($this->updated_at, $this->updated_at->timestamp),
+                'parent_id' => $this->parent_id,
+                'taxonomy_id' => $this->taxonomy_id,
+                'label' => $this->label,
+                'slug' => $this->slug,
+                'metadata' => $this->metadata,
+                $this->mergeWhen($this->dates(), $this->dates()),
             ],
         ];
 
         return $resource;
+    }
+
+    private function dates()
+    {
+        $dates = [];
+        $dateColumns = ['created_at', 'updated_at'];
+        foreach ($dateColumns as $column) {
+            if ($this->{$column} !== null) {
+                $dates[$column] = $this->{$column}->timestamp;
+            }
+        }
+
+        return empty($dates) ? false : $dates;
     }
 }

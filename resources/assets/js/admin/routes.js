@@ -29,6 +29,12 @@ const routeslist = {
             show: '/{post}',
             update: '/{post}'
         },
+        tags: {
+            prefix: '/tags',
+            index: '',
+            show: '/{tag}',
+            update: '/{tag}'
+        },
         taxonomies: {
             prefix: '/taxonomies',
             index: '?include=tags',

@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+
 class TagCollection extends BaseCollection
 {
     /**
@@ -13,11 +16,15 @@ class TagCollection extends BaseCollection
     {
         $this->collection->transform(function ($post) {
             foreach ($post->getRelations() as $relation => $items) {
-                foreach ($items as $item) {
-                    switch ($relation) {
-                        case 'user':
-                            $this->includes[$relation][$item->id] = new UserResource($item);
-                            break;
+                $resource = $this->resource($relation);
+                if ($items instanceof Model) {
+                    $this->includes[$relation][$items->id] = new $resource($items);
+                    break;
+                }
+
+                if ($items instanceof Collection) {
+                    foreach ($items as $item) {
+                        $this->includes[$relation][$item->id] = new $resource($item);
                     }
                 }
             }
@@ -26,5 +33,20 @@ class TagCollection extends BaseCollection
         });
 
         return parent::toArray($request);
+    }
+
+    public function resource($relation)
+    {
+        switch ($relation) {
+            case 'taxonomy':
+                return TaxonomyResource::class;
+                break;
+            case 'posts':
+                return PostResource::class;
+                break;
+            case 'products':
+                return ProductResource::class;
+                break;
+        }
     }
 }
