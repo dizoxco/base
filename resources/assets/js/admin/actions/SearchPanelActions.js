@@ -19,6 +19,18 @@ export const setSearchPanel = (id, attributes) => {
     }
 }
 
+export const storeSearchPanel = (searchpanel) => {
+    return (dispatch) => {
+        posting(routes('api.searchpanels.store'), searchpanel.attributes)
+            .then(response => dispatch({
+                type: 'STORE-SEARCHPANEL',
+                payload: response.data
+                // searchpanel
+            }))
+            .catch( error => { console.log(error.response) } );
+    }
+} 
+
 export const updateSearchPanel = (searchpanel) => {
     return (dispatch) => {
         putting(routes('api.searchpanels.update',[searchpanel.id]), searchpanel.attributes)

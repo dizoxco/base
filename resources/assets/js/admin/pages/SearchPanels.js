@@ -17,7 +17,8 @@ class SearchPanels extends Component{
             <Page
                 title=''
                 button={{
-                    label: 'save'
+                    label: 'add new SearchPanel',
+                    onClick: () => this.props.history.push('/admin/searchpanels/create')
                 }}
                 onChange={(value) => this.setState({tab: value})}
             >

@@ -1,32 +1,35 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getSearchPanels, setSearchPanel, updateSearchPanel } from "../actions"
-import { Loading, NotFound, Table, Form, Editor, Page, Show, Text, Select } from "../components";
+import { getSearchPanels, setSearchPanel, storeSearchPanel, updateSearchPanel } from "../actions"
+import { NotFound, Table, Form, Editor, Page, Show, Text, Select } from "../components";
+// import { element } from "prop-types";
 
 
 class SearchPanel extends Component{
     state = {
         tab: 1
     }
-    componentDidMount(){
-        if (this.props.searchpanel === null) this.props.getSearchPanels();
-    }
+    // componentDidMount(){
+    //     if (this.props.searchpanel === null) this.props.getSearchPanels();
+    // }
 
     render(){
-        if (this.props.searchpanel === null) return <Loading />
+        // if (this.props.searchpanel === null) return <Loading />
         if (this.props.searchpanel === undefined) return <NotFound />
+        if (this.props.searchpanel.id == undefined) this.props.getSearchPanels();
         return (
             <Page                
                 title={this.props.searchpanel.attributes.title}
                 button={{
                     label: 'save',
-                    onClick: () => this.props.updateSearchPanel(this.props.searchpanel)
+                    // onClick: () => this.props.updateSearchPanel(this.props.searchpanel)
+                    onClick: () => this.props.searchpanel.id? this.props.updateSearchPanel(this.props.searchpanel): this.props.storeSearchPanel(this.props.searchpanel)
                 }}
                 tabs={['نمایش', 'ویرایش اطلاعات']}
                 tab={this.state.tab}
                 redirect={this.state.redirect}
-                // loading={this.props.SearchPanel == null}
+                loading={this.props.searchpanel == null}
                 onChange={(tab) => this.setState({tab})}
             >
                 <Form show={this.state.tab == 0}>
@@ -38,6 +41,7 @@ class SearchPanel extends Component{
                     <Text
                         label='عنوان'
                         value={this.props.searchpanel.attributes.title}
+                        disabled={this.props.searchpanel.id == undefined}
                         half
                         onChange={ (e) => this.props.setSearchPanel(this.props.searchpanel.id, {title: e.target.value}) }
                     />
@@ -60,12 +64,15 @@ class SearchPanel extends Component{
 }
 
 const mapStateToProps = (state, props) => {
-    let searchpanel = (state.searchpanels.index.length)?
-                state.searchpanels.index.find( element => element.id == props.match.params.searchpanel ):
-                null;
+    // let searchpanel = (state.searchpanels.index.length)?
+    //             state.searchpanels.index.find( element => element.id == props.match.params.searchpanel ):
+    //             null;
+    let searchpanel = (props.match.params.searchpanel == 'create')? state.searchpanels.create:
+                    (state.searchpanels.index.length == 0)? state.searchpanels.init:
+                    state.searchpanels.index.find( element => element.id == props.match.params.searchpanel);
     return {
         searchpanel
-    }
+    };
 };
 
-export default connect(mapStateToProps, { getSearchPanels, setSearchPanel, updateSearchPanel })(SearchPanel);
+export default connect(mapStateToProps, { getSearchPanels, setSearchPanel, storeSearchPanel, updateSearchPanel })(SearchPanel);

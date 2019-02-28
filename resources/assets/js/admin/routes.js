@@ -50,7 +50,8 @@ const routeslist = {
             prefix: '/searchpanels',
             index: '',
             show: '/{searchpanel}',
-            update: '/{searchpanel}'
+            update: '/{searchpanel}',
+            store: ''
         },
         tickets: {
             prefix: '/tickets',
