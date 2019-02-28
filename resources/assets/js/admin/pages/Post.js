@@ -12,7 +12,7 @@ class Post extends Component{
     
     render(){
         if (this.props.post === undefined) return <NotFound />
-        if (this.props.match.params.post != 'create' && this.props.post.id == undefined) this.props.getPosts(); 
+        if (this.props.post.id == undefined) this.props.getPosts();
         if (this.props.author.id === undefined) this.props.getUsers();
         
         return(
