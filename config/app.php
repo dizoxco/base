@@ -230,6 +230,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Smsirlaravel' => Ipecompany\Smsirlaravel\SmsirlaravelFacade::class,
 
+        // User land
+        'TagRepo' => \App\Repositories\Facades\TagRepo::class,
+
     ],
 
 ];

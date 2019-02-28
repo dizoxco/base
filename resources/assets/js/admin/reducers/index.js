@@ -8,4 +8,5 @@ export { SnackReducer } from './SnackReducer';
 export { SearchPanelReducer } from './SearchPanelReducer';
 export { TicketReducer } from './TicketReducer';
 export { AppReducer } from './AppReducer';
+export { TagReducer } from './TagReducer';
 export { TaxonomyReducer } from './TaxonomyReducer';

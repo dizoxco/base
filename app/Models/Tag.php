@@ -18,6 +18,11 @@ class Tag extends Model
         'parent_id', 'taxonomy_id', 'label', 'slug', 'metadata',
     ];
 
+    protected $casts = [
+        'metadata' => 'array',
+    ];
+
+    //  =============================== Relationships =========================
     public function taxonomy() : BelongsTo
     {
         return $this->belongsTo(Taxonomy::class, 'taxonomy_id', 'id');
@@ -33,6 +38,9 @@ class Tag extends Model
         return $this->morphedByMany(Variation::class, 'taggable');
     }
 
+    //  =============================== End Relationships =====================
+
+    //  =============================== Complementary Methods =================
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -49,4 +57,6 @@ class Tag extends Model
             return $this->whereSlug($slug)->firstOrFail();
         }
     }
+
+    //  =============================== End Complementary Methods =============
 }

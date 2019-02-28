@@ -8,4 +8,5 @@ export { flushSnacks } from './SnackActions';
 export { clearRedirect } from './AppActions';
 export { getSearchPanels, setSearchPanel, updateSearchPanel } from './SearchPanelActions';
 export { getTickets } from './TicketActions';
+export { getTags, updateTag } from './TagActions';
 export { getTaxonomies } from './TaxonomyActions';

@@ -138,6 +138,8 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/', 'TaxonomyController@index')->name('index');
     });
 
+    Route::apiResource('tags', 'TagController');
+
     Route::name('mediagroups')->prefix('mediagroups')->group(function () {
         Route::get('/', 'MediaGroupController@index');
         Route::get('{medium}', 'MediaGroupController@show');
@@ -150,8 +152,4 @@ Route::middleware('auth:api')->group(function () {
         Route::get('{comment}/restore', 'CommentController@restore')->name('restore');
         Route::delete('{comment}/destroy', 'CommentController@destroy')->name('destroy');
     });
-});
-
-Route::name('search.')->prefix('searchs')->group(function () {
-    Route::get('/{search_panel}', 'SearchController@show')->name('show');
 });

@@ -12,7 +12,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 
 import { List, RTL } from "./components"
-import { Business, Businesses, Comment, Comments, Dashboard, Login, MediaGroup, MediaGroups, Post, Posts, Product, Products, Setting, SearchPanel, SearchPanels, Tickets, User, Users } from './pages'
+import {
+    Business, Businesses, Comment, Comments, Dashboard, Login, MediaGroup,
+    MediaGroups, Post, Posts, Product, Products, Setting, SearchPanel, SearchPanels, Tag, Taxonomy,
+    Taxonomies, Tickets, User, Users
+} from './pages'
 
 import { withSnackbar } from 'notistack';
 import { connect } from "react-redux";
@@ -76,6 +80,9 @@ class App extends Component{
                                         <Route path="/admin/searchpanels" exact component={SearchPanels} />
                                         <Route path="/admin/searchpanels/:searchpanel" exact component={SearchPanel} />
                                         <Route path="/admin/setting" exact component={Setting} />
+                                        <Route path="/admin/tags/:tag" exact component={Tag} />
+                                        <Route path="/admin/taxonomies" exact component={Taxonomies} />
+                                        <Route path="/admin/taxonomies/:taxonomy" exact component={Taxonomy} />
                                         <Route path="/admin/tickets" exact component={Tickets} />
                                         <Route path="/admin/users" exact component={Users} />
                                         <Route path="/admin/users/:user" exact component={User} />
@@ -118,8 +125,8 @@ class App extends Component{
                                     icon: 'add'
                                 },{
                                     text: 'تگ ها',
-                                    link: '/admin/setting',
-                                    icon: 'add'
+                                    link: '/admin/taxonomies',
+                                    icon: 'tag'
                                 },{
                                     text: 'تیکت ها',
                                     link: '/admin/tickets',

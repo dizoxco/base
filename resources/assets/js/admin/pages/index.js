@@ -11,6 +11,9 @@ import Products from './Products';
 import Setting from './Setting';
 import SearchPanel from './SearchPanel';
 import SearchPanels from './SearchPanels';
+import Tag from './Tag';
+import Taxonomy from './Taxonomy';
+import Taxonomies from './Taxonomies';
 import Tickets from './Tickets';
 import User from './User';
 import Users from './Users';
@@ -33,6 +36,9 @@ export {
     Setting,
     SearchPanel,
     SearchPanels,
+    Tag,
+    Taxonomy,
+    Taxonomies,
     Tickets,
     User,
     Users
