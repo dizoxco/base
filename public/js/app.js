@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 208);
+/******/ 	return __webpack_require__(__webpack_require__.s = 209);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -69,7 +69,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_dom7_dist_dom7_modular__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_dom7_dist_dom7_modular__ = __webpack_require__(211);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ssr_window__ = __webpack_require__(118);
 /**
  * Swiper 4.4.6
@@ -7350,31 +7350,31 @@ class MDCTextFieldIconAdapter {
 
 /***/ }),
 
-/***/ 208:
+/***/ 209:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(209);
-__webpack_require__(226);
-module.exports = __webpack_require__(227);
+__webpack_require__(210);
+__webpack_require__(227);
+module.exports = __webpack_require__(228);
 
 
 /***/ }),
 
-/***/ 209:
+/***/ 210:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_swiper__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sortablejs__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sortablejs__ = __webpack_require__(212);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sortablejs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sortablejs__);
 // import $ from 'jquery';
 
 
-window.$ = window.jQuery = __webpack_require__(212);
-__webpack_require__(213);
+window.$ = window.jQuery = __webpack_require__(213);
 __webpack_require__(214);
-__webpack_require__(225);
+__webpack_require__(215);
+__webpack_require__(226);
 
 // table collapsible
 $('.collapse').click(function () {
@@ -7413,8 +7413,6 @@ $('.swiper.simple').each(function () {
 });
 
 $('.toggler').click(function () {
-    console.log('dd');
-
     $($(this).attr('toggle-target')).toggleClass($(this).attr('toggle-class'));
 });
 
@@ -7637,8 +7635,6 @@ function renderDesigner() {
         }
     });
 
-    // console.log(designer);
-
     // designer['cameras'][designer.camera.name]['layers'].map(function(layers, i){
     //     designer.camera.layers[i] = {
     //         layers: layers,
@@ -7668,13 +7664,11 @@ function renderDesigner() {
             // imgs[i].setAttribute('src', "/png/" + src);// attr('src', src);
         }
     });
-
-    console.log(designer);
 }
 
 /***/ }),
 
-/***/ 210:
+/***/ 211:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9111,7 +9105,7 @@ function scroll(...args) {
 
 /***/ }),
 
-/***/ 211:
+/***/ 212:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
@@ -11471,7 +11465,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
 
 /***/ }),
 
-/***/ 212:
+/***/ 213:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -21843,7 +21837,7 @@ return jQuery;
 
 /***/ }),
 
-/***/ 213:
+/***/ 214:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21903,23 +21897,23 @@ if ($('.product-gallery').length) {
 
 /***/ }),
 
-/***/ 214:
+/***/ 215:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_auto_init__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_auto_init__ = __webpack_require__(216);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_auto_init___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__material_auto_init__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_textfield__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_textfield__ = __webpack_require__(217);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_textfield___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_textfield__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_textfield_icon__ = __webpack_require__(217);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ripple__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_textfield_icon__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ripple__ = __webpack_require__(222);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ripple___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ripple__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_select__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_select__ = __webpack_require__(223);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_select__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_list__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_list__ = __webpack_require__(224);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_list___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_list__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_dialog__ = __webpack_require__(224);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_dialog__ = __webpack_require__(225);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_dialog___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__material_dialog__);
 
 
@@ -21931,7 +21925,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // import {MDCTabBar} from '@material/tab-bar';
 // const tabBar = new MDCTabBar(document.querySelector('.mdc-tab-bar'));
-// console.log('dddddddd');
 
 
 window.mdc = { autoInit: __WEBPACK_IMPORTED_MODULE_0__material_auto_init___default.a };
@@ -21958,7 +21951,7 @@ __WEBPACK_IMPORTED_MODULE_0__material_auto_init___default()();
 
 /***/ }),
 
-/***/ 215:
+/***/ 216:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -22161,7 +22154,7 @@ mdcAutoInit.deregisterAll = function () {
 
 /***/ }),
 
-/***/ 216:
+/***/ 217:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -28455,14 +28448,14 @@ var MDCTextFieldIconAdapter = function () {
 
 /***/ }),
 
-/***/ 217:
+/***/ 218:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MDCTextFieldIcon; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_base_component__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_base_component__ = __webpack_require__(219);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adapter__ = __webpack_require__(120);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__foundation__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__foundation__ = __webpack_require__(220);
 /* unused harmony reexport MDCTextFieldIconFoundation */
 /**
  * @license
@@ -28536,7 +28529,7 @@ class MDCTextFieldIcon extends __WEBPACK_IMPORTED_MODULE_0__material_base_compon
 
 /***/ }),
 
-/***/ 218:
+/***/ 219:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28676,13 +28669,13 @@ class MDCComponent {
 
 /***/ }),
 
-/***/ 219:
+/***/ 220:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__material_base_foundation__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adapter__ = __webpack_require__(120);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constants__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constants__ = __webpack_require__(221);
 /**
  * @license
  * Copyright 2017 Google Inc.
@@ -28806,7 +28799,7 @@ class MDCTextFieldIconFoundation extends __WEBPACK_IMPORTED_MODULE_0__material_b
 
 /***/ }),
 
-/***/ 220:
+/***/ 221:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28845,7 +28838,7 @@ const strings = {
 
 /***/ }),
 
-/***/ 221:
+/***/ 222:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -30692,7 +30685,7 @@ var numbers = {
 
 /***/ }),
 
-/***/ 222:
+/***/ 223:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -40112,7 +40105,7 @@ var cssClasses = {
 
 /***/ }),
 
-/***/ 223:
+/***/ 224:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -41830,7 +41823,7 @@ function matches(element, selector) {
 
 /***/ }),
 
-/***/ 224:
+/***/ 225:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -45299,7 +45292,7 @@ var MDCDialogFoundation = function (_MDCFoundation) {
 
 /***/ }),
 
-/***/ 225:
+/***/ 226:
 /***/ (function(module, exports) {
 
 var prevScrollpos = window.pageYOffset;
@@ -45369,14 +45362,14 @@ $('#srch').keyup(function () {
 
 /***/ }),
 
-/***/ 226:
+/***/ 227:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ 227:
+/***/ 228:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

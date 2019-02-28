@@ -68,8 +68,6 @@ class MediaGroup extends Component {
         if (this.props.media.length == 0) this.props.getMediaGroup(1);
 
         let media = this.props.media.map((medium) => {
-            // console.log(medium);
-
             return <div className="w-1/12 p-1" key={medium.id}><p>{medium.attributes.name}</p>
                 {/*<img src={medium.attributes.conversions.thumb.url}/>*/}
             </div>;

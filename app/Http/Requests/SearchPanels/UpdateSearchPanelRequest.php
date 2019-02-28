@@ -36,8 +36,8 @@ class UpdateSearchPanelRequest extends FormRequest
             ],
             'description'    =>  'nullable|string',
             'model'          =>  'required|string',
-            'filters'        =>  'required|json',
-            'options'        =>  'required|json',
+            'filters'        =>  'required|array',
+            'options'        =>  'required|array',
         ];
     }
 }

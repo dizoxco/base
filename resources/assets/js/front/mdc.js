@@ -8,7 +8,6 @@ import {MDCDialog} from '@material/dialog';
 
 // import {MDCTabBar} from '@material/tab-bar';
 // const tabBar = new MDCTabBar(document.querySelector('.mdc-tab-bar'));
-// console.log('dddddddd');
 
 
 window.mdc = {autoInit: mdcAutoInit};

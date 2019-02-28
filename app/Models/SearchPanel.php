@@ -167,6 +167,10 @@ class SearchPanel extends Model
 
     public function resolveRouteBinding($slug)
     {
-        return SPRepo::findBySlug($slug);
+        if (request()->isXmlHttpRequest()) {
+            return parent::resolveRouteBinding($slug);
+        } else {
+            return $this->whereSlug($slug)->firstOrFail();
+        }
     }
 }

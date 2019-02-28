@@ -22,7 +22,6 @@ class Dashboard extends Component {
                 value:tag.id,
                 label:tag.label
             }));
-            console.log(data);
         }
         return (
             <Page
