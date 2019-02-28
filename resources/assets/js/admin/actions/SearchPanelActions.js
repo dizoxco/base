@@ -1,5 +1,17 @@
 import { getting, putting, posting, setCookie } from "../../helpers";
 import routes from '../routes';
+    
+
+export const getSearchPanels = () => {
+    return (dispatch) => {
+        getting(routes('api.searchpanels.index'))
+            .then(response => dispatch({
+                type: 'GET-SEARCHPANELS',
+                payload: response.data
+            }))
+            .catch( error => { console.log(error.response) } );
+    }
+}
 
 export const setSearchPanel = (id, attributes) => {
     return (dispatch) => {
@@ -12,18 +24,7 @@ export const updateSearchPanel = (searchpanel) => {
         putting(routes('api.searchpanels.update',[searchpanel.id]), searchpanel.attributes)
             .then(response => dispatch({
                 type: 'UPDATE-SEARCHPANEL',
-                payload: response.data
-            }))
-            .catch( error => { console.log(error.response) } );
-    }
-}
-
-export const getSearchPanels = () => {
-    return (dispatch) => {
-        getting(routes('api.searchpanels.index'))
-            .then(response => dispatch({
-                type: 'GET-SEARCHPANELS',
-                payload: response.data
+                searchpanel
             }))
             .catch( error => { console.log(error.response) } );
     }

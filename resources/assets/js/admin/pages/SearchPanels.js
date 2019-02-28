@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getSearchPanels, setSearchPanel, updateSearchPanel } from "../actions"
-import { Page, Table } from "../components";
+import { Page, Icon, Table } from "../components";
 
 class SearchPanels extends Component{
 
@@ -29,6 +29,11 @@ class SearchPanels extends Component{
                             Header: '#',
                             accessor: 'id',
                             width: 70
+                        },
+                        {
+                            Header: 'وضعیت',
+                            width: 50,
+                            Cell: row => row.original.oldAttributes? (<Icon icon="edit" />): '',
                         },
                         {
                             Header: 'عنوان',
