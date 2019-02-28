@@ -11,7 +11,7 @@ class TaxonomyController extends Controller
     public function index()
     {
         return new TaxonomyCollection(TaxonomyRepo::getAll([
-            'with' => ['tags']
+            'with' => ['tags'],
         ]));
     }
 }

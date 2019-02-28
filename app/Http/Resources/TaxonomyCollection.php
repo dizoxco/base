@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class TaxonomyCollection extends BaseCollection
 {
@@ -19,13 +19,13 @@ class TaxonomyCollection extends BaseCollection
             foreach ($taxonomy->getRelations() as $relation => $items) {
                 $resource = $this->resource($relation);
                 if ($items instanceof Model) {
-                    $this->includes[$relation][$items->id-1] = new $resource($items);
+                    $this->includes[$relation][$items->id - 1] = new $resource($items);
                     break;
                 }
 
                 if ($items instanceof Collection) {
                     foreach ($items as $item) {
-                        $this->includes[$relation][$item->id-1] = new $resource($item);
+                        $this->includes[$relation][$item->id - 1] = new $resource($item);
                     }
                 }
             }

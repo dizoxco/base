@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\Tag\StoreTagRequest;
-use App\Http\Resources\TagCollection;
 use App\Models\Tag;
-use App\Repositories\Facades\TagRepo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TagCollection;
+use App\Repositories\Facades\TagRepo;
+use App\Http\Requests\Tag\StoreTagRequest;
 
 class TagController extends Controller
 {

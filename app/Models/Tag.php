@@ -19,7 +19,7 @@ class Tag extends Model
     ];
 
     protected $casts = [
-        'metadata' => 'array'
+        'metadata' => 'array',
     ];
 
     //  =============================== Relationships =========================

@@ -138,7 +138,7 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/', 'TaxonomyController@index')->name('index');
     });
 
-    Route::apiResource('tags','TagController');
+    Route::apiResource('tags', 'TagController');
 
     Route::name('mediagroups')->prefix('mediagroups')->group(function () {
         Route::get('/', 'MediaGroupController@index');
