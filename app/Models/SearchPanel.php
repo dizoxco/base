@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Http\Request;
-use App\Repositories\Facades\SPRepo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Query\Builder as DatabaseBuilder;

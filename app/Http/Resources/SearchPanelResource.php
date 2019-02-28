@@ -17,7 +17,7 @@ class SearchPanelResource extends BaseResource
                 'options' => $this->options,
                 'filters' => $this->filters,
                 $this->mergeWhen($this->dates(), $this->dates()),
-            ]
+            ],
         ];
     }
 
@@ -32,5 +32,5 @@ class SearchPanelResource extends BaseResource
         }
 
         return empty($dates) ? false : $dates;
-    }    
+    }
 }
