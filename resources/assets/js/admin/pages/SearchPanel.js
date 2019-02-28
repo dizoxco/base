@@ -14,7 +14,6 @@ class SearchPanel extends Component{
     }
 
     render(){
-        // console.log(this.props.searchpanel);
         if (this.props.searchpanel === null) return <Loading />
         if (this.props.searchpanel === undefined) return <NotFound />
         return (

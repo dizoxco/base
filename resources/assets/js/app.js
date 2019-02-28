@@ -46,8 +46,6 @@ $('.swiper.simple').each(function(){
 });
 
 $('.toggler').click(function(){
-    console.log('dd');
-    
     $($(this).attr('toggle-target')).toggleClass($(this).attr('toggle-class'));
 });
 
@@ -292,7 +290,6 @@ function renderDesigner(){
         }
     });
 
-    // console.log(designer);
 
     // designer['cameras'][designer.camera.name]['layers'].map(function(layers, i){
     //     designer.camera.layers[i] = {
@@ -322,9 +319,5 @@ function renderDesigner(){
             // imgs[i].setAttribute('src', "/png/" + src);// attr('src', src);
         }
     })
-
-    console.log(designer);
-    
-    
 }
 

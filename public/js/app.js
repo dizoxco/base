@@ -7413,8 +7413,6 @@ $('.swiper.simple').each(function () {
 });
 
 $('.toggler').click(function () {
-    console.log('dd');
-
     $($(this).attr('toggle-target')).toggleClass($(this).attr('toggle-class'));
 });
 
@@ -7637,8 +7635,6 @@ function renderDesigner() {
         }
     });
 
-    // console.log(designer);
-
     // designer['cameras'][designer.camera.name]['layers'].map(function(layers, i){
     //     designer.camera.layers[i] = {
     //         layers: layers,
@@ -7668,8 +7664,6 @@ function renderDesigner() {
             // imgs[i].setAttribute('src', "/png/" + src);// attr('src', src);
         }
     });
-
-    console.log(designer);
 }
 
 /***/ }),
@@ -21931,7 +21925,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // import {MDCTabBar} from '@material/tab-bar';
 // const tabBar = new MDCTabBar(document.querySelector('.mdc-tab-bar'));
-// console.log('dddddddd');
 
 
 window.mdc = { autoInit: __WEBPACK_IMPORTED_MODULE_0__material_auto_init___default.a };
