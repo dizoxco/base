@@ -5,7 +5,7 @@ namespace App\Http\Requests\SearchPanels;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class updateSearchPanelRequest extends FormRequest
+class UpdateSearchPanelRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

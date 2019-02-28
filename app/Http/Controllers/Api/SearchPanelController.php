@@ -10,7 +10,7 @@ use App\Http\Resources\SearchPanelResource;
 use App\Http\Resources\SearchPanelCollection;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\SearchPanels\StoreSearchPanelRequest;
-use App\Http\Requests\SearchPanels\updateSearchPanelRequest;
+use App\Http\Requests\SearchPanels\UpdateSearchPanelRequest;
 
 class SearchPanelController extends Controller
 {
@@ -36,7 +36,7 @@ class SearchPanelController extends Controller
         return new SearchPanelResource($search_panel);
     }
 
-    public function update(updateSearchPanelRequest $request, SearchPanel $search_panel)
+    public function update(UpdateSearchPanelRequest $request, SearchPanel $search_panel)
     {
         $updated_search_panel = SPRepo::update($search_panel, $request->all());
         $status = $updated_search_panel === null ? Response::HTTP_BAD_REQUEST : Response::HTTP_OK;
