@@ -59,12 +59,12 @@ class App extends Component{
                     </AppBar>
                     <div id="main-content" >
                         <Route render={({location}) => (
-                            <TransitionGroup>
-                                <CSSTransition
-                                    key={location.key}
-                                    timeout={300}
-                                    classNames="fade"
-                                >
+                            // <TransitionGroup>
+                                // <CSSTransition
+                                //     key={location.key}
+                                //     timeout={300}
+                                //     classNames="fade"
+                                // >
                                     <Switch location={location}>
                                         <Route path="/admin" exact component={Dashboard} />
                                         <Route path="/admin/businesses" exact component={Businesses} />
@@ -88,8 +88,8 @@ class App extends Component{
                                         <Route path="/admin/users/:user" exact component={User} />
                                         <Route path="/admin/login" exact component={Login} />
                                     </Switch>
-                                </CSSTransition>
-                            </TransitionGroup>
+                                // </CSSTransition>
+                            // </TransitionGroup>
                         )} />
                     </div>
                     <div id="side-nav">

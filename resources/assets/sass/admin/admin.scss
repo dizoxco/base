@@ -115,20 +115,20 @@ body{
   -moz-osx-font-smoothing: grayscale;
 }
 
-span[class^="MuiPrivateTabIndicator"] {
-  background-color: #fff !important;
-  &:before{
-    content: '';
-    border: 1px solid red;
-    display: block;
-    position: absolute;
-    width: 80%;
-    top: -35px;
-    right: 10%;
-    height: 29px;
-    border-radius: 10px;
-  }
-}
+// span[class^="MuiPrivateTabIndicator"] {
+//   background-color: #fff !important;
+//   &:before{
+//     content: '';
+//     border: 1px solid red;
+//     display: block;
+//     position: absolute;
+//     width: calc(100% - 16px);
+//     top: -35px;
+//     right: 8px;
+//     height: 29px;
+//     border-radius: 10px;
+//   }
+// }
 
 #root{
   direction: rtl;
