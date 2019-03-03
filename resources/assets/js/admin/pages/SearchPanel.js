@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getSearchPanels, setSearchPanel, storeSearchPanel, updateSearchPanel } from "../actions"
-import { NotFound, Table, Form, Editor, Page, Show, Text, Select } from "../components";
+import { NotFound, Form, Page, Show, Text, Select } from "../components";
 // import { element } from "prop-types";
 
 

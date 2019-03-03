@@ -1,15 +1,9 @@
 import {eraseCookie, getting, posting, putting, setCookie} from "../../helpers";
 import routes from '../routes';
 
-
-export const setUser = (id, attributes) => {
+export const getUsers = () => { 
     return (dispatch) => {
-        dispatch({ type: 'SET-USER', id, attributes })
-    }
-};
-
-export const getUsers = () => {
-    return (dispatch) => {
+        console.log('getUsers action');
         getting(routes('api.users.index'))
             .then(response => dispatch({
                 type: 'GET-USERS',
@@ -17,7 +11,39 @@ export const getUsers = () => {
             }))
             .catch( error => { console.log(error.response) });
     }
-}
+} 
+ 
+export const setUser = (id, attributes) => {
+    return (dispatch) => {
+        dispatch({ type: 'SET-USER', id, attributes })
+    }
+};
+
+
+export const storeUser = (user) => {
+    return (dispatch) => {
+        posting(routes('api.users.store'), user.attributes)
+            // .then(response => {
+            //     dispatch({
+            //         type: 'STORE-USER',
+            //         payload: response.data
+            //     });
+
+            //     dispatch({
+            //         type : 'APP-REDIRECT',
+            //         payload : '/admin/users/'+response.data.data.id
+            //     });
+
+
+            // })
+            .then(response => dispatch({
+                type: 'STORE-USER',
+                payload: response.data
+            }))
+            .catch( error => { console.log(error.response) } );
+    }
+};
+
 export const updateUser = (user) => {
     return (dispatch) => {
         putting(routes('api.users.update',[user.id]), user.attributes)
@@ -26,26 +52,6 @@ export const updateUser = (user) => {
                 payload: response.data
             }))
             .catch( error => { console.log(error) } );
-    }
-};
-
-export const storeUser = (user) => {
-    return (dispatch) => {
-        posting(routes('api.users.store'), user.attributes)
-            .then(response => {
-                dispatch({
-                    type: 'STORE-USER',
-                    payload: response.data
-                });
-
-                dispatch({
-                    type : 'APP-REDIRECT',
-                    payload : '/admin/users/'+response.data.data.id
-                });
-
-
-            })
-            .catch( error => { console.log(error.response) } );
     }
 };
 

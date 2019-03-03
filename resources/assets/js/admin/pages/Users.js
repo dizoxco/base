@@ -7,23 +7,29 @@ import {Button} from "../components/form";
 
 class Users extends Component{
 
+    state = {}
     componentDidMount = () => {
-        if(this.props.users.length === 1)
+        if(this.props.users.length == 0)
             this.props.getUsers();
     }
 
-    render(){
+    render(){ 
         
         return(
             <Page                
                 title='کاربران'
+                // button={{
+                //     label: 'save'
+                // }}
                 button={{
-                    label: 'save'
+                    label: 'add new User',
+                    onClick: () => this.props.history.push('/admin/users/create')
                 }}
             >
-                <Button label={'Add user'} onClick={(e) => this.props.history.push('/admin/users/0')}  />
+                {/* <Button label={'Add user'} onClick={(e) => this.props.history.push('/admin/users/0')}  /> */}
                 <Table
-                    data={this.props.users.slice(1, this.props.users.length)}
+                    data={this.props.users}
+                    // data={this.props.users.slice(1, this.props.users.length)}
                     tdClick={ (rowInfo) => this.props.history.push('/admin/users/' + rowInfo.original.id)}
                     columns={[
                         {
