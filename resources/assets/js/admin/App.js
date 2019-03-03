@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
-import { BrowserRouter, Link, Redirect, Switch, Route, withRouter  } from "react-router-dom";
+import {Route, Switch, withRouter} from "react-router-dom";
 
 
 import AppBar from '@material-ui/core/AppBar';
@@ -117,31 +117,31 @@ class App extends Component{
                                 {
                                     text: 'داشبورد',
                                     link: '/admin',
-                                    icon: 'add'
+                                    icon: 'dashboard'
                                 },{
                                     text: 'کاربران',
                                     link: '/admin/users',
-                                    icon: 'add'
+                                    icon: 'person'
                                 },{
                                     text: 'مطالب',
                                     link: '/admin/posts',
-                                    icon: 'add'
+                                    icon: 'edit'
                                 },{
                                     text: 'کسب و کارها',
                                     link: '/admin/businesses',
-                                    icon: 'add'
+                                    icon: 'business'
                                 },{
                                     text: 'محصولات',
                                     link: '/admin/products',
-                                    icon: 'add'
+                                    icon: 'gavel'
                                 },{
                                     text: 'نظرات',
                                     link: '/admin/comments',
-                                    icon: 'add'
+                                    icon: 'comment'
                                 },{
                                     text: 'رسانه',
                                     link: '/admin/mediagroups',
-                                    icon: 'add'
+                                    icon: 'tv'
                                 },{
                                     text: 'تگ ها',
                                     link: '/admin/taxonomies',
@@ -149,16 +149,16 @@ class App extends Component{
                                 },{
                                     text: 'تیکت ها',
                                     link: '/admin/tickets',
-                                    icon: 'add'
+                                    icon: 'comment'
                                 },{
                                     text: 'پنل جستجو',
                                     link: '/admin/searchpanels',
-                                    icon: 'add'
+                                    icon: 'search'
                                 },{
                                     text: 'خروج',
                                     // link: '/admin/login',
                                     onClick: this.props.logOut,
-                                    icon: 'add'
+                                    icon: 'logout'
                                 }
                             ]}
                         />

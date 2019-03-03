@@ -33,12 +33,14 @@ const routeslist = {
         tags: {
             prefix: '/tags',
             index: '',
-            show: '/{tag}',
+            store: '',
             update: '/{tag}'
         },
         taxonomies: {
             prefix: '/taxonomies',
             index: '?include=tags',
+            store: '',
+            update: '/{post}',
         },
         products: {
             prefix: '/products',
