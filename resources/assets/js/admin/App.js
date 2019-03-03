@@ -11,18 +11,36 @@ import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 
 
-import { List, RTL } from "./components"
+import {List} from "./components"
 import {
-    Business, Businesses, Comment, Comments, Dashboard, Login, MediaGroup,
-    MediaGroups, Post, Posts, Product, Products, Setting, SearchPanel, SearchPanels, Tag, Taxonomy,
-    Taxonomies, Tickets, User, Users
+    Business,
+    Businesses,
+    Comment,
+    Comments,
+    Dashboard,
+    Login,
+    MediaGroup,
+    MediaGroups,
+    Post,
+    Posts,
+    Product,
+    Products,
+    SearchPanel,
+    SearchPanels,
+    Setting,
+    Tag,
+    Taxonomies,
+    Taxonomy,
+    Tickets,
+    User,
+    Users
 } from './pages'
 
-import { withSnackbar } from 'notistack';
-import { connect } from "react-redux";
+import {withSnackbar} from 'notistack';
+import {connect} from "react-redux";
 
-import { flushSnacks, logOut , clearRedirect } from "./actions";
-import { eraseCookie, getCookie } from "../helpers";
+import {clearRedirect, flushSnacks, logOut} from "./actions";
+import {getCookie} from "../helpers";
 
 class App extends Component{
     componentDidUpdate(){

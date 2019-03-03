@@ -21,6 +21,7 @@ import {
     TicketReducer,
     UserReducer,
     AppReducer,
+    TagReducer,
     TaxonomyReducer
 } from './admin/reducers';
 
@@ -40,6 +41,7 @@ const store = createStore(
                     searchpanels: SearchPanelReducer,
                     tickets: TicketReducer,
                     users: UserReducer,
+                    tags: TagReducer,
                     taxonomies: TaxonomyReducer,
                     app: AppReducer
                 }),
