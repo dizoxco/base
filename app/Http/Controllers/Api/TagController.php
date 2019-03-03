@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Tag;
-use Illuminate\Http\Request;
+use App\Http\Resources\TagResource;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EffectedRows;
 use App\Http\Resources\TagCollection;
 use App\Repositories\Facades\TagRepo;
 use App\Http\Requests\Tag\StoreTagRequest;
+use App\Http\Requests\Tag\UpdateTagRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 class TagController extends Controller
 {
@@ -18,19 +21,13 @@ class TagController extends Controller
 
     public function store(StoreTagRequest $request)
     {
-//        $createdTag = TagRepo::
-        $createdUser = UserRepo::create($data);
-        if ($createdUser === 0) {
-            return new EffectedRows($createdUser);
+        $createdTag = TagRepo::create($request->all());
+        if ($createdTag === null) {
+            return new EffectedRows($createdTag);
         }
 
-        if ($request->hasFile('avatar')) {
-            $createdUser->addMediaFromRequest('avatar')->toMediaCollection(enum('media.user.avatar'));
-        }
-
-        event(new UserStoreEvent($createdUser));
-
-        return new UserResource($createdUser);
+        return (new TagResource($createdTag))
+            ->response()->setStatusCode(Response::HTTP_CREATED);
     }
 
     public function show(Tag $tag)
@@ -38,9 +35,11 @@ class TagController extends Controller
         //
     }
 
-    public function update(Request $request, Tag $tag)
+    public function update(UpdateTagRequest $request, Tag $tag)
     {
-        //
+        TagRepo::update($tag, $request->all());
+
+        return new TagResource($tag);
     }
 
     public function destroy(Tag $tag)

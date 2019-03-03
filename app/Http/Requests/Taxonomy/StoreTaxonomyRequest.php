@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Tag;
+namespace App\Http\Requests\Taxonomy;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTagRequest extends FormRequest
+class StoreTaxonomyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,9 @@ class StoreTagRequest extends FormRequest
     public function rules()
     {
         return [
-            'taxonomy_id' => 'required|string',
+            'group_name' => 'required|string',
+            'slug' => 'nullable|string|unique:taxonomies,slug',
             'label' => 'required|string',
-            'slug' => 'nullable|string|unique:tags,slug',
-            'metadata' => 'nullable|json',
         ];
     }
 }

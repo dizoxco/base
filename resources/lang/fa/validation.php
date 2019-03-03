@@ -140,6 +140,7 @@ return [
 ////      Hotels
         'city_id' => 'نام شهر',
         'brand' => 'برند',
+        'slug' => 'اسلاگ',
 ////      Posts
 //        'title'             =>  'عنوان',
 //        'body'              =>  'متن',

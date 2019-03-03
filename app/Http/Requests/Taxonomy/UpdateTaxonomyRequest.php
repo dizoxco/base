@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Tag;
+namespace App\Http\Requests\Taxonomy;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTagRequest extends FormRequest
+class UpdateTaxonomyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +24,12 @@ class StoreTagRequest extends FormRequest
      */
     public function rules()
     {
+        $taxonomy_id = $this->route()->parameter('taxonomy')->id;
+
         return [
-            'taxonomy_id' => 'required|string',
+            'group_name' => 'required|string',
+            'slug' => ['nullable', 'string', Rule::unique('taxonomies', 'slug')->ignore($taxonomy_id)],
             'label' => 'required|string',
-            'slug' => 'nullable|string|unique:tags,slug',
-            'metadata' => 'nullable|json',
         ];
     }
 }

@@ -229,10 +229,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Smsirlaravel' => Ipecompany\Smsirlaravel\SmsirlaravelFacade::class,
-
-        // User land
-        'TagRepo' => \App\Repositories\Facades\TagRepo::class,
-
     ],
 
 ];

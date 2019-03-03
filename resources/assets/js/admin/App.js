@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
-import { BrowserRouter, Link, Redirect, Switch, Route, withRouter  } from "react-router-dom";
+import {Route, Switch, withRouter} from "react-router-dom";
 
 
 import AppBar from '@material-ui/core/AppBar';
@@ -11,18 +11,36 @@ import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 
 
-import { List, RTL } from "./components"
+import {List} from "./components"
 import {
-    Business, Businesses, Comment, Comments, Dashboard, Login, MediaGroup,
-    MediaGroups, Post, Posts, Product, Products, Setting, SearchPanel, SearchPanels, Tag, Taxonomy,
-    Taxonomies, Tickets, User, Users
+    Business,
+    Businesses,
+    Comment,
+    Comments,
+    Dashboard,
+    Login,
+    MediaGroup,
+    MediaGroups,
+    Post,
+    Posts,
+    Product,
+    Products,
+    SearchPanel,
+    SearchPanels,
+    Setting,
+    Tag,
+    Taxonomies,
+    Taxonomy,
+    Tickets,
+    User,
+    Users
 } from './pages'
 
-import { withSnackbar } from 'notistack';
-import { connect } from "react-redux";
+import {withSnackbar} from 'notistack';
+import {connect} from "react-redux";
 
-import { flushSnacks, logOut , clearRedirect } from "./actions";
-import { eraseCookie, getCookie } from "../helpers";
+import {clearRedirect, flushSnacks, logOut} from "./actions";
+import {getCookie} from "../helpers";
 
 class App extends Component{
     componentDidUpdate(){
@@ -80,9 +98,10 @@ class App extends Component{
                                         <Route path="/admin/searchpanels" exact component={SearchPanels} />
                                         <Route path="/admin/searchpanels/:searchpanel" exact component={SearchPanel} />
                                         <Route path="/admin/setting" exact component={Setting} />
-                                        <Route path="/admin/tags/:tag" exact component={Tag} />
                                         <Route path="/admin/taxonomies" exact component={Taxonomies} />
                                         <Route path="/admin/taxonomies/:taxonomy" exact component={Taxonomy} />
+                                        <Route path="/admin/taxonomies/:taxonomy/tags" exact component={Tag} />
+                                        <Route path="/admin/taxonomies/:taxonomy/tags/:tag" exact component={Tag} />
                                         <Route path="/admin/tickets" exact component={Tickets} />
                                         <Route path="/admin/users" exact component={Users} />
                                         <Route path="/admin/users/:user" exact component={User} />
@@ -98,31 +117,31 @@ class App extends Component{
                                 {
                                     text: 'داشبورد',
                                     link: '/admin',
-                                    icon: 'add'
+                                    icon: 'dashboard'
                                 },{
                                     text: 'کاربران',
                                     link: '/admin/users',
-                                    icon: 'add'
+                                    icon: 'person'
                                 },{
                                     text: 'مطالب',
                                     link: '/admin/posts',
-                                    icon: 'add'
+                                    icon: 'edit'
                                 },{
                                     text: 'کسب و کارها',
                                     link: '/admin/businesses',
-                                    icon: 'add'
+                                    icon: 'business'
                                 },{
                                     text: 'محصولات',
                                     link: '/admin/products',
-                                    icon: 'add'
+                                    icon: 'gavel'
                                 },{
                                     text: 'نظرات',
                                     link: '/admin/comments',
-                                    icon: 'add'
+                                    icon: 'comment'
                                 },{
                                     text: 'رسانه',
                                     link: '/admin/mediagroups',
-                                    icon: 'add'
+                                    icon: 'tv'
                                 },{
                                     text: 'تگ ها',
                                     link: '/admin/taxonomies',
@@ -130,16 +149,16 @@ class App extends Component{
                                 },{
                                     text: 'تیکت ها',
                                     link: '/admin/tickets',
-                                    icon: 'add'
+                                    icon: 'comment'
                                 },{
                                     text: 'پنل جستجو',
                                     link: '/admin/searchpanels',
-                                    icon: 'add'
+                                    icon: 'search'
                                 },{
                                     text: 'خروج',
                                     // link: '/admin/login',
                                     onClick: this.props.logOut,
-                                    icon: 'add'
+                                    icon: 'logout'
                                 }
                             ]}
                         />

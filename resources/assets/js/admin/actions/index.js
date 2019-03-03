@@ -1,4 +1,4 @@
-export { setPost, getPosts, increment, updatePost, storePost } from './PostActions';
+export { setPost, getPosts, updatePost, storePost } from './PostActions';
 export { getComments } from './CommentActions';
 export { getMediaGroup, getMediaGroups , addMedia } from './MediaActions';
 export { getProducts, setProduct , updateProduct,storeProduct } from './ProductActions';
@@ -8,5 +8,5 @@ export { flushSnacks } from './SnackActions';
 export { clearRedirect } from './AppActions';
 export { getSearchPanels, setSearchPanel, storeSearchPanel, updateSearchPanel } from './SearchPanelActions';
 export { getTickets } from './TicketActions';
-export { getTags, updateTag } from './TagActions';
-export { getTaxonomies } from './TaxonomyActions';
+export { getTags, setTag, storeTag,updateTag } from './TagActions';
+export { getTaxonomies, setTaxonomy, storeTaxonomy, updateTaxonomy } from './TaxonomyActions';

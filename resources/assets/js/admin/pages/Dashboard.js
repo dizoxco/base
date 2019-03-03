@@ -16,14 +16,14 @@ class Dashboard extends Component {
 
     render() {
         let data =[];
-        if(this.props.taxonomies.length > 0){
+        // if(this.props.taxonomies.length > 0){
             // const tags = this.props.taxonomies[1].relations.tags;
             // data = tags.map(tag=> ({
             //     value:tag.id,
             //     label:tag.label
             // }));
-            console.log(data);
-        }
+            // console.log(data);
+        // }
         return (
             <Page
                 title='داشبورد'

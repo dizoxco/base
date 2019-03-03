@@ -134,9 +134,7 @@ Route::middleware('auth:api')->group(function () {
         });
     });
 
-    Route::name('taxonomies.')->prefix('taxonomies')->group(function () {
-        Route::get('/', 'TaxonomyController@index')->name('index');
-    });
+    Route::apiResource('taxonomies', 'TaxonomyController');
 
     Route::apiResource('tags', 'TagController');
 
