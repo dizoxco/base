@@ -2,8 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 
 import {getUsers, setUser, updateUser , storeUser} from "../actions"
-import {File, Form, Page, Show, Text} from "../components";
-import routes from "../routes";
+import {Form, Page, Show, Text, NotFound} from "../components";
 
 class User extends Component {
 
@@ -11,11 +10,11 @@ class User extends Component {
         tab: 1
     }; 
 
-    componentDidMount() {
-        if (this.props.user === undefined) return <NotFound />
-
-        if (this.props.user.id == undefined) this.props.getUsers();  
-    }
+    // componentDidMount() {
+    //     if (this.props.user === null) {
+    //         this.props.getUsers();
+    //     }
+    // }
 
     // handleClick = () => {
     //     if (this.props.user.id == 0) {
@@ -25,8 +24,18 @@ class User extends Component {
     //     }
     // };
 
+    // handleClick = () => {
+    //     if (this.props.user.id == 0) {
+    //         this.props.storeUser(this.props.user)
+    //     } else {
+    //         this.props.updateUser(this.props.user)
+    //     }
+    // };
 
     render() { 
+        if (this.props.user === undefined) return <NotFound />
+
+        if (this.props.user.id == undefined) this.props.getUsers();  
 
         return (
             <Page
