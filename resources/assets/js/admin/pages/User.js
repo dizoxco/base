@@ -2,56 +2,55 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 
 import {getUsers, setUser, updateUser , storeUser} from "../actions"
-import {File, Form, Page, Show, Text} from "../components";
-import routes from "../routes";
+import {Form, Page, Show, Text, NotFound} from "../components";
 
 class User extends Component {
 
     state = {
-        tab: 0
-    };
+        tab: 1
+    }; 
 
-    componentDidMount() {
-        if (this.props.user === null) {
-            this.props.getUsers();
-        }
-    }
+    // componentDidMount() {
+    //     if (this.props.user === null) {
+    //         this.props.getUsers();
+    //     }
+    // }
 
-    handleClick = () => {
-        if (this.props.user.id == 0) {
-            this.props.storeUser(this.props.user)
-        } else {
-            this.props.updateUser(this.props.user)
-        }
-    };
+    // handleClick = () => {
+    //     if (this.props.user.id == 0) {
+    //         this.props.storeUser(this.props.user)
+    //     } else {
+    //         this.props.updateUser(this.props.user)
+    //     }
+    // };
 
 
-    render() {
-        if (this.props.user === null) {
-            return <div>loading ....................</div>
-        }
+    render() { 
+        if (this.props.user === undefined) return <NotFound />
 
-        if (this.props.user === undefined) {
-            return <div>undefined ....................</div>
-        }
+        if (this.props.user.id == undefined) this.props.getUsers();  
 
         return (
             <Page
                 title={this.props.user.attributes.name}
                 button={{
                     label: 'save',
-                    onClick: () => this.handleClick()
+                    // onClick: () => this.handleClick()
+                    onClick: () => this.props.user.id? this.props.updateUser(this.props.user): this.props.storeUser(this.props.user)
                 }}
-                tabs={this.props.user.id === 0 ? ['نمایش', 'افزودن کاربر'] : ['نمایش', 'ویرایش اطلاعات']}
+                // tabs={this.props.user.id === 0 ? ['نمایش', 'افزودن کاربر'] : ['نمایش', 'ویرایش اطلاعات']}
+                tabs={['نمایش', 'ویرایش اطلاعات']}
                 tab={this.state.tab}
                 redirect={this.state.redirect}
                 onChange={(tab) => this.setState({tab})}
             >
                 <Form show={this.state.tab == 0}>
-                    <Show data={[
+                    <Show label="عنوان">{this.props.user.attributes.name}</Show>
+                    <Show label="ایمیل">{this.props.user.attributes.email}</Show>
+                    {/* <Show data={[
                         {label: 'عنوان', value: this.props.user.attributes.name},
                         {label: 'نامک', value: this.props.user.attributes.email},
-                    ]}/>
+                    ]}/> */}
                 </Form>
                 <Form show={this.state.tab == 1}>
                     <File path={routes('api.users.update', [this.props.user.id])} put name="avatar"  />
@@ -84,18 +83,21 @@ class User extends Component {
 
                 </Form>
             </Page>
-        );
+        )
     }
 }
-
+ 
 const mapStateToProps = (state, props) => {
-    let user = null;
+    // let user = null;
 
-    if (state.users.index.length) {
-        user = state.users.index.find(e => e.id == props.match.params.user);
-    }
+    // if (state.users.index.length) {
+    //     user = state.users.index.find(e => e.id == props.match.params.user);
+    // }
+    let user = (props.match.params.user == 'create')? state.users.create:
+            (state.users.index.length == 0)? state.users.init:
+            state.users.index.find( element => element.id == props.match.params.user);
     return {
-        user: user
+        user
     };
 };
 

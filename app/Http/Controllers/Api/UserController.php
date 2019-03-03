@@ -37,7 +37,7 @@ class UserController extends Controller
             $createdUser->addMediaFromRequest('avatar')->toMediaCollection(enum('media.user.avatar'));
         }
 
-        event(new UserStoreEvent($createdUser));
+        // event(new UserStoreEvent($createdUser));
 
         return new UserResource($createdUser);
     }

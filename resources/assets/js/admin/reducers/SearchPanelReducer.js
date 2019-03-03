@@ -6,9 +6,9 @@ const init = {
     type: 'searchpanel',
     attributes: {
         title: '',
-        slug: '',
+        slug: '', 
         description: ''
-    }
+    } 
 };
 const initialState = {
     index: [],

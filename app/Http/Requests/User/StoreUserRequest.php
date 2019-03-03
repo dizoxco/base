@@ -23,11 +23,10 @@ class StoreUserRequest extends FormRequest
      */
     public function rules()
     {
-        $validation = config('auth.via.'.service_type($this->input('service')).'.validation');
-
         return [
             'name'      =>  'required',
-            'service'   =>  $validation,
+            'email'     =>  'required_without:mobile|string|email|unique:users,email',
+            'mobile'    =>  'required_without:email|string|iran_mobile|unique:users,mobile',
             'password'  =>  'required|string|min:6|max:30|confirmed',
             'avatar'    =>  'sometimes|image',
         ];
