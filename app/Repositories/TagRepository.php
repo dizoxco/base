@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
+use Throwable;
 use App\Models\Tag;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
-use Throwable;
 
 class TagRepository extends BaseRepository
 {
@@ -20,7 +20,7 @@ class TagRepository extends BaseRepository
     {
         $tags = QueryBuilder::for($this->model)
             ->allowedFilters(['slug', 'label'])
-            ->allowedIncludes(['taxonomy','posts','products'])
+            ->allowedIncludes(['taxonomy', 'posts', 'products'])
             ->allowedSorts(['created_at', 'updated_at']);
         $this->applyParams($tags, $params);
 

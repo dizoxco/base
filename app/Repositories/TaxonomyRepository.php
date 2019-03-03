@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
+use Throwable;
 use App\Models\Taxonomy;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
-use Throwable;
 
 class TaxonomyRepository extends BaseRepository
 {

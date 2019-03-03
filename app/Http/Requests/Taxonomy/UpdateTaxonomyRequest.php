@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Taxonomy;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateTaxonomyRequest extends FormRequest
 {
@@ -28,7 +28,7 @@ class UpdateTaxonomyRequest extends FormRequest
 
         return [
             'group_name' => 'required|string',
-            'slug' => ['nullable','string',Rule::unique('taxonomies','slug')->ignore($taxonomy_id)],
+            'slug' => ['nullable', 'string', Rule::unique('taxonomies', 'slug')->ignore($taxonomy_id)],
             'label' => 'required|string',
         ];
     }

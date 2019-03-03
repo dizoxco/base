@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Taxonomy\StoreTaxonomyRequest;
-use App\Http\Requests\Taxonomy\UpdateTaxonomyRequest;
-use App\Http\Resources\EffectedRows;
-use App\Http\Resources\TaxonomyCollection;
-use App\Http\Resources\TaxonomyResource;
 use App\Models\Taxonomy;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\EffectedRows;
+use App\Http\Resources\TaxonomyResource;
+use App\Http\Resources\TaxonomyCollection;
 use App\Repositories\Facades\TaxonomyRepo;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\Taxonomy\StoreTaxonomyRequest;
+use App\Http\Requests\Taxonomy\UpdateTaxonomyRequest;
 
 class TaxonomyController extends Controller
 {
