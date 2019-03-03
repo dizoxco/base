@@ -21,10 +21,9 @@ export const TagReducer = (state = initialState, action) => {
                 ...state,
                 index: action.payload.data
             };
-        case 'UPDATE-TAG':
-            let updatedIndex = state.index.findIndex((e) => e.id == action.payload.data.id );
-            state.index[updatedIndex].attributes = action.payload.data.attributes;
-            delete state.index[updatedIndex].oldAttributes;
+        case 'STORE-TAG':
+            state.index.push(action.payload.data);
+            state.create = state.init;
             return state;
         case 'SET-TAG':
             if(action.id == 0){
@@ -37,9 +36,10 @@ export const TagReducer = (state = initialState, action) => {
                 state.index[i].attributes = { ...state.index[i].attributes, ...action.attributes };
             }
             return state;
-        case 'STORE-TAG':
-            state.index.push(action.payload.data);
-            state.create = state.init;
+        case 'UPDATE-TAG':
+            let updatedIndex = state.index.findIndex((e) => e.id == action.payload.data.id );
+            state.index[updatedIndex].attributes = action.payload.data.attributes;
+            delete state.index[updatedIndex].oldAttributes;
             return state;
         default:
             return state;

@@ -16,6 +16,24 @@ export const SnackReducer = (state = [], action) => {
         case 'TOKEN': return [{ variant: 'success', message: 'خوش آمدید' }];
         case 'LOGOUT': return [{ variant: 'success', message: 'به سلامت' }];
         case 'STORE-POST': return [{ variant: 'success', message: 'مطلب با موفقیت افزوده شد' }];
+        case 'ERR':
+            let errors = action.payload.response.data.errors;
+            let status = action.payload.response.status;
+
+            switch (status) {
+                case 500:
+                    return [{variant: 'error', message:'خطای سرور'}];
+                default:
+                    let messages = [];
+                    let keys = Object.keys(errors);
+                    keys.forEach(function(key) {
+                        errors[key].forEach(function (err) {
+                            messages.push({ variant: 'warning', message: err });
+                        });
+                    });
+                    // ["default","error","success","warning","info"].
+                    return messages;
+            }
         default:
             return [];
     }
