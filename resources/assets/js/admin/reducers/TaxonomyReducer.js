@@ -1,5 +1,5 @@
 const init = {
-    type: 'tag',
+    type: 'taxonomy',
     attributes: {
         parent_id: 0,
         taxonomy_id: 0,
@@ -20,6 +20,10 @@ export const TaxonomyReducer = (state = initialState, action) => {
                 ...state,
                 index: action.payload.data,
             };
+        case 'STORE-TAXONOMIES':
+            state.index.push(action.payload.data);
+            state.create = state.init;
+            return state;
         case 'SET-TAXONOMIES':
             if(action.id == 0){
                 state.create.attributes = {...state.create.attributes, ...action.attributes}
@@ -30,10 +34,6 @@ export const TaxonomyReducer = (state = initialState, action) => {
                 }
                 state.index[i].attributes = { ...state.index[i].attributes, ...action.attributes };
             }
-            return state;
-        case 'STORE-TAXONOMIES':
-            state.index.push(action.payload.data);
-            state.create = state.init;
             return state;
         case 'UPDATE-TAXONOMIES':
             let updatedIndex = state.index.findIndex((e) => e.id == action.payload.data.id );

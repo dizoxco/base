@@ -1,5 +1,5 @@
-import {getting, posting, putting} from "../../helpers";
 import routes from '../routes';
+import {getting, posting, putting} from "../../helpers";
 
 export const getTaxonomies = () => {
     return (dispatch) => {
@@ -8,14 +8,8 @@ export const getTaxonomies = () => {
                 type: 'GET-TAXONOMIES',
                 payload: response.data
             })})
-            .catch( error => { console.log(error.response) } );
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
     }
-};
-
-export const setTaxonomy = (id, attributes) => {
-    return (dispatch) => {
-        dispatch({ type: 'SET-TAXONOMIES', id, attributes })
-    };
 };
 
 export const storeTaxonomy = (taxonomy, callback) => {
@@ -28,7 +22,13 @@ export const storeTaxonomy = (taxonomy, callback) => {
                     payload: response.data
                 })
             })
-            .catch( error => { console.log(error.response) } );
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
+    };
+};
+
+export const setTaxonomy = (id, attributes) => {
+    return (dispatch) => {
+        dispatch({ type: 'SET-TAXONOMIES', id, attributes })
     };
 };
 
@@ -42,6 +42,6 @@ export const updateTaxonomy = (taxonomy, callback) => {
                     payload: response.data
                 })
             })
-            .catch( error => { console.log(error.response) } );
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
     };
 };
