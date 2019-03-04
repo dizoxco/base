@@ -8,11 +8,11 @@ class Taxonomy extends Component {
     state = {activeTabIndex: 0};
 
     componentDidMount = () => {
-        if (this.props.taxonomy === null) {
+        if (this.props.taxonomy.id === undefined) {
             this.props.getTaxonomies();
         }
 
-        if (this.props.tags === null) {
+        if (this.props.tags.length === 0) {
             this.props.getTags();
         }
     };

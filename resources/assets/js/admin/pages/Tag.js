@@ -8,7 +8,7 @@ class Tag extends Component{
     state = {activeTabIndex: 0};
 
     componentDidMount(){
-        if (this.props.tag === null) {
+        if (this.props.tag.id === undefined) {
             this.props.getTags();
         }
     }

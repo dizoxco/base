@@ -28,7 +28,11 @@ class UpdateTaxonomyRequest extends FormRequest
 
         return [
             'group_name' => 'required|string',
-            'slug' => ['nullable', 'string', Rule::unique('taxonomies', 'slug')->ignore($taxonomy_id)],
+            'slug' => [
+                'nullable',
+                'string',
+                Rule::unique('taxonomies', 'slug')->ignore($taxonomy_id),
+            ],
             'label' => 'required|string',
         ];
     }

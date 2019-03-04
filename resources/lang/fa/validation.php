@@ -137,13 +137,11 @@ return [
     */
 
     'attributes' => [
-////      Hotels
         'city_id' => 'نام شهر',
         'brand' => 'برند',
         'slug' => 'اسلاگ',
-////      Posts
-//        'title'             =>  'عنوان',
-//        'body'              =>  'متن',
+        'label' => 'برچسب',
+        'group_name' => 'نام گروه',
 //        'abstract'          =>  'خلاصه',
 //        'image'             =>  'تصویر',
 //        'attachments[]'     =>  'پرونده',

@@ -5,8 +5,12 @@
             <div class="w-full md:w-1/2 lg:w-1/3  px-2 py-2">
                 <div class="relative rounded bg-white rounded-lg h-full overflow-hidden" >
                     <div class="relative">
-                        <a class="no-underline" href="{{ route('posts.show', $post->slug) }}"><img class="w-full" src="{{$post->banner[0]->getUrl('banner')}}" alt=""></a>
-                        <a class="no-underline" href="{{ route('posts.tag', $post->tags[0]->slug) }}"><span class="bg-grey-lighter px-4 py-1 mt-2 absolute pin-l pin-b mb-1">{{ $post->tags[0]->label }}</span></a>
+                        @if($post->banner->isNotEmpty())
+                            <a class="no-underline" href="{{ route('posts.show', $post->slug) }}"><img class="w-full" src="{{$post->banner[0]->getUrl('banner')}}" alt=""></a>
+                        @endif
+                        @if($post->tags->isNotEmpty())
+                            <a class="no-underline" href="{{ route('posts.tag', $post->tags[0]->slug) }}"><span class="bg-grey-lighter px-4 py-1 mt-2 absolute pin-l pin-b mb-1">{{ $post->tags[0]->label }}</span></a>
+                        @endif
                     </div>
                     
                     <div class="px-6">

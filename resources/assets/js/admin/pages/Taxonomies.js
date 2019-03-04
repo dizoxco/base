@@ -9,11 +9,11 @@ class Taxonomies extends Component{
     state = {};
 
     componentDidMount = () => {
-        if (this.props.taxonomies.length == 0) {
+        if (this.props.taxonomies.length === 0) {
             this.props.getTaxonomies();
         }
 
-        if (this.props.tags.length == 0) {
+        if (this.props.tags.length === 0) {
             this.props.getTags();
         }
     };
