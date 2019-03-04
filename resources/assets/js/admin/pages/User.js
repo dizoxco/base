@@ -10,11 +10,11 @@ class User extends Component {
         tab: 1
     }; 
 
-    // componentDidMount() {
-    //     if (this.props.user === null) {
-    //         this.props.getUsers();
-    //     }
-    // }
+    componentDidMount() {
+        if (this.props.user === undefined) return <NotFound />
+
+        if (this.props.user.id == undefined) this.props.getUsers();  
+    }
 
     // handleClick = () => {
     //     if (this.props.user.id == 0) {
@@ -26,9 +26,6 @@ class User extends Component {
 
 
     render() { 
-        if (this.props.user === undefined) return <NotFound />
-
-        if (this.props.user.id == undefined) this.props.getUsers();  
 
         return (
             <Page

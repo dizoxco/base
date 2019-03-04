@@ -10,14 +10,12 @@ class SearchPanel extends Component{
     state = {
         tab: 1
     }
-    // componentDidMount(){
-    //     if (this.props.searchpanel === null) this.props.getSearchPanels();
-    // }
-
-    render(){
-        // if (this.props.searchpanel === null) return <Loading />
+    componentDidMount(){
         if (this.props.searchpanel === undefined) return <NotFound />
         if (this.props.searchpanel.id == undefined) this.props.getSearchPanels();
+    }
+
+    render(){        
         return (
             <Page                
                 title={this.props.searchpanel.attributes.title}

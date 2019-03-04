@@ -3,7 +3,6 @@ import routes from '../routes';
 
 export const getUsers = () => { 
     return (dispatch) => {
-        console.log('getUsers action');
         getting(routes('api.users.index'))
             .then(response => dispatch({
                 type: 'GET-USERS',
