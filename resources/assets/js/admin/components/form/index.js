@@ -1,3 +1,4 @@
+export { AutoComplete } from './AutoComplete';
 export { Button } from './Button';
 export { Editor } from './Editor';
 export { Checkbox } from './Checkbox';

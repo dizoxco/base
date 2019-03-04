@@ -9,12 +9,14 @@ class Post extends Component{
     state = {        
         tab: 1
     }
-    
-    render(){
-        if (this.props.post === undefined) return <NotFound />
+
+    componentDidMount = () => {
         if (this.props.post.id == undefined) this.props.getPosts();
         if (this.props.author.id === undefined) this.props.getUsers();
-        
+    }
+    
+    render(){
+        if (this.props.post === undefined) return <NotFound />        
         return(
             <Page                
                 title={this.props.post.attributes.title}
