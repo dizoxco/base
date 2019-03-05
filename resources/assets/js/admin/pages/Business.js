@@ -2,55 +2,35 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 
 import {getBusinesses, setBusiness, updateBusiness, storeBusiness} from "../actions"
-import {Form, Page, Show, Text} from "../components";
+import {Form, Page, Show, Text, NotFound} from "../components";
 
 class Business extends Component {
 
-    state = {
-        tab: 0
+    state = { 
+        tab: 1
     };
 
     componentDidMount() {
-        if (this.props.business === null) {
-            this.props.getBusinesses();
-
-        }
+            if (this.props.business === undefined) return <NotFound />
+            if (this.props.business.id == undefined) this.props.getBusinesses();  
     }
-    handleClick = () => {
-        if (this.props.business.id == 0) {
-            this.props.storeBusiness(this.props.business)
-        } else {
-            this.props.updateBusiness(this.props.business)
-        }
-    };
-
 
     render() {
-        if (this.props.business === null) {
-            return <div>loading ....................</div>
-        }
-
-        if (this.props.business === undefined) {
-            return <div>undefined ....................</div>
-        }
-
         return (
             <Page
                 title={this.props.business.attributes.brand}
                 button={{
                     label: 'save',
-                    onClick: () => this.handleClick()
+                    onClick: () => this.props.business.id? this.props.updateBusiness(this.props.business): this.props.storeBusiness(this.props.business)
                 }}
-                tabs={this.props.business.id === 0 ? ['نمایش', 'افزودن کسب و کار'] :['نمایش', 'ویرایش اطلاعات']}
+                // tabs={this.props.business.id === 0 ? ['نمایش', 'افزودن کسب و کار'] :['نمایش', 'ویرایش اطلاعات']}
+                tabs={['نمایش', 'ویرایش اطلاعات']}
                 tab={this.state.tab}
                 redirect={this.state.redirect}
-                loading={this.props.business === undefined}
                 onChange={(tab) => this.setState({tab})}
             >
                 <Form show={this.state.tab === 0}>
-                    <Show data={[
-                        {label: 'عنوان', value: this.props.business.attributes.brand},
-                    ]}/>
+                    <Show label="عنوان">{this.props.business.attributes.brand}</Show>
                 </Form>
                 <Form show={this.state.tab === 1}>
                     <Text
@@ -72,11 +52,11 @@ class Business extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-
+    let business = (props.match.params.business == 'create')? state.businesses.create:
+            (state.businesses.index.length == 0)? state.businesses.init:
+            state.businesses.index.find( element => element.id == props.match.params.business);
     return {
-        business: (state.businesses.index.length) ?
-            state.businesses.index.find(element => element.id == props.match.params.business) :
-            null
+        business
     };
 };
 

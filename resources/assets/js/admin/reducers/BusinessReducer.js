@@ -1,25 +1,35 @@
-const initialState = {
-    index: [{id:0,attributes:{}}],
-    init:{id:0,attributes:{}}
+const init = {
+    type: 'business',
+    attributes:{
+        brand:'',
+    }
 };
+const initialState = {
+    index: [],
+    init,
+    create:{...init, id:0},
+}; 
 export const BusinessReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'GET-BUSINESSES':
             return {
-                ...state,
+                ...state, 
                 index: action.payload.data
             };
         case 'SET-BUSINESS':
-            let i = state.index.findIndex((e) => e.id === action.id );
-            if(state.index[i].oldAttributes === undefined){
-                state.index[i].oldAttributes = state.index[i].attributes;
+            if(action.id == 0){
+                state.create.attributes = {...state.create.attributes, ...action.attributes}
+            }else {
+                let i = state.index.findIndex((e) => e.id === action.id );
+                if(state.index[i].oldAttributes === undefined){
+                    state.index[i].oldAttributes = state.index[i].attributes;
+                }
+                state.index[i].attributes = { ...state.index[i].attributes, ...action.attributes };
             }
-            state.index[i].attributes = { ...state.index[i].attributes, ...action.attributes };
             return state;
         case 'STORE-BUSINESS':
             state.index.push(action.payload.data); //real code
-            state.index[0].attributes = state.index[0].oldAttributes;
-            delete state.index[0].oldAttributes;
+            state.create = state.init;
             return state;
         case 'UPDATE-BUSINESS':
             let updatedIndex = state.index.findIndex((e) => e.id === action.payload.data.id );

@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getProducts, setProduct ,updateProduct, storeProduct } from "../actions"
-import { Loading, NotFound, Table, Form, Page, Show, Text  , Icon} from "../components";
+// import { Loading, NotFound, Table, Form, Page, Show, Text  , Icon} from "../components";
+import {Form, Page, Show, Text, NotFound} from "../components";
 
 class Product extends Component{
 
     state = {        
-        tab: 0
+        tab: 1
     };
 
     componentDidMount(){
@@ -105,11 +106,15 @@ class Product extends Component{
 }
 
 const mapStateToProps = (state, props) => {
+    let product = (props.match.params.product == 'create')? state.product.create:
+                (state.products.index.length == 0)?state.products.init:
+                state.products.index.find( element => element.id == props.match.params.product );
     return { 
-        product: (state.products.index.length)?
-            state.products.index.find( element => element.id == props.match.params.product ):
-            null,
-        comments: state.comments.index
+        // product: (state.products.index.length)?
+        //     state.products.index.find( element => element.id == props.match.params.product ):
+        //     null,
+        // comments: state.comments.index
+        
     };
 };
 
