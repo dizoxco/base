@@ -124,6 +124,11 @@ class PostController extends Controller
                 $messageBag['banner'] = "Post {$post->title} updated without some attachments.";
             }
         }
+
+        if ($request->filled('tags')) {
+            $post->tags()->sync($request->tags);
+        }
+
         $resource = new PostResource($post);
 
         return empty($messageBag) ? $resource : $resource->additional($messageBag);

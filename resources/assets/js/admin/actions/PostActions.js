@@ -37,7 +37,10 @@ export const storePost = (post) => {
 
 export const updatePost = (post) => {
     return (dispatch) => {
-        putting(routes('api.posts.update',[post.id]), post.attributes)
+        putting(routes('api.posts.update',[post.id]), {
+            ...post.attributes,
+            tags: post.relations.tags
+        })
             .then(response => dispatch({
                 type: 'UPDATE-POST',
                 payload: response.data
