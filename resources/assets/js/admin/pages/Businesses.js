@@ -10,23 +10,24 @@ class Businesses extends Component{
     state = {};
 
     componentDidMount = () => {
-        if(this.props.businesses.length === 1) this.props.getBusinesses();
+        if(this.props.businesses.length == 0)
+            this.props.getBusinesses();
     };
 
-    render(){
+    render(){ 
         return(
             <Page                
                 title='کسب و کارها'
                 button={{
-                    label: 'save'
+                    label: 'add new Business',
+                    onClick: () => this.props.history.push('/admin/businesses/create')
                 }}
                 redirect={this.state.redirect}
                 onChange={(value) => this.setState({tab: value})}
             >
-                <Button label={'Add Business'} onClick={(e) => this.props.history.push('/admin/businesses/0')}  />
-
+                {/* <Button label={'Add Business'} onClick={(e) => this.props.history.push('/admin/businesses/0')}  /> */}
                 <Table
-                    data={this.props.businesses.slice(1,this.props.businesses.length)}
+                    data={this.props.businesses}
                     tdClick={(r) => this.props.history.push('/admin/businesses/' + r.original.id)}
                     columns={[
                         {

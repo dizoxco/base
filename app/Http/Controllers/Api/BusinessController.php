@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use App\Models\Business;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EffectedRows;
@@ -14,12 +15,12 @@ use App\Http\Requests\Businesses\UpdateBusinessRequest;
 
 class BusinessController extends Controller
 {
-    public function index()
+    public function index() 
     {
         return new BusinessCollection(BusinessRepo::getAll());
     }
 
-    public function store(StoreBusinessRequest $request)
+    public function store(Request $request)
     {
         $business = BusinessRepo::create($request->all());
         if ($business === null) {
@@ -34,9 +35,9 @@ class BusinessController extends Controller
         return new BusinessResource($business);
     }
 
-    public function update(UpdateBusinessRequest $request, Business $business)
+    public function update(Business $business)
     {
-        $rows = BusinessRepo::update($business, $request->all());
+        $rows = BusinessRepo::update($business, request()->all());
 //        $status = $business === null ? Response::HTTP_INTERNAL_SERVER_ERROR : Response::HTTP_OK;
 
         return new BusinessResource($business);

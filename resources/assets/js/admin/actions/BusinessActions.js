@@ -1,11 +1,22 @@
 import { getting, putting, posting, setCookie } from "../../helpers";
 import routes from '../routes';
 
+export const getBusinesses = () => {
+    return (dispatch) => {
+        getting(routes('api.businesses.index'))
+            .then(response => dispatch({
+                    type: 'GET-BUSINESSES',
+                    payload: response.data
+            }))
+            .catch( error => { console.log(error.response) } );
+    }
+}; 
+
 export const setBusiness = (id, attributes) => {
     return (dispatch) => {
         dispatch({ type: 'SET-BUSINESS', id, attributes })
     }
-};
+}; 
 export const storeBusiness = (business) => {
     return (dispatch) => {
         posting(routes('api.businesses.store'), business.attributes)
@@ -14,13 +25,6 @@ export const storeBusiness = (business) => {
                     type: 'STORE-BUSINESS',
                     payload: response.data
                 });
-
-                dispatch({
-                    type : 'APP-REDIRECT',
-                    payload : '/admin/businesses/'+response.data.data.id
-                });
-
-
             })
             .catch( error => { console.log(error.response) } );
     }
@@ -31,16 +35,6 @@ export const updateBusiness = (Business) => {
             .then(response => dispatch({
                 type: 'UPDATE-BUSINESS',
                 payload: response.data
-            }))
-            .catch( error => { console.log(error.response) } );
-    }
-};
-export const getBusinesses = () => {
-    return (dispatch) => {
-        getting(routes('api.businesses.index'))
-            .then(response => dispatch({
-                    type: 'GET-BUSINESSES',
-                    payload: response.data
             }))
             .catch( error => { console.log(error.response) } );
     }

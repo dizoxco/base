@@ -10,23 +10,26 @@ class Products extends Component{
     state = {};
 
     componentDidMount = () => {
-        if(this.props.products.length === 1) this.props.getProducts();
+        // if(this.props.products.length === 1) this.props.getProducts();
+        if(this.props.products.length == 0) this.props.getProducts();
         if(this.props.businesses.length === 0) this.props.getBusinesses();
     };
-
+ 
     render(){
         return(
             <Page                
                 title='محصولات'
                 button={{
-                    label: 'save'
+                    label: 'add new Product',
+                    onClick: () => this.props.history.push('/admin/products/create')
                 }}
-                redirect={this.state.redirect}
-                onChange={(value) => this.setState({tab: value})}
+                // redirect={this.state.redirect}
+                // onChange={(value) => this.setState({tab: value})}
             >
-                <Button label={'Add Product'} onClick={(e) => this.props.history.push('/admin/products/0')}  />
+                {/* <Button label={'Add Product'} onClick={(e) => this.props.history.push('/admin/products/0')}  /> */}
                 <Table
-                    data={this.props.products.slice(1, this.props.products.length)}
+                    data={this.props.users}
+                    // data={this.props.products.slice(1, this.props.products.length)}
                     tdClick={(r) => this.props.history.push('/admin/products/' + r.original.id)}
                     columns={[
                         {
