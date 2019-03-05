@@ -17,9 +17,8 @@ class UpdateUserRequest extends FormRequest
         $user = request()->route()->parameter('user') ?? auth_user();
 
         return [
-            'name'      =>  'required',
+            // 'name'      =>  'present',
             'email'     =>  [
-                'required',
                 'email',
                 Rule::unique('users', 'email')->ignore($user->id),
             ],

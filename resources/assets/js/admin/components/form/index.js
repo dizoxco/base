@@ -2,6 +2,7 @@ export { AutoComplete } from './AutoComplete';
 export { Button } from './Button';
 export { Editor } from './Editor';
 export { Checkbox } from './Checkbox';
+export { File } from './File';
 export { Form } from './Form';
 export { Radio } from './Radio';
 export { Select } from "./Select";

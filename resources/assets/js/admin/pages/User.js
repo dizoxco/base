@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 
 import {getUsers, setUser, updateUser , storeUser} from "../actions"
-import {Form, Page, Show, Text} from "../components";
+import {File, Form, Page, Show, Text} from "../components";
+import routes from "../routes";
 
 class User extends Component {
 
@@ -53,6 +54,7 @@ class User extends Component {
                     ]}/>
                 </Form>
                 <Form show={this.state.tab == 1}>
+                    <File path={routes('api.users.update', [this.props.user.id])} put name="avatar"  />
                     <Text
                         label='نام'
                         value={this.props.user.attributes.name}
