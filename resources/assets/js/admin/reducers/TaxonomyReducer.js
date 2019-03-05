@@ -1,3 +1,4 @@
+import { validator } from '../../helpers';
 const init = {
     type: 'taxonomy',
     attributes: {
@@ -20,6 +21,20 @@ export const TaxonomyReducer = (state = initialState, action) => {
                 ...state,
                 index: action.payload.data,
             };
+        case 'VALIDATE-TAXONOMIES':
+            // The object is being created or updated
+            let i = state.index.findIndex((e) => e.id == action.id );
+
+            let rules = {
+                group_name: ['required'],
+                slug: ['string'],
+                label: ['numeric']
+            };
+
+            // merge current validation object with new object variation
+            state.index[i].validation = validator(state.index[i], rules, action.field);
+
+            return state;
         case 'STORE-TAXONOMIES':
             state.index.push(action.payload.data);
             state.create = state.init;

@@ -1,6 +1,5 @@
-import { getCookie } from './'
 import Axios from 'axios';
-import { object } from 'prop-types';
+import {getCookie} from './';
 
 export const getting = (url) => {
     return Axios.get(

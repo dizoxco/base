@@ -1,17 +1,13 @@
+import {List} from "./components"
+import {connect} from "react-redux";
+import {getCookie} from "../helpers";
 import React, {Component} from "react";
-
-import {CSSTransition, TransitionGroup} from 'react-transition-group';
-
-import {Route, Switch, withRouter} from "react-router-dom";
-
-
+import {withSnackbar} from 'notistack';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-
 import Toolbar from '@material-ui/core/Toolbar';
-
-
-import {List} from "./components"
+import {Route, Switch, withRouter} from "react-router-dom";
+import {clearRedirect, flushSnacks, logOut} from "./actions";
 import {
     Business,
     Businesses,
@@ -36,12 +32,6 @@ import {
     Users
 } from './pages'
 
-import {withSnackbar} from 'notistack';
-import {connect} from "react-redux";
-
-import {clearRedirect, flushSnacks, logOut} from "./actions";
-import {getCookie} from "../helpers";
-
 class App extends Component{
     componentDidUpdate(){
         const { enqueueSnackbar  } = this.props;
@@ -59,11 +49,6 @@ class App extends Component{
     }
     
     render(){
-        
-        
-        // if (!this.props.user.token) return <Redirect to="/admin/login" />;
-        // if (this.props.location.pathname == '/admin/login'){
-            // return <Login />;
         if (getCookie('token') == null){
             return <Login />;
         } else {
@@ -77,13 +62,7 @@ class App extends Component{
                     </AppBar>
                     <div id="main-content" >
                         <Route render={({location}) => (
-                            // <TransitionGroup>
-                                // <CSSTransition
-                                //     key={location.key}
-                                //     timeout={300}
-                                //     classNames="fade"
-                                // >
-                                    <Switch location={location}>
+                                <Switch location={location}>
                                         <Route path="/admin" exact component={Dashboard} />
                                         <Route path="/admin/businesses" exact component={Businesses} />
                                         <Route path="/admin/businesses/:business" exact component={Business} />
@@ -107,8 +86,6 @@ class App extends Component{
                                         <Route path="/admin/users/:user" exact component={User} />
                                         <Route path="/admin/login" exact component={Login} />
                                     </Switch>
-                                // </CSSTransition>
-                            // </TransitionGroup>
                         )} />
                     </div>
                     <div id="side-nav">
@@ -156,7 +133,6 @@ class App extends Component{
                                     icon: 'search'
                                 },{
                                     text: 'خروج',
-                                    // link: '/admin/login',
                                     onClick: this.props.logOut,
                                     icon: 'logout'
                                 }
