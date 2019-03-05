@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 
 import {getUsers, setUser, updateUser , storeUser} from "../actions"
-import {Form, Page, Show, Text, NotFound} from "../components";
+import {File, Form, Page, Show, Text} from "../components";
+import routes from "../routes";
 
 class User extends Component {
 
