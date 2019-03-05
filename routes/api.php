@@ -134,9 +134,9 @@ Route::middleware('auth:api')->group(function () {
         });
     });
 
-    Route::apiResource('taxonomies', 'TaxonomyController');
+    Route::apiResource('taxonomies', 'TaxonomyController')->only('index','store','update');
 
-    Route::apiResource('tags', 'TagController');
+    Route::apiResource('tags', 'TagController')->only('index','store','update');
 
     Route::name('mediagroups')->prefix('mediagroups')->group(function () {
         Route::get('/', 'MediaGroupController@index');

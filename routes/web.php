@@ -4,11 +4,11 @@ Route::any('lab', function () {
 });
 
 Route::get('/', 'PageController@home')->name('home');
+Route::get('/products/{product}', 'ProductController@show')->name('products.show');
+
 // Authentication Routes...// Registration Routes...
 Route::post('google', 'Auth\LoginController@google')->name('google');
 Route::post('login', 'Auth\LoginController@login')->name('login');
-Route::get('/verify', 'PaymentController@verify')->name('verify');
-// Override the default logout route that user GET instead of POST
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // Registration Routes...
@@ -18,7 +18,6 @@ Route::post('register', 'Auth\RegisterController@register')->name('register');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::post('password/token', 'Auth\ForgotPasswordController@validateToken')->name('password.token.validate');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-Route::get('/products/{product}', 'ProductController@show')->name('products.show');
 
 Route::name('posts.')->prefix('posts')->group(function () {
     Route::get('/', 'PostController@index')->name('index');

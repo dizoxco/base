@@ -30,20 +30,10 @@ class TagController extends Controller
             ->response()->setStatusCode(Response::HTTP_CREATED);
     }
 
-    public function show(Tag $tag)
-    {
-        //
-    }
-
     public function update(UpdateTagRequest $request, Tag $tag)
     {
         TagRepo::update($tag, $request->all());
 
         return new TagResource($tag);
-    }
-
-    public function destroy(Tag $tag)
-    {
-        //
     }
 }
