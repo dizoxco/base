@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getSearchPanels, setSearchPanel, storeSearchPanel, updateSearchPanel } from "../actions"
-import { NotFound, Table, Form, Editor, Page, Show, Text, Select } from "../components";
+import { NotFound, Form, Page, Show, Text, Select } from "../components";
 // import { element } from "prop-types";
 
 
@@ -10,14 +10,12 @@ class SearchPanel extends Component{
     state = {
         tab: 1
     }
-    // componentDidMount(){
-    //     if (this.props.searchpanel === null) this.props.getSearchPanels();
-    // }
-
-    render(){
-        // if (this.props.searchpanel === null) return <Loading />
+    componentDidMount(){
         if (this.props.searchpanel === undefined) return <NotFound />
         if (this.props.searchpanel.id == undefined) this.props.getSearchPanels();
+    }
+
+    render(){        
         return (
             <Page                
                 title={this.props.searchpanel.attributes.title}
