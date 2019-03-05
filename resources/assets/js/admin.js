@@ -1,33 +1,28 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { BrowserRouter, Route } from "react-router-dom";
-
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import App from './admin/App';
 import thunk from 'redux-thunk';
-
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
-import { List, RTL } from "./admin/components"
+import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import {RTL} from "./admin/components"
+import {SnackbarProvider} from 'notistack';
+import {BrowserRouter, Route} from "react-router-dom";
+import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
+import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 
 import {
+    AppReducer,
     BusinessReducer,
     CommentReducer,
     MediaReducer,
-    ProductReducer,
     PostReducer,
-    SnackReducer,
+    ProductReducer,
     SearchPanelReducer,
+    SnackReducer,
+    TagReducer,
+    TaxonomyReducer,
     TicketReducer,
     UserReducer,
-    AppReducer,
-    TagReducer,
-    TaxonomyReducer
 } from './admin/reducers';
-
-import App from './admin/App';
-
-import { SnackbarProvider } from 'notistack';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
@@ -43,7 +38,7 @@ const store = createStore(
                     users: UserReducer,
                     tags: TagReducer,
                     taxonomies: TaxonomyReducer,
-                    app: AppReducer
+                    app: AppReducer,
                 }),
                 composeEnhancers( applyMiddleware(thunk))
             );
