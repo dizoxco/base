@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Resources\EffectedRows;
 use App\Models\Post;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EffectedRows;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostCollection;
 use App\Repositories\Facades\PostRepo;
