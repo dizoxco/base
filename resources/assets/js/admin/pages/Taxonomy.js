@@ -1,7 +1,8 @@
 import {connect} from "react-redux";
 import React, {Component} from "react";
+import { isEmpty } from "../../helpers";
 import {Button, Form, NotFound, Page, Table, Text} from "../components";
-import {getTags, getTaxonomies, setTaxonomy, storeTaxonomy, updateTaxonomy} from "../actions"
+import {getTags, getTaxonomies, setTaxonomy, storeTaxonomy, updateTaxonomy, validateTaxonomy} from "../actions"
 
 class Taxonomy extends Component {
 
@@ -25,10 +26,13 @@ class Taxonomy extends Component {
     };
 
     updateTaxonomy = () => {
-        return () => this.props.updateTaxonomy(
-            this.props.taxonomy,
-            () => this.props.history.push('/admin/taxonomies')
-        );
+        if (isEmpty(this.props.taxonomy.validation)) {
+            return () => this.props.updateTaxonomy(
+                this.props.taxonomy,
+                () => this.props.history.push('/admin/taxonomies')
+            );
+        } else {
+        }
     };
 
     render() {
@@ -48,18 +52,21 @@ class Taxonomy extends Component {
                             value={this.props.taxonomy.attributes.group_name}
                             half
                             onChange={(e) => this.props.setTaxonomy(this.props.taxonomy.id, {group_name: e.target.value})}
+                            errors={(this.props.taxonomy.validation) ? this.props.taxonomy.validation.group_name : ''}
                         />
                         <Text
                             label='اسلاگ'
                             value={this.props.taxonomy.attributes.slug}
                             half
                             onChange={(e) => this.props.setTaxonomy(this.props.taxonomy.id, {slug: e.target.value})}
+                            errors={(this.props.taxonomy.validation) ? this.props.taxonomy.validation.slug : ''}
                         />
                         <Text
                             label='برچسب'
                             value={this.props.taxonomy.attributes.label}
                             half
                             onChange={(e) => this.props.setTaxonomy(this.props.taxonomy.id, {label: e.target.value})}
+                            errors={(this.props.taxonomy.validation) ? this.props.taxonomy.validation.label : ''}
                         />
                     </Form>
                 </Page>
@@ -116,22 +123,29 @@ class Taxonomy extends Component {
                 </Form>
                 <Form show={this.state.activeTabIndex == 1}>
                     <Text
+                        id={this.props.taxonomy.id}
                         label='نام گروه'
                         value={this.props.taxonomy.attributes.group_name}
                         half
                         onChange={(e) => this.props.setTaxonomy(this.props.taxonomy.id, {group_name: e.target.value})}
+                        onBlur = {() => this.props.validateTaxonomy(this.props.taxonomy.id)}
+                        errors={(this.props.taxonomy.validation) ? this.props.taxonomy.validation.group_name : ''}
                     />
                     <Text
                         label='اسلاگ'
                         value={this.props.taxonomy.attributes.slug}
                         half
                         onChange={(e) => this.props.setTaxonomy(this.props.taxonomy.id, {slug: e.target.value})}
+                        onBlur = {() => this.props.validateTaxonomy(this.props.taxonomy.id, 'slug')}
+                        errors={(this.props.taxonomy.validation) ? this.props.taxonomy.validation.slug : ''}
                     />
                     <Text
                         label='برچسب'
                         value={this.props.taxonomy.attributes.label}
                         half
                         onChange={(e) => this.props.setTaxonomy(this.props.taxonomy.id, {label: e.target.value})}
+                        onBlur = {() => this.props.validateTaxonomy(this.props.taxonomy.id, 'label')}
+                        errors={(this.props.taxonomy.validation) ? this.props.taxonomy.validation.label : ''}
                     />
                     <Button
                         type="outlined"
@@ -167,5 +181,5 @@ const mapStateToProps = (state, props) => {
 
 export default connect(
     mapStateToProps,
-    {getTaxonomies, getTags, setTaxonomy, storeTaxonomy, updateTaxonomy}
+    {getTaxonomies, getTags, validateTaxonomy, setTaxonomy, storeTaxonomy, updateTaxonomy}
     )(Taxonomy);

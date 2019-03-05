@@ -12,6 +12,12 @@ export const getTaxonomies = () => {
     }
 };
 
+export const validateTaxonomy = (id, field = null) => {
+    return (dispatch) => {
+        dispatch({ type: 'VALIDATE-TAXONOMIES', id, field })
+    };
+};
+
 export const storeTaxonomy = (taxonomy, callback) => {
     return (dispatch) => {
         posting(routes('api.taxonomies.store'), taxonomy.attributes)
