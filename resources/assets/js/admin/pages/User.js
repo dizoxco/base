@@ -8,12 +8,11 @@ import routes from "../routes";
 class User extends Component {
 
     state = {
-        tab: 0
+        tab: 1
     }; 
 
     componentDidMount() {
         if (this.props.user === undefined) return <NotFound />
-
         if (this.props.user.id == undefined) this.props.getUsers();  
     }
 

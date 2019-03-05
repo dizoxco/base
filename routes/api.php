@@ -134,14 +134,16 @@ Route::middleware('auth:api')->group(function () {
         });
     });
 
-    Route::apiResource('taxonomies', 'TaxonomyController');
+    Route::apiResource('taxonomies', 'TaxonomyController')->only('index', 'store', 'update');
 
-    Route::apiResource('tags', 'TagController');
+    Route::apiResource('tags', 'TagController')->only('index', 'store', 'update');
 
-    Route::name('mediagroups')->prefix('mediagroups')->group(function () {
-        Route::get('/', 'MediaGroupController@index');
-        Route::get('{medium}', 'MediaGroupController@show');
-        Route::post('{medium}', 'MediaGroupController@store');
+    Route::apiResource('media', 'MediaController')->only('update', 'destroy');
+
+    Route::name('mediagroups.')->prefix('mediagroups')->group(function () {
+        Route::get('/', 'MediaGroupController@index')->name('index');
+        Route::get('{medium}', 'MediaGroupController@show')->name('show');
+        Route::post('{medium}', 'MediaGroupController@store')->name('store');
     });
 
     Route::name('comments.')->prefix('comments')->middleware('permission:manage_comments')->group(function () {

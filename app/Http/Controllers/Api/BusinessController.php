@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\Business;
+use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EffectedRows;
 use App\Http\Resources\BusinessResource;
 use App\Http\Resources\BusinessCollection;
 use App\Repositories\Facades\BusinessRepo;
 use Symfony\Component\HttpFoundation\Response;
-use App\Http\Requests\Businesses\StoreBusinessRequest;
-use App\Http\Requests\Businesses\UpdateBusinessRequest;
 
 class BusinessController extends Controller
 {
