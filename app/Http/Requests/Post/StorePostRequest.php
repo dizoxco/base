@@ -30,6 +30,7 @@ class StorePostRequest extends FormRequest
             'body'      =>  'required|string',
             'banner'    =>  'numeric|exists:media,id',
             'attach.*'  =>  'numeric|exists:media,id',
+            'tags'      =>  'numeric|exists:tags,id',
         ];
     }
 }

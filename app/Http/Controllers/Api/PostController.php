@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\EffectedRows;
 use App\Models\Post;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
@@ -31,6 +32,7 @@ class PostController extends Controller
             'user_id'   =>  auth_user()->id,
         ]);
 
+        /** @var Post $createdPost */
         $createdPost = PostRepo::create($request->all());
         if ($createdPost === 0) {
             return new EffectedRows($createdPost);
@@ -68,6 +70,11 @@ class PostController extends Controller
                 $messageBag['banner'] = "Post {$createdPost->title} created without some attachments.";
             }
         }
+
+        if ($request->filled('tags')) {
+            $createdPost->tags()->sync($request->tags);
+        }
+
         $resource = new PostResource($createdPost);
 
         return empty($messageBag) ? $resource : $resource->additional($messageBag);
