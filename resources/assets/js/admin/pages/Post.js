@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getPosts, getUsers, setPost, updatePost, storePost } from "../actions"
-import { NotFound, Table, Form, Editor, Page, Show, Text } from "../components";
+import { getTags, getPosts, getUsers, setPost, setPostTags, updatePost, storePost } from "../actions"
+import { NotFound, AutoComplete, Form, Editor, Page, Show, Text } from "../components";
 
 class Post extends Component{
 
@@ -13,6 +13,7 @@ class Post extends Component{
     componentDidMount = () => {
         if (this.props.post.id == undefined) this.props.getPosts();
         if (this.props.author.id === undefined) this.props.getUsers();
+        if (this.props.tags.length == 0) this.props.getTags();
     }
     
     render(){
@@ -58,6 +59,24 @@ class Post extends Component{
                         value={this.props.post.attributes.abstract}
                         onChange={ (e) => this.props.setPost(this.props.post.id, {abstract: e.target.value}) }
                     />
+                    <AutoComplete 
+                        data = {this.props.tags}
+                        accessors= {{
+                            value: 'id',
+                            label: 'attributes.label'
+                        }}
+                        value = {this.props.post.relations.tags}
+                        onChange = {(tags) => this.props.setPostTags(this.props.post.id, tags, this.props.tags)}
+                    />
+                    <AutoComplete 
+                        data = {this.props.cats}
+                        accessors= {{
+                            value: 'id',
+                            label: 'attributes.label'
+                        }}
+                        value = {this.props.post.relations.tags}
+                        onChange = {(tags) => this.props.setPostTags(this.props.post.id, tags, this.props.cats)}
+                    />
                     <Text
                         label='محتوا'
                         value={this.props.post.attributes.body}
@@ -79,10 +98,16 @@ const mapStateToProps = (state, props) => {
     let author = (state.users.index.length == 0 || post == undefined || post.id == undefined)? state.users.init:
             (props.match.params.post == 'create')? state.users.index.find( element => element.id == 1):
             state.users.index.find( element => element.id == post.attributes.user_id );
+    
+    let tags = state.tags.index.length? state.tags.index.filter(tag => tag.attributes.taxonomy_id == 1): []
+    let cats = state.tags.index.length? state.tags.index.filter(tag => tag.attributes.taxonomy_id == 2): []
+
     return {
         post,
-        author
+        author,
+        tags,
+        cats
     };
 };
 
-export default connect(mapStateToProps, { getPosts, getUsers, setPost, updatePost, storePost })(Post);
+export default connect(mapStateToProps, { getTags, getPosts, getUsers, setPost, setPostTags, updatePost, storePost })(Post);

@@ -8,7 +8,7 @@ import routes from "../routes";
 class User extends Component {
 
     state = {
-        tab: 1
+        tab: 0
     }; 
 
     componentDidMount() {
@@ -17,23 +17,15 @@ class User extends Component {
         if (this.props.user.id == undefined) this.props.getUsers();  
     }
 
-    // handleClick = () => {
-    //     if (this.props.user.id == 0) {
-    //         this.props.storeUser(this.props.user)
-    //     } else {
-    //         this.props.updateUser(this.props.user)
-    //     }
-    // };
-
-
     render() { 
 
+        console.log(this.props.user.attributes.email);
+        
         return (
             <Page
                 title={this.props.user.attributes.name}
                 button={{
                     label: 'save',
-                    // onClick: () => this.handleClick()
                     onClick: () => this.props.user.id? this.props.updateUser(this.props.user): this.props.storeUser(this.props.user)
                 }}
                 // tabs={this.props.user.id === 0 ? ['نمایش', 'افزودن کاربر'] : ['نمایش', 'ویرایش اطلاعات']}
@@ -78,7 +70,6 @@ class User extends Component {
                         type={'password'}
                         onChange={(e) => this.props.setUser(this.props.user.id, {password_confirmation: e.target.value})}
                     />
-
                 </Form>
             </Page>
         )

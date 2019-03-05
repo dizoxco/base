@@ -18,6 +18,12 @@ export const setPost = (id, attributes) => {
     }
 }
 
+export const setPostTags = (id, tags, taxonomy_tags) => {
+    return (dispatch) => {
+        dispatch({ type: 'SET-POST-TAGS', id, tags, taxonomy_tags })
+    }
+}
+
 export const storePost = (post) => {
     return (dispatch) => {
         posting(routes('api.posts.store'), post.attributes)

@@ -1,8 +1,9 @@
 const init = {
     type: 'user',
     attributes:{
-        name:'',
-        slug:'',
+        name: '',
+        email: '',
+        slug: ''
     }
 };
 const initialState = {

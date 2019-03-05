@@ -38,7 +38,7 @@ const routeslist = {
         },
         taxonomies: {
             prefix: '/taxonomies',
-            index: '?include=tags',
+            index: '?include=tags,tags',
             store: '',
             update: '/{post}',
         },

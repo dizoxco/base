@@ -9,6 +9,26 @@ class TagTableSeeder extends Seeder
     {
         $taxonomies = [
             [
+                'name' => 'post_cat',
+                'slug' => 'post_cat',
+                'label' => 'دسته بندی محتوا',
+                'tags' => [
+                    ['label' => 'مقاله', 'slug' => 'article'],
+                    ['label' => 'خبر', 'slug' => 'news'],
+                    ['label' => 'مد', 'slug' => 'mod'],
+                ],
+            ],
+            [
+                'name' => 'post_tag',
+                'slug' => 'post_tag',
+                'label' => 'تگ های محتوا',
+                'tags' => [
+                    ['label' => 'ورساچه', 'slug' => 'versace'],
+                    ['label' => 'خیاطی', 'slug' => 'kh'],
+                    ['label' => 'طراحی', 'slug' => 'design'],
+                ],
+            ],
+            [
                 'name' => 'types',
                 'slug' => 'types',
                 'label' => 'نوع شرکت',

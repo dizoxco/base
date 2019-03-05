@@ -22,11 +22,11 @@ export class AutoComplete extends React.Component {
                 var result = selectedOption.value;
             }
         }
-        console.log(result);
         
-        console.log(typeof this.props.onChange);
-        
-        // this.props.onChange(result);
+        // console.log(typeof this.props.onChange);
+        if (this.props.onChange != undefined) {
+            this.props.onChange(result);
+        }
     };
 
     deep_value = (obj, path) => {
@@ -71,15 +71,18 @@ export class AutoComplete extends React.Component {
             return <div />
         }
 
+        let className = (this.props.half)? "w-1/2 p-2": "w-full p-2";
         return (
-            <Select
-                value={value}
-                onChange={this.handleChange}
-                options={data}
-                isMulti={Array.isArray(this.props.value)}
-                components={makeAnimated()}
-                // closeMenuOnSelect={false}
-            />
+            <div className={className}>
+                <Select
+                    value={value}
+                    onChange={this.handleChange}
+                    options={data}
+                    isMulti={Array.isArray(this.props.value)}
+                    components={makeAnimated()}
+                    // closeMenuOnSelect={false}
+                />
+            </div>
         );
     }
 }

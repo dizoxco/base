@@ -5,6 +5,9 @@ const init = {
         slug: '',
         abstract: '',
         body: ''
+    },
+    relations: {
+        tags: []
     }
 };
 const initialState = {
@@ -33,6 +36,23 @@ export const PostReducer = (state = initialState, action) => {
                 }
                 state.index[i].attributes = { ...state.index[i].attributes, ...action.attributes };
             }
+            return state;
+        case 'SET-POST-TAGS':
+        console.log('settags');
+            let i = state.index.findIndex((e) => e.id == action.id );
+            if(state.index[i].oldRelations == undefined){
+                state.index[i].oldRelations = state.index[i].relations;
+            }
+            var tags = action.tags;
+            state.index[i].relations.tags.forEach(tag => {
+                let add = true;
+                action.taxonomy_tags.forEach(tax_tag => {
+                    if (tax_tag.id == tag) add = false
+                })
+                if (add) tags.push(tag);
+            })
+
+            state.index[i].relations.tags = tags;
             return state;
         case 'UPDATE-POST':
             let updatedIndex = state.index.findIndex((e) => e.id == action.payload.data.id );

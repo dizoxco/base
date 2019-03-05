@@ -59,11 +59,6 @@ class Tag extends Component{
                             value={this.props.tag.attributes.slug}
                             onChange={ (e) => this.props.setTag(this.props.tag.id, {slug: e.target.value}) }
                         />
-                        <Text
-                            label='دیتا اضافه'
-                            value={this.props.tag.attributes.metadata}
-                            onChange={ (e) => this.props.setTag(this.props.tag.id, {metadata: e.target.value}) }
-                        />
                     </Form>
                 </Page>
             );
@@ -96,11 +91,6 @@ class Tag extends Component{
                         label='اسلاگ'
                         value={this.props.tag.attributes.slug}
                         onChange={ (e) => this.props.setTag(this.props.tag.id, {slug: e.target.value}) }
-                    />
-                    <Text
-                        label='دیتا اضافه'
-                        value={this.props.tag.attributes.metadata}
-                        onChange={ (e) => this.props.setTag(this.props.tag.id, {metadata: e.target.value}) }
                     />
                 </Form>
             </Page>
