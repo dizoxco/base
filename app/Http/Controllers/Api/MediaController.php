@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EffectedRows;
 use App\Http\Resources\MediaResource;
-use Illuminate\Http\Request;
 use Spatie\MediaLibrary\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,7 +16,6 @@ class MediaController extends Controller
         if ($updated_medium = $medium->update($request->all())) {
             $status = Response::HTTP_OK;
             $resource = new MediaResource($medium);
-
         } else {
             $status = Response::HTTP_INTERNAL_SERVER_ERROR;
             $resource = new EffectedRows($updated_medium);

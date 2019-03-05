@@ -134,11 +134,11 @@ Route::middleware('auth:api')->group(function () {
         });
     });
 
-    Route::apiResource('taxonomies', 'TaxonomyController')->only('index','store','update');
+    Route::apiResource('taxonomies', 'TaxonomyController')->only('index', 'store', 'update');
 
-    Route::apiResource('tags', 'TagController')->only('index','store','update');
+    Route::apiResource('tags', 'TagController')->only('index', 'store', 'update');
 
-    Route::apiResource('media', 'MediaController')->only('update','destroy');
+    Route::apiResource('media', 'MediaController')->only('update', 'destroy');
 
     Route::name('mediagroups.')->prefix('mediagroups')->group(function () {
         Route::get('/', 'MediaGroupController@index')->name('index');
