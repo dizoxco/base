@@ -9,7 +9,7 @@ class TagTableSeeder extends Seeder
     {
         $taxonomies = [
             [
-                'name' => 'post_cat',
+                'name' => 'post',
                 'slug' => 'post_cat',
                 'label' => 'دسته بندی محتوا',
                 'tags' => [
@@ -19,7 +19,7 @@ class TagTableSeeder extends Seeder
                 ],
             ],
             [
-                'name' => 'post_tag',
+                'name' => 'post',
                 'slug' => 'post_tag',
                 'label' => 'تگ های محتوا',
                 'tags' => [
@@ -29,7 +29,7 @@ class TagTableSeeder extends Seeder
                 ],
             ],
             [
-                'name' => 'types',
+                'name' => 'company',
                 'slug' => 'types',
                 'label' => 'نوع شرکت',
                 'tags' => [
@@ -40,7 +40,7 @@ class TagTableSeeder extends Seeder
                 ],
             ],
             [
-                'name' => 'fields',
+                'name' => 'company',
                 'slug' => 'fields',
                 'label' => 'زمینه کاری',
                 'tags' => [
@@ -57,7 +57,7 @@ class TagTableSeeder extends Seeder
                 ],
             ],
             [
-                'name' => 'contracts',
+                'name' => 'company',
                 'slug' => 'contracts',
                 'label' => 'نوع قرارداد',
                 'tags' => [
@@ -70,7 +70,7 @@ class TagTableSeeder extends Seeder
                 ],
             ],
             [
-                'name' => 'brands',
+                'name' => 'product',
                 'slug' => 'brands',
                 'label' => 'برند',
                 'tags' => [
@@ -88,7 +88,7 @@ class TagTableSeeder extends Seeder
                 ],
             ],
             [
-                'name' => 'colors',
+                'name' => 'product',
                 'slug' => 'colors',
                 'label' => 'رنگ',
                 'tags' => [
@@ -99,7 +99,7 @@ class TagTableSeeder extends Seeder
                 ],
             ],
             [
-                'name' => 'Form Factor',
+                'name' => 'product',
                 'slug' => 'forms',
                 'label' => 'انواع',
                 'tags' => [

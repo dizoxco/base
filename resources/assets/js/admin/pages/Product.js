@@ -1,21 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getProducts, setProduct ,updateProduct, storeProduct } from "../actions"
-// import { Loading, NotFound, Table, Form, Page, Show, Text  , Icon} from "../components";
-import {Form, Page, Show, Text, NotFound} from "../components";
+import { getTaxonomies, getTags, getProducts, setProduct, setProductTags ,updateProduct, storeProduct } from "../actions"
+import {Form, Page, Show, Table, Text, NotFound, AutoComplete} from "../components";
 
 class Product extends Component{
 
-    state = {        
-        tab: 1
-    };
+    state = {tab: 1};
 
     componentDidMount(){
-        if (this.props.product === null) {
+        if (this.props.product.id === undefined) {
             this.props.getProducts();
         }
+        if (this.props.tags.length == 0) {
+            this.props.getTags();
+        }
     }
+
     handleClick = () => {
         if (this.props.product.id == 0) {
             this.props.storeProduct(this.props.product)
@@ -77,6 +78,15 @@ class Product extends Component{
                         type={'number'}
                         onChange={ (e) => this.props.setProduct(this.props.product.id, {price: e.target.value}) }
                     />
+                    <AutoComplete
+                        data = {this.props.tags}
+                        accessors= {{
+                            value: 'id',
+                            label: 'attributes.fullname'
+                        }}
+                        value = {this.props.product.relations.tags}
+                        onChange = {(tags) => this.props.setProductTags(this.props.product.id, tags, this.props.tags)}
+                    />
                 </Form>
                 <Form show={this.state.tab === 2}>
                     <Table
@@ -85,11 +95,11 @@ class Product extends Component{
                             {
                                 Header: 'id',
                                 accessor: 'id',
-                                width: 70
+                                width: 150
                             },
                             {
                                 Header: 'وضعیت',
-                                width: 50,
+                                width: 200,
                                 Cell: row => row.original.oldAttributes? (<Icon icon="edit" />): '',
                             },
                             {
@@ -106,16 +116,27 @@ class Product extends Component{
 }
 
 const mapStateToProps = (state, props) => {
-    let product = (props.match.params.product == 'create')? state.product.create:
-                (state.products.index.length == 0)?state.products.init:
-                state.products.index.find( element => element.id == props.match.params.product );
-    return { 
-        // product: (state.products.index.length)?
-        //     state.products.index.find( element => element.id == props.match.params.product ):
-        //     null,
-        // comments: state.comments.index
-        
-    };
+    let product;
+    let tags;
+
+    tags = state.tags.index.filter(tag => tag.attributes.taxonomy_group_name == 'product');
+
+    if (props.match.params.product == 'create') {
+        product = state.product.create;
+    }
+
+    if (state.products.index.length == 0) {
+        product = state.products.init;
+    }
+
+    if (!product) {
+        product = state.products.index.find( element => element.id == props.match.params.product );
+    }
+
+    return {product, tags};
 };
 
-export default connect(mapStateToProps, { getProducts ,setProduct , updateProduct , storeProduct })(Product);
+export default connect(
+    mapStateToProps,
+    { getTaxonomies, getTags, getProducts ,setProduct, setProductTags, updateProduct , storeProduct }
+    )(Product);

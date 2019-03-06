@@ -38,7 +38,8 @@ class ProductRepository extends BaseRepository
     {
         $productes = QueryBuilder::for(Product::query())
             ->allowedFilters(['brand', 'email'])
-            ->allowedSorts(['brand', 'city', 'province', 'created_at', 'updated_at']);
+            ->allowedSorts(['brand', 'city', 'province', 'created_at', 'updated_at'])
+            ->allowedIncludes(['tags']);
         $this->applyParams($productes, $params);
 
         return $productes->get();

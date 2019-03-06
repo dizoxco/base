@@ -44,7 +44,7 @@ const routeslist = {
         },
         products: {
             prefix: '/products',
-            index: '',
+            index: '?include=tags',
             store: '',
             update: '/{product}'
         },
