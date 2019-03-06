@@ -37,18 +37,6 @@ class PostResource extends BaseResource
                 $this->mergeWhen($this->whenLoaded('comments'), [
                     'comments' => $this->comments->pluck('id'),
                 ]),
-                // $this->whenLoaded('user', function () {
-                //     return ['user'  =>  $this->user->id];
-                // }),
-                // $this->whenLoaded('comments', function () {
-                //     return ['comments'  =>  $this->comments->pluck('id')];
-                // }),
-                // $this->whenLoaded('tags', function () {
-                //     return ['tags'  =>  $this->tags->pluck('id')];
-                // }),
-                // $this->whenLoaded('banner', function () {
-                //     return ['banner'  =>  $this->banner[0]->id];
-                // }),
             ],
         ];
 

@@ -38,7 +38,6 @@ export const PostReducer = (state = initialState, action) => {
             }
             return state;
         case 'SET-POST-TAGS':
-        console.log('settags');
             let i = state.index.findIndex((e) => e.id == action.id );
             if(state.index[i].oldRelations == undefined){
                 state.index[i].oldRelations = state.index[i].relations;
