@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Models\Business;
+use Illuminate\Http\Request;
 use Illuminate\Http\Request;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BusinessController extends Controller
 {
-    public function index() 
+    public function index()
     {
         return new BusinessCollection(BusinessRepo::getAll());
     }
