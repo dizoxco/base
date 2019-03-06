@@ -100,14 +100,14 @@ Route::name('profile.')->prefix('profile')->middleware('auth')->group(function (
     });
 
     Route::name('sizes.')->prefix('sizes')->group(function () {
-        Route::get('/','SizeController@index')->name('index');
-        Route::get('create','SizeController@create')->name('create');
-        Route::post('/','SizeController@store')->name('store');
+        Route::get('/', 'SizeController@index')->name('index');
+        Route::get('create', 'SizeController@create')->name('create');
+        Route::post('/', 'SizeController@store')->name('store');
         Route::prefix('{size}')->group(function () {
-            Route::get('/','SizeController@show')->name('show');
-            Route::get('/edit','SizeController@edit')->name('edit');
-            Route::put('/','SizeController@update')->name('update');
-            Route::delete('/','SizeController@destroy')->name('destroy');
+            Route::get('/', 'SizeController@show')->name('show');
+            Route::get('/edit', 'SizeController@edit')->name('edit');
+            Route::put('/', 'SizeController@update')->name('update');
+            Route::delete('/', 'SizeController@destroy')->name('destroy');
         });
     });
 

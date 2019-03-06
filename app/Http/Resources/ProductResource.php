@@ -26,7 +26,7 @@ class ProductResource extends BaseResource
                 'price'         =>  $this->price,
                 'status'        =>  $this->status,
                 'temp'          =>  $this->temp,
-                $this->mergeWhen($this->dates(), $this->dates())
+                $this->mergeWhen($this->dates(), $this->dates()),
             ],
             'relations' =>  [
                 $this->mergeWhen($this->whenLoaded('tags'), [
@@ -50,7 +50,7 @@ class ProductResource extends BaseResource
     private function dates()
     {
         $dates = [];
-        $date_columns = ['available_at', 'created_at','updated_at', 'deleted_at'];
+        $date_columns = ['available_at', 'created_at', 'updated_at', 'deleted_at'];
         foreach ($date_columns as $column) {
             if ($this->{$column} !== null) {
                 $dates[$column] = $this->{$column}->timestamp;

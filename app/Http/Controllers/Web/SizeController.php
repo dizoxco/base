@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Models\Size;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Size\StoreSizeRequest;
 use App\Http\Requests\Size\UpdateSizeRequest;
-use App\Models\Size;
 
 class SizeController extends Controller
 {
@@ -22,6 +22,7 @@ class SizeController extends Controller
     public function store(StoreSizeRequest $request)
     {
         \Auth::user()->sizes()->create($request->all());
+
         return redirect()->route('profile.sizes.index');
     }
 

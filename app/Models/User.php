@@ -96,7 +96,7 @@ class User extends Authenticatable implements HasMedia
 
     public function sizes()
     {
-        return $this->hasMany(Size::class,'user_id','id');
+        return $this->hasMany(Size::class, 'user_id', 'id');
     }
 
     public function tickets(): HasMany
