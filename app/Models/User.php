@@ -68,31 +68,15 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Address::class, 'user_id', 'id');
     }
 
-    public function posts() : HasMany
+    public function businesses(): BelongsToMany
     {
-        return $this->hasMany(Post::class, 'user_id', 'id');
+        return $this->belongsToMany(Business::class, 'businesses_users', 'user_id', 'business_id');
     }
 
     public function chats() : HasMany
     {
         return $this->hasMany(Ticket::class, 'user_id', 'id')
             ->where('business_id', '<>', 0);
-    }
-
-    public function tickets(): HasMany
-    {
-        return $this->hasMany(Ticket::class, 'user_id', 'id')
-            ->where('business_id', '=', 0);
-    }
-
-    public function businesses(): BelongsToMany
-    {
-        return $this->belongsToMany(Business::class, 'businesses_users', 'user_id', 'business_id');
-    }
-
-    public function wishlist(): BelongsToMany
-    {
-        return $this->belongsToMany(Product::class, 'wishlists', 'user_id', 'product_id');
     }
 
     public function cart(): HasMany
@@ -103,6 +87,27 @@ class User extends Authenticatable implements HasMedia
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class, 'user_id', 'id');
+    }
+
+    public function posts() : HasMany
+    {
+        return $this->hasMany(Post::class, 'user_id', 'id');
+    }
+
+    public function sizes()
+    {
+        return $this->hasMany(Size::class,'user_id','id');
+    }
+
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class, 'user_id', 'id')
+            ->where('business_id', '=', 0);
+    }
+
+    public function wishlist(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'wishlists', 'user_id', 'product_id');
     }
 
     //  =============================== End Relationships =====================
