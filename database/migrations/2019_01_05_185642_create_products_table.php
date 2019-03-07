@@ -19,9 +19,9 @@ class CreateProductsTable extends Migration
             $table->string('slug')->unique();
             $table->text('abstract')->nullable();
             $table->text('body');
-            $table->json('attributes');
+            $table->json('attributes')->nullable();
             $table->json('options')->nullable();
-            $table->boolean('single');
+            $table->boolean('single')->default(false);
             $table->unsignedInteger('price');
             $table->smallInteger('status')->default(1);
             $table->json('temp')->nullable();

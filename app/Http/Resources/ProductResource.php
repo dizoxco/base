@@ -19,7 +19,7 @@ class ProductResource extends BaseResource
                 'title'         =>  $this->title,
                 'slug'          =>  $this->slug,
                 'abstract'      =>  $this->abstract,
-//                'body'          =>  $this->body,
+                'body'          =>  $this->body,
                 'attributes'    =>  $this->attributes,
                 'options'       =>  $this->options,
                 'single'        =>  $this->single,
@@ -33,13 +33,13 @@ class ProductResource extends BaseResource
                     'tags' => $this->tags->pluck('id'),
                 ]),
                 $this->mergeWhen($this->whenLoaded('users'), [
-                    'users' => $this->tags->pluck('id'),
+                    'users' => $this->users->pluck('id'),
                 ]),
                 $this->mergeWhen($this->whenLoaded('businesses'), [
-                    'businesses' => $this->tags->pluck('id'),
+                    'businesses' => $this->businesses->pluck('id'),
                 ]),
                 $this->mergeWhen($this->whenLoaded('variations'), [
-                    'variations' => $this->tags->pluck('id'),
+                    'variations' => $this->variations->pluck('id'),
                 ]),
             ],
         ];

@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import React, {Component} from "react";
+import {Redirect} from "react-router-dom";
 
-import { Button, Icon, Tab } from "./";
+import {Button, Tab} from "./";
 
 export class Page extends Component{
     
@@ -20,14 +20,15 @@ export class Page extends Component{
             return <Redirect push to={this.props.redirect} />;
         }
         
-        let back, button;
+        let button;
 
         let tabs = ( this.props.tabs !== undefined )? <Tab tabs={this.props.tabs} tab={this.props.tab} onChange={this.handleChange} />: null;
         
         if( this.props.button !== undefined ){
             let label = this.props.button.label ? this.props.button.label : null;
             let onClick = this.props.button.onClick ? this.props.button.onClick : undefined;
-            button = <Button type="outlined" icon="delete" label={label} onClick={onClick} className="float-left" />;
+            let icon = this.props.button.icon ? this.props.button.onClick : null;
+            button = <Button type="outlined" icon={icon} label={label} onClick={onClick} className="float-left" />;
         }
 
 

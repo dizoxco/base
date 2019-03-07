@@ -9,11 +9,11 @@ export class Checkbox extends Component{
             <FormControlLabel
                 control={
                     <MUICheckbox
-                        checked={true}
-                        value="checkedA"
+                        checked={this.props.checked}
+                        value={this.props.value}
                     />
                 }
-                label="Secondary"
+                label={this.props.label}
             />
         );
     }

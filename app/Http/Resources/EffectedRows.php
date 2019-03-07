@@ -17,7 +17,8 @@ class EffectedRows extends Resource
     public function withResponse($request, $response)
     {
         $response
-            ->setStatusCode(Response::HTTP_BAD_REQUEST)
+            ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR)
+            ->setContent(trans('http.not_found'))
             ->header('Content-Type', enum('system.response.json'));
     }
 }

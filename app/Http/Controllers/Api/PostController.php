@@ -11,6 +11,7 @@ use App\Repositories\Facades\PostRepo;
 use Illuminate\Database\QueryException;
 use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
+use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\Comment\StoreCommentRequest;
 use Symfony\Component\HttpFoundation\Response;
 

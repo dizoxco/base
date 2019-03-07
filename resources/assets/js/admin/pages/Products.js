@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 
 import {getBusinesses, getProducts} from "../actions"
-import {Page, Table} from "../components";
+import {Page, Table, Button} from "../components";
 
 class Products extends Component{
 
@@ -17,10 +17,7 @@ class Products extends Component{
         return(
             <Page
                 title='محصولات'
-                button={{
-                    label: 'محصول جدید',
-                    onClick: () => this.props.history.push('/admin/products/create')
-                }}
+                buttons = {<Button icon="add" type="icon" onClick={() => this.props.history.push('/admin/products/create')} />}
             >
                 <Table
                     data={this.props.products}

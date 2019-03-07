@@ -48,8 +48,10 @@ const routeslist = {
         products: {
             prefix: '/products',
             index: '?include=tags',
+            show: '/{product}',
             store: '',
-            update: '/{product}'
+            update: '/{product}',
+            delete: '/{product}',
         },
         searchpanels: {
             prefix: '/searchpanels',
