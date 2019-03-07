@@ -15,18 +15,15 @@ class UserResource extends BaseResource
                 $this->mergeWhen($this->dates(), $this->dates()),
             ],
             'relations' =>  [
-                $this->whenLoaded('avatar', function () {
-                    return ['avatar'    =>  $this->avatar->id];
-                }),
-                $this->whenLoaded('posts', function () {
-                    return ['posts'     =>  $this->posts->pluck('id')];
-                }),
-                $this->whenLoaded('chats', function () {
-                    return ['chats'  =>  $this->chats->pluck('id')];
-                }),
-                $this->whenLoaded('tickets', function () {
-                    return ['tickets'  =>  $this->tickets->pluck('id')];
-                }),
+                $this->mergeWhen($this->whenLoaded('posts'), [
+                    'posts' => $this->posts->pluck('id'),
+                ]),
+                $this->mergeWhen($this->whenLoaded('chats'), [
+                    'chats' => $this->chats->pluck('id'),
+                ]),
+                $this->mergeWhen($this->whenLoaded('tickets'), [
+                    'tickets' => $this->tickets->pluck('id'),
+                ]),
             ],
         ];
 

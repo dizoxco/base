@@ -22,6 +22,11 @@ class UserController extends Controller
         return new UserCollection(UserRepo::getAll());
     }
 
+    public function trash()
+    {
+        return new UserCollection(UserRepo::getTrashed());
+    }
+
     public function store(StoreUserRequest $request)
     {
         $data = $request->except('avatar');
