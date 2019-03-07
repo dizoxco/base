@@ -12,6 +12,7 @@ use Illuminate\Database\QueryException;
 use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
 use App\Http\Requests\Comment\StoreCommentRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
 {
@@ -136,7 +137,7 @@ class PostController extends Controller
 
     public function delete(Post $post)
     {
-        return new EffectedRows(PostRepo::delete($post));
+        return (new EffectedRows(PostRepo::delete($post)))->response()->setStatusCode(Response::HTTP_OK);
     }
 
     public function restore(string $post)

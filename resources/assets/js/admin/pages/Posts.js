@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getPosts, getUsers } from "../actions"
-import { Page, Icon, Table } from "../components";
+import { Page, Icon, Table, Button } from "../components";
 
 class Posts extends Component{
 
@@ -17,11 +17,7 @@ class Posts extends Component{
         return(
             <Page                
                 title='مطالب'
-                button={{
-                    label: 'add new post',
-                    onClick: () => this.props.history.push('/admin/posts/create')
-                }}
-                onChange={(value) => this.setState({tab: value})}
+                buttons = {<Button icon="add" type="icon" onClick={() => this.props.history.push('/admin/posts/create')} />}
             >   
                 <Table
                     data={this.props.posts}

@@ -1,4 +1,4 @@
-export { setPost, setPostTags, getPosts, updatePost, storePost } from './PostActions';
+export { copyPost, deletePost, setPost, setPostTags, getPosts, resetPost, updatePost, storePost } from './PostActions';
 export { getComments } from './CommentActions';
 export { getMediaGroup, getMediaGroups , addMedia } from './MediaActions';
 export { getProducts, setProduct , updateProduct,storeProduct } from './ProductActions';

@@ -28,6 +28,7 @@ const routeslist = {
             index: '?include=banner',
             show: '/{post}',
             update: '/{post}',
+            delete: '/{post}',
             store: ''
         },
         tags: {

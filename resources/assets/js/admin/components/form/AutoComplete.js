@@ -23,7 +23,6 @@ export class AutoComplete extends React.Component {
             }
         }
         
-        // console.log(typeof this.props.onChange);
         if (this.props.onChange != undefined) {
             this.props.onChange(result);
         }
