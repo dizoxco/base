@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getTags, getPosts, getUsers, setPost, setPostTags, updatePost, storePost } from "../actions"
-import { NotFound, AutoComplete, Form, Editor, Page, Show, Text } from "../components";
+import { copyPost, deletePost, getTags, getPosts, getUsers, resetPost, setPost, setPostTags, updatePost, storePost } from "../actions"
+import { AutoComplete, Button, Form, Editor, NotFound, Page, Show, Text } from "../components";
 
 class Post extends Component{
 
@@ -17,19 +17,40 @@ class Post extends Component{
     }
     
     render(){
-        if (this.props.post === undefined) return <NotFound />        
+        if (this.props.post === undefined) return <NotFound />
         return(
             <Page                
                 title={this.props.post.attributes.title}
-                button={{
-                    label: 'save',
-                    onClick: () =>  this.props.post.id? this.props.updatePost(this.props.post):  this.props.storePost(this.props.post)
-                }}
                 tabs={['نمایش', 'ویرایش اطلاعات']}
                 tab={this.state.tab}
                 redirect={this.state.redirect}
                 loading={this.props.post == null}
                 onChange={(tab) => this.setState({tab})}
+                buttons={<div>
+                        <Button 
+                            type="icon"
+                            icon="save"
+                            disabled={this.props.post.oldAttributes == undefined && this.props.post.oldRelations == undefined}
+                            onClick={() => this.props.post.id? this.props.updatePost(this.props.post):  this.props.storePost(this.props.post)} 
+                        />
+                        <Button 
+                            type="icon"
+                            icon="restore"
+                            disabled={this.props.post.oldAttributes == undefined && this.props.post.oldRelations == undefined}
+                            onClick={() => this.props.resetPost(this.props.post.id)} 
+                        />
+                        <Button 
+                            type="icon"
+                            icon="delete"
+                            onClick={() => this.props.deletePost(this.props.post.id, () => this.props.history.push('/admin/posts'))} 
+                        />
+                        <Button 
+                            type="icon"
+                            icon="file_copy"
+                            onClick={() => this.props.copyPost(this.props.post.id, () => this.props.history.push('/admin/posts/create'))} 
+                            visible={this.props.post.id}
+                        />
+                    </div>}
             >
                 <Form show={this.state.tab == 0}>
                     <Show label="عنوان">{this.props.post.attributes.title}</Show>
@@ -110,4 +131,4 @@ const mapStateToProps = (state, props) => {
     };
 };
 
-export default connect(mapStateToProps, { getTags, getPosts, getUsers, setPost, setPostTags, updatePost, storePost })(Post);
+export default connect(mapStateToProps, { copyPost, deletePost, getTags, getPosts, getUsers, resetPost, setPost, setPostTags, updatePost, storePost })(Post);

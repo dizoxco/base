@@ -34,11 +34,13 @@ export class Page extends Component{
         return(
             <div id="page">
                 <div id="page-header" className="bg-primary-light">
-                    <div className="container mx-auto">
-                        <h1 className="text-4xl leading-normal inline-block" >
+                    <div className="container mx-auto flex">
+                        <h1 className="text-4xl leading-normal inline-block w-2/3" >
                             { this.props.title }
-                        </h1>                        
-                        { button }
+                        </h1>
+                        <div className="w-1/3 text-left">
+                            {this.props.buttons}
+                        </div>
                     </div>
                 </div>
                 <div id="page-content" className="bg-white rounded-t-lg overflow-hidden">

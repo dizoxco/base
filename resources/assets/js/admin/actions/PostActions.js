@@ -1,4 +1,4 @@
-import { getting, putting, posting, setCookie } from "../../helpers";
+import { deleting, getting, putting, posting, setCookie } from "../../helpers";
 import routes from '../routes';
 
 export const getPosts = () => {
@@ -17,6 +17,20 @@ export const setPost = (id, attributes) => {
         dispatch({ type: 'SET-POST', id, attributes })
     }
 }
+
+export const resetPost = (id) => {
+    return (dispatch) => {
+        dispatch({ type: 'RESET-POST', id })
+    }
+}
+
+export const copyPost = (id, callback) => {
+    callback();
+    return (dispatch) => {
+        dispatch({ type: 'COPY-POST', id })
+    }
+}
+
 
 export const setPostTags = (id, tags, taxonomy_tags) => {
     return (dispatch) => {
@@ -45,6 +59,17 @@ export const updatePost = (post) => {
                 type: 'UPDATE-POST',
                 payload: response.data
             }))
+            .catch( error => { console.log(error.response) } );
+    }
+}
+
+export const deletePost = (id, callback) => {
+    return (dispatch) => {
+        deleting(routes('api.posts.delete', [id]))
+            .then(response => {
+                callback();
+                return dispatch({ type: 'DELETE-POST', id, payload: response.data })
+            })
             .catch( error => { console.log(error.response) } );
     }
 }

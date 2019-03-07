@@ -10,7 +10,7 @@ export class Button extends Component{
     render(){
         let icon = this.props.icon ? <Icon icon={this.props.icon} /> : null;
         let type = (this.props.type == undefined) ? 'outlined' : this.props.type;
-    
+        if(this.props.visible == false) return null;
         switch (this.props.type) {
             case 'icon':
                 return(
@@ -19,6 +19,7 @@ export class Button extends Component{
                         aria-label="Delete"
                         color="primary"
                         onClick={this.props.onClick}
+                        disabled={this.props.disabled}
                     >
                         { icon }
                     </IconButton>
