@@ -41,6 +41,12 @@
                         <span class="mdc-list-item__text">تیکت ها</span>
                     </li>
                 </a>
+                <a href="{{ route('profile.sizes.index') }}" class="block">
+                    <li class="mdc-list-item mdc-ripple" tabindex="0">
+                        <span class="mdc-list-item__graphic material-icons" aria-hidden="true">people</span>
+                        <span class="mdc-list-item__text">ویرایش سایزها</span>
+                    </li>
+                </a>
                 <a href="{{ route('profile.edit') }}" class="block">
                     <li class="mdc-list-item mdc-ripple" tabindex="0">
                         <span class="mdc-list-item__graphic material-icons" aria-hidden="true">people</span>

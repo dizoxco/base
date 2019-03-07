@@ -1,50 +1,55 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {Component} from "react";
+import {connect} from "react-redux";
 
-import { getBusinesses, getProducts } from "../actions"
-import { Page, Icon, Table } from "../components";
-import {Button} from "../components/form";
+import {getBusinesses, getProducts} from "../actions"
+import {Page, Table} from "../components";
 
 class Products extends Component{
 
-    state = {};
-
     componentDidMount = () => {
-        // if(this.props.products.length === 1) this.props.getProducts();
-        if(this.props.products.length == 0) this.props.getProducts();
-        if(this.props.businesses.length === 0) this.props.getBusinesses();
+        if (this.props.products.length <= 1) {
+            this.props.getProducts();
+        }
+        if(this.props.businesses.length == 0) this.props.getBusinesses();
     };
- 
-    render(){
+
+    render() {
         return(
-            <Page                
+            <Page
                 title='محصولات'
                 button={{
-                    label: 'add new Product',
+                    label: 'محصول جدید',
                     onClick: () => this.props.history.push('/admin/products/create')
                 }}
-                // redirect={this.state.redirect}
-                // onChange={(value) => this.setState({tab: value})}
             >
-                {/* <Button label={'Add Product'} onClick={(e) => this.props.history.push('/admin/products/0')}  /> */}
                 <Table
-                    data={this.props.users}
-                    // data={this.props.products.slice(1, this.props.products.length)}
+                    data={this.props.products}
                     tdClick={(r) => this.props.history.push('/admin/products/' + r.original.id)}
                     columns={[
                         {
                             Header: 'id',
                             accessor: 'id',
-                            width: 70
-                        },
-                        {
-                            Header: 'وضعیت',
-                            width: 50,
-                            Cell: row => row.original.oldAttributes? (<Icon icon="edit" />): '',
+                            width: 100
                         },
                         {
                             Header: 'عنوان',
+                            width: 500,
                             accessor: 'attributes.title',
+                        },
+                        {
+                            Header: 'خلاصه',
+                            width: 500,
+                            accessor: 'attributes.abstract',
+                        },
+                        {
+                            Header: 'قیمت',
+                            width: 200,
+                            accessor: 'attributes.price',
+                        },
+                        {
+                            Header: 'وضعیت',
+                            width: 100,
+                            accessor: 'attributes.status',
                         }
                     ]}
                 />

@@ -39,13 +39,13 @@ const routeslist = {
         },
         taxonomies: {
             prefix: '/taxonomies',
-            index: '?include=tags,tags',
+            index: '?include=tags',
             store: '',
             update: '/{post}',
         },
         products: {
             prefix: '/products',
-            index: '',
+            index: '?include=tags',
             store: '',
             update: '/{product}'
         },

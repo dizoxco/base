@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Support\Collection;
+
 class ProductCollection extends BaseCollection
 {
     /**
@@ -31,5 +33,26 @@ class ProductCollection extends BaseCollection
         });
 
         return parent::toArray($request);
+    }
+
+    public function resource($relation)
+    {
+        switch ($relation) {
+            case 'tags':
+                return TagResource::class;
+                break;
+            case 'users':
+                return UserResource::class;
+                break;
+            case 'comments':
+                return CommentResource::class;
+                break;
+            case 'businesses':
+                return BusinessResource::class;
+                break;
+            case 'variations':
+                return VariationResource::class;
+                break;
+        }
     }
 }

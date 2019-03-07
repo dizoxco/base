@@ -1,11 +1,29 @@
-import { getting, putting, posting, setCookie } from "../../helpers";
+import {getting, posting, putting} from "../../helpers";
 import routes from '../routes';
+
+export const getProducts = () => {
+    return (dispatch) => {
+        getting(routes('api.products.index'))
+            .then(response => dispatch({
+                type: 'GET-PRODUCTS',
+                payload: response.data
+            }))
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
+    };
+};
 
 export const setProduct = (id, attributes) => {
     return (dispatch) => {
         dispatch({ type: 'SET-PRODUCT', id, attributes })
     }
 };
+
+export const setProductTags = (id, tags, taxonomy_tags) => {
+    return (dispatch) => {
+        dispatch({ type: 'SET-PRODUCT-TAGS', id, tags, taxonomy_tags })
+    };
+};
+
 export const storeProduct = (product) => {
     return (dispatch) => {
         posting(routes('api.products.store'), product.attributes)
@@ -21,8 +39,8 @@ export const storeProduct = (product) => {
                 });
                 
             })
-            .catch( error => { console.log(error.response) } );
-    }
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
+    };
 };
 
 export const updateProduct = (product) => {
@@ -32,16 +50,6 @@ export const updateProduct = (product) => {
                 type: 'UPDATE-PRODUCT',
                 payload: response.data
             }))
-            .catch( error => { console.log(error) } );
-    }
-};
-export const getProducts = () => {
-    return (dispatch) => {
-        getting(routes('api.products.index'))
-            .then(response => dispatch({
-                    type: 'GET-PRODUCTS',
-                    payload: response.data
-            }))
-            .catch( error => { console.log(error.response) } );
-    }
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
+    };
 };

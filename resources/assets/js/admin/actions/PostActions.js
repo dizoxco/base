@@ -35,8 +35,8 @@ export const copyPost = (id, callback) => {
 export const setPostTags = (id, tags, taxonomy_tags) => {
     return (dispatch) => {
         dispatch({ type: 'SET-POST-TAGS', id, tags, taxonomy_tags })
-    }
-}
+    };
+};
 
 export const storePost = (post) => {
     return (dispatch) => {

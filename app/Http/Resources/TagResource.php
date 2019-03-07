@@ -15,6 +15,9 @@ class TagResource extends BaseResource
                 'label' => $this->label,
                 'slug' => $this->slug,
                 'metadata' => $this->metadata,
+                // additional
+                'taxonomy_group_name' => $this->taxonomy->group_name,
+                'fullname' => "{$this->taxonomy->label} - {$this->label}",
                 $this->mergeWhen($this->dates(), $this->dates()),
             ],
         ];

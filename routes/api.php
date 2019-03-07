@@ -97,6 +97,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::name('users.')->prefix('users')->group(function () {
         Route::get('/', 'UserController@index')->name('index')->middleware('permission:manage_users');
+        Route::get('/trash', 'UserController@trash')->name('trash')->middleware('permission:manage_users');
         Route::post('/', 'UserController@store')->name('store')->middleware('permission:manage_users');
 
         Route::prefix('{user}')->middleware('acl:user,manage_users')->group(function () {
