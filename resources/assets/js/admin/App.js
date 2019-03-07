@@ -3,9 +3,6 @@ import {connect} from "react-redux";
 import {getCookie} from "../helpers";
 import React, {Component} from "react";
 import {withSnackbar} from 'notistack';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import Toolbar from '@material-ui/core/Toolbar';
 import {Route, Switch, withRouter} from "react-router-dom";
 import {clearRedirect, flushSnacks, logOut} from "./actions";
 import {
@@ -54,12 +51,6 @@ class App extends Component{
         } else {
             return(
                 <div>
-                    <AppBar position="static">
-                        <Toolbar>
-                            News
-                            <Button color="inherit" >dd</Button>
-                        </Toolbar>
-                    </AppBar>
                     <div id="main-content" >
                         <Route render={({location}) => (
                                 <Switch location={location}>
@@ -71,6 +62,7 @@ class App extends Component{
                                         <Route path="/admin/mediagroups" exact component={MediaGroups} />
                                         <Route path="/admin/mediagroups/:mediagroup" exact component={MediaGroup} />
                                         <Route path="/admin/posts" exact component={Posts} />
+                                        <Route path="/admin/posts/trash" exact component={Posts} />
                                         <Route path="/admin/posts/:post" exact component={Post} />
                                         <Route path="/admin/products" exact component={Products} />
                                         <Route path="/admin/products/:product" exact component={Product} />

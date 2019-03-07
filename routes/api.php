@@ -115,6 +115,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::name('posts.')->prefix('posts')->group(function () {
         Route::get('/', 'PostController@index')->name('index')->middleware('permission:manage_posts');
+        Route::get('/trash', 'PostController@trash')->name('trash')->middleware('permission:manage_posts');
         Route::post('/', 'PostController@store')->name('store')->middleware('permission:manage_posts');
 
         Route::prefix('{post}')->middleware('acl:post,manage_posts')->group(function () {

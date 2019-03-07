@@ -9,7 +9,9 @@ class Posts extends Component{
     state = {}
 
     componentDidMount = () => {
-        if(this.props.posts.length == 0) this.props.getPosts();
+        if(this.props.posts.length == 0) {
+            this.props.getPosts();
+        }
         if(this.props.users.length == 0) this.props.getUsers();
     }
 
@@ -17,7 +19,11 @@ class Posts extends Component{
         return(
             <Page                
                 title='مطالب'
-                buttons = {<Button icon="add" type="icon" onClick={() => this.props.history.push('/admin/posts/create')} />}
+                buttons = {<div>
+                        <Button icon="add" type="icon" onClick={() => this.props.history.push('/admin/posts/create')} />
+                        <Button icon="delete" type="icon" visible={!this.props.trash} onClick={() => this.props.history.push('/admin/posts/trash')} />
+                        <Button icon="list" type="icon" visible={this.props.trash} onClick={() => this.props.history.push('/admin/posts')} />
+                    </div>}
             >   
                 <Table
                     data={this.props.posts}
@@ -29,13 +35,8 @@ class Posts extends Component{
                             width: 70
                         },
                         {
-                            Header: 'وضعیت',
-                            width: 50,
-                            Cell: row => row.original.oldAttributes? (<Icon icon="edit" />): '',
-                        },
-                        {
                             Header: 'عنوان',
-                            accessor: 'attributes.title',
+                            Cell: row => row.original.oldAttributes? <strong>{row.original.attributes.title}</strong>: <span>{row.original.attributes.title}</span>
                         },
                         {
                             Header: 'نویسنده',
@@ -54,9 +55,10 @@ class Posts extends Component{
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
     return {
-        posts: state.posts.index,
+        trash: props.location.pathname == '/admin/posts/trash',
+        posts: (props.location.pathname == '/admin/posts')? state.posts.index: state.posts.trash,
         users: state.users.index
     };
 };

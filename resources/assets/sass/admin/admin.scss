@@ -160,13 +160,9 @@ body{
 }
 
 .page-tab{
-  height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: opacity .3s;
+  display: none;
   &.show{
-    height: auto;
-    opacity: 1;
+    display: flex;
   }
 }
 
@@ -178,4 +174,117 @@ body{
   input{
     display: none;
   }
+}
+
+
+
+.ReactTable {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #212121;
+  
+  & .rt-resizable-header-content {
+    padding: 7px 10px;
+  }
+
+  & .-filters input {
+    height: 40px;
+  }
+  
+  & .rt-tbody .rt-tr:hover {
+      background-color: #F1F5F8;
+      cursor: pointer;
+  }
+
+  & .rt-tbody .rt-td {
+    padding: 15px 5px;
+  }
+
+  & .rt-tbody .rt-tr-group .rt-tr .rt-td:first-child {
+    padding: 15px 2rem 15px 1rem;
+  }
+
+  & .rt-tbody .rt-tr-group .rt-tr .rt-td:last-child {
+    padding: 15px 5px 15px 2.5rem;
+  }
+
+
+  & .-pagination {
+    font-size: .8rem;
+    padding: 10px 2.5rem;
+
+    .-pageInfo {
+      order: 1;
+    }
+
+    .-center{
+      justify-content: flex-end;
+    }
+
+    select, input {
+      height: 35px;
+    }
+    
+    .-previous {
+      order: 2;
+      flex: 0 0 50px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      &::before {
+        content: "chevron_right";
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        position: absolute;
+        opacity: 1;
+      }
+    }
+
+    .-next {
+      order: 3;
+      flex: 0 0 50px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      &::before {
+        content: "chevron_left";
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        position: absolute;
+      }
+    }
+
+    button {
+      width: 30px;
+      opacity: 0;
+    }
+
+    button[disabled] {
+      background: rgba(255, 255, 255, 1);
+      visibility: hidden;
+      }
+  }
+
 }

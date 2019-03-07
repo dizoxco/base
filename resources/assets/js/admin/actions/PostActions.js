@@ -3,11 +3,19 @@ import routes from '../routes';
 
 export const getPosts = () => {
     return (dispatch) => {
-        getting(routes('api.posts.index'))
+        getting(routes('api.posts.trash'))
             .then(response => dispatch({
-                type: 'GET-POSTS',
+                type: 'GET-TRASH-POSTS',
                 payload: response.data
             }))
+            .catch( error => { console.log(error.response) } );
+        getting(routes('api.posts.index'))
+            .then(response => {
+                dispatch({
+                    type: 'GET-POSTS',
+                    payload: response.data
+                })
+            })
             .catch( error => { console.log(error.response) } );
     }
 }
@@ -57,6 +65,7 @@ export const updatePost = (post) => {
         })
             .then(response => dispatch({
                 type: 'UPDATE-POST',
+                id: post.id,
                 payload: response.data
             }))
             .catch( error => { console.log(error.response) } );
@@ -69,6 +78,16 @@ export const deletePost = (id, callback) => {
             .then(response => {
                 callback();
                 return dispatch({ type: 'DELETE-POST', id, payload: response.data })
+            })
+            .catch( error => { console.log(error.response) } );
+    }
+}
+
+export const restorePost = (deleted_id) => {
+    return (dispatch) => {
+        getting(routes('api.posts.restore', [deleted_id]))
+            .then(response => {
+                return dispatch({ type: 'RESTORE-POST', deleted_id, payload: response.data })
             })
             .catch( error => { console.log(error.response) } );
     }

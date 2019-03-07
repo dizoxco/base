@@ -1,19 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { copyPost, deletePost, getTags, getPosts, getUsers, resetPost, setPost, setPostTags, updatePost, storePost } from "../actions"
+import { copyPost, deletePost, getTags, getPosts, getUsers, restorePost, resetPost, setPost, setPostTags, updatePost, storePost } from "../actions"
 import { AutoComplete, Button, Form, Editor, NotFound, Page, Show, Text } from "../components";
 
 class Post extends Component{
 
     state = {        
-        tab: 1
+        tab: (this.props.post.id == 0)? 1: 0
     }
 
     componentDidMount = () => {
-        if (this.props.post.id == undefined) this.props.getPosts();
-        if (this.props.author.id === undefined) this.props.getUsers();
-        if (this.props.tags.length == 0) this.props.getTags();
+        if(this.props.post != undefined){
+            if (this.props.post.id == undefined){
+                this.props.getPosts();
+            }
+            if (this.props.author.id === undefined) this.props.getUsers();
+            if (this.props.tags.length == 0) this.props.getTags();
+        }
     }
     
     render(){
@@ -21,7 +25,7 @@ class Post extends Component{
         return(
             <Page                
                 title={this.props.post.attributes.title}
-                tabs={['نمایش', 'ویرایش اطلاعات']}
+                tabs={this.props.trashed? ['نمایش']: ['نمایش', 'ویرایش اطلاعات']}
                 tab={this.state.tab}
                 redirect={this.state.redirect}
                 loading={this.props.post == null}
@@ -30,25 +34,30 @@ class Post extends Component{
                         <Button 
                             type="icon"
                             icon="save"
-                            disabled={this.props.post.oldAttributes == undefined && this.props.post.oldRelations == undefined}
+                            visible={!this.props.trashed}
+                            disabled={!this.props.edited}
                             onClick={() => this.props.post.id? this.props.updatePost(this.props.post):  this.props.storePost(this.props.post)} 
                         />
                         <Button 
                             type="icon"
                             icon="restore"
-                            disabled={this.props.post.oldAttributes == undefined && this.props.post.oldRelations == undefined}
-                            onClick={() => this.props.resetPost(this.props.post.id)} 
+                            disabled={!(this.props.edited || this.props.trashed) }
+                            onClick={() => this.props.trashed? 
+                                this.props.restorePost(this.props.post.id):
+                                this.props.resetPost(this.props.post.id)
+                            } 
                         />
                         <Button 
                             type="icon"
                             icon="delete"
+                            visible={!this.props.trashed}
                             onClick={() => this.props.deletePost(this.props.post.id, () => this.props.history.push('/admin/posts'))} 
                         />
                         <Button 
                             type="icon"
                             icon="file_copy"
                             onClick={() => this.props.copyPost(this.props.post.id, () => this.props.history.push('/admin/posts/create'))} 
-                            visible={this.props.post.id}
+                            visible={this.props.post.id && !this.props.trashed}
                         />
                     </div>}
             >
@@ -112,10 +121,15 @@ class Post extends Component{
 
 const mapStateToProps = (state, props) => {
 
-    let post = (props.match.params.post == 'create')? state.posts.create:
-            (state.posts.index.length == 0)? state.posts.init:
-            state.posts.index.find( element => element.id == props.match.params.post );
-
+    let post;
+    if (props.match.params.post == 'create') post = state.posts.create;
+    else if(state.posts.index.length == 0) post = state.posts.init;
+    else post = state.posts.index.find( element => element.id == props.match.params.post );
+    if (post == undefined) post = state.posts.trash.find( element => element.id == props.match.params.post );
+    
+    let trashed = ( post != undefined && post.attributes.deleted_at != null);
+    let edited = ( post != undefined && (post.oldAttributes != undefined || post.oldRelations != undefined));
+  
     let author = (state.users.index.length == 0 || post == undefined || post.id == undefined)? state.users.init:
             (props.match.params.post == 'create')? state.users.index.find( element => element.id == 1):
             state.users.index.find( element => element.id == post.attributes.user_id );
@@ -127,8 +141,10 @@ const mapStateToProps = (state, props) => {
         post,
         author,
         tags,
+        trashed,
+        edited,
         cats
     };
 };
 
-export default connect(mapStateToProps, { copyPost, deletePost, getTags, getPosts, getUsers, resetPost, setPost, setPostTags, updatePost, storePost })(Post);
+export default connect(mapStateToProps, { copyPost, deletePost, getTags, getPosts, getUsers, restorePost, resetPost, setPost, setPostTags, updatePost, storePost })(Post);

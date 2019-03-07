@@ -23,6 +23,11 @@ class PostController extends Controller
         ]));
     }
 
+    public function trash()
+    {
+        return new PostCollection(PostRepo::getTrashed());
+    }
+
     public function store(StorePostRequest $request)
     {
         //  make post's slug unique
@@ -142,7 +147,7 @@ class PostController extends Controller
 
     public function restore(string $post)
     {
-        return new EffectedRows(PostRepo::restore($post));
+        return (new EffectedRows(PostRepo::restore($post)))->response()->setStatusCode(Response::HTTP_OK);
     }
 
     public function destroy(string $post)
