@@ -29,11 +29,14 @@ class UpdateProductRequest extends FormRequest
         return [
             'title' =>  'required|string',
             'slug' => ['required', Rule::unique('products', 'slug')->ignore($product->id)],
-            'abstract' => 'required|string',
-            'body' => 'required|string',
-            'attributes' => 'json',
-            'variations' => 'json',
-            'available_at' => 'date',
+            'abstract'      =>  'required|string',
+            'body'          =>  'required|string',
+            'attributes'    =>  'nullable|array',
+            'options'       =>  'nullable|array',
+            'single'        =>  'boolean',
+            'price'         =>  'numeric',
+            'status'        =>  'integer',
+            'available_at'  =>  'datetime',
         ];
     }
 }

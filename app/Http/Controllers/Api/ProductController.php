@@ -21,12 +21,12 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        $product = ProductRepo::create($request->all());
-        if ($product === null) {
-            return (new EffectedRows($product))->response()->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
-        } else {
-            return (new ProductResource($product))->response()->setStatusCode(Response::HTTP_CREATED);
+        $created_product = ProductRepo::create($request->all());
+        if ($created_product === null) {
+            return (new EffectedRows($created_product))->response()->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+
+        return (new ProductResource($created_product))->response()->setStatusCode(Response::HTTP_CREATED);
     }
 
     public function show(Product $product)
@@ -36,9 +36,18 @@ class ProductController extends Controller
 
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $rows = ProductRepo::update($product, $request->all());
+        $updated = \DB::transaction(function () use ($product, $request) {
+            ProductRepo::update($product, $request->except('tags'));
+            $product->tags()->sync($request->tags);
+            return $product;
+        });
 
-        return new ProductResource($product);
+        if ($updated) {
+            return new ProductResource($product);
+        }
+
+        return new EffectedRows();
+
     }
 
     public function delete(Product $product)
