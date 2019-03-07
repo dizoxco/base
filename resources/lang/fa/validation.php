@@ -139,75 +139,10 @@ return [
     'attributes' => [
         'city_id' => 'نام شهر',
         'brand' => 'برند',
-        'slug' => 'اسلاگ',
+        'slug' => 'نامک',
         'label' => 'برچسب',
         'group_name' => 'نام گروه',
-//        'abstract'          =>  'خلاصه',
-//        'image'             =>  'تصویر',
-//        'attachments[]'     =>  'پرونده',
-//        'verification'      =>  'کد تایید عضویت',
-////      Auth
-//        'code_or_mobile'    =>  'شماره پرسنلی یا موبایل',
-//        'password'          =>  'رمز عبور',
-//        'mobile'            =>  'تلفن همراه',
-////        Profile
-        'name'              =>  'نام',
-//        'family'            =>  'نام خانوادگی',
-//        'code'              =>  'کد پرسنلی',
-//        'type'              =>  'نوع',
-//        'national_id'       =>  'کدملی',
-//        'father_name'       =>  'نام پدر',
-//        'birthplace'        =>  'محل تولد',
-//        'issuance_place'    =>  'محل صدور',
-//        'bc_id'             =>  'شماره شناسنامه',
-//        'birthdate'         =>  'تاریخ تولد',
-//        'region_id'         =>  'کد منطقه',
-//        'gender'            =>  'جنسیت',
-//        'degree'            =>  'مدرک تحصیلی',
-//        'marital'           =>  'وضعیت تاهل',
-//        'avatar'            =>  'عکس پرسنلی',
-//        'tel'               =>  'تلفن ثابت',
-//        'bank_account'      =>  'حساب بانکی',
-//        'net_income'        =>  'خالص دریافتی',
-//        'email'             =>  'ایمیل',
-//        'login_at'          =>  'وارد شده در',
-//        'remember_token'    =>  'توکن یادآوری',
-//        'mobile_verified'   =>  'تایید موبایل',
-//        'verification_code' =>  'کد تایید',
-//        'address'           =>  'ادرس',
-//
-////        Regions
-//        'id'                =>  'شناسه',
-////        Profile Edit Password
-//        'verification_code' =>  'کد تایید',
-//
-////        Generic fields
-//        'created_at'        =>  'ساخته شده در',
-//        'updated_at'        =>  'به روز شده در',
-//        'deleted_at'        =>  'حذف شده در',
-//
-////        Importers
-//        'import'            =>  'فایل درون ریز',
-//
-////        Bills
-//        'user_code'         =>  'کد پرسنلی',
-//        'fin_code'          =>  'کد مالی',
-//        'payment'           =>  'مبلغ کسر',
-//        'balance'           =>  'مانده کسر',
-//
-////        Forms
-//        "max_pay"           =>  "سقف خدمات",
-//
-////        Financial Code
-//        "description"       =>  "توضیح",
-//
-////        Reply
-//        "reply_attachment"  =>  "فایل",
-//
-////        Invoice
-//        "total_amount"      =>  "مقدار کل",
-//        "bill_count"        =>  "تعداد اقساط",
-//        "bill_amount"       =>  "مقدار قسط",
+        'body' => 'متن',
     ],
 
 ];
