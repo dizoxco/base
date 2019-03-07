@@ -4,7 +4,8 @@ const init = {
         title: '',
         slug: '',
         abstract: '',
-        body: ''
+        body: '',
+        deleted_at: null
     },
     relations: {
         tags: []
@@ -12,6 +13,7 @@ const init = {
 };
 const initialState = {
     index: [],
+    trash: [],
     init: {...init},
     create: {...init, id: 0},
 }
@@ -36,6 +38,11 @@ export const PostReducer = (state = initialState, action) => {
                 ...state,
                 index: action.payload.data
             }
+        case 'GET-TRASH-POSTS':
+        return {
+            ...state,
+            trash: action.payload.data
+        }
         case 'STORE-POST':
             state.index.push(action.payload.data);
             state.create = state.init;            
@@ -82,14 +89,17 @@ export const PostReducer = (state = initialState, action) => {
             }
             return state;
         case 'UPDATE-POST':
-            let updatedIndex = state.index.findIndex((e) => e.id == action.payload.data.id );
-            // state.index[updatedIndex].attributes = action.payload.data.attributes;
-            // state.index[updatedIndex].attributes = action.payload.data.attributes;
-            delete state.index[updatedIndex].oldAttributes;
-            delete state.index[updatedIndex].oldRelations;
+            delete state.index[i].oldAttributes;
+            delete state.index[i].oldRelations;
+            return state;
         case 'DELETE-POST':
-        console.log(i);
             delete state.index.splice(i, 1);
+            return state;
+        case 'RESTORE-POST':
+            i = state.trash.findIndex((e) => e.id == action.deleted_id );
+            state.trash[i].attributes.deleted_at= null;
+            state.index.push(state.trash[i]);
+            delete state.trash.splice(i, 1);
             return state;
         default:
             return state;

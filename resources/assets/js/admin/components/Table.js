@@ -9,7 +9,7 @@ export class Table extends Component{
                     data={this.props.data}
                     columns={this.props.columns}
                     showPagination={true}
-                    defaultPageSize={20}
+                    defaultPageSize={10}
                     pageSizeOptions={[10, 20, 30, 50, 100]}
                     multiSort={true}
                     filterable={true}

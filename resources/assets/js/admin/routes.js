@@ -26,10 +26,12 @@ const routeslist = {
         posts: {
             prefix: '/posts',
             index: '?include=banner',
+            trash: '/trash',
             show: '/{post}',
             update: '/{post}',
             delete: '/{post}',
-            store: ''
+            store: '',
+            restore: '/{post}/restore'
         },
         tags: {
             prefix: '/tags',
