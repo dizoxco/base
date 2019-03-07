@@ -59,7 +59,7 @@ class UserRepository extends BaseRepository
     {
         return QueryBuilder::for(User::query())
             ->allowedFilters(['name', 'email'])
-            ->allowedIncludes(['addresses', 'businesses', 'chats','cart', 'orders', 'posts','sizes', 'tickets', 'wishlist'])
+            ->allowedIncludes(['addresses', 'businesses', 'chats', 'cart', 'orders', 'posts', 'sizes', 'tickets', 'wishlist'])
             ->allowedSorts(['created_at'])
             ->onlyTrashed()
             ->get();
