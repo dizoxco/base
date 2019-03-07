@@ -23,7 +23,7 @@ class Product extends Model implements HasMedia
     protected $fillable = [
         'title', 'slug', 'abstract', 'body', 'attributes', 'options', 'single',
         'price', 'status', 'temp', 'available_at', 'created_at', 'updated_at',
-        'deleted_at'
+        'deleted_at',
     ];
 
     protected $casts = [

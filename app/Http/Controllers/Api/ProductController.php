@@ -39,6 +39,7 @@ class ProductController extends Controller
         $updated = \DB::transaction(function () use ($product, $request) {
             ProductRepo::update($product, $request->except('tags'));
             $product->tags()->sync($request->tags);
+
             return $product;
         });
 
@@ -47,7 +48,6 @@ class ProductController extends Controller
         }
 
         return new EffectedRows();
-
     }
 
     public function delete(Product $product)
