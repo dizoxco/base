@@ -20,7 +20,7 @@ class Posts extends Component{
             <Page                
                 title='مطالب'
                 buttons = {<div>
-                        <Button icon="add" type="icon" onClick={() => this.props.history.push('/admin/posts/create')} />
+                        <Button icon="add" type="icon" visible={!this.props.trash} onClick={() => this.props.history.push('/admin/posts/create')} />
                         <Button icon="delete" type="icon" visible={!this.props.trash} onClick={() => this.props.history.push('/admin/posts/trash')} />
                         <Button icon="list" type="icon" visible={this.props.trash} onClick={() => this.props.history.push('/admin/posts')} />
                     </div>}
