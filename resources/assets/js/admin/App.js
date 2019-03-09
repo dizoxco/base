@@ -75,6 +75,7 @@ class App extends Component{
                                         <Route path="/admin/taxonomies/:taxonomy/tags/:tag" exact component={Tag} />
                                         <Route path="/admin/tickets" exact component={Tickets} />
                                         <Route path="/admin/users" exact component={Users} />
+                                        <Route path="/admin/users/trash" exact component={Users} />
                                         <Route path="/admin/users/:user" exact component={User} />
                                         <Route path="/admin/login" exact component={Login} />
                                     </Switch>

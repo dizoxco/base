@@ -61,7 +61,9 @@ class AppServiceProvider extends ServiceProvider
             if (request()->isXmlHttpRequest()) {
                 return Response::json([
                         'message' => trans("http.$key"),
-                        'errors' => $throwable->getMessage(),
+                        'errors' => [
+                            $key => [$throwable->getMessage()]
+                        ],
                     ],
                     $status
                 );

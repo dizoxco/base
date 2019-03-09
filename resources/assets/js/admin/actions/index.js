@@ -3,7 +3,10 @@ export { getComments } from './CommentActions';
 export { getMediaGroup, getMediaGroups , addMedia } from './MediaActions';
 export { getProducts, setProduct, setProductTags, copyProduct, resetProduct, updateProduct,storeProduct, deleteProduct } from './ProductActions';
 export { getBusinesses, setBusiness, updateBusiness,storeBusiness } from './BusinessActions';
-export { setUser,storeUser,updateUser,getToken, logOut, getUsers } from './UserActions';
+export {
+    resetUser, restoreUser, deleteUser, copyUser, setUser,storeUser,updateUser,
+    getToken, logOut, getUsers
+} from './UserActions';
 export { flushSnacks } from './SnackActions';
 export { clearRedirect } from './AppActions';
 export { getSearchPanels, setSearchPanel, storeSearchPanel, updateSearchPanel } from './SearchPanelActions';

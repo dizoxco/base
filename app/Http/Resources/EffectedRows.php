@@ -18,7 +18,11 @@ class EffectedRows extends Resource
     {
         $response
             ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR)
-            ->setContent(trans('http.not_found'))
+            ->setContent(json_encode(
+                [
+                    'message' => trans('http.internal_err'),
+                ]
+            ))
             ->header('Content-Type', enum('system.response.json'));
     }
 }
