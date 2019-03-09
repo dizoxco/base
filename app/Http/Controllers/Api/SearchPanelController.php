@@ -19,6 +19,11 @@ class SearchPanelController extends Controller
         return new SearchPanelCollection(SPRepo::getAll());
     }
 
+    public function trash()
+    {
+        return new SearchPanelCollection(SPRepo::getTrashed());
+    }
+
     public function store(StoreSearchPanelRequest $request)
     {
         $createdSearchPanel = SPRepo::create($request->all());

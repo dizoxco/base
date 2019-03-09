@@ -39,10 +39,10 @@ export const PostReducer = (state = initialState, action) => {
                 index: action.payload.data
             }
         case 'GET-TRASH-POSTS':
-        return {
-            ...state,
-            trash: action.payload.data
-        }
+            return {
+                ...state,
+                trash: action.payload.data
+            }
         case 'STORE-POST':
             state.index.push(action.payload.data);
             state.create = state.init;            
@@ -93,6 +93,7 @@ export const PostReducer = (state = initialState, action) => {
             delete state.index[i].oldRelations;
             return state;
         case 'DELETE-POST':
+            state.trash.push(state.index[i]);
             delete state.index.splice(i, 1);
             return state;
         case 'RESTORE-POST':

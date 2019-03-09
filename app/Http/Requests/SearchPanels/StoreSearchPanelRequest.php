@@ -25,11 +25,10 @@ class StoreSearchPanelRequest extends FormRequest
     {
         return [
             'title'          =>  'required|string',
-            'slug'           =>  'required|string|unique:search_panels,slug',
             'description'    =>  'nullable|string',
             'model'          =>  'required|string',
-            'filters'        =>  'required|json',
-            'options'        =>  'required|json',
+            // 'filters'        =>  'required|json',
+            // 'options'        =>  'required|json',
         ];
     }
 }

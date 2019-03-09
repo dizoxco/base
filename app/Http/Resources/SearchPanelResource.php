@@ -16,6 +16,7 @@ class SearchPanelResource extends BaseResource
                 'model' => $this->model,
                 'options' => $this->options,
                 'filters' => $this->filters,
+                'deleted_at'    =>  $this->deleted_at ? $this->deleted_at->toDateTimeString() : $this->deleted_at,
                 $this->mergeWhen($this->dates(), $this->dates()),
             ],
         ];
