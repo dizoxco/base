@@ -3,18 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Http\Request;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Query\Builder as DatabaseBuilder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class SearchPanel extends Model
 {
+    use SoftDeletes, HasSlug;
+    
     protected $fillable = [
         'title', 'slug', 'description', 'model', 'options', 'filters',
     ];
 
     protected $casts = [
+        'deleted_at'    =>  'datetime',
         'options' => 'array',
         'filters' => 'array',
     ];
@@ -162,6 +168,14 @@ class SearchPanel extends Model
             $query = $orders['order'][$index];
             $this->builder->orderBy($query['column'], $query['dir']);
         }
+    }
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->usingLanguage('fa')
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
     }
 
     public function resolveRouteBinding($slug)

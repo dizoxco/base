@@ -66,7 +66,10 @@ const routeslist = {
             index: '',
             show: '/{searchpanel}',
             update: '/{searchpanel}',
-            store: ''
+            store: '',
+            trash: '/trash',
+            delete: '/{searchpanel}',
+            restore: '/{searchpanel}/restore'
         },
         tickets: {
             prefix: '/tickets',

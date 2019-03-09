@@ -21,8 +21,8 @@ class CreateSearchPanelsTable extends Migration
             $table->char('model');
             $table->json('options');
             $table->json('filters');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

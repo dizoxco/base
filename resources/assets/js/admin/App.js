@@ -69,6 +69,7 @@ class App extends Component{
                                         <Route path="/admin/products/trash" exact component={Products} />
                                         <Route path="/admin/products/:product" exact component={Product} />
                                         <Route path="/admin/searchpanels" exact component={SearchPanels} />
+                                        <Route path="/admin/searchpanels/trash" exact component={SearchPanels} />
                                         <Route path="/admin/searchpanels/:searchpanel" exact component={SearchPanel} />
                                         <Route path="/admin/setting" exact component={Setting} />
                                         <Route path="/admin/taxonomies" exact component={Taxonomies} />

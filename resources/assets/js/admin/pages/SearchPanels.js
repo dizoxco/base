@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getSearchPanels, setSearchPanel, updateSearchPanel } from "../actions"
-import { Page, Icon, Table } from "../components";
+import { Button, Page, Icon, Table } from "../components";
 
 class SearchPanels extends Component{
 
@@ -15,11 +15,16 @@ class SearchPanels extends Component{
     render(){
         return(
             <Page
-                title=''
+                title='پنل های جستجو'
                 button={{
                     label: 'add new SearchPanel',
                     onClick: () => this.props.history.push('/admin/searchpanels/create')
                 }}
+                buttons = {<div>
+                    <Button icon="add" type="icon" visible={!this.props.trash} onClick={() => this.props.history.push('/admin/searchpanels/create')} />
+                    <Button icon="delete" type="icon" visible={!this.props.trash} onClick={() => this.props.history.push('/admin/searchpanels/trash')} />
+                    <Button icon="list" type="icon" visible={this.props.trash} onClick={() => this.props.history.push('/admin/searchpanels')} />
+                </div>}
                 onChange={(value) => this.setState({tab: value})}
             >
                 <Table
@@ -51,9 +56,10 @@ class SearchPanels extends Component{
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
     return {
-        searchpanels: state.searchpanels.index,
+        trash: props.location.pathname == '/admin/searchpanels/trash',
+        searchpanels: (props.location.pathname == '/admin/searchpanels')? state.searchpanels.index: state.searchpanels.trash,
     };
 };
 

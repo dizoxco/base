@@ -114,20 +114,8 @@ class SearchPanelRepository extends BaseRepository
             if ($search_panel instanceof SearchPanel) {
                 return  $search_panel->restore();
             }
-
             $args = is_array($search_panel) ? $search_panel : func_get_args();
-            $builder = SearchPanel::query();
-            foreach ($args as $arg) {
-                if (is_string($arg)) {
-                    $builder->whereSlug($arg);
-                    continue;
-                }
-                if (is_int($arg)) {
-                    $builder->whereId($arg);
-                }
-            }
-
-            return  $builder->restore();
+            return SearchPanel::whereIn('id', $args)->restore();
         } catch (Throwable $throwable) {
             return null;
         }
