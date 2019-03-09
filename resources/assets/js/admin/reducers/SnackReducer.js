@@ -16,7 +16,7 @@ export const SnackReducer = (state = [], action) => {
         case 'TOKEN': return [{ variant: 'success', message: 'خوش آمدید' }];
         case 'LOGOUT': return [{ variant: 'success', message: 'به سلامت' }];
         case 'STORE-POST': return [{ variant: 'success', message: 'مطلب با موفقیت افزوده شد' }];
-        case 'ALERT': return [{variant: 'success', message: 'loaded'}]
+        case 'SUCCESS': return [{variant: 'success', message: action.message}];
         case 'ERR':
             let errors = action.payload.response.data.errors;
             let status = action.payload.response.status;

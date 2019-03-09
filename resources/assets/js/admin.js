@@ -68,7 +68,7 @@ ReactDOM.render(
                     <Route render={({location}) => (
                         <SnackbarProvider 
                             maxSnack={5} 
-                            anchorOrigin={{vertical: 'top', horizontal: 'left'}}
+                            anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
                             action={[<span style={{color: "red"}}>X</span>]}
                         >
                             <App location={location} />
