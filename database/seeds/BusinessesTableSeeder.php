@@ -59,7 +59,7 @@ class BusinessesTableSeeder extends Seeder
 
             // assign products to business
             foreach ($products->random(rand(1, 5)) as $product) {
-                /**
+                /*
                  * @deprecated No longer used by internal code and not recommended.
                  */
                 $businesses_products[] = [
@@ -73,7 +73,7 @@ class BusinessesTableSeeder extends Seeder
         }
         DB::table('businesses_users')->insert($business_users);
 
-        /**
+        /*
          * @deprecated No longer used by internal code and not recommended.
          */
         DB::table('businesses_products')->insert($businesses_products);
