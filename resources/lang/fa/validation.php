@@ -112,6 +112,14 @@ return [
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
     |--------------------------------------------------------------------------
+    */
+    'remove_yourself' => 'شما نمیتوانید حساب خود را حذف کنید.',
+    'restore_yourself' => 'شما نمیتوانید حساب خود را بازیابی کنید.',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Custom Validation Language Lines
+    |--------------------------------------------------------------------------
     |
     | Here you may specify custom validation messages for attributes using the
     | convention "attribute.rule" to name the lines. This makes it quick to
@@ -143,6 +151,10 @@ return [
         'label' => 'برچسب',
         'group_name' => 'نام گروه',
         'body' => 'متن',
+        'password' => 'رمزعبور',
+        'mobile' => 'تلفن همراه',
+        'email' => 'ایمیل',
+        'name' => 'نام',
     ],
 
 ];
