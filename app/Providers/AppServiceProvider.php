@@ -62,7 +62,7 @@ class AppServiceProvider extends ServiceProvider
                 return Response::json([
                         'message' => trans("http.$key"),
                         'errors' => [
-                            $key => [$throwable->getMessage()]
+                            $key => [$throwable->getMessage()],
                         ],
                     ],
                     $status

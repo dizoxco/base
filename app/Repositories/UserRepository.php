@@ -101,7 +101,7 @@ class UserRepository extends BaseRepository
 
             return  User::whereIn('id', $ids)->restore();
         } catch (Throwable $throwable) {
-            return null;
+            return;
         }
     }
 

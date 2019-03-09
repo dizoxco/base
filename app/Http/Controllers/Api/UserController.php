@@ -80,7 +80,7 @@ class UserController extends Controller
                     'message' => trans('http.unauthorized'),
                     'errors' => [
                         'unauthorized' => [trans('validation.remove_yourself')],
-                    ]
+                    ],
                 ],
                 Response::HTTP_UNAUTHORIZED,
                 ['Content-Type' => enum('system.response.json')]
@@ -107,7 +107,7 @@ class UserController extends Controller
                     'message' => trans('http.unauthorized'),
                     'errors' => [
                         'unauthorized' => [trans('validation.restore_yourself')],
-                    ]
+                    ],
                 ],
                 Response::HTTP_UNAUTHORIZED,
                 ['Content-Type' => enum('system.response.json')]
