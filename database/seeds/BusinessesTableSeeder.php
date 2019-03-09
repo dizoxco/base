@@ -27,6 +27,9 @@ class BusinessesTableSeeder extends Seeder
         $business_contracts = Taxonomy::whereSlug('contracts')->first()->tags;
         $taggables = [];
         $business_users = [];
+        /**
+         * @deprecated No longer used by internal code and not recommended.
+         */
         $businesses_products = [];
         foreach ($businesses as $business) {
             // Give business tags in type and fields and contract
@@ -56,6 +59,9 @@ class BusinessesTableSeeder extends Seeder
 
             // assign products to business
             foreach ($products->random(rand(1, 5)) as $product) {
+                /**
+                 * @deprecated No longer used by internal code and not recommended.
+                 */
                 $businesses_products[] = [
                     'business_id' => $business->id,
                     'product_id' => $product->id,
@@ -66,6 +72,10 @@ class BusinessesTableSeeder extends Seeder
             $business->addMediaFromUrl(resource_path('seed/logo-images/'.rand(1, 68).'.png'))->toMediaCollection(enum('media.business.logo'));
         }
         DB::table('businesses_users')->insert($business_users);
+
+        /**
+         * @deprecated No longer used by internal code and not recommended.
+         */
         DB::table('businesses_products')->insert($businesses_products);
 
         $product_tags = Tag::WhereIn(
