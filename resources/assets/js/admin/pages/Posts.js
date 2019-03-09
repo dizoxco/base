@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {Component} from "react";
+import {connect} from "react-redux";
 
-import { getPosts, getUsers } from "../actions"
-import { Page, Icon, Table, Button } from "../components";
+import {getPosts, getUsers} from "../actions"
+import {Button, Page, Table} from "../components";
 
 class Posts extends Component{
 

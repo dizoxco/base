@@ -1,4 +1,4 @@
-import { deleting, getting, putting, posting, setCookie } from "../../helpers";
+import {deleting, getting, posting, putting} from "../../helpers";
 import routes from '../routes';
 
 export const getPosts = () => {
@@ -8,25 +8,25 @@ export const getPosts = () => {
             .catch(response => dispatch({ type: 'ERR', payload: response}));
         getting(routes('api.posts.index'))
             .then(response => {
-                dispatch({ type: 'GET-POSTS', payload: response.data })
+                dispatch({ type: 'GET-POSTS', payload: response.data });
                 dispatch({ type: 'SUCCESS', message: 'مطالب دریافت شد' })
             })
             .catch(response => dispatch({ type: 'ERR', payload: response}));
     }
-}
+};
 
 export const setPost = (id, attributes) => {
     return (dispatch) => {
         dispatch({ type: 'SET-POST', id, attributes })
     }
-}
+};
 
 export const resetPost = (id) => {
     return (dispatch) => {
         dispatch({ type: 'RESET-POST', id })
         dispatch({ type: 'SUCCESS', message: 'مطلب به حالت اولیه بازگشت.' })
     }
-}
+};
 
 export const copyPost = (id, callback) => {
     callback();
@@ -34,8 +34,7 @@ export const copyPost = (id, callback) => {
         dispatch({ type: 'COPY-POST', id })
         dispatch({ type: 'SUCCESS', message: 'مطلب در فرم ایجاد رونوشت شد.' })
     }
-}
-
+};
 
 export const setPostTags = (id, tags, taxonomy_tags) => {
     return (dispatch) => {
@@ -52,7 +51,7 @@ export const storePost = (post) => {
             })
             .catch(response => dispatch({ type: 'ERR', payload: response}));
     }
-}
+};
 
 export const updatePost = (post) => {
     return (dispatch) => {
@@ -66,19 +65,19 @@ export const updatePost = (post) => {
             })
             .catch(response => dispatch({ type: 'ERR', payload: response}));
     }
-}
+};
 
 export const deletePost = (id, callback) => {
     return (dispatch) => {
         deleting(routes('api.posts.delete', [id]))
             .then(response => {
                 callback();
-                dispatch({ type: 'DELETE-POST', id, payload: response.data })
+                dispatch({ type: 'DELETE-POST', id, payload: response.data });
                 dispatch({ type: 'SUCCESS', message: 'مطلب با موفقیت به زباله دان انتقال یافت.' });
             })
             .catch(response => dispatch({ type: 'ERR', payload: response}));
     }
-}
+};
 
 export const restorePost = (deleted_id) => {
     return (dispatch) => {
@@ -89,4 +88,4 @@ export const restorePost = (deleted_id) => {
             })
             .catch(response => dispatch({ type: 'ERR', payload: response}));
     }
-}
+};
