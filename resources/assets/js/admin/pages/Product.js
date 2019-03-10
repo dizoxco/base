@@ -2,49 +2,36 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 
 import {
+    copyProduct,
+    deleteProduct,
     getProducts,
     getTags,
     getTaxonomies,
+    resetProduct,
+    restoreProduct,
     setProduct,
     setProductTags,
     storeProduct,
-    updateProduct,
-    resetProduct,
-    deleteProduct,
-    copyProduct
+    updateProduct
 } from "../actions"
-import {AutoComplete, Form, NotFound, Page, Show, Table, Text, Button, Checkbox} from "../components";
+import {AutoComplete, Button, Checkbox, Form, Page, Show, Table, Text} from "../components";
 
 class Product extends Component{
 
     state = {activeTabIndex: 1};
 
     componentDidMount() {
-        if (this.props.product.id === undefined) {
-            this.props.getProducts();
-        }
-        if (this.props.tags.length == 0) {
-            this.props.getTags();
-        }
+        if (this.props.product != undefined) {
+            if (this.props.product.id == undefined || this.props.product.attributes == undefined) {
+                this.props.getProducts();
+            }
+            if (this.props.tags.length == 0) {
+                this.props.getTags();
+            }            
+        }        
     }
 
-    handleClick = () => {
-        if (this.props.product.id == 0) {
-            this.props.storeProduct(this.props.product)
-        } else {
-            this.props.updateProduct(this.props.product)
-        }
-    };
-
     render() {
-        if (this.props.product === null) {
-            return <Loading />
-        }
-
-        if (this.props.product === undefined) {
-            return <NotFound />
-        }
-
         return (
             <Page                
                 title={this.props.product.attributes.title}
@@ -52,25 +39,30 @@ class Product extends Component{
                     <Button
                         type="icon"
                         icon="save"
-                        disabled={this.props.product.oldAttributes == undefined && this.props.product.oldRelations == undefined}
-                        onClick={() => this.props.product.id ? this.props.updateProduct(this.props.product):  this.props.storeProduct(this.props.product)}
+                        visible={!this.props.trashed}
+                        disabled={!this.props.edited}
+                        onClick={() => this.props.product.id? this.props.updateProduct(this.props.product) : this.props.storeProduct(this.props.product)}
                     />
                     <Button
                         type="icon"
                         icon="restore"
-                        disabled={this.props.product.oldAttributes == undefined && this.props.product.oldRelations == undefined}
-                        onClick={() => this.props.resetProduct(this.props.product.id)}
+                        disabled={!(this.props.edited || this.props.trashed) }
+                        onClick={() => this.props.trashed ?
+                            this.props.restoreProduct(this.props.product.id):
+                            this.props.resetProduct(this.props.product.id)
+                        }
                     />
                     <Button
                         type="icon"
                         icon="delete"
+                        visible={!this.props.trashed}
                         onClick={() => this.props.deleteProduct(this.props.product.id, () => this.props.history.push('/admin/products'))}
                     />
                     <Button
                         type="icon"
                         icon="file_copy"
                         onClick={() => this.props.copyProduct(this.props.product.id, () => this.props.history.push('/admin/products/create'))}
-                        visible={this.props.product.id}
+                        visible={this.props.product.id && !this.props.trashed}
                     />
                 </div>}
                 tabs={
@@ -170,39 +162,41 @@ class Product extends Component{
 }
 
 const mapStateToProps = (state, props) => {
-    let id = props.match.params.product;
-    let tags;
     let product;
-
-    tags = state.tags.index.filter(tag => tag.attributes.taxonomy_group_name == 'product');
+    let id = props.match.params.product;
 
     if (id == 'create') {
         product = state.products.create;
-    }
-
-    if (state.products.index.length == 0) {
+    } else if (state.products.index.length == 0) {
         product = state.products.init;
+    } else {
+        product = state.products.index.find( element => element.id == id );
     }
 
-    if (!product) {
-        product = state.products.index.find(element => element.id == id);
+    if (product == undefined) {
+        product = state.products.trash.find( element => element.id == id );
     }
 
-    return {product, tags};
+    let tags = state.tags.index.filter(tag => tag.attributes.taxonomy_group_name == 'product');
+    let trashed = ( product != undefined && product.attributes.deleted_at != null);
+    let edited = ( product != undefined && (product.oldAttributes != undefined || product.oldRelations != undefined));
+
+    return {product, trashed, edited, tags};
 };
 
 export default connect(
     mapStateToProps,
     {
+        copyProduct,
+        deleteProduct,
         getProducts,
         getTags,
         getTaxonomies,
+        resetProduct,
+        restoreProduct,
         setProduct,
         setProductTags,
         storeProduct,
-        updateProduct,
-        resetProduct,
-        deleteProduct,
-        copyProduct
+        updateProduct
     }
     )(Product);

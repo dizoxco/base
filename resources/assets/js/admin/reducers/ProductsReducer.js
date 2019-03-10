@@ -7,16 +7,17 @@ const init = {
         body: ''
     },
     relations: {
-        tags: []
+        tags: [],
+        users: [],
+        comments: [],
     }
 };
-
 const initialState = {
     index: [],
-    init,
+    trash: [],
+    init: {...init},
     create: {...init, id: 0},
 };
-
 export const ProductReducer = (state = initialState, action) => {
     let i;
     if(action.id != undefined && action.id != 0 ){
@@ -44,10 +45,19 @@ export const ProductReducer = (state = initialState, action) => {
     };
 
     switch (action.type) {
+        case 'COPY-PRODUCT':
+            state.create.attributes = {...state.index[i].attributes};
+            state.create.oldAttributes = {...state.init.attributes};
+            state.create.relations = {...state.index[i].relations};
+            state.create.oldRelations = {...state.init.relations};
+            return state;
+        case 'DELETE-PRODUCT':
+            delete state.index.splice(i, 1);
+            return state;
         case 'GET-PRODUCTS':
             return {
                 ...state,
-                index: state.index.concat(action.payload.data)
+                index: action.payload.data
             };
         case 'SET-PRODUCT':
             backup();
@@ -79,35 +89,44 @@ export const ProductReducer = (state = initialState, action) => {
                 state.index[i].relations = {...state.index[i].relations, tags};
             }
             return state;
+        case 'GET-TRASH-PRODUCTS':
+            return {
+                ...state,
+                trash: action.payload.data
+            };
         case 'RESET-PRODUCT':
-            if(action.id == 0){
+            if (action.id == 0) {
                 state.create = {...state.init, id: 0};
-            }else{
+            } else {
                 state.index[i].attributes = {...state.index[i].oldAttributes};
                 state.index[i].relations = {...state.index[i].oldRelations};
                 delete state.index[i].oldAttributes;
                 delete state.index[i].oldRelations;
             }
             return state;
-        case 'COPY-PRODUCT':
-            state.create.attributes = {...state.index[i].attributes};
-            state.create.oldAttributes = {...state.init.attributes};
-            state.create.relations = {...state.index[i].relations};
-            state.create.oldRelations = {...state.init.relations};
+        case 'RESTORE-PRODUCT':
+            i = state.trash.findIndex((e) => e.id == action.deleted_id );
+            state.trash[i].attributes.deleted_at= null;
+            state.index.push(state.trash[i]);
+            delete state.trash.splice(i, 1);
+            return state;
+        case 'SET-PRODUCT':
+            backup();
+            if (action.id == 0) {
+                state.create.attributes = {...state.create.attributes, ...action.attributes}
+            } else {
+                state.index[i].attributes = { ...state.index[i].attributes, ...action.attributes };
+            }
             return state;
         case 'STORE-PRODUCT':
             state.index.push(action.payload.data);
-            state.index[0].attributes = state.index[0].oldAttributes;
-            delete state.index[0].oldAttributes;
+            state.create = state.init;
             return state;
         case 'UPDATE-PRODUCT':
-            let updatedIndex = state.index.findIndex((e) => e.id == action.payload.data.id );
-            delete state.index[updatedIndex].oldAttributes;
-            delete state.index[updatedIndex].oldRelations;
-        case 'DELETE-PRODUCT':
-            delete state.index.splice(i, 1);
+            delete state.index[i].oldAttributes;
+            delete state.index[i].oldRelations;
             return state;
         default:
             return state;
     }
-};
+}

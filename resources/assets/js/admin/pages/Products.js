@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 
-import {getBusinesses, getProducts} from "../actions"
-import {Page, Table, Button} from "../components";
+import {getProducts} from "../actions"
+import {Button, Page, Table} from "../components";
 
 class Products extends Component{
 
@@ -10,23 +10,26 @@ class Products extends Component{
         if (this.props.products.length <= 1) {
             this.props.getProducts();
         }
-        if(this.props.businesses.length == 0) this.props.getBusinesses();
     };
 
     render() {
         return(
             <Page
                 title='محصولات'
-                buttons = {<Button icon="add" type="icon" onClick={() => this.props.history.push('/admin/products/create')} />}
+                buttons = {<div>
+                    <Button icon="add" type="icon" visible={!this.props.trash} onClick={() => this.props.history.push('/admin/products/create')} />
+                    <Button icon="delete" type="icon" visible={!this.props.trash} onClick={() => this.props.history.push('/admin/products/trash')} />
+                    <Button icon="list" type="icon" visible={this.props.trash} onClick={() => this.props.history.push('/admin/products')} />
+                </div>}
             >
                 <Table
                     data={this.props.products}
                     tdClick={(r) => this.props.history.push('/admin/products/' + r.original.id)}
                     columns={[
                         {
-                            Header: 'id',
+                            Header: 'شناسه',
                             accessor: 'id',
-                            width: 100
+                            width: 150
                         },
                         {
                             Header: 'عنوان',
@@ -55,11 +58,11 @@ class Products extends Component{
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
     return {
-        products: state.products.index,
-        businesses: state.businesses.index
+        trash: props.location.pathname == '/admin/products/trash',
+        products: (props.location.pathname == '/admin/products') ? state.products.index : state.products.trash
     };
 };
 
-export default connect(mapStateToProps, { getBusinesses, getProducts })(Products);
+export default connect(mapStateToProps, { getProducts })(Products);

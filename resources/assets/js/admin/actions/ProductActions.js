@@ -1,15 +1,56 @@
 import {deleting, getting, posting, putting} from "../../helpers";
-import routes from '../routes';
+import routs from '../routes';
+
+export const copyProduct = (id, callback) => {
+    callback();
+    return (dispatch) => {
+        dispatch({ type: 'COPY-PRODUCT', id });
+        dispatch({ type: 'SUCCESS', message: 'محصول در فرم ایجاد رونوشت شد.' })
+    }
+};
+
+export const deleteProduct = (id, callback) => {
+    return (dispatch) => {
+        deleting(routs('api.products.delete', [id]))
+            .then(response => {
+                callback();
+                dispatch({ type: 'DELETE-PRODUCT', id, payload: response.data });
+                dispatch({ type: 'SUCCESS', message: 'محصول با موفقیت به زباله دان انتقال یافت.' });
+            })
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
+    }
+};
 
 export const getProducts = () => {
     return (dispatch) => {
-        getting(routes('api.products.index'))
-            .then(response => dispatch({
-                type: 'GET-PRODUCTS',
-                payload: response.data
-            }))
+        getting(routs('api.products.trash'))
+            .then(response => dispatch({type: 'GET-TRASH-PRODUCTS', payload: response.data}))
             .catch(response => dispatch({ type: 'ERR', payload: response}));
-    };
+        getting(routs('api.products.index'))
+            .then(response => {
+                dispatch({ type: 'GET-PRODUCTS', payload: response.data });
+                dispatch({ type: 'SUCCESS', message: 'محصولات دریافت شدند' });
+            })
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
+    }
+};
+
+export const resetProduct = (id) => {
+    return (dispatch) => {
+        dispatch({ type: 'RESET-PRODUCT', id });
+        dispatch({ type: 'SUCCESS', message: 'محصول به حالت اولیه بازگشت.' })
+    }
+};
+
+export const restoreProduct = (deleted_id) => {
+    return (dispatch) => {
+        getting(routs('api.products.restore', [deleted_id]))
+            .then(response => {
+                dispatch({ type: 'RESTORE-PRODUCT', deleted_id, payload: response.data });
+                dispatch({ type: 'SUCCESS', message: 'محصول با موفقیت بازیابی شد.' });
+            })
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
+    }
 };
 
 export const setProduct = (id, attributes) => {
@@ -18,28 +59,15 @@ export const setProduct = (id, attributes) => {
     }
 };
 
-export const resetProduct = (id) => {
-    return (dispatch) => {
-        dispatch({ type: 'RESET-PRODUCT', id })
-    }
-};
-
-export const copyProduct = (id, callback) => {
-    callback();
-    return (dispatch) => {
-        dispatch({ type: 'COPY-PRODUCT', id })
-    }
-};
-
 export const setProductTags = (id, tags, taxonomy_tags) => {
     return (dispatch) => {
         dispatch({ type: 'SET-PRODUCT-TAGS', id, tags, taxonomy_tags })
-    };
+    }
 };
 
-export const storeProduct = (product) => {
+export const storeProduct = (user) => {
     return (dispatch) => {
-        posting(routes('api.products.store'), product.attributes)
+        posting(routs('api.products.store'), user.attributes)
             .then(response => {
                 dispatch({
                     type: 'STORE-PRODUCT',
@@ -50,33 +78,18 @@ export const storeProduct = (product) => {
                     type : 'APP-REDIRECT',
                     payload : '/admin/products/'+response.data.data.id
                 });
-                
             })
             .catch(response => dispatch({ type: 'ERR', payload: response}));
-    };
+    }
 };
 
-export const updateProduct = (product) => {
+export const updateProduct = (user) => {
     return (dispatch) => {
-        putting(routes('api.products.update',[product.id]), {
-            ...product.attributes,
-            tags: product.relations.tags
-        })
+        putting(routs('api.products.update',[user.id]), user.attributes)
             .then(response => dispatch({
                 type: 'UPDATE-PRODUCT',
                 payload: response.data
             }))
-            .catch(response => dispatch({ type: 'ERR', payload: response}));
-    };
-};
-
-export const deleteProduct = (id, callback) => {
-    return (dispatch) => {
-        deleting(routes('api.products.delete', [id]))
-            .then(response => {
-                callback();
-                return dispatch({ type: 'DELETE-PRODUCT', id, payload: response.data })
-            })
             .catch(response => dispatch({ type: 'ERR', payload: response}));
     }
 };
