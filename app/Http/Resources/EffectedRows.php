@@ -23,7 +23,7 @@ class EffectedRows extends Resource
                     'message' => trans('http.internal_err'),
                     'errors' => [
                         'ok' => [trans('http.internal_err')],
-                    ]
+                    ],
                 ]
             ))
             ->header('Content-Type', enum('system.response.json'));

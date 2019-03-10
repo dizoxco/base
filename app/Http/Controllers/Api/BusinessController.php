@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\Business\StoreBusinessRequest;
-use App\Http\Requests\Business\UpdateBusinessRequest;
 use App\Models\Business;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EffectedRows;
@@ -11,6 +9,8 @@ use App\Http\Resources\BusinessResource;
 use App\Http\Resources\BusinessCollection;
 use App\Repositories\Facades\BusinessRepo;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\Business\StoreBusinessRequest;
+use App\Http\Requests\Business\UpdateBusinessRequest;
 
 class BusinessController extends Controller
 {
@@ -57,7 +57,7 @@ class BusinessController extends Controller
                     'message' => trans('http.ok'),
                     'errors' => [
                         'ok' => trans('http.ok'),
-                    ]
+                    ],
                 ]));
         }
 
@@ -72,8 +72,8 @@ class BusinessController extends Controller
                 ->setContent(json_encode([
                     'message' => trans('http.ok'),
                     'errors' => [
-                        'ok' => [trans('http.ok')]
-                    ]
+                        'ok' => [trans('http.ok')],
+                    ],
                 ]));
         }
 

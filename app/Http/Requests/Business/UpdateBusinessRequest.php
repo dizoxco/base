@@ -24,7 +24,7 @@ class UpdateBusinessRequest extends FormRequest
     public function rules()
     {
         $this->merge([
-            'contact' => json_encode([])
+            'contact' => json_encode([]),
         ]);
 
         return [
