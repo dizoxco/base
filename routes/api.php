@@ -45,6 +45,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::name('businesses.')->prefix('businesses')->group(function () {
         Route::get('/', 'BusinessController@index')->name('index')->middleware('permission:manage_businesses');
+        Route::get('/trash', 'BusinessController@trash')->name('trash')->middleware('permission:manage_businesses');
         Route::post('/', 'BusinessController@store')->name('store')->middleware('permission:manage_businesses');
 
         Route::prefix('{business}')->middleware('acl:business,manage_businesses')->group(function () {

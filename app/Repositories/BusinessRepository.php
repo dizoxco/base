@@ -76,7 +76,7 @@ class BusinessRepository extends BaseRepository
     {
         try {
             return DB::transaction(function () use ($business) {
-                return auth_user()->businesses()->create($business);
+                return \Auth::user()->businesses()->create($business);
             });
         } catch (Throwable $throwable) {
             // todo:log the exception or even better send them to bugsnag

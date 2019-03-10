@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Business\StoreBusinessRequest;
+use App\Http\Requests\Business\UpdateBusinessRequest;
 use App\Models\Business;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EffectedRows;
@@ -17,7 +19,12 @@ class BusinessController extends Controller
         return new BusinessCollection(BusinessRepo::getAll());
     }
 
-    public function store(Request $request)
+    public function trash()
+    {
+        return new BusinessCollection(BusinessRepo::getTrashed());
+    }
+
+    public function store(StoreBusinessRequest $request)
     {
         $business = BusinessRepo::create($request->all());
         if ($business === null) {
@@ -32,22 +39,45 @@ class BusinessController extends Controller
         return new BusinessResource($business);
     }
 
-    public function update(Business $business)
+    public function update(UpdateBusinessRequest $request, Business $business)
     {
-        $rows = BusinessRepo::update($business, request()->all());
-//        $status = $business === null ? Response::HTTP_INTERNAL_SERVER_ERROR : Response::HTTP_OK;
+        if ($updated_business = BusinessRepo::update($business, $request->all())) {
+            return new BusinessResource($business);
+        }
 
-        return new BusinessResource($business);
+        return new EffectedRows($business);
     }
 
     public function delete(Business $business)
     {
-        return new EffectedRows(BusinessRepo::delete($business));
+        if ($deleted_business = BusinessRepo::delete($business)) {
+            return (new EffectedRows($deleted_business))->response()
+                ->setStatusCode(Response::HTTP_OK)
+                ->setContent(json_encode([
+                    'message' => trans('http.ok'),
+                    'errors' => [
+                        'ok' => trans('http.ok'),
+                    ]
+                ]));
+        }
+
+        return new EffectedRows($deleted_business);
     }
 
     public function restore(string $business)
     {
-        return new EffectedRows(BusinessRepo::restore($business));
+        if ($restored_business = BusinessRepo::restore($business)) {
+            return (new EffectedRows($restored_business))->response()
+                ->setStatusCode(Response::HTTP_OK)
+                ->setContent(json_encode([
+                    'message' => trans('http.ok'),
+                    'errors' => [
+                        'ok' => [trans('http.ok')]
+                    ]
+                ]));
+        }
+
+        return new EffectedRows($restored_business);
     }
 
     public function destroy(string $business)
