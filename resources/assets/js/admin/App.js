@@ -39,10 +39,10 @@ class App extends Component{
         });
         if( this.props.snacks.length ) this.props.flushSnacks();
 
-        if (this.props.app.redirect !== null){
-            this.props.history.push(this.props.app.redirect);
-            this.props.clearRedirect();
-        }
+        // if (this.props.app.redirect !== null){
+        //     this.props.history.push(this.props.app.redirect);
+        //     this.props.clearRedirect();
+        // }
     }
     
     render(){

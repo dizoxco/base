@@ -38,11 +38,17 @@ export class Select extends Component{
     }
 
     render(){
-        var options = this.props.data.map(opt => 
-                <MenuItem value={this.deep_value(opt, this.props.accessors.value)}>
-                    {this.deep_value(opt, this.props.accessors.label)}
-                </MenuItem>
-            )
+        var options = this.props.data.map(opt => {
+                if (typeof opt == 'object') {
+                    return <MenuItem value={this.deep_value(opt, this.props.accessors.value)}>
+                        {this.deep_value(opt, this.props.accessors.label)}
+                    </MenuItem>
+                }else{
+                    return <MenuItem value={opt}>
+                        {opt}
+                    </MenuItem>
+                }
+            })
         
         var value = this.props.value;
         if (typeof value == "object") {

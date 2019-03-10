@@ -16,15 +16,21 @@ export const getSearchPanels = () => {
     }
 }
 
-export const setSearchPanel = (id, attributes) => {
+export const setSearchPanel = (searchPanelId, path, data) => {
     return (dispatch) => {
-        dispatch({ type: 'SET-SEARCHPANEL', id, attributes })
+        dispatch({ type: 'SET-SEARCHPANEL', searchPanelId, data, path })
     }
 }
 
-export const resetSearchPanel = (id) => {
+export const orderSearchPanel = (id, path, from, to) => {
     return (dispatch) => {
-        dispatch({ type: 'RESET-SEARCHPANEL', id })
+        dispatch({ type: 'ORDER-SEARCHPANEL', id, path, from, to })
+    }
+}
+
+export const resetSearchPanel = (searchPanelId) => {
+    return (dispatch) => {
+        dispatch({ type: 'RESET-SEARCHPANEL', searchPanelId })
         dispatch({ type: 'SUCCESS', message: 'پنل جستجو به حالت اولیه بازگشت.' })
     }
 }
