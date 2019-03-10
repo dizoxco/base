@@ -53,7 +53,7 @@ class Users extends Component{
 const mapStateToProps = (state, props) => {
     return {
         trash: props.location.pathname == '/admin/users/trash',
-        users: (props.location.pathname == '/admin/users') ? state.users.index : state.users.trash
+        users: (props.location.pathname == '/admin/users/trash')? state.users.trash: state.users.index
     };
 };
 export default connect(mapStateToProps, {getUsers} )(Users);

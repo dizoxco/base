@@ -54,7 +54,8 @@ class App extends Component{
                     <div id="main-content" >
                         <Route render={({location}) => (
                                 <Switch location={location}>
-                                        <Route path="/admin" exact component={Dashboard} />
+                                        {/* <Route path="/admin" exact component={Dashboard} /> */}
+                                        <Route path="/admin" exact component={Users} />
                                         <Route path="/admin/businesses" exact component={Businesses} />
                                         <Route path="/admin/businesses/trash" exact component={Businesses} />
                                         <Route path="/admin/businesses/:business" exact component={Business} />
@@ -88,10 +89,10 @@ class App extends Component{
                         <List
                             items={[
                                 {
-                                    text: 'داشبورد',
-                                    link: '/admin',
-                                    icon: 'dashboard'
-                                },{
+                                //     text: 'داشبورد',
+                                //     link: '/admin',
+                                //     icon: 'dashboard'
+                                // },{
                                     text: 'کاربران',
                                     link: '/admin/users',
                                     icon: 'person'
@@ -107,22 +108,22 @@ class App extends Component{
                                     text: 'محصولات',
                                     link: '/admin/products',
                                     icon: 'gavel'
-                                },{
-                                    text: 'نظرات',
-                                    link: '/admin/comments',
-                                    icon: 'comment'
-                                },{
-                                    text: 'رسانه',
-                                    link: '/admin/mediagroups',
-                                    icon: 'tv'
+                                // },{
+                                //     text: 'نظرات',
+                                //     link: '/admin/comments',
+                                //     icon: 'comment'
+                                // },{
+                                //     text: 'رسانه',
+                                //     link: '/admin/mediagroups',
+                                //     icon: 'tv'
                                 },{
                                     text: 'تگ ها',
                                     link: '/admin/taxonomies',
                                     icon: 'tag'
-                                },{
-                                    text: 'تیکت ها',
-                                    link: '/admin/tickets',
-                                    icon: 'comment'
+                                // },{
+                                //     text: 'تیکت ها',
+                                //     link: '/admin/tickets',
+                                //     icon: 'comment'
                                 },{
                                     text: 'پنل جستجو',
                                     link: '/admin/searchpanels',
