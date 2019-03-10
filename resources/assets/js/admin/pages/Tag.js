@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import React, {Component} from "react";
-import {getTags, setTag, storeTag, updateTag} from "../actions"
-import {Form, Loading, NotFound, Page, Show, Text} from "../components";
+import {copyTag, deleteTag, getTags, setTag, storeTag, updateTag, restoreTag, resetTag} from "../actions"
+import {Form, Loading, NotFound, Page, Show, Text, Button} from "../components";
 
 class Tag extends Component{
 
@@ -55,7 +55,7 @@ class Tag extends Component{
                             onChange={ (e) => this.props.setTag(this.props.tag.id, {label: e.target.value}) }
                         />
                         <Text
-                            label='اسلاگ'
+                            label='نامک'
                             value={this.props.tag.attributes.slug}
                             onChange={ (e) => this.props.setTag(this.props.tag.id, {slug: e.target.value}) }
                         />
@@ -67,10 +67,36 @@ class Tag extends Component{
         return(
             <Page
                 title={this.props.tag.attributes.label}
-                button={{
-                    label: 'به روزرسانی',
-                    onClick: this.updateTag()
-                }}
+                buttons={<div>
+                    <Button 
+                        type="icon"
+                        icon="save"
+                        visible={!this.props.trashed}
+                        disabled={!this.props.edited}
+                        onClick={() => this.props.tag.id? this.props.updateTag(this.props.tag):  this.props.storeTag(this.props.tag)} 
+                    />
+                    <Button 
+                        type="icon"
+                        icon="restore"
+                        disabled={!(this.props.edited || this.props.trashed) }
+                        onClick={() => this.props.trashed? 
+                            this.props.restoreTag(this.props.tag.id):
+                            this.props.resetTag(this.props.tag.id)
+                        } 
+                    />
+                    <Button 
+                        type="icon" 
+                        icon="delete"
+                        visible={!this.props.trashed}
+                        onClick={() => this.props.deleteTag(this.props.tag.id, () => this.props.history.push('/admin/taxonomies'))} 
+                    />
+                    <Button 
+                        type="icon"
+                        icon="file_copy"
+                        onClick={() => this.props.copyTag(this.props.tag.id, () => this.props.history.push('/admin/taxonomies/create'))} 
+                        visible={this.props.tag.id && !this.props.trashed}
+                    />
+                </div>}
                 tabs={['نمایش', 'ویرایش اطلاعات']}
                 tab={this.state.activeTabIndex}
                 redirect={this.state.redirect}
@@ -117,4 +143,4 @@ const mapStateToProps = (state, props) => {
     return {tag};
 };
 
-export default connect(mapStateToProps, { getTags, setTag, storeTag, updateTag })(Tag);
+export default connect(mapStateToProps, { copyTag, deleteTag, getTags, setTag, storeTag, updateTag, restoreTag, resetTag})(Tag);

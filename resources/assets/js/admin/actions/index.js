@@ -8,5 +8,5 @@ export { flushSnacks } from './SnackActions';
 export { clearRedirect } from './AppActions';
 export { getSearchPanels, setSearchPanel, storeSearchPanel, updateSearchPanel } from './SearchPanelActions';
 export { getTickets } from './TicketActions';
-export { getTags, setTag, storeTag,updateTag } from './TagActions';
+export { copyTag, deleteTag, getTags, setTag, storeTag, restoreTag, resetTag, updateTag } from './TagActions';
 export { copyTaxonomy, deleteTaxonomy,getTaxonomies, setTaxonomy, storeTaxonomy, restoreTaxonomy, resetTaxonomy, updateTaxonomy, validateTaxonomy } from './TaxonomyActions';
