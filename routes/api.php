@@ -59,6 +59,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::name('products.')->prefix('products')->group(function () {
         Route::get('/', 'ProductController@index')->name('index');
+        Route::get('/trash', 'ProductController@trash')->name('trash');
         Route::post('/', 'ProductController@store')->name('store');
 
         Route::prefix('{product}')->group(function () {
