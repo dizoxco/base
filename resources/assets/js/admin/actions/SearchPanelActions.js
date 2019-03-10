@@ -9,7 +9,7 @@ export const getSearchPanels = () => {
                 type: 'GET-SEARCHPANELS',
                 payload: response.data
             }))
-            .catch( error => { console.log(error.response) } );
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
     }
 }
 
@@ -27,7 +27,7 @@ export const storeSearchPanel = (searchpanel) => {
                 payload: response.data
                 // searchpanel
             }))
-            .catch( error => { console.log(error.response) } );
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
     }
 } 
 
@@ -38,6 +38,6 @@ export const updateSearchPanel = (searchpanel) => {
                 type: 'UPDATE-SEARCHPANEL',
                 searchpanel
             }))
-            .catch( error => { console.log(error.response) } );
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
     }
 }

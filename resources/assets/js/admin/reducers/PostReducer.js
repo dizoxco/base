@@ -33,10 +33,10 @@ export const PostReducer = (state = initialState, action) => {
     }
     switch (action.type) {
         case 'COPY-POST':
-            state.create.attributes = {...state.index[i].attributes}
-            state.create.oldAttributes = {...state.init.attributes}
-            state.create.relations = {...state.index[i].relations}
-            state.create.oldRelations = {...state.init.relations}
+            state.create.attributes = {...state.index[i].attributes};
+            state.create.oldAttributes = {...state.init.attributes};
+            state.create.relations = {...state.index[i].relations};
+            state.create.oldRelations = {...state.init.relations};
             return state;
         case 'DELETE-POST':
             delete state.index.splice(i, 1);

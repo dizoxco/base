@@ -54,7 +54,6 @@ export const BusinessReducer = (state = initialState, action) => {
             delete state.index.splice(i, 1);
             return state;
         case 'GET-BUSINESSES':
-            console.log('GET-BUSINESSES');
             return {
                 ...state,
                 index: action.payload.data
