@@ -43,7 +43,8 @@ class BusinessRepository extends BaseRepository
     {
         $businesses = QueryBuilder::for(Business::query())
             ->allowedFilters(['brand', 'email'])
-            ->allowedSorts(['brand', 'city', 'province', 'created_at', 'updated_at']);
+            ->allowedSorts(['brand', 'city', 'province', 'created_at', 'updated_at'])
+            ->allowedIncludes(['users', 'city', 'products', 'logo', 'mediagroups', 'comments', 'tags', 'chats']);
         $this->applyParams($businesses, $params);
 
         return $businesses->get();
@@ -59,6 +60,7 @@ class BusinessRepository extends BaseRepository
         return QueryBuilder::for(Business::query())
             ->allowedFilters(['brand', 'email'])
             ->allowedSorts(['brand', 'city', 'province', 'created_at', 'updated_at'])
+            ->allowedIncludes(['users', 'city', 'products', 'logo', 'mediagroups', 'comments', 'tags', 'chats'])
             ->where($column, '=', $value)
             ->get();
     }
@@ -68,6 +70,7 @@ class BusinessRepository extends BaseRepository
         return QueryBuilder::for(Business::query())
             ->allowedFilters(['brand', 'email'])
             ->allowedSorts(['brand', 'city', 'province', 'created_at', 'updated_at'])
+            ->allowedIncludes(['users', 'city', 'products', 'logo', 'mediagroups', 'comments', 'tags', 'chats'])
             ->onlyTrashed()
             ->get();
     }
@@ -79,6 +82,7 @@ class BusinessRepository extends BaseRepository
                 return \Auth::user()->businesses()->create($business);
             });
         } catch (Throwable $throwable) {
+            dd($throwable->getMessage());
             // todo:log the exception or even better send them to bugsnag
             return null;
         }

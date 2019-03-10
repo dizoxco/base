@@ -3,12 +3,15 @@ const init = {
     attributes:{
         brand: '',
         slug: '',
-        city_id: '',
+        city_id: 0,
         contact: '',
         status: '',
         created_at: null,
         updated_at: null,
         deleted_at: null,
+    },
+    relations:{
+        users: [],
     }
 };
 const initialState = {
@@ -87,6 +90,23 @@ export const BusinessReducer = (state = initialState, action) => {
                 state.index[i].attributes = { ...state.index[i].attributes, ...action.attributes };
             }
             return state;
+        case 'SET-BUSINESS-USERS':
+            backup();
+            var oldUsers = (i==undefined) ? state.create.relations.users: state.index[i].relations.users;
+            var user = action.user;
+            oldUsers.forEach(oldUser => {
+                let add = true;
+                action.users.forEach(user => {
+                    if (user.id == oldUser) add = false
+                })
+                if (add) oldUser.push(user);
+            })
+            if (i==undefined) {
+                state.create.relations = {...state.create.relations, users: user};
+            }else{
+                state.index[i].relations = {...state.index[i].relations, users: user};
+            }
+            return state;            
         case 'STORE-BUSINESS':
             state.index.push(action.payload.data);
             state.create = state.init;

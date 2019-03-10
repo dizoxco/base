@@ -16,7 +16,7 @@ class BusinessController extends Controller
 {
     public function index()
     {
-        return new BusinessCollection(BusinessRepo::getAll());
+        return new BusinessCollection(BusinessRepo::getAll(['with' => 'users']));
     }
 
     public function trash()
@@ -26,12 +26,12 @@ class BusinessController extends Controller
 
     public function store(StoreBusinessRequest $request)
     {
-        $business = BusinessRepo::create($request->all());
-        if ($business === null) {
-            return (new EffectedRows($business))->response()->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
-        } else {
+        if ($business = BusinessRepo::create($request->except('users'))) {
+            $business->users()->sync($request->users);
             return (new BusinessResource($business))->response()->setStatusCode(Response::HTTP_CREATED);
         }
+
+        return new EffectedRows($business);
     }
 
     public function show(Business $business)
@@ -41,7 +41,8 @@ class BusinessController extends Controller
 
     public function update(UpdateBusinessRequest $request, Business $business)
     {
-        if ($updated_business = BusinessRepo::update($business, $request->all())) {
+        if ($updated_business = BusinessRepo::update($business, $request->except('users'))) {
+            $business->users()->sync($request->users);
             return new BusinessResource($business);
         }
 

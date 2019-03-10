@@ -1,8 +1,20 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 
-import {copyBusiness, deleteBusiness, getBusinesses, setBusiness, restoreBusiness, resetBusiness, updateBusiness, storeBusiness} from "../actions"
-import {Button, Form, Page, Show, Text} from "../components";
+import {
+    copyBusiness,
+    deleteBusiness,
+    getBusinesses,
+    getCities,
+    getUsers,
+    resetBusiness,
+    restoreBusiness,
+    setBusiness,
+    setBusinessUsers,
+    storeBusiness,
+    updateBusiness
+} from "../actions"
+import {AutoComplete, Button, Form, Page, Show, Text} from "../components";
 
 class Business extends Component {
 
@@ -13,6 +25,14 @@ class Business extends Component {
             if (this.props.business.id == undefined || this.props.business.attributes == undefined) {
                 this.props.getBusinesses();
             }
+        }
+
+        if (this.props.cities.index == undefined)  {
+            this.props.getCities();
+        }
+
+        if (this.props.users.index == undefined)  {
+            this.props.getUsers();
         }
     }
 
@@ -73,11 +93,23 @@ class Business extends Component {
                         half
                         onChange={(e) => this.props.setBusiness(this.props.business.id, {slug: e.target.value})}
                     />
-                    <Text
-                        label='شهر'
-                        value={this.props.business.attributes.city_id}
-                        half
-                        onChange={(e) => this.props.setBusiness(this.props.business.id, {city_id: e.target.value})}
+                    <AutoComplete
+                        data = {this.props.cities}
+                        accessors= {{
+                            value: 'id',
+                            label: 'attributes.fullname'
+                        }}
+                        value = {this.props.business.attributes.city_id}
+                        onChange = {(city_id) => this.props.setBusiness(this.props.business.id, {city_id: city_id})}
+                    />
+                    <AutoComplete
+                        data = {this.props.users}
+                        accessors= {{
+                            value: 'id',
+                            label: 'attributes.name'
+                        }}
+                        value = {this.props.business.relations.users}
+                        onChange = {(users) => this.props.setBusinessUsers(this.props.business.id, users, this.props.users)}
                     />
                 </Form>
             </Page>
@@ -87,6 +119,8 @@ class Business extends Component {
 
 const mapStateToProps = (state, props) => {
     let business;
+    let cities = state.cities.index;
+    let users = state.users.index;
     let id = props.match.params.business;
 
     if (id == 'create') {
@@ -101,13 +135,14 @@ const mapStateToProps = (state, props) => {
         business = state.businesses.trash.find( element => element.id == id );
     }
 
+
     let trashed = ( business != undefined && business.attributes.deleted_at != null);
     let edited = ( business != undefined && (business.oldAttributes != undefined || business.oldRelations != undefined));
 
-    return {business, trashed, edited};
+    return {business, trashed, edited, cities, users};
 };
 
 export default connect(
     mapStateToProps,
-    {copyBusiness, deleteBusiness, getBusinesses, setBusiness, restoreBusiness, resetBusiness, updateBusiness, storeBusiness}
+    {copyBusiness, deleteBusiness, getBusinesses, getCities, getUsers, setBusiness, setBusinessUsers, restoreBusiness, resetBusiness, updateBusiness, storeBusiness}
     )(Business);

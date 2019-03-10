@@ -30,7 +30,7 @@ class StoreBusinessRequest extends FormRequest
         return [
             'brand' => 'required|string',
             'slug' => 'nullable|string',
-//            'city_id' => 'required|exists:cities,id',
+            'city_id' => 'required|exists:cities,id',
 //            'contact' => 'array',
 //            'status' => 'integer',
         ];

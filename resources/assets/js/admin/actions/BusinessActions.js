@@ -59,9 +59,15 @@ export const setBusiness = (id, attributes) => {
     }
 };
 
+export const setBusinessUsers = (id, user, users) => {
+    return (dispatch) => {
+        dispatch({ type: 'SET-BUSINESS-USERS', id, user, users})
+    };
+};
+
 export const storeBusiness = (user) => {
     return (dispatch) => {
-        posting(routes('api.businesses.store'), user.attributes)
+        posting(routes('api.businesses.store'), {...user.attributes, users:user.relations.users})
             .then(response => {
                 dispatch({
                     type: 'STORE-BUSINESS',
@@ -79,7 +85,7 @@ export const storeBusiness = (user) => {
 
 export const updateBusiness = (user) => {
     return (dispatch) => {
-        putting(routes('api.businesses.update',[user.id]), user.attributes)
+        putting(routes('api.businesses.update',[user.id]), {...user.attributes, users:user.relations.users})
             .then(response => dispatch({
                 type: 'UPDATE-BUSINESS',
                 payload: response.data

@@ -9,7 +9,7 @@ const routeslist = {
         },
         businesses: {
             prefix: '/businesses',
-            index: '',
+            index: '?include=users',
             trash: '/trash',
             store: '',
             restore: '/{business}/restore',

@@ -23,9 +23,9 @@ class BusinessResource extends BaseResource
                 $this->mergeWhen($this->dates(), $this->dates()),
             ],
             'relations' =>  [
-                $this->whenLoaded('user', function () {
-                    return ['user'  =>  $this->user->id];
-                }),
+                $this->mergeWhen($this->whenLoaded('users'), [
+                    'users' => $this->users->pluck('id'),
+                ]),
             ],
         ];
 
