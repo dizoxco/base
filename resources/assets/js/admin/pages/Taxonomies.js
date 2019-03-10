@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 
 import { getTaxonomies, getTags } from "../actions"
-import {Page, Table} from "../components";
+import {Page, Table, Button} from "../components";
 
 class Taxonomies extends Component{
 
@@ -16,19 +16,22 @@ class Taxonomies extends Component{
         if (this.props.tags.length === 0) {
             this.props.getTags();
         }
-    };
-
-    render(){
-        return(
+    }; 
+ 
+    render(){ 
+        return( 
             <Page
                 title='گروه های تگ'
 
-                button={{
-                    label: 'گروه تگ جدید',
-                    onClick: () => this.props.history.push('/admin/taxonomies/create')
-                }}
-
-                onChange={(value) => this.setState({tab: value})}
+                buttons = {<div>
+                    <Button icon="add" type="icon" visible={!this.props.trash} onClick={() => this.props.history.push('/admin/taxonomies/create')} />
+                    <Button icon="delete" type="icon" visible={!this.props.trash} onClick={() => this.props.history.push('/admin/taxonomies/trash')} />
+                    <Button icon="list" type="icon" visible={this.props.trash} onClick={() => this.props.history.push('/admin/taxonomies')} />
+                </div>
+                    // label: 'گروه تگ جدید',
+                    // onClick: () => this.props.history.push('/admin/taxonomies/create')
+                }
+                // onChange={(value) => this.setState({tab: value})}
             >
                 <Table
                     data={this.props.taxonomies}
@@ -61,11 +64,12 @@ class Taxonomies extends Component{
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
     return {
-        taxonomies: state.taxonomies.index,
+        trash: props.location.pathname == '/admin/taxonomies/trash',
+        taxonomies: (props.location.pathname == '/admin/taxonomies')? state.taxonomies.index: state.taxonomies.trash,
         tags: state.tags.index,
     };
-};
+}; 
 
 export default connect(mapStateToProps, { getTaxonomies, getTags })(Taxonomies);

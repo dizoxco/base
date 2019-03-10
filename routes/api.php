@@ -136,7 +136,8 @@ Route::middleware('auth:api')->group(function () {
         });
     });
 
-    Route::apiResource('taxonomies', 'TaxonomyController')->only('index', 'store', 'update');
+    Route::get('taxonomies/trash', 'TaxonomyController@trash');
+    Route::apiResource('taxonomies', 'TaxonomyController');
 
     Route::apiResource('tags', 'TagController')->only('index', 'store', 'update');
 

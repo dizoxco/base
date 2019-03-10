@@ -27,6 +27,15 @@ class TaxonomyRepository extends BaseRepository
         return $taxonomies->get();
     }
 
+    public function getTrashed() : ?Collection
+    {
+        return QueryBuilder::for(Taxonomy::query())
+            ->allowedFilters(['group_name', 'label', 'slug'])
+            ->allowedSorts(['created_at', 'updated_at', 'deleted_at'])
+            ->onlyTrashed()
+            ->get();
+    }    
+
     public function create(array $data): ?Taxonomy
     {
         try {
@@ -52,4 +61,18 @@ class TaxonomyRepository extends BaseRepository
             return 0;
         }
     }
+
+    public function delete($taxonomy)
+    {
+        try {
+            if ($taxonomy instanceof Taxonomy) {
+                return  $taxonomy->delete();
+            }
+            $ids = is_array($taxonomy) ? $taxonomy : func_get_args();
+
+            return  Taxonomy::whereIn('id', $ids)->delete();
+        } catch (Exception $exception) {
+            return 0;
+        }
+    }    
 }

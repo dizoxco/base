@@ -16,7 +16,8 @@ class TagController extends Controller
 {
     public function index()
     {
-        return new TagCollection(TagRepo::getAll());
+        $tags = \App\Models\Taxonomy::with('tags')->get()->pluck('tags')->collapse();
+        return new TagCollection($tags);
     }
 
     public function store(StoreTagRequest $request)

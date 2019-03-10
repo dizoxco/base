@@ -9,4 +9,4 @@ export { clearRedirect } from './AppActions';
 export { getSearchPanels, setSearchPanel, storeSearchPanel, updateSearchPanel } from './SearchPanelActions';
 export { getTickets } from './TicketActions';
 export { getTags, setTag, storeTag,updateTag } from './TagActions';
-export { getTaxonomies, setTaxonomy, storeTaxonomy, updateTaxonomy, validateTaxonomy } from './TaxonomyActions';
+export { copyTaxonomy, deleteTaxonomy,getTaxonomies, setTaxonomy, storeTaxonomy, restoreTaxonomy, resetTaxonomy, updateTaxonomy, validateTaxonomy } from './TaxonomyActions';

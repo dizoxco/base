@@ -14,8 +14,8 @@ class TagCollection extends BaseCollection
      */
     public function toArray($request)
     {
-        $this->collection->transform(function ($post) {
-            foreach ($post->getRelations() as $relation => $items) {
+        $this->collection->transform(function ($tag) {
+            foreach ($tag->getRelations() as $relation => $items) {
                 $resource = $this->resource($relation);
                 if ($items instanceof Model) {
                     $this->includes[$relation][$items->id] = new $resource($items);
@@ -29,7 +29,7 @@ class TagCollection extends BaseCollection
                 }
             }
 
-            return (new TagResource($post))->additional($this->additional);
+            return (new TagResource($tag))->additional($this->additional);
         });
 
         return parent::toArray($request);

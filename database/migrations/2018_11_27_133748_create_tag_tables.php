@@ -20,6 +20,7 @@ class CreateTagTables extends Migration
             $table->string('label');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+            $table->softDeletes();
         });
 
         Schema::create('tags', function (Blueprint $table) {

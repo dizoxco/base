@@ -21,6 +21,11 @@ class TaxonomyController extends Controller
         ]));
     }
 
+    public function trash()
+    {
+        return new TaxonomyCollection(TaxonomyRepo::getTrashed());
+    }    
+
     public function store(StoreTaxonomyRequest $request)
     {
         $created_taxonomy = TaxonomyRepo::create($request->all());
@@ -32,11 +37,25 @@ class TaxonomyController extends Controller
         return new TaxonomyResource($created_taxonomy);
     }
 
+    public function show(Taxonomy $taxonomy)
+    {
+        return new TaxonomyResource($taxonomy);
+    }
+
     public function update(UpdateTaxonomyRequest $request, Taxonomy $taxonomy)
     {
         $updated_taxonomy = TaxonomyRepo::update($taxonomy, $request->all());
         $status = $updated_taxonomy === null ? Response::HTTP_INTERNAL_SERVER_ERROR : Response::HTTP_OK;
 
         return  (new EffectedRows($updated_taxonomy))->response()->setStatusCode($status);
+    }
+
+    public function destroy(Taxonomy $taxonomy)
+    {
+        $resource = new EffectedRows(TaxonomyRepo::delete($taxonomy));
+        $resource->response()
+        ->setStatusCode(200)
+        ->setContent(trans('http.ok'));
+        return $resource;
     }
 }
