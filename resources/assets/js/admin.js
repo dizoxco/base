@@ -12,6 +12,7 @@ import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import {
     AppReducer,
     BusinessReducer,
+    CityReducer,
     CommentReducer,
     MediaReducer,
     PostReducer,
@@ -28,6 +29,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
                 combineReducers({
                     businesses: BusinessReducer,
+                    cities: CityReducer,
                     comments: CommentReducer,
                     posts: PostReducer,
                     media: MediaReducer,

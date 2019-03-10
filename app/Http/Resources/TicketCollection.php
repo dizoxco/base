@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
+
 class TicketCollection extends BaseCollection
 {
     public function toArray($request)

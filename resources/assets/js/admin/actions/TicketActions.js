@@ -8,6 +8,6 @@ export const getTickets = () => {
                     type: 'GET-TICKETS',
                     payload: response.data
             }))
-            .catch( error => { console.log(error.response) } );
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
     }
 }

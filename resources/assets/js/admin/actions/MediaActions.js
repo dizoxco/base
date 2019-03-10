@@ -9,7 +9,7 @@ export const getMediaGroup = (mediagroup) => {
                     payload: response.data,
                     mediagroup
             }))
-            .catch( error => { console.log(error.response) } );
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
     }
 }
 
@@ -30,6 +30,6 @@ export const getMediaGroups = () => {
                     type: 'GET-MEDIAGROUPS',
                     payload: response.data
             }))
-            .catch( error => { console.log(error.response) } );
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
     }
 }

@@ -43,6 +43,21 @@ export const copySearchPanel = (id, callback) => {
     }
 }
 
+export const resetSearchPanel = (id) => {
+    return (dispatch) => {
+        dispatch({ type: 'RESET-SEARCHPANEL', id })
+        dispatch({ type: 'SUCCESS', message: 'پنل جستجو به حالت اولیه بازگشت.' })
+    }
+}
+
+export const copySearchPanel = (id, callback) => {
+    callback();
+    return (dispatch) => {
+        dispatch({ type: 'COPY-SEARCHPANEL', id })
+        dispatch({ type: 'SUCCESS', message: 'پنل در فرم ایجاد رونوشت شد.' })
+    }
+}
+
 export const storeSearchPanel = (searchpanel) => {
     return (dispatch) => {
         posting(routes('api.searchpanels.store'), searchpanel.attributes)
@@ -51,7 +66,7 @@ export const storeSearchPanel = (searchpanel) => {
                 payload: response.data
                 // searchpanel
             }))
-            .catch( error => { console.log(error.response) } );
+            .catch(response => dispatch({ type: 'ERR', payload: response}));
     }
 } 
 

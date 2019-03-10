@@ -46,17 +46,4 @@ class ProductResource extends BaseResource
 
         return $resource;
     }
-
-    private function dates()
-    {
-        $dates = [];
-        $date_columns = ['available_at', 'created_at', 'updated_at', 'deleted_at'];
-        foreach ($date_columns as $column) {
-            if ($this->{$column} !== null) {
-                $dates[$column] = $this->{$column}->timestamp;
-            }
-        }
-
-        return empty($dates) ? false : $dates;
-    }
 }

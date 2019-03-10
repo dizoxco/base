@@ -1,13 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {Component} from "react";
+import {connect} from "react-redux";
 
-import { getBusinesses } from "../actions"
-import { Page, Icon, Table } from "../components";
-import {Button} from "../components/form";
+import {getBusinesses} from "../actions"
+import {Button, Icon, Page, Table} from "../components";
 
 class Businesses extends Component{
-
-    state = {};
 
     componentDidMount = () => {
         if(this.props.businesses.length == 0)
@@ -18,30 +15,29 @@ class Businesses extends Component{
         return(
             <Page                
                 title='کسب و کارها'
-                button={{
-                    label: 'add new Business',
-                    onClick: () => this.props.history.push('/admin/businesses/create')
-                }}
-                redirect={this.state.redirect}
-                onChange={(value) => this.setState({tab: value})}
+                buttons = {<div>
+                    <Button icon="add" type="icon" visible={!this.props.trash} onClick={() => this.props.history.push('/admin/businesses/create')} />
+                    <Button icon="delete" type="icon" visible={!this.props.trash} onClick={() => this.props.history.push('/admin/businesses/trash')} />
+                    <Button icon="list" type="icon" visible={this.props.trash} onClick={() => this.props.history.push('/admin/businesses')} />
+                </div>}
             >
-                {/* <Button label={'Add Business'} onClick={(e) => this.props.history.push('/admin/businesses/0')}  /> */}
                 <Table
                     data={this.props.businesses}
-                    tdClick={(r) => this.props.history.push('/admin/businesses/' + r.original.id)}
+                    tdClick={(row) => this.props.history.push('/admin/businesses/' + row.original.id)}
                     columns={[
                         {
-                            Header: 'id',
+                            Header: 'شناسه',
                             accessor: 'id',
-                            width: 70
+                            width: 150
                         },
                         {
                             Header: 'وضعیت',
                             width: 50,
-                            Cell: row => row.original.oldAttributes? (<Icon icon="edit" />): '',
+                            Cell: row => row.original.oldAttributes ? (<Icon icon="edit" />) : '',
                         },
                         {
-                            Header: 'عنوان',
+                            Header: 'برند',
+                            width: 300,
                             accessor: 'attributes.brand',
                         }
                     ]}
@@ -51,10 +47,11 @@ class Businesses extends Component{
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
     return {
-        businesses: state.businesses.index
+        trash: props.location.pathname == '/admin/businesses/trash',
+        businesses: (props.location.pathname == '/admin/businesses') ? state.businesses.index : state.businesses.trash
     };
 };
 
-export default connect(mapStateToProps, { getBusinesses })(Businesses);
+export default  connect(mapStateToProps, { getBusinesses })(Businesses);

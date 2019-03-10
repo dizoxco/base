@@ -2,6 +2,10 @@
 
 namespace App\Http\Resources;
 
+use Exception;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
+
 class BusinessCollection extends BaseCollection
 {
     public function toArray($request)
@@ -30,7 +34,7 @@ class BusinessCollection extends BaseCollection
     public function resource($relation)
     {
         switch ($relation) {
-            case 'pivot':
+            case 'users':
                 return UserResource::class;
                 break;
             case 'posts':
@@ -45,6 +49,8 @@ class BusinessCollection extends BaseCollection
             case 'tickets':
                 return ChatResource::class;
                 break;
+            default:
+                throw new Exception("{$relation} not implemented in switch");
         }
     }
 }

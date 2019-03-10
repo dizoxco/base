@@ -7,7 +7,7 @@ import routes from "../routes";
 
 class User extends Component {
 
-    state = {activeTabIndex: 1};
+    state = {activeTabIndex: (this.props.user.id == 0) ? 1 : 0};
 
     componentDidMount() {
         if(this.props.user != undefined){

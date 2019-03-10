@@ -45,6 +45,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::name('businesses.')->prefix('businesses')->group(function () {
         Route::get('/', 'BusinessController@index')->name('index')->middleware('permission:manage_businesses');
+        Route::get('/trash', 'BusinessController@trash')->name('trash')->middleware('permission:manage_businesses');
         Route::post('/', 'BusinessController@store')->name('store')->middleware('permission:manage_businesses');
 
         Route::prefix('{business}')->middleware('acl:business,manage_businesses')->group(function () {
@@ -58,6 +59,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::name('products.')->prefix('products')->group(function () {
         Route::get('/', 'ProductController@index')->name('index');
+        Route::get('/trash', 'ProductController@trash')->name('trash');
         Route::post('/', 'ProductController@store')->name('store');
 
         Route::prefix('{product}')->group(function () {
@@ -154,5 +156,9 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('{comment}', 'CommentController@delete')->name('delete');
         Route::get('{comment}/restore', 'CommentController@restore')->name('restore');
         Route::delete('{comment}/destroy', 'CommentController@destroy')->name('destroy');
+    });
+
+    Route::name('cities.')->prefix('cities')->group(function () {
+        Route::get('/', 'CityController');
     });
 });

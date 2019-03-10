@@ -19,7 +19,6 @@ export const MediaReducer = (state = initialState, action) => {
             const oldMedias =  [...state.mediagroups[j].media];
             oldMedias.push(action.payload.media);
             state.mediagroups[j].media = [...oldMedias];
-            console.log( state.mediagroups[j].media);
             return state;
         default:
             return state;

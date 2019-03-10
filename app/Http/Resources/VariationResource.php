@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\Resource;
-
-class VariationResource extends Resource
+class VariationResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

@@ -1,13 +1,25 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {Component} from "react";
+import {connect} from "react-redux";
 
-import { copyPost, deletePost, getTags, getPosts, getUsers, restorePost, resetPost, setPost, setPostTags, updatePost, storePost } from "../actions"
-import { AutoComplete, Button, Form, Editor, NotFound, Page, Show, Text } from "../components";
+import {
+    copyPost,
+    deletePost,
+    getPosts,
+    getTags,
+    getUsers,
+    resetPost,
+    restorePost,
+    setPost,
+    setPostTags,
+    storePost,
+    updatePost
+} from "../actions"
+import {AutoComplete, Button, Editor, Form, NotFound, Page, Show, Text} from "../components";
 
 class Post extends Component{
 
     state = {        
-        tab: (this.props.post.id == 0)? 1: 0
+        tab: (this.props.post.id == 0)? 1 : 0
     }
 
     componentDidMount = () => {

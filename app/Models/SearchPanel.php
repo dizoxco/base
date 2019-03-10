@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 class SearchPanel extends Model
 {
     use SoftDeletes, HasSlug;
-    
+
     protected $fillable = [
         'title', 'slug', 'description', 'model', 'options', 'filters',
     ];

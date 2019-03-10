@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\Resource;
-
-class MediaResource extends Resource
+class MediaResource extends BaseResource
 {
     public function toArray($request)
     {
@@ -37,18 +35,5 @@ class MediaResource extends Resource
         }
 
         return $resource;
-    }
-
-    private function dates()
-    {
-        $dates = [];
-        $dateColumns = ['created_at', 'updated_at'];
-        foreach ($dateColumns as $column) {
-            if ($this->{$column} !== null) {
-                $dates[$column] = $this->{$column}->timestamp;
-            }
-        }
-
-        return empty($dates) ? false : $dates;
     }
 }

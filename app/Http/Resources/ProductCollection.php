@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class ProductCollection extends BaseCollection
 {

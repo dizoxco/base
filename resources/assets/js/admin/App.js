@@ -56,6 +56,7 @@ class App extends Component{
                                 <Switch location={location}>
                                         <Route path="/admin" exact component={Dashboard} />
                                         <Route path="/admin/businesses" exact component={Businesses} />
+                                        <Route path="/admin/businesses/trash" exact component={Businesses} />
                                         <Route path="/admin/businesses/:business" exact component={Business} />
                                         <Route path="/admin/comments" exact component={Comments} />
                                         <Route path="/admin/comments/:comment" exact component={Comment} />
@@ -65,6 +66,7 @@ class App extends Component{
                                         <Route path="/admin/posts/trash" exact component={Posts} />
                                         <Route path="/admin/posts/:post" exact component={Post} />
                                         <Route path="/admin/products" exact component={Products} />
+                                        <Route path="/admin/products/trash" exact component={Products} />
                                         <Route path="/admin/products/:product" exact component={Product} />
                                         <Route path="/admin/searchpanels" exact component={SearchPanels} />
                                         <Route path="/admin/searchpanels/trash" exact component={SearchPanels} />

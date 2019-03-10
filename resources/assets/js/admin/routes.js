@@ -9,9 +9,18 @@ const routeslist = {
         },
         businesses: {
             prefix: '/businesses',
-            index: '',
+            index: '?include=users',
+            trash: '/trash',
             store: '',
-            update: '/{business}'
+            restore: '/{business}/restore',
+            show: '/{business}',
+            edit: '/{business}/edit',
+            update: '/{business}',
+            delete: '/{business}',
+        },
+        cities: {
+            prefix: '/cities',
+            index: ''
         },
         comments: {
             prefix: '/comments',
@@ -47,9 +56,12 @@ const routeslist = {
         },
         products: {
             prefix: '/products',
-            index: '?include=tags',
-            show: '/{product}',
+            index: '',
+            trash: '/trash',
             store: '',
+            restore: '/{product}/restore',
+            show: '/{product}',
+            edit: '/{product}/edit',
             update: '/{product}',
             delete: '/{product}',
         },
@@ -80,7 +92,7 @@ const routeslist = {
             show: '/{user}',
             edit: '/{user}/edit',
             update: '/{user}',
-            delete: '/{product}',
+            delete: '/{user}',
         },
     }
 };

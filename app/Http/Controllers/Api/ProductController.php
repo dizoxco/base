@@ -19,6 +19,11 @@ class ProductController extends Controller
         return new ProductCollection(ProductRepo::getAll());
     }
 
+    public function trash()
+    {
+        return new ProductCollection(ProductRepo::getTrashed());
+    }
+
     public function store(StoreProductRequest $request)
     {
         $created_product = ProductRepo::create($request->all());
@@ -52,9 +57,18 @@ class ProductController extends Controller
 
     public function delete(Product $product)
     {
-        $resource = new EffectedRows(ProductRepo::delete($product));
+        if ($deleted_product = ProductRepo::delete($product)) {
+            return (new EffectedRows($deleted_product))->response()
+                ->setStatusCode(Response::HTTP_OK)
+                ->setContent(json_encode([
+                    'message' => trans('http.ok'),
+                    'errors' => [
+                        'ok' => [trans('http.ok')],
+                    ],
+                ]));
+        }
 
-        return $resource->response()->setStatusCode(Response::HTTP_OK);
+        return new EffectedRows($deleted_product);
     }
 
     public function restore(string $product)

@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\Resource;
-
-class PermissionResource extends Resource
+class PermissionResource extends BaseResource
 {
     public function toArray($request)
     {

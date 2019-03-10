@@ -30,6 +30,9 @@ class Product extends Model implements HasMedia
         'single'        =>  'boolean',
         'attributes'    =>  'array',
         'options'       =>  'array',
+        'created_at'    =>  'datetime',
+        'updated_at'    =>  'datetime',
+        'deleted_at'    =>  'datetime',
         'available_at'  =>  'datetime',
     ];
 

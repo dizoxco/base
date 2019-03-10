@@ -24,6 +24,9 @@ class Business extends Model implements HasMedia
 
     protected $casts = [
         'contact' => 'array',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
     ];
 
     //  =============================== Relationships =========================
