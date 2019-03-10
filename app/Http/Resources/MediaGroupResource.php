@@ -19,17 +19,4 @@ class MediaGroupResource extends BaseResource
 
         return $resource;
     }
-
-    private function dates()
-    {
-        $dates = [];
-        $dateColumns = ['created_at', 'updated_at'];
-        foreach ($dateColumns as $column) {
-            if ($this->{$column} !== null) {
-                $dates[$column] = $this->{$column}->timestamp;
-            }
-        }
-
-        return empty($dates) ? false : $dates;
-    }
 }
