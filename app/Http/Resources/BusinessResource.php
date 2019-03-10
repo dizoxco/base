@@ -20,6 +20,7 @@ class BusinessResource extends BaseResource
                 'brand'        =>  $this->brand,
                 'slug'         =>  $this->slug,
                 'city_id'      =>  $this->city_id,
+                $this->mergeWhen($this->dates(), $this->dates()),
             ],
             'relations' =>  [
                 $this->whenLoaded('user', function () {

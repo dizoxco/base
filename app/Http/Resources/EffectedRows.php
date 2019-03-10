@@ -21,6 +21,9 @@ class EffectedRows extends Resource
             ->setContent(json_encode(
                 [
                     'message' => trans('http.internal_err'),
+                    'errors' => [
+                        'ok' => [trans('http.internal_err')],
+                    ]
                 ]
             ))
             ->header('Content-Type', enum('system.response.json'));

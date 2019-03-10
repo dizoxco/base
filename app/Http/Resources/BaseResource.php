@@ -20,4 +20,17 @@ abstract class BaseResource extends Resource
             ->setStatusCode(Response::HTTP_OK)
             ->header('Content-Type', enum('system.response.json'));
     }
+
+    protected function dates()
+    {
+        $dates = [];
+        $dateColumns = ['created_at', 'updated_at', 'deleted_at', 'published_at'];
+        foreach ($dateColumns as $column) {
+            if ($this->{$column} !== null) {
+                $dates[$column] = $this->{$column}->timestamp;
+            }
+        }
+
+        return empty($dates) ? false : $dates;
+    }
 }
