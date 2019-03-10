@@ -82,7 +82,7 @@ const routeslist = {
             show: '/{user}',
             edit: '/{user}/edit',
             update: '/{user}',
-            delete: '/{product}',
+            delete: '/{user}',
         },
     }
 };

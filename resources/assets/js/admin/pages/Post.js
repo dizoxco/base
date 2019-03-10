@@ -7,7 +7,7 @@ import { AutoComplete, Button, Form, Editor, NotFound, Page, Show, Text } from "
 class Post extends Component{
 
     state = {        
-        tab: (this.props.post.id == 0)? 1: 0
+        tab: (this.props.post.id == 0)? 1 : 0
     }
 
     componentDidMount = () => {

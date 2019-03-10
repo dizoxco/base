@@ -27,7 +27,7 @@ class Users extends Component{
                     tdClick={ (row) => this.props.history.push('/admin/users/' + row.original.id)}
                     columns={[
                         {
-                            Header: 'id',
+                            Header: 'شناسه',
                             accessor: 'id',
                             width: 150
                         },
