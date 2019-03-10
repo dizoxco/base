@@ -63,12 +63,12 @@ class ProductController extends Controller
                 ->setContent(json_encode([
                     'message' => trans('http.ok'),
                     'errors' => [
-                        'ok' => [trans('http.ok')]
-                    ]
+                        'ok' => [trans('http.ok')],
+                    ],
                 ]));
         }
 
-        return (new EffectedRows($deleted_product));
+        return new EffectedRows($deleted_product);
     }
 
     public function restore(string $product)
