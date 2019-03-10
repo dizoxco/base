@@ -27,8 +27,8 @@ class CityResource extends BaseResource
                     'county' => $this->county->id,
                 ]),
                 $this->mergeWhen($this->whenLoaded('province'), [
-                    'province' => $this->province->id
-                ])
+                    'province' => $this->province->id,
+                ]),
             ],
         ];
     }

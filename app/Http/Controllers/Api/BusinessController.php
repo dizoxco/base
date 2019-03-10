@@ -28,6 +28,7 @@ class BusinessController extends Controller
     {
         if ($business = BusinessRepo::create($request->except('users'))) {
             $business->users()->sync($request->users);
+
             return (new BusinessResource($business))->response()->setStatusCode(Response::HTTP_CREATED);
         }
 
@@ -43,6 +44,7 @@ class BusinessController extends Controller
     {
         if ($updated_business = BusinessRepo::update($business, $request->except('users'))) {
             $business->users()->sync($request->users);
+
             return new BusinessResource($business);
         }
 
