@@ -25,8 +25,8 @@ export {
 
 export { copySearchPanel, deleteSearchPanel, getSearchPanels, restoreSearchPanel, resetSearchPanel, setSearchPanel, storeSearchPanel, updateSearchPanel } from './SearchPanelActions';
 export { flushSnacks } from './SnackActions';
-export { getTags, setTag, storeTag,updateTag } from './TagActions';
-export { getTaxonomies, setTaxonomy, storeTaxonomy, updateTaxonomy, validateTaxonomy } from './TaxonomyActions';
+export { copyTag, deleteTag, getTags, setTag, storeTag, restoreTag, resetTag, updateTag } from './TagActions';
+export { copyTaxonomy, deleteTaxonomy,getTaxonomies, setTaxonomy, storeTaxonomy, restoreTaxonomy, resetTaxonomy, updateTaxonomy, validateTaxonomy } from './TaxonomyActions';
 export { getTickets } from './TicketActions';
 
 // ==================================== User ==================================

@@ -46,13 +46,21 @@ const routeslist = {
             prefix: '/tags',
             index: '',
             store: '',
-            update: '/{tag}'
+            update: '/{tag}',
+            trash: '/trash',
+            show: '/{tag}',
+            delete: '/{tag}',
+            restore: '/{tag}/restore'
         },
         taxonomies: {
             prefix: '/taxonomies',
             index: '?include=tags',
+            trash: '/trash',
+            show: '/{taxonomy}',
+            update: '/{taxonomy}',
+            delete: '/{taxonomy}',
             store: '',
-            update: '/{post}',
+            restore: '/{taxonomy}/restore'
         },
         products: {
             prefix: '/products',

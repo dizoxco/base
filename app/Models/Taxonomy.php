@@ -5,10 +5,11 @@ namespace App\Models;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Taxonomy extends Model
 {
-    use HasSlug;
+    use HasSlug, SoftDeletes;
 
     /** @var string $table */
     protected $table = 'taxonomies';
