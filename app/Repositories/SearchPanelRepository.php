@@ -115,6 +115,7 @@ class SearchPanelRepository extends BaseRepository
                 return  $search_panel->restore();
             }
             $args = is_array($search_panel) ? $search_panel : func_get_args();
+
             return SearchPanel::whereIn('id', $args)->restore();
         } catch (Throwable $throwable) {
             return null;
