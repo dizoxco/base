@@ -89,6 +89,10 @@ class Product extends Model implements HasMedia
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    /**
+     * @deprecated No longer used by internal code and not recommended.
+     * @return BelongsToMany
+     */
     public function businesses(): BelongsToMany
     {
         return $this->belongsToMany(Business::class, 'businesses_products', 'product_id', 'business_id', 'id', 'id');

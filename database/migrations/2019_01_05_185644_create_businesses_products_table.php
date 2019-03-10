@@ -8,7 +8,7 @@ class CreateBusinessesProductsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     * @deprecated No longer used by internal code and not recommended.
      * @return void
      */
     public function up()

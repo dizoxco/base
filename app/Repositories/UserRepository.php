@@ -65,13 +65,13 @@ class UserRepository extends BaseRepository
             ->get();
     }
 
-    public function create(array $data)
+    public function create(array $data): ?User
     {
         try {
             return User::create($data);
         } catch (QueryException $queryException) {
             // todo:change the 0s to null for method
-            return 0;
+            return null;
         }
     }
 
@@ -101,7 +101,7 @@ class UserRepository extends BaseRepository
 
             return  User::whereIn('id', $ids)->restore();
         } catch (Throwable $throwable) {
-            return 0;
+            return;
         }
     }
 

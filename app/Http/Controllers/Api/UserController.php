@@ -34,7 +34,7 @@ class UserController extends Controller
         $data['activation_token'] = str_random(32);
 
         $createdUser = UserRepo::create($data);
-        if ($createdUser === 0) {
+        if ($createdUser === null) {
             return new EffectedRows($createdUser);
         }
 
@@ -44,7 +44,9 @@ class UserController extends Controller
 
         // event(new UserStoreEvent($createdUser));
 
-        return new UserResource($createdUser);
+        return (new UserResource($createdUser))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     public function show(User $user)
@@ -72,45 +74,60 @@ class UserController extends Controller
 
     public function delete(User $user)
     {
-        if (auth_user()->is($user)) {
+        if (\Auth::user()->is($user)) {
             return response(
                 [
-                    'error' => [
-                        'unauthorized'  =>  trans('http.unauthorized'),
+                    'message' => trans('http.unauthorized'),
+                    'errors' => [
+                        'unauthorized' => [trans('validation.remove_yourself')],
                     ],
                 ],
                 Response::HTTP_UNAUTHORIZED,
-                [
-                    'Content-Type' => enum('system.response.json'),
-                ]
+                ['Content-Type' => enum('system.response.json')]
             );
         }
 
-        return new EffectedRows(UserRepo::delete($user));
+        // If the removal operation was successful.
+        if ($deleted_user = UserRepo::delete($user)) {
+            return (new EffectedRows($deleted_user))
+                ->response()
+                ->setStatusCode(Response::HTTP_OK)
+                ->setContent(json_encode(['message' => trans('http.ok')]))
+                ->header('Content-Type', enum('system.response.json'));
+        }
+
+        return new EffectedRows($deleted_user);
     }
 
-    public function restore(string $user)
+    public function restore(int $user)
     {
-        if (auth_user()->id == $user) {
+        if (\Auth::user()->id == $user) {
             return response(
                 [
-                    'error' => [
-                        'unauthorized'  =>  trans('http.unauthorized'),
+                    'message' => trans('http.unauthorized'),
+                    'errors' => [
+                        'unauthorized' => [trans('validation.restore_yourself')],
                     ],
                 ],
                 Response::HTTP_UNAUTHORIZED,
-                [
-                    'Content-Type' => enum('system.response.json'),
-                ]
+                ['Content-Type' => enum('system.response.json')]
             );
         }
 
-        return new EffectedRows(UserRepo::restore($user));
+        if ($restored_user = UserRepo::restore($user)) {
+            return (new EffectedRows($restored_user))
+                ->response()
+                ->setStatusCode(Response::HTTP_OK)
+                ->setContent(json_encode(['message' => trans('http.ok')]))
+                ->header('Content-Type', enum('system.response.json'));
+        }
+
+        return new EffectedRows($restored_user);
     }
 
     public function destroy(string $user)
     {
-        if (auth_user()->id == $user) {
+        if (\Auth::user()->id == $user) {
             return response(
                 [
                     'error' => [

@@ -25,7 +25,7 @@ class Post extends Component{
         return(
             <Page                
                 title={this.props.post.attributes.title}
-                tabs={['نمایش', 'ویرایش اطلاعات']}
+                tabs={this.props.trashed? ['نمایش']: ['نمایش', 'ویرایش اطلاعات']}
                 tab={this.state.tab}
                 redirect={this.state.redirect}
                 loading={this.props.post == null}

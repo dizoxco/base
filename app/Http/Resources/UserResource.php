@@ -10,8 +10,9 @@ class UserResource extends BaseResource
             'type'   =>  'user',
             'id'     =>  (string) $this->id,
             'attributes'   =>  [
-                'name'              =>  $this->name,
-                'email'             =>  $this->email,
+                'name'  =>  $this->name,
+                'email' =>  $this->email,
+                'mobile'=>  $this->mobile,
                 $this->mergeWhen($this->dates(), $this->dates()),
             ],
             'relations' =>  [
@@ -33,7 +34,7 @@ class UserResource extends BaseResource
     private function dates()
     {
         $dates = [];
-        $dateColumns = ['created_at', 'updated_at'];
+        $dateColumns = ['created_at', 'updated_at', 'deleted_at'];
         foreach ($dateColumns as $column) {
             if ($this->{$column} !== null) {
                 $dates[$column] = $this->{$column}->timestamp;

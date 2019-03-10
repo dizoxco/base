@@ -1,46 +1,35 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {Component} from "react";
+import {connect} from "react-redux";
 
-import { getUsers } from "../actions";
-import { Page, Table ,Icon} from "../components";
-import {Button} from "../components/form";
+import {getUsers} from "../actions";
+import {Button, Page, Table} from "../components";
 
 class Users extends Component{
 
-    state = {}
     componentDidMount = () => {
-        if(this.props.users.length == 0)
+        if(this.props.users.length == 0) {
             this.props.getUsers();
+        }
     }
 
-    render(){ 
-        
+    render() {
         return(
             <Page                
                 title='کاربران'
-                // button={{
-                //     label: 'save'
-                // }}
-                button={{
-                    label: 'add new User',
-                    onClick: () => this.props.history.push('/admin/users/create')
-                }}
+                buttons = {<div>
+                    <Button icon="add" type="icon" visible={!this.props.trash} onClick={() => this.props.history.push('/admin/users/create')} />
+                    <Button icon="delete" type="icon" visible={!this.props.trash} onClick={() => this.props.history.push('/admin/users/trash')} />
+                    <Button icon="list" type="icon" visible={this.props.trash} onClick={() => this.props.history.push('/admin/users')} />
+                </div>}
             >
-                {/* <Button label={'Add user'} onClick={(e) => this.props.history.push('/admin/users/0')}  /> */}
                 <Table
                     data={this.props.users}
-                    // data={this.props.users.slice(1, this.props.users.length)}
-                    tdClick={ (rowInfo) => this.props.history.push('/admin/users/' + rowInfo.original.id)}
+                    tdClick={ (row) => this.props.history.push('/admin/users/' + row.original.id)}
                     columns={[
                         {
                             Header: 'id',
                             accessor: 'id',
-                            width: 70
-                        },
-                        {
-                            Header: 'وضعیت',
-                            width: 50,
-                            Cell: row => row.original.oldAttributes? (<Icon icon="edit" />): '',
+                            width: 150
                         },
                         {
                             Header: 'name',
@@ -49,6 +38,10 @@ class Users extends Component{
                         {
                             Header: 'email',
                             accessor: 'attributes.email'
+                        },
+                        {
+                            Header: 'mobile',
+                            accessor: 'attributes.mobile'
                         }
                     ]}
                 />
@@ -57,9 +50,10 @@ class Users extends Component{
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
     return {
-        users: state.users.index
+        trash: props.location.pathname == '/admin/users/trash',
+        users: (props.location.pathname == '/admin/users') ? state.users.index : state.users.trash
     };
 };
 export default connect(mapStateToProps, {getUsers} )(Users);

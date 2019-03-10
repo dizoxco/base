@@ -70,14 +70,17 @@ const routeslist = {
         users: {
             prefix: '/users',
             index: '',
+            trash: '/trash',
             posts: {
                 prefix: '/posts',
                 index: '/index',
             },
             store: '',
+            restore: '/{user}/restore',
             show: '/{user}',
             edit: '/{user}/edit',
-            update: '/{user}'
+            update: '/{user}',
+            delete: '/{product}',
         },
     }
 };
