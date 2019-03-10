@@ -22,7 +22,7 @@ class EffectedRows extends Resource
                 [
                     'message' => trans('http.internal_err'),
                     'errors' => [
-                        'ok' => [trans('http.internal_err')],
+                        'internal_err' => [trans('http.internal_err')],
                     ],
                 ]
             ))
