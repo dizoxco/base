@@ -2,7 +2,10 @@ export { copyPost, deletePost, getPosts, setPost, setPostTags, restorePost, rese
 export { getComments } from './CommentActions';
 export { getMediaGroup, getMediaGroups , addMedia } from './MediaActions';
 export { getProducts, setProduct, setProductTags, copyProduct, resetProduct, updateProduct,storeProduct, deleteProduct } from './ProductActions';
-export { getBusinesses, setBusiness, updateBusiness,storeBusiness } from './BusinessActions';
+export {
+    copyBusiness, deleteBusiness, getBusinesses, setBusiness, restoreBusiness,
+    resetBusiness, updateBusiness, storeBusiness
+} from './BusinessActions';
 export {
     resetUser, restoreUser, deleteUser, copyUser, setUser,storeUser,updateUser,
     getToken, logOut, getUsers

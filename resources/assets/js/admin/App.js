@@ -56,6 +56,7 @@ class App extends Component{
                                 <Switch location={location}>
                                         <Route path="/admin" exact component={Dashboard} />
                                         <Route path="/admin/businesses" exact component={Businesses} />
+                                        <Route path="/admin/businesses/trash" exact component={Businesses} />
                                         <Route path="/admin/businesses/:business" exact component={Business} />
                                         <Route path="/admin/comments" exact component={Comments} />
                                         <Route path="/admin/comments/:comment" exact component={Comment} />

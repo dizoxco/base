@@ -10,9 +10,14 @@ const routeslist = {
         businesses: {
             prefix: '/businesses',
             index: '',
+            trash: '/trash',
             store: '',
-            update: '/{business}'
-        },
+            restore: '/{business}/restore',
+            show: '/{business}',
+            edit: '/{business}/edit',
+            update: '/{business}',
+            delete: '/{business}',
+        },        
         comments: {
             prefix: '/comments',
             index: ''
