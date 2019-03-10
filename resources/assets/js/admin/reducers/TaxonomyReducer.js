@@ -28,10 +28,10 @@ export const TaxonomyReducer = (state = initialState, action) => {
     function backup(){
         if (i != undefined) {
             if(state.index[i].oldAttributes == undefined) state.index[i].oldAttributes = {...state.index[i].attributes};
-            if(state.index[i].oldRelations == undefined) state.index[i].oldRelations = {...state.index[i].relations};
+            // if(state.index[i].oldRelations == undefined) state.index[i].oldRelations = {...state.index[i].relations};
         }else{
             if(state.create.oldAttributes == undefined) state.create.oldAttributes = {...state.create.attributes};
-            if(state.create.oldRelations == undefined) state.create.oldRelations = {...state.create.relations};
+            // if(state.create.oldRelations == undefined) state.create.oldRelations = {...state.create.relations};
         }
     }
     switch (action.type) {
@@ -74,21 +74,22 @@ export const TaxonomyReducer = (state = initialState, action) => {
                 state.index[i].attributes = { ...state.index[i].attributes, ...action.attributes };
             }
             return state;
-        case 'RESET-TAXONOMY':
+        case 'RESET-TAXONOMY':        
             if(action.id == 0){
                 state.create = {...state.init, id: 0};
             }else{
+                
                 state.index[i].attributes = {...state.index[i].oldAttributes};
-                state.index[i].relations = {...state.index[i].oldRelations};
+                // state.index[i].relations = {...state.index[i].oldRelations};
                 delete state.index[i].oldAttributes;
-                delete state.index[i].oldRelations;
+                // delete state.index[i].oldRelations;
             }
             return state;
         case 'COPY-TAXONOMY':
             state.create.attributes = {...state.index[i].attributes}
             state.create.oldAttributes = {...state.init.attributes}
-            state.create.relations = {...state.index[i].relations}
-            state.create.oldRelations = {...state.init.relations}
+            // state.create.relations = {...state.index[i].relations}
+            // state.create.oldRelations = {...state.init.relations}
             return state;
         case 'UPDATE-TAXONOMY':
             let updatedIndex = state.index.findIndex((e) => e.id == action.payload.data.id );

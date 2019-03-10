@@ -6,9 +6,8 @@ import {copyTaxonomy, deleteTaxonomy, getTags, getTaxonomies, setTaxonomy, store
 
 class Taxonomy extends Component {
 
-    // state = {activeTabIndex: 0};
     state = {        
-        tab: (this.props.taxonomy.id == 0)? 1: 0
+        activeTabIndex: (this.props.taxonomy.id == 0)? 1: 0
     }
 
     componentDidMount = () => {
@@ -42,56 +41,13 @@ class Taxonomy extends Component {
         if (this.props.taxonomy == undefined) {
             return <NotFound/>
         }
-
-        // if (this.props.match.params.taxonomy === 'create') {
-        //     return (
-        //         <Page
-        //         title={this.props.taxonomy.attributes.title}
-        //             button={{label: 'ذخیره', onClick: this.storeTaxonomy()}}
-        //         >
-        //             <Form>
-        //                 <Text
-        //                     label='نام گروه'
-        //                     value={this.props.taxonomy.attributes.group_name}
-        //                     half
-        //                     onChange={(e) => this.props.setTaxonomy(this.props.taxonomy.id, {group_name: e.target.value})}
-        //                     errors={(this.props.taxonomy.validation) ? this.props.taxonomy.validation.group_name : ''}
-        //                 />
-        //                 <Text
-        //                     label='اسلاگ'
-        //                     value={this.props.taxonomy.attributes.slug}
-        //                     half
-        //                     onChange={(e) => this.props.setTaxonomy(this.props.taxonomy.id, {slug: e.target.value})}
-        //                     errors={(this.props.taxonomy.validation) ? this.props.taxonomy.validation.slug : ''}
-        //                 />
-        //                 <Text
-        //                     label='برچسب'
-        //                     value={this.props.taxonomy.attributes.label}
-        //                     half
-        //                     onChange={(e) => this.props.setTaxonomy(this.props.taxonomy.id, {label: e.target.value})}
-        //                     errors={(this.props.taxonomy.validation) ? this.props.taxonomy.validation.label : ''}
-        //                 />
-        //             </Form>
-        //         </Page>
-        //     );
-        // }
-
         return (
             <Page
-                title={this.props.taxonomy.attributes.label}
-                // button={{
-                //     label: 'تگ جدید',
-                //     onClick: () => this.props.history.push(
-                //         '/admin/taxonomies/' + this.props.taxonomy.id + '/tags/create'
-                //     )
-                // }}
                 tabs={['نمایش', 'ویرایش اطلاعات']}
-                // tab={this.state.activeTabIndex}
-                tab={this.state.tab}
+                tab={this.state.activeTabIndex}
                 redirect={this.state.redirect}
                 loading={this.props.taxonomy == null}
                 onChange={(activeTabIndex) => this.setState({activeTabIndex})}
-                onChange={(tab) => this.setState({tab})}
                 buttons={<div>
                     <Button 
                         type="icon"
@@ -110,7 +66,7 @@ class Taxonomy extends Component {
                         } 
                     />
                     <Button 
-                        type="icon"
+                        type="icon" 
                         icon="delete"
                         visible={!this.props.trashed}
                         onClick={() => this.props.deleteTaxonomy(this.props.taxonomy.id, () => this.props.history.push('/admin/taxonomies'))} 
@@ -123,8 +79,7 @@ class Taxonomy extends Component {
                     />
                 </div>}
             >
-                {/* <Form show={this.state.activeTabIndex == 0}> */}
-                <Form show={this.state.tab == 0}>
+                <Form show={this.state.activeTabIndex == 0}>
                     <Table
                         data={this.props.tags}
                         tdClick={(row) => this.props.history.push(
@@ -146,8 +101,8 @@ class Taxonomy extends Component {
                                 accessor: 'attributes.label',
                                 width: 400
                             },
-                            {
-                                Header: 'اسلاگ',
+                            { 
+                                Header: 'نامک',
                                 width: 200,
                                 accessor: 'attributes.slug',
                             },
@@ -159,23 +114,23 @@ class Taxonomy extends Component {
                         ]}
                     />
                 </Form>
-                {/* <Form show={this.state.activeTabIndex == 1}> */}
-                <Form show={this.state.tab == 1}>
+                <Form show={this.state.activeTabIndex == 1}>
                     <Text
                         id={this.props.taxonomy.id}
                         label='نام گروه'
                         value={this.props.taxonomy.attributes.group_name}
+                        disabled={this.props.taxonomy.id == undefined}
                         half
                         onChange={(e) => this.props.setTaxonomy(this.props.taxonomy.id, {group_name: e.target.value})}
-                        onBlur = {() => this.props.validateTaxonomy(this.props.taxonomy.id)}
+                        // onBlur = {() => this.props.validateTaxonomy(this.props.taxonomy.id)}
                         errors={(this.props.taxonomy.validation) ? this.props.taxonomy.validation.group_name : ''}
                     />
                     <Text
-                        label='اسلاگ'
+                        label='نامک'
                         value={this.props.taxonomy.attributes.slug}
                         half
                         onChange={(e) => this.props.setTaxonomy(this.props.taxonomy.id, {slug: e.target.value})}
-                        onBlur = {() => this.props.validateTaxonomy(this.props.taxonomy.id, 'slug')}
+                        // onBlur = {() => this.props.validateTaxonomy(this.props.taxonomy.id, 'slug')}
                         errors={(this.props.taxonomy.validation) ? this.props.taxonomy.validation.slug : ''}
                     />
                     <Text
@@ -183,15 +138,9 @@ class Taxonomy extends Component {
                         value={this.props.taxonomy.attributes.label}
                         half
                         onChange={(e) => this.props.setTaxonomy(this.props.taxonomy.id, {label: e.target.value})}
-                        onBlur = {() => this.props.validateTaxonomy(this.props.taxonomy.id, 'label')}
+                        // onBlur = {() => this.props.validateTaxonomy(this.props.taxonomy.id, 'label')}
                         errors={(this.props.taxonomy.validation) ? this.props.taxonomy.validation.label : ''}
                     />
-                    <Button
-                        type="outlined"
-                        icon="save"
-                        label="به روز رسانی"
-                        onClick={this.props.updateTaxonomy(this.props.taxonomy)}
-                        className="float-left"/>
                 </Form>
             </Page>
         );
@@ -201,7 +150,7 @@ class Taxonomy extends Component {
 const mapStateToProps = (state, props) => {
     // route id
     let id = props.match.params.taxonomy;
-    // let taxonomy = null;
+    let taxonomy = null;
     // let tags = state.tags.index.filter(element => element.attributes.taxonomy_id == id);
 
 
@@ -215,19 +164,16 @@ const mapStateToProps = (state, props) => {
     //     }
     // }
 
-    let taxonomy;
-    if (props.match.params.taxonomy == 'create') taxonomy = state.taxonomies.create;
+    if (id == 'create') taxonomy = state.taxonomies.create;
     else if(state.taxonomies.index.length == 0) taxonomy = state.taxonomies.init;
-    else taxonomy = state.taxonomies.index.find( element => element.id == props.match.params.taxonomy );
-     
+    else taxonomy = state.taxonomies.index.find( element => element.id == id ); 
+
     if (taxonomy == undefined) taxonomy = state.taxonomies.trash.find(element => element.id == id)
 
     let trashed = ( taxonomy != undefined && taxonomy.attributes.deleted_at != null);
-    let edited = ( taxonomy != undefined && (taxonomy.oldAttributes != undefined || taxonomy.oldRelations != undefined));
+    // let edited = ( taxonomy != undefined && (taxonomy.oldAttributes != undefined || taxonomy.oldRelations != undefined));
+    let edited = ( taxonomy != undefined && (taxonomy.oldAttributes != undefined ));
     let tags = state.tags.index.length? state.tags.index.filter(tag => tag.attributes.taxonomy_id == 1): []
-
-    // let tags = state.tags.index.length? state.tags.index.filter(tag => tag.attributes.taxonomy_id == 1): []
-    // let cats = state.tags.index.length? state.tags.index.filter(tag => tag.attributes.taxonomy_id == 2): []
 
     return {taxonomy, tags, trashed, edited};
 };

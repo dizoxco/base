@@ -2,7 +2,6 @@ import routes from '../routes';
 import {deleting, getting, posting, putting, setCookie} from "../../helpers";
 
 export const getTaxonomies = () => {
-    console.log("getTaxonomies");
     return (dispatch) => {
         getting(routes('api.taxonomies.trash'))
             .then(response => dispatch({type: 'GET-TRASH-TAXONOMIES', payload: response.data}))
@@ -24,7 +23,7 @@ export const validateTaxonomy = (id, field = null) => {
     return (dispatch) => {
         dispatch({ type: 'VALIDATE-TAXONOMIES', id, field })
     };
-}; 
+};  
 
 export const storeTaxonomy = (taxonomy, callback) => {
     return (dispatch) => {
