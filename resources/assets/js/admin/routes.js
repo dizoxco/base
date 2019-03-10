@@ -17,7 +17,11 @@ const routeslist = {
             edit: '/{business}/edit',
             update: '/{business}',
             delete: '/{business}',
-        },        
+        },
+        cities: {
+            prefix: '/cities',
+            index: ''
+        },
         comments: {
             prefix: '/comments',
             index: ''

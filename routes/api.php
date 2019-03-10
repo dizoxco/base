@@ -157,4 +157,8 @@ Route::middleware('auth:api')->group(function () {
         Route::get('{comment}/restore', 'CommentController@restore')->name('restore');
         Route::delete('{comment}/destroy', 'CommentController@destroy')->name('destroy');
     });
+
+    Route::name('cities.')->prefix('cities')->group(function () {
+        Route::get('/', 'CityController');
+    });
 });
