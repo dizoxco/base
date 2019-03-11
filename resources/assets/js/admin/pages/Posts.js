@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 
-import {getPosts, getUsers} from "../actions"
+import { reduxGetter } from "../../helpers";
 import {Button, Page, Table} from "../components";
 
 class Posts extends Component{
@@ -9,10 +9,8 @@ class Posts extends Component{
     state = {}
 
     componentDidMount = () => {
-        if(this.props.posts.length == 0) {
-            this.props.getPosts();
-        }
-        if(this.props.users.length == 0) this.props.getUsers();
+        if(this.props.posts.length == 0) this.props.reduxGetter('post');
+        if(this.props.users.length == 0) this.props.reduxGetter('user');
     }
 
     render(){
@@ -58,9 +56,9 @@ class Posts extends Component{
 const mapStateToProps = (state, props) => {
     return {
         trash: props.location.pathname == '/admin/posts/trash',
-        posts: (props.location.pathname == '/admin/posts')? state.posts.index: state.posts.trash,
-        users: state.users.index
+        posts: (props.location.pathname == '/admin/posts')? state.post.index: state.post.trash,
+        users: state.user.index
     };
 };
 
-export default connect(mapStateToProps, { getPosts, getUsers })(Posts);
+export default connect(mapStateToProps, { reduxGetter })(Posts);

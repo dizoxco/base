@@ -45,7 +45,7 @@ class Login extends Component{
 
 const mapStateToProps = state => {
     return {
-        counter: state.users.token
+        counter: state.user.token
     };
 };
 

@@ -146,7 +146,7 @@ class App extends Component{
 const mapStateToProps = state => {
     return {
         snacks: state.snacks,
-        user: state.users,
+        user: state.user,
         app: state.app
     };
 };

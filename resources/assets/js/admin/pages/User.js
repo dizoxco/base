@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 
-import {copyUser, deleteUser, getUsers, resetUser, restoreUser, setUser, storeUser, updateUser} from "../actions"
+import { reduxCopier, reduxDeleter, reduxGetter, reduxReseter, reduxRestorer, reduxSeter, reduxStorer } from "../../helpers";
 import {Button, File, Form, Page, Show, Text} from "../components";
 import routes from "../routes";
 
@@ -11,9 +11,7 @@ class User extends Component {
 
     componentDidMount() {
         if(this.props.user != undefined){
-            if (this.props.user.id == undefined || this.props.user.attributes == undefined) {
-                this.props.getUsers();
-            }
+            if (this.props.user.id == undefined || this.props.user.attributes == undefined) this.props.reduxGetter('user')
         }
     }
 
@@ -27,27 +25,27 @@ class User extends Component {
                         icon="save"
                         visible={!this.props.trashed}
                         disabled={!this.props.edited}
-                        onClick={() => this.props.user.id ? this.props.updateUser(this.props.user):  this.props.storeUser(this.props.user)}
+                        onClick={() => this.props.reduxStorer(this.props.user)}
                     />
                     <Button
                         type="icon"
                         icon="restore"
                         disabled={!(this.props.edited || this.props.trashed) }
                         onClick={() => this.props.trashed ?
-                            this.props.restoreUser(this.props.user.id):
-                            this.props.resetUser(this.props.user.id)
+                            this.props.reduxRestorer(this.props.user):
+                            this.props.reduxReseter(this.props.user)
                         }
                     />
                     <Button
                         type="icon"
                         icon="delete"
                         visible={!this.props.trashed}
-                        onClick={() => this.props.deleteUser(this.props.user.id, () => this.props.history.push('/admin/users'))}
+                        onClick={() => this.props.reduxDeleter(this.props.user, () => this.props.history.push('/admin/users'))}
                     />
                     <Button
                         type="icon"
                         icon="file_copy"
-                        onClick={() => this.props.copyUser(this.props.user.id, () => this.props.history.push('/admin/users/create'))}
+                        onClick={() => this.props.reduxCopier(this.props.user, () => this.props.history.push('/admin/users/create'))}
                         visible={this.props.user.id && !this.props.trashed}
                     />
                 </div>}
@@ -68,33 +66,33 @@ class User extends Component {
                         label='نام'
                         value={this.props.user.attributes.name}
                         half
-                        onChange={(e) => this.props.setUser(this.props.user.id, {name: e.target.value})}
+                        onChange={(e) => this.props.reduxSeter(this.props.user, 'attributes.name', e.target.value)}
                     />
                     <Text
                         label='ایمیل'
                         value={this.props.user.attributes.email}
                         half
-                        onChange={(e) => this.props.setUser(this.props.user.id, {email: e.target.value})}
+                        onChange={(e) => this.props.reduxSeter(this.props.user, 'attributes.email', e.target.value)}
                     />
                     <Text
                         label='تلفن همراه'
                         value={this.props.user.attributes.mobile}
                         half
-                        onChange={(e) => this.props.setUser(this.props.user.id, {mobile: e.target.value})}
+                        onChange={(e) => this.props.reduxSeter(this.props.user, 'attributes.mobile', e.target.value)}
                     />
                     <Text
                         label='رمز عبور'
                         value={this.props.user.attributes.password}
                         half
                         type={'password'}
-                        onChange={(e) => this.props.setUser(this.props.user.id, {password: e.target.value})}
+                        onChange={(e) => this.props.reduxSeter(this.props.user, 'attributes.password', e.target.value)}
                     />
                     <Text
                         label='تکرار رمز عبور'
                         value={this.props.user.attributes.password_confirmation}
                         half
                         type={'password'}
-                        onChange={(e) => this.props.setUser(this.props.user.id, {password_confirmation: e.target.value})}
+                        onChange={(e) => this.props.reduxSeter(this.props.user, 'attributes.password_confirmation', e.target.value)}
                     />
                 </Form>
             </Page>
@@ -107,15 +105,15 @@ const mapStateToProps = (state, props) => {
     let id = props.match.params.user;
 
     if (id == 'create') {
-        user = state.users.create;
-    } else if (state.users.index.length == 0) {
-        user = state.users.init;
+        user = state.user.create;
+    } else if (state.user.index.length == 0) {
+        user = state.user.init;
     } else {
-        user = state.users.index.find( element => element.id == id );
+        user = state.user.index.find( element => element.id == id );
     }
 
     if (user == undefined) {
-        user = state.users.trash.find( element => element.id == id );
+        user = state.user.trash.find( element => element.id == id );
     }
 
     let trashed = ( user != undefined && user.attributes.deleted_at != null);
@@ -126,5 +124,5 @@ const mapStateToProps = (state, props) => {
 
 export default connect(
     mapStateToProps,
-    {copyUser, deleteUser, getUsers, resetUser, restoreUser, setUser, storeUser, updateUser}
+    {reduxCopier, reduxDeleter, reduxGetter, reduxReseter, reduxRestorer, reduxSeter, reduxStorer}
     )(User);

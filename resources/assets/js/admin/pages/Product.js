@@ -177,7 +177,7 @@ const mapStateToProps = (state, props) => {
         product = state.products.trash.find( element => element.id == id );
     }
 
-    let tags = state.tags.index.filter(tag => tag.attributes.taxonomy_group_name == 'product');
+    let tags = state.tag.index.filter(tag => tag.attributes.taxonomy_group_name == 'product');
     let trashed = ( product != undefined && product.attributes.deleted_at != null);
     let edited = ( product != undefined && (product.oldAttributes != undefined || product.oldRelations != undefined));
 

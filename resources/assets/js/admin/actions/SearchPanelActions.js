@@ -16,9 +16,9 @@ export const getSearchPanels = () => {
     }
 }
 
-export const setSearchPanel = (searchPanelId, path, data) => {
+export const setSearchPanel = (id, path, data) => {
     return (dispatch) => {
-        dispatch({ type: 'SET-SEARCHPANEL', searchPanelId, data, path })
+        dispatch({ type: 'SET-SEARCHPANEL', id, data, path })
     }
 }
 
@@ -28,9 +28,9 @@ export const orderSearchPanel = (id, path, from, to) => {
     }
 }
 
-export const resetSearchPanel = (searchPanelId) => {
+export const resetSearchPanel = (id) => {
     return (dispatch) => {
-        dispatch({ type: 'RESET-SEARCHPANEL', searchPanelId })
+        dispatch({ type: 'RESET-SEARCHPANEL', id })
         dispatch({ type: 'SUCCESS', message: 'پنل جستجو به حالت اولیه بازگشت.' })
     }
 }
@@ -49,7 +49,6 @@ export const storeSearchPanel = (searchpanel) => {
             .then(response => dispatch({
                 type: 'STORE-SEARCHPANEL',
                 payload: response.data
-                // searchpanel
             }))
             .catch(response => dispatch({ type: 'ERR', payload: response}));
     }

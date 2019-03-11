@@ -120,7 +120,7 @@ class Business extends Component {
 const mapStateToProps = (state, props) => {
     let business;
     let cities = state.cities.index;
-    let users = state.users.index;
+    let users = state.user.index;
     let id = props.match.params.business;
 
     if (id == 'create') {

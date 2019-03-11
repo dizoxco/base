@@ -1,15 +1,13 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 
-import {getUsers} from "../actions";
+import { reduxGetter } from "../../helpers";
 import {Button, Page, Table} from "../components";
 
 class Users extends Component{
 
     componentDidMount = () => {
-        if(this.props.users.length == 0) {
-            this.props.getUsers();
-        }
+        if(this.props.users.length == 0) this.props.reduxGetter('user');
     }
 
     render() {
@@ -53,7 +51,7 @@ class Users extends Component{
 const mapStateToProps = (state, props) => {
     return {
         trash: props.location.pathname == '/admin/users/trash',
-        users: (props.location.pathname == '/admin/users/trash')? state.users.trash: state.users.index
+        users: (props.location.pathname == '/admin/users/trash')? state.user.trash: state.user.index
     };
 };
-export default connect(mapStateToProps, {getUsers} )(Users);
+export default connect(mapStateToProps, { reduxGetter } )(Users);

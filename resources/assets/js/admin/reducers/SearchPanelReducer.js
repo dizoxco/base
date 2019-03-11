@@ -1,7 +1,6 @@
-import { reduxBackup, reduxBind, reduxCopy, reduxReset, reduxSet } from "../../helpers";
+import { reduxCopy, reduxReset, reduxSet, reduxUpdate } from "../../helpers";
 
 export const SearchPanelReducer = (state = initialState, action) => {
-    var searchpanel = reduxBind(state, action.searchPanelId);
     
     let i;
     if(action.id != undefined && action.id != 0 ){
@@ -11,18 +10,15 @@ export const SearchPanelReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'GET-SEARCHPANELS': return { ...state, index: action.payload.data }
         case 'GET-TRASH-SEARCHPANELS': return { ...state, trash: action.payload.data }
-        case 'SET-SEARCHPANEL': reduxSet(searchpanel, action); return state
-        case 'ORDER-SEARCHPANEL': reduxBackup(state.index[i]); return state
-        case 'RESET-SEARCHPANEL': reduxReset(searchpanel); return state
-        case 'COPY-SEARCHPANEL': reduxCopy(state, searchpanel); return state
+        case 'SET-SEARCHPANEL': return reduxSet(state, action)
+        case 'ORDER-SEARCHPANEL': return state
+        case 'RESET-SEARCHPANEL': return reduxReset(state, action)
+        case 'COPY-SEARCHPANEL': return reduxCopy(state, action)
         case 'STORE-SEARCHPANEL':
             state.index.push(action.payload.data);
             state.create = state.init;            
             return state;
-        case 'UPDATE-SEARCHPANEL':
-            let updatedIndex = state.index.findIndex((e) => e.id == action.searchpanel.id );
-            delete state.index[updatedIndex].oldAttributes;
-            return state;
+        case 'UPDATE-SEARCHPANEL': return reduxUpdate(state, action)
         case 'DELETE-SEARCHPANEL':
             state.trash.push(state.index[i]);
             delete state.index.splice(i, 1);

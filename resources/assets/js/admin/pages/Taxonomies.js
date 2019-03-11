@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 
-import { getTaxonomies, getTags } from "../actions"
+import { reduxGetter } from "../../helpers";
 import {Page, Table, Button} from "../components";
 
 class Taxonomies extends Component{
@@ -9,13 +9,8 @@ class Taxonomies extends Component{
     state = {};
 
     componentDidMount = () => {
-        if (this.props.taxonomies.length === 0) {
-            this.props.getTaxonomies();
-        }
-
-        if (this.props.tags.length === 0) {
-            this.props.getTags();
-        }
+        if (this.props.taxonomies.length === 0) this.props.reduxGetter('taxonomy')
+        if (this.props.tags.length === 0) this.props.reduxGetter('tag')
     }; 
  
     render(){ 
@@ -54,7 +49,6 @@ class Taxonomies extends Component{
                         },
                         {
                             Header: 'برچسب',
-                            width: 150,
                             accessor: 'attributes.label',
                         }
                     ]}
@@ -67,9 +61,9 @@ class Taxonomies extends Component{
 const mapStateToProps = (state, props) => {
     return {
         trash: props.location.pathname == '/admin/taxonomies/trash',
-        taxonomies: (props.location.pathname == '/admin/taxonomies')? state.taxonomies.index: state.taxonomies.trash,
-        tags: state.tags.index,
+        taxonomies: (props.location.pathname == '/admin/taxonomies')? state.taxonomy.index: state.taxonomy.trash,
+        tags: state.tag.index,
     };
 }; 
 
-export default connect(mapStateToProps, { getTaxonomies, getTags })(Taxonomies);
+export default connect(mapStateToProps, { reduxGetter })(Taxonomies);

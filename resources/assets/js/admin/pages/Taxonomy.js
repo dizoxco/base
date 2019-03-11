@@ -1,8 +1,9 @@
-import {connect} from "react-redux";
 import React, {Component} from "react";
-import { isEmpty } from "../../helpers";
+import {connect} from "react-redux";
+
+import { validateTaxonomy } from "../actions"
+import { reduxCopier, reduxDeleter, reduxGetter, reduxReseter, reduxRestorer, reduxSeter, reduxStorer } from "../../helpers";
 import {Button, Form, NotFound, Page, Table, Text} from "../components";
-import {copyTaxonomy, deleteTaxonomy, getTags, getTaxonomies, setTaxonomy, storeTaxonomy, updateTaxonomy, validateTaxonomy,restoreTaxonomy, resetTaxonomy} from "../actions"
 
 class Taxonomy extends Component {
 
@@ -12,30 +13,10 @@ class Taxonomy extends Component {
 
     componentDidMount = () => {
         if(this.props.taxonomy != undefined){
-            if (this.props.taxonomy.id === undefined) {
-                this.props.getTaxonomies();
-            }
-
-            if (this.props.tags.length === 0) this.props.getTags();
+            if (this.props.taxonomy.id === undefined) this.props.reduxGetter('taxonomy');
+            // if (this.props.tags.length === 0) this.props.reduxGetter('tag');
         }
     }; 
- 
-    // storeTaxonomy = () => {
-    //     return () => this.props.storeTaxonomy(
-    //         this.props.taxonomy,
-    //         () => this.props.history.push('/admin/taxonomies')
-    //     );
-    // }; 
-
-    // updateTaxonomy = () => {
-    //     if (isEmpty(this.props.taxonomy.validation)) {
-    //         return () => this.props.updateTaxonomy(
-    //             this.props.taxonomy,
-    //             () => this.props.history.push('/admin/taxonomies')
-    //         );
-    //     } else {
-    //     }
-    // };
 
     render() {
         if (this.props.taxonomy == undefined) {
@@ -43,6 +24,7 @@ class Taxonomy extends Component {
         }
         return (
             <Page
+                title={this.props.taxonomy.attributes.label}
                 tabs={['نمایش', 'ویرایش اطلاعات']}
                 tab={this.state.activeTabIndex}
                 redirect={this.state.redirect}
@@ -54,27 +36,27 @@ class Taxonomy extends Component {
                         icon="save"
                         visible={!this.props.trashed}
                         disabled={!this.props.edited}
-                        onClick={() => this.props.taxonomy.id? this.props.updateTaxonomy(this.props.taxonomy):  this.props.storeTaxonomy(this.props.taxonomy)} 
+                        onClick={() => this.props.reduxStorer(this.props.taxonomy)} 
                     />
                     <Button 
                         type="icon"
                         icon="restore"
                         disabled={!(this.props.edited || this.props.trashed) }
                         onClick={() => this.props.trashed? 
-                            this.props.restoreTaxonomy(this.props.taxonomy.id):
-                            this.props.resetTaxonomy(this.props.taxonomy.id)
+                            this.props.reduxReseter(this.props.taxonomy):
+                            this.props.reduxReseter(this.props.taxonomy)
                         } 
                     />
                     <Button 
                         type="icon" 
                         icon="delete"
                         visible={!this.props.trashed}
-                        onClick={() => this.props.deleteTaxonomy(this.props.taxonomy.id, () => this.props.history.push('/admin/taxonomies'))} 
+                        onClick={() => this.props.reduxDeleter(this.props.taxonomy, () => this.props.history.push('/admin/taxonomies'))} 
                     />
                     <Button 
                         type="icon"
                         icon="file_copy"
-                        onClick={() => this.props.copyTaxonomy(this.props.taxonomy.id, () => this.props.history.push('/admin/taxonomies/create'))} 
+                        onClick={() => this.props.reduxCopier(this.props.taxonomy, () => this.props.history.push('/admin/taxonomies/create'))} 
                         visible={this.props.taxonomy.id && !this.props.trashed}
                     />
                 </div>}
@@ -121,7 +103,7 @@ class Taxonomy extends Component {
                         value={this.props.taxonomy.attributes.group_name}
                         disabled={this.props.taxonomy.id == undefined}
                         half
-                        onChange={(e) => this.props.setTaxonomy(this.props.taxonomy.id, {group_name: e.target.value})}
+                        onChange={(e) => this.props.reduxSeter(this.props.taxonomy, 'attributes.group_name', e.target.value)}
                         // onBlur = {() => this.props.validateTaxonomy(this.props.taxonomy.id)}
                         errors={(this.props.taxonomy.validation) ? this.props.taxonomy.validation.group_name : ''}
                     />
@@ -129,7 +111,7 @@ class Taxonomy extends Component {
                         label='نامک'
                         value={this.props.taxonomy.attributes.slug}
                         half
-                        onChange={(e) => this.props.setTaxonomy(this.props.taxonomy.id, {slug: e.target.value})}
+                        onChange={(e) => this.props.reduxSeter(this.props.taxonomy, 'attributes.slug', e.target.value)}
                         // onBlur = {() => this.props.validateTaxonomy(this.props.taxonomy.id, 'slug')}
                         errors={(this.props.taxonomy.validation) ? this.props.taxonomy.validation.slug : ''}
                     />
@@ -137,7 +119,7 @@ class Taxonomy extends Component {
                         label='برچسب'
                         value={this.props.taxonomy.attributes.label}
                         half
-                        onChange={(e) => this.props.setTaxonomy(this.props.taxonomy.id, {label: e.target.value})}
+                        onChange={(e) => this.props.reduxSeter(this.props.taxonomy, 'attributes.label', e.target.value)}
                         // onBlur = {() => this.props.validateTaxonomy(this.props.taxonomy.id, 'label')}
                         errors={(this.props.taxonomy.validation) ? this.props.taxonomy.validation.label : ''}
                     />
@@ -151,34 +133,35 @@ const mapStateToProps = (state, props) => {
     // route id
     let id = props.match.params.taxonomy;
     let taxonomy = null;
-    // let tags = state.tags.index.filter(element => element.attributes.taxonomy_id == id);
+    // let tags = state.tag.index.filter(element => element.attributes.taxonomy_id == id);
 
 
     // if (id === 'create') {
-    //     taxonomy = state.taxonomies.create;
+    //     taxonomy = state.taxonomy.create;
     // } else {
-    //     if (state.taxonomies.index.length == 0) {
-    //         taxonomy = state.taxonomies.init;
+    //     if (state.taxonomy.index.length == 0) {
+    //         taxonomy = state.taxonomy.init;
     //     } else {
-    //         taxonomy = state.taxonomies.index.find(element => element.id == id);
+    //         taxonomy = state.taxonomy.index.find(element => element.id == id);
     //     }
     // }
 
-    if (id == 'create') taxonomy = state.taxonomies.create;
-    else if(state.taxonomies.index.length == 0) taxonomy = state.taxonomies.init;
-    else taxonomy = state.taxonomies.index.find( element => element.id == id ); 
+    if (id == 'create') taxonomy = state.taxonomy.create;
+    else if(state.taxonomy.index.length == 0) taxonomy = state.taxonomy.init;
+    else taxonomy = state.taxonomy.index.find( element => element.id == id ); 
 
-    if (taxonomy == undefined) taxonomy = state.taxonomies.trash.find(element => element.id == id)
+    if (taxonomy == undefined) taxonomy = state.taxonomy.trash.find(element => element.id == id)
 
     let trashed = ( taxonomy != undefined && taxonomy.attributes.deleted_at != null);
     // let edited = ( taxonomy != undefined && (taxonomy.oldAttributes != undefined || taxonomy.oldRelations != undefined));
     let edited = ( taxonomy != undefined && (taxonomy.oldAttributes != undefined ));
-    let tags = state.tags.index.length? state.tags.index.filter(tag => tag.attributes.taxonomy_id == 1): []
+    let tags = state.tag.index.length? state.tag.index.filter(tag => tag.attributes.taxonomy_id == 1): []
 
     return {taxonomy, tags, trashed, edited};
 };
  
 export default connect(
     mapStateToProps,
-    {copyTaxonomy, deleteTaxonomy, getTaxonomies, getTags, validateTaxonomy, restoreTaxonomy, resetTaxonomy, setTaxonomy, storeTaxonomy, updateTaxonomy}
+    {reduxCopier, reduxDeleter, reduxGetter, reduxReseter, reduxRestorer, reduxSeter, reduxStorer,
+            validateTaxonomy  }
     )(Taxonomy);

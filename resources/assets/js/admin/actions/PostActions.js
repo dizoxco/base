@@ -3,9 +3,9 @@ import routes from '../routes';
 
 export const getPosts = () => {
     return (dispatch) => {
-        getting(routes('api.posts.trash'))
-            .then(response => dispatch({type: 'GET-TRASH-POSTS', payload: response.data}))
-            .catch(response => dispatch({ type: 'ERR', payload: response}));
+        // getting(routes('api.posts.trash'))
+        //     .then(response => dispatch({type: 'GET-TRASH-POSTS', payload: response.data}))
+        //     .catch(response => dispatch({ type: 'ERR', payload: response}));
         getting(routes('api.posts.index'))
             .then(response => {
                 dispatch({ type: 'GET-POSTS', payload: response.data });
@@ -15,9 +15,9 @@ export const getPosts = () => {
     }
 };
 
-export const setPost = (id, attributes) => {
+export const setPost = (id, path, data) => {
     return (dispatch) => {
-        dispatch({ type: 'SET-POST', id, attributes })
+        dispatch({ type: 'SET-POST', id, path, data })
     }
 };
 

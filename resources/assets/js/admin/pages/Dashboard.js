@@ -56,7 +56,7 @@ class Dashboard extends Component {
 }
 const mapStateToProps = state => {
     return {
-        taxonomies: state.taxonomies.index,
+        taxonomies: state.taxonomy.index,
     };
 };
 

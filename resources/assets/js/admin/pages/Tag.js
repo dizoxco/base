@@ -130,13 +130,13 @@ const mapStateToProps = (state, props) => {
 
     let tag = null;
     if (id === 'create') {
-        tag = state.tags.create;
+        tag = state.tag.create;
         tag.attributes.taxonomy_id = props.match.params.taxonomy;
     } else {
-        if (state.tags.index.length == 0) {
-            tag = state.tags.init;
+        if (state.tag.index.length == 0) {
+            tag = state.tag.init;
         } else {
-            tag = state.tags.index.find( element => element.id == id );
+            tag = state.tag.index.find( element => element.id == id );
         }
     }
 
