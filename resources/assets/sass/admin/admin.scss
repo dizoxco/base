@@ -140,8 +140,12 @@ div[class^="MuiListItemIcon"] span{
         .header-icon {
 
           [class^="MuiIconButton"] {
-            color: #FFF !important;
-            
+            color: #606f7b !important;
+          }
+          [class^="MuiButtonBase"] {
+            background-color: #FFF !important;
+            padding: 9px;
+            margin: 0 5px;
           }
 
           [class*="disabled"] {
@@ -211,6 +215,7 @@ div[class^="MuiListItemIcon"] span{
   [class*="MuiSnackbarContent-action"] {
     span {
       color: #fff !important;
+      cursor: pointer;
     }
   }
 }
@@ -221,8 +226,13 @@ div[class^="MuiListItemIcon"] span{
   [class*="MuiSnackbarContent-action"] {
     span {
       color: #fff !important;
+      cursor: pointer;
     }
   }
+}
+
+[class*="colorPrimary"] {
+  color: red !important;
 }
 
 .page-tab{
