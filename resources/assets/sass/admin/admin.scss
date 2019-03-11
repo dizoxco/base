@@ -115,20 +115,14 @@ body{
   -moz-osx-font-smoothing: grayscale;
 }
 
-// span[class^="MuiPrivateTabIndicator"] {
-//   background-color: #fff !important;
-//   &:before{
-//     content: '';
-//     border: 1px solid red;
-//     display: block;
-//     position: absolute;
-//     width: calc(100% - 16px);
-//     top: -35px;
-//     right: 8px;
-//     height: 29px;
-//     border-radius: 10px;
-//   }
-// }
+div[class^="MuiListItemText"] span{
+  color: #fff !important;
+  font-family: IRANSans;
+}
+
+div[class^="MuiListItemIcon"] span{
+  color: #fff !important;
+}
 
 #root{
   direction: rtl;
@@ -142,20 +136,92 @@ body{
     #page{
       #page-header{
         padding-bottom: 70px;
+
+        .header-icon {
+
+          [class^="MuiIconButton"] {
+            color: #FFF !important;
+            
+          }
+
+          [class*="disabled"] {
+            opacity: .5 !important;
+          }
+          
+          
+          
+        }
       }
       #page-content{
         margin-top: -50px;
         width: 100%;
+
+        & [class^="MuiPrivateTabIndicator"] {
+          background-color: #22292f !important; 
+        }
+
+        & [class^="MuiTab-label"] {
+          font-family: IRANSans !important; 
+        }
+
+        & [class^="MuiTab-selected"] {
+         background-color: red !important; 
+        }
+        // & button[class^="MuiTab-selected"] {
+        //   background-color: red !important; 
+        // }
+        
+        [class^="MuiButtonBase-root"] {
+          &:focus {
+            outline: none;
+          }
+        }
+
+        [class^="MuiInputBase-input"] {
+          font-family: IRANSans !important; 
+          font-size: 1rem;
+          font-weight: 300;
+        }
+
+        [class^="MuiFormLabel-root"] {
+          font-family: IRANSans !important; 
+        }
       }
     }
   }
+  
+
   #side-nav{
     position: fixed;
     right: 0;
     top: 0;
     width: 300px;
     height: 100%;
-    background-color: #55bb55;
+    background-color: #22292F;
+
+    a {
+      text-decoration: none;
+    }
+  }
+}
+
+[class*="SnackbarItem-variantError"] {
+  background-color: #EF5753 !important;
+  font-family: IRANSans !important; 
+  [class*="MuiSnackbarContent-action"] {
+    span {
+      color: #fff !important;
+    }
+  }
+}
+
+[class*="SnackbarItem-variantSuccess"] {
+  background-color: #22292F !important;
+  font-family: IRANSans !important; 
+  [class*="MuiSnackbarContent-action"] {
+    span {
+      color: #fff !important;
+    }
   }
 }
 
@@ -176,7 +242,7 @@ body{
   }
 }
 
-
+//  REACT Table Style
 
 .ReactTable {
   font-size: 1rem;
@@ -279,6 +345,10 @@ body{
     button {
       width: 30px;
       opacity: 0;
+
+      &:focus {
+        outline: none;
+      }
     }
 
     button[disabled] {
@@ -288,3 +358,7 @@ body{
   }
 
 }
+
+
+// Admin Panel Style
+
